@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1074912353697",
+    "project_id": "ummicare-6db1a",
+    "storage_bucket": "ummicare-6db1a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1074912353697:android:138c157ef4e1af9256bfe0",
+        "android_client_info": {
+          "package_name": "com.ummicare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1074912353697-sibd5cb2cs2tlck1g14i4c81go6brdg0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVfBl2Me55r85Us82Qf98p6-TMK85_4V0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1074912353697-sibd5cb2cs2tlck1g14i4c81go6brdg0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
