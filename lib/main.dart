@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ummicare/routes.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ummicare/models/usermodel.dart';
 import 'package:ummicare/services/auth.dart';

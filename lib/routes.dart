@@ -30,15 +30,15 @@ import 'package:ummicare/screens/settings/editProfile.dart';
 
 Map<String, WidgetBuilder> routes = {
   '/': (context) => Wrapper(),
-  '/parent/child/childprofile': (context) => childProfile(),
-  '/parent/child/childprofile/editchildprofile': (context) => editChildProfile(),
+  //'/parent/child/childprofile': (context) => childProfile(),
+  //'/parent/child/childprofile/editchildprofile': (context) => editChildProfile(),
   '/parent/child/childprofile/childstory': (context) => childStory(),
   '/parent/child/childprofile/addnewchildstory': (context) => addNewChildStory(),
   //'/parent/child/registerchild': (context) => registerChild(),
   '/parent/child/advisory': (context) => advisoryMain(),
   '/parent/child/advisory/advisorprofile': (context) => advisorProfile(),
   '/parent/child/advisory/chatting': (context) => chatting(),
-  '/parent/child/childprofile/education': (context) => educationMain(),
+  //'/parent/child/childprofile/education': (context) => educationMain(),
   '/parent/child/childprofile/education/academiccalendar': (context) => academicCalendar(),
   '/parent/child/childprofile/education/addnewexamresult': (context) => addNewExamResult(),
   '/parent/child/childprofile/education/addnewschoolfee': (context) => addNewSchoolFee(),

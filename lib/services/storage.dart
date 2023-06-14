@@ -6,6 +6,8 @@ import 'dart:io';
 
 import 'package:ummicare/services/database.dart';
 
+import '../models/childmodel.dart';
+
 class StorageService {
   //root reference
   Reference referenceRoot = FirebaseStorage.instance.ref();
@@ -22,7 +24,7 @@ class StorageService {
   //profile pic child folder reference
   late Reference childFolderReference = referenceRoot.child('child');
 
-  //upload image to parent folder
+  //upload image to user folder
   Future<String> uploadUserProfilePic(UserModel user, XFile file) async {
     String uniqueFileName =
         DateTime.now().millisecondsSinceEpoch.toString() + user.userId;
@@ -33,10 +35,8 @@ class StorageService {
       imageToUpload = parentFolderReference.child(uniqueFileName);
     } else if (user.userType == 'advisor') {
       imageToUpload = advisorFolderReference.child(uniqueFileName);
-    } else if (user.userType == 'admin') {
-      imageToUpload = adminFolderReference.child(uniqueFileName);
     } else {
-      imageToUpload = referenceRoot.child(uniqueFileName);
+      imageToUpload = adminFolderReference.child(uniqueFileName);
     }
 
     String imageUrl = '';
@@ -46,6 +46,26 @@ class StorageService {
       imageUrl = await imageToUpload.getDownloadURL();
       print('Image URL: ${imageUrl}');
       updateUserProfileImageUrl(user, imageUrl);
+    } catch (e) {
+      print(e);
+    }
+
+    return imageUrl;
+  }
+
+  //upload image to child folder
+  Future<String> uploadChildProfilePic(ChildModel child, XFile file) async {
+    String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
+
+    Reference imageToUpload = childFolderReference.child(uniqueFileName);
+
+    String imageUrl = '';
+
+    try {
+      await imageToUpload.putFile(File(file.path));
+      imageUrl = await imageToUpload.getDownloadURL();
+      print('Image URL: ${imageUrl}');
+      updateChildProfileImageUrl(child, imageUrl);
     } catch (e) {
       print(e);
     }
@@ -63,6 +83,21 @@ class StorageService {
         user.userLastname,
         user.userEmail,
         user.userPhoneNumber,
+        imageUrl);
+  }
+
+  //update child image url
+  void updateChildProfileImageUrl(ChildModel child, String imageUrl) {
+    print('Updating user: ${child.childId}');
+    DatabaseService(userId: child.parentId).updateChildData(
+        child.childId,
+        child.parentId,
+        child.childName,
+        child.childFirstname,
+        child.childLastname,
+        child.childBirthday,
+        child.childCurrentAge,
+        child.childAgeCategory,
         imageUrl);
   }
 }

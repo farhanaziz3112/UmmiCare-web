@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ummicare/models/usermodel.dart';
+import 'package:ummicare/models/educationmodel.dart';
+import 'package:ummicare/shared/function.dart';
 
 import '../models/childmodel.dart';
 
@@ -84,7 +86,7 @@ class DatabaseService {
 
   //get specific child document stream
   Stream<ChildModel> get childData {
-    return userCollection.doc(userId).snapshots().map(_createChildModelObject);
+    return childCollection.doc(userId).snapshots().map(_createChildModelObject);
   }
 
   //get all childs stream
@@ -95,7 +97,7 @@ class DatabaseService {
         .map(_createChildModelList);
   }
 
-  //create a list of user model object
+  //create a list of child model object
   List<ChildModel> _createChildModelList(QuerySnapshot snapshot) {
     return snapshot.docs.map<ChildModel>((doc) {
       return ChildModel(
@@ -127,8 +129,31 @@ class DatabaseService {
     );
   }
 
-  //update user data
+  //update child data
   Future<void> updateChildData(
+      String childId,
+      String parentId,
+      String childName,
+      String childFirstname,
+      String childLastname,
+      String childBirthday,
+      int childCurrentAge,
+      String childAgeCategory,
+      String childProfileImg) async {
+    return await childCollection.doc(childId).set({
+      'parentId': parentId,
+      'childName': childName,
+      'childFirstname': childFirstname,
+      'childLastname': childLastname,
+      'childBirthday': childBirthday,
+      'childCurrentAge': childCurrentAge,
+      'childAgeCategory': childAgeCategory,
+      'childProfileImg': childProfileImg,
+    });
+  }
+
+  //create child data
+  Future<void> createChildData(
       String parentId,
       String childName,
       String childFirstname,
@@ -148,4 +173,102 @@ class DatabaseService {
       'childProfileImg': childProfileImg,
     });
   }
+
+// //------------------------------EDUCATION----------------------------------
+
+// //collection reference
+// final CollectionReference educationCollection =
+//     FirebaseFirestore.instance.collection('Education');
+
+// //get education stream
+// Stream<List<EducationModel>> get educationData {
+//   return educationCollection
+//       .where('childId', isEqualTo: userId)
+//       .where('status', isEqualTo: 'current')
+//       .snapshots()
+//       .map(_createEducationModelList);
+// }
+
+// //create a child model object
+//   EducationModel _createEducationModelObject(DocumentSnapshot snapshot) {
+//     return EducationModel(
+//       educationId: snapshot.id,
+//       calendarEndDate: snapshot['calendarEndDate'],
+//       calendarStartDate: snapshot['calendarStartDate'],
+//       childId: snapshot['childId'],
+//       classId: snapshot['classId'],
+//       schoolId: snapshot['schoolId'],
+//       currentYear: snapshot['currentYear'],
+//       status: snapshot['status'],
+//       subjects: snapshot['subjects'],
+//     );
+//   }
+
+//   //create a list of education model object
+//   List<EducationModel> _createEducationModelList(QuerySnapshot snapshot) {
+//     return snapshot.docs.map<EducationModel>((doc) {
+//       return EducationModel(
+//         educationId: doc.id,
+//         calendarEndDate: doc.get('calendarEndDate') ?? '',
+//         calendarStartDate: doc.get('calendarStartDate') ?? '',
+//         childId: doc.get('childId') ?? '',
+//         classId: doc.get('classId') ?? '',
+//         schoolId: doc.get('schoolId') ?? '',
+//         currentYear: doc.get('currentYear') ?? 2,
+//         status: doc.get('status') ?? '',
+//         subjects: doc.get('subjects') ?? '',
+//       );
+//     }).toList();
+//   }
+
+// //------------------------------SCHOOL----------------------------------
+
+//   //collection reference
+//   final CollectionReference schoolCollection =
+//     FirebaseFirestore.instance.collection('School');
+
+//   //create a school model
+//   SchoolModel _createSchoolModelObject(DocumentSnapshot snapshot) {
+//     return SchoolModel(
+//       schoolId: snapshot.id,
+//       schoolAddress: snapshot['schoolAddress'],
+//       schoolEmail: snapshot['schoolEmail'],
+//       schoolName: snapshot['schoolName'],
+//       schoolPhoneNumber: snapshot['schoolPhoneNumber'],
+//     );
+//   }
+
+// //------------------------------CLASS----------------------------------
+
+//   //collection reference
+//   final CollectionReference classCollection =
+//     FirebaseFirestore.instance.collection('Class');
+  
+//   //create a school model
+//   ClassModel _createClassModelObject(DocumentSnapshot snapshot) {
+//     return ClassModel(
+//       classId: snapshot.id,
+//       className: snapshot['className'],
+//       classTeacherId: snapshot['classTeacherId'],
+//       schoolId: snapshot['schoolId'],
+//     );
+//   }
+
+// //------------------------------TEACHER----------------------------------
+
+//   final CollectionReference teacherCollection =
+//     FirebaseFirestore.instance.collection('Teacher');
+
+//   //create a school model
+//   TeacherModel _createTeacherModelObject(DocumentSnapshot snapshot) {
+//     return TeacherModel(
+//       teacherId: snapshot.id,
+//       teacherEmail: snapshot['teacherEmail'],
+//       teacherName: snapshot['teacherName'],
+//       teacherPhoneNumber: snapshot['teacherPhoneNumber'],
+//       schoolId: snapshot['schoolId'],
+//       classId: snapshot['classId'],
+//     );
+//   }
+
 }

@@ -1,5 +1,5 @@
 class ChildModel {
-  late final String childId;
+  final String childId;
   late final String parentId;
   late final String childName;
   late final String childFirstname;

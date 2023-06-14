@@ -17,7 +17,6 @@ class _childListState extends State<childList> {
   @override
   Widget build(BuildContext context) {
     final childDetails = Provider.of<List<ChildModel>>(context);
-    print(childDetails.length);
 
     return ListView.builder(
       shrinkWrap: true,
