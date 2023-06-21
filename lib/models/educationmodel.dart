@@ -4,10 +4,11 @@ class EducationModel {
   late final String calendarStartDate;
   late final String childId;
   late final String classId;
+  late final String classTeacherId;
   late final String schoolId;
   late final String currentYear;
   late final String status;
-  late final List<String> subjects;
+  late final List<String> subjectsList;
 
   EducationModel(
       {required this.educationId,
@@ -15,10 +16,11 @@ class EducationModel {
       required this.calendarStartDate,
       required this.childId,
       required this.classId,
+      required this.classTeacherId,
       required this.schoolId,
       required this.currentYear,
       required this.status,
-      required this.subjects});
+      required this.subjectsList});
 }
 
 class ClassModel {
@@ -53,7 +55,6 @@ class SchoolModel {
 
 class TeacherModel {
   final String teacherId;
-  late final String classId;
   late final String schoolId;
   late final String teacherEmail;
   late final String teacherName;
@@ -61,10 +62,19 @@ class TeacherModel {
 
   TeacherModel({
     required this.teacherId,
-    required this.classId,
     required this.schoolId,
     required this.teacherEmail,
     required this.teacherName,
     required this.teacherPhoneNumber,
+  });
+}
+
+class SubjectModel {
+  final String subjectId;
+  late final String subjectName;
+
+  SubjectModel({
+    required this.subjectId,
+    required this.subjectName,
   });
 }

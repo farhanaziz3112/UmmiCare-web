@@ -34,7 +34,7 @@ class _editChildProfileState extends State<editChildProfile> {
           ChildModel? child = snapshot.data;
           return Scaffold(
             appBar: AppBar(
-              title: const Text(
+              title: Text(
                 'Edit Child Profile',
                 style: TextStyle(
                   color: Colors.black,

@@ -35,18 +35,18 @@ class _childTileState extends State<childTile> {
                 );
               },
               child: Padding(
-                padding: const EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: 3.0),
                 child: Card(
                   margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
                   color: Color(0xff71CBCA),
                   child: ListTile(
+                    contentPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                     leading: CircleAvatar(
                       radius: 25.0,
                       backgroundColor: Colors.grey[300],
                       backgroundImage: NetworkImage(child!.childProfileImg),
                     ),
                     title: Text(child.childName),
-                    subtitle: Text(child.childId),
                   ),
                 ),
               ),
@@ -62,18 +62,18 @@ class _childTileState extends State<childTile> {
                 );
               },
               child: Padding(
-                padding: const EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: 3.0),
                 child: Card(
                   margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
                   color: Color(0xffF29180),
                   child: ListTile(
+                    contentPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                     leading: CircleAvatar(
                       radius: 25.0,
                       backgroundColor: Colors.grey[300],
                       backgroundImage: NetworkImage(child!.childProfileImg),
                     ),
                     title: Text(child.childName),
-                    subtitle: Text(child.childId),
                   ),
                 ),
               ),
@@ -89,13 +89,13 @@ class _childTileState extends State<childTile> {
                 );
               },
               child: Padding(
-                padding: const EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: 3.0),
                 child: Card(
                   margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
                   color: Color(0xff8290F0),
                   child: ListTile(
+                    contentPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                     title: Text(child!.childName),
-                    subtitle: Text(child.childId),
                     leading: CircleAvatar(
                       radius: 25.0,
                       backgroundColor: Colors.grey[300],

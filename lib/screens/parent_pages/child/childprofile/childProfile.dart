@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ummicare/models/childmodel.dart';
 import 'package:ummicare/models/educationmodel.dart';
 import 'package:ummicare/screens/parent_pages/child/childprofile/editChildProfile.dart';
+import 'package:ummicare/screens/parent_pages/child/education/addNewEduCalendar.dart';
 import 'package:ummicare/screens/parent_pages/child/education/educationMain.dart';
 import 'package:ummicare/services/database.dart';
 import 'package:ummicare/shared/function.dart';
@@ -135,77 +139,195 @@ class _childProfileState extends State<childProfile> {
                     SizedBox(
                       height: 15.0,
                     ),
-                    Container(
-                      width: double.infinity,
-                      alignment: Alignment.centerLeft,
-                      decoration: BoxDecoration(
-                          color: Color(0xffF29180),
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(10.0))),
-                      child: Container(
-                        padding: EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Icon(
-                                  Icons.school,
-                                  size: 30.0,
-                                  color: Colors.white,
-                                ),
-                                Text(
-                                  ' Education',
-                                  style: TextStyle(
-                                      fontSize: 20.0, color: Colors.white),
-                                ),
-                                Flexible(
-                                  child: Container(
-                                    alignment: Alignment.centerRight,
-                                    child: IconButton(
-                                      icon: Icon(
-                                        Icons.edit,
-                                        size: 25.0,
-                                        color: Colors.white,
-                                      ),
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  educationMain(
-                                                      childId: child.childId),
-                                            ));
-                                      },
+                    StreamBuilder<List<EducationModel>>(
+                        stream: EduDatabaseService(childId: widget.childId)
+                            .educationData,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Container(
+                              width: double.infinity,
+                              alignment: Alignment.centerLeft,
+                              decoration: BoxDecoration(
+                                  color: Color(0xffF29180),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0))),
+                              child: Container(
+                                padding:
+                                    EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 20.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.school,
+                                          size: 30.0,
+                                          color: Colors.white,
+                                        ),
+                                        Text(
+                                          ' Education',
+                                          style: TextStyle(
+                                              fontSize: 20.0,
+                                              color: Colors.white),
+                                        ),
+                                      ],
                                     ),
+                                    SizedBox(
+                                      height: 5.0,
+                                    ),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      child: SpinKitPulse(
+                                        color: Colors.black,
+                                        size: 20.0,
+                                      )
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          } else {
+                            List<EducationModel> educationModelData = [];
+                            if (snapshot.hasData) {
+                              educationModelData = snapshot.data!;
+                            }
+                            if (educationModelData.isEmpty) {
+                              return Container(
+                                width: double.infinity,
+                                alignment: Alignment.centerLeft,
+                                decoration: BoxDecoration(
+                                    color: Color(0xffF29180),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10.0))),
+                                child: Container(
+                                  padding:
+                                      EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 20.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.school,
+                                            size: 30.0,
+                                            color: Colors.white,
+                                          ),
+                                          Text(
+                                            ' Education',
+                                            style: TextStyle(
+                                                fontSize: 20.0,
+                                                color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 5.0,
+                                      ),
+                                      Container(
+                                        alignment: Alignment.center,
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              "*Your child currently does not have Education Module. Please register by clicking the button below.",
+                                              style: TextStyle(
+                                                  color: Colors.grey[800],
+                                                  fontSize: 13.0),
+                                            ),
+                                            ElevatedButton(
+                                              child: Text(
+                                                'Register Education Module',
+                                                style: TextStyle(
+                                                    color: Colors.black),
+                                              ),
+                                              style: ElevatedButton.styleFrom(
+                                                  backgroundColor: Colors.white),
+                                              onPressed: () async {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            addNewEduCalendar(
+                                                                childId: widget
+                                                                    .childId)));
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 5.0,
-                            ),
-                            Container(
-                              child: StreamBuilder<List<EducationModel>>(
-                                stream: EduDatabaseService(childId: widget.childId)
-                                    .educationData,
-                                builder: (context, snapshot) {
-                                  final datalist = snapshot.data;
-                                  if (datalist!.isNotEmpty) {
-                                    return Container(
-                                      child: Text(datalist[0].childId),
-                                    );
-                                  } else {
-                                    return Container(
-                                      child: Text('No data available'),
-                                    );
-                                  }
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                              );
+                            } else {
+                              return Container(
+                                width: double.infinity,
+                                alignment: Alignment.centerLeft,
+                                decoration: BoxDecoration(
+                                    color: Color(0xffF29180),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10.0))),
+                                child: Container(
+                                  padding:
+                                      EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 20.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.school,
+                                            size: 30.0,
+                                            color: Colors.white,
+                                          ),
+                                          Text(
+                                            ' Education',
+                                            style: TextStyle(
+                                                fontSize: 20.0,
+                                                color: Colors.white),
+                                          ),
+                                          Flexible(
+                                            child: Container(
+                                              alignment: Alignment.centerRight,
+                                              child: IconButton(
+                                                icon: Transform.scale(
+                                                  scaleX: -1,
+                                                  child: Icon(
+                                                    Icons.arrow_back,
+                                                    size: 25.0,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            educationMain(
+                                                                childId: child.childId),
+                                                      ));
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 5.0,
+                                      ),
+                                      Text(
+                                        'Current Year: ${educationModelData[0].currentYear}'
+                                      ),
+                                      Text(
+                                        'Status: ${educationModelData[0].status}'
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              );
+                            } 
+                        }
+                      }
                     ),
                     SizedBox(
                       height: 15.0,
@@ -242,38 +364,39 @@ class _childProfileState extends State<childProfile> {
                           ],
                         ),
                       ),
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(primary: Colors.blue),
-                      onPressed: () {
-                        Navigator.of(context)
-                            .pushNamed('/parent/child/childprofile/childstory');
-                      },
-                      child: Text('Child story'),
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(primary: Colors.blue),
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(
-                            '/parent/child/childprofile/addnewchildstory');
-                      },
-                      child: Text('Add new child story'),
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(primary: Colors.blue),
-                      onPressed: () {
-                        Navigator.of(context)
-                            .pushNamed('/parent/child/childprofile/education');
-                      },
-                      child: Text('Education'),
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(primary: Colors.blue),
-                      onPressed: () {
-                        Navigator.of(context)
-                            .pushNamed('/parent/child/childprofile/health');
-                      },
-                      child: Text('Health'),
+                    // ),
+                    // TextButton(
+                    //   style: TextButton.styleFrom(primary: Colors.blue),
+                    //   onPressed: () {
+                    //     Navigator.of(context)
+                    //         .pushNamed('/parent/child/childprofile/childstory');
+                    //   },
+                    //   child: Text('Child story'),
+                    // ),
+                    // TextButton(
+                    //   style: TextButton.styleFrom(primary: Colors.blue),
+                    //   onPressed: () {
+                    //     Navigator.of(context).pushNamed(
+                    //         '/parent/child/childprofile/addnewchildstory');
+                    //   },
+                    //   child: Text('Add new child story'),
+                    // ),
+                    // TextButton(
+                    //   style: TextButton.styleFrom(primary: Colors.blue),
+                    //   onPressed: () {
+                    //     Navigator.of(context)
+                    //         .pushNamed('/parent/child/childprofile/education');
+                    //   },
+                    //   child: Text('Education'),
+                    // ),
+                    // TextButton(
+                    //   style: TextButton.styleFrom(primary: Colors.blue),
+                    //   onPressed: () {
+                    //     Navigator.of(context)
+                    //         .pushNamed('/parent/child/childprofile/health');
+                    //   },
+                    //   child: Text('Health'),
+                    // 
                     ),
                   ],
                 ),

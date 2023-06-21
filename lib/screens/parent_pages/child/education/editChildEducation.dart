@@ -3,7 +3,8 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 
 class editChildEducation extends StatefulWidget {
-  const editChildEducation({super.key});
+  const editChildEducation({super.key, required this.childId});
+  final String childId;
 
   @override
   State<editChildEducation> createState() => _editChildEducationState();
@@ -14,26 +15,26 @@ class _editChildEducationState extends State<editChildEducation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0.0,
-        title: const Text(
-          "Edit child education",
+        title: Text(
+          "Education Information",
           style: TextStyle(
             color: Colors.black,
             fontSize: 25,
             fontWeight: FontWeight.bold,
           ),
         ),
+        iconTheme: IconThemeData(color: Colors.black),
         centerTitle: true,
-        backgroundColor: const Color(0xffe1eef5),
+        backgroundColor: Color.fromARGB(255, 255, 255, 255),
       ),
       body: const Center(
         child: Text(
           'Edit child education',
           style: TextStyle(
-          color: Colors.black,
-          fontSize: 40,
-          fontWeight: FontWeight.bold,
-        ),
+            color: Colors.black,
+            fontSize: 40,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );

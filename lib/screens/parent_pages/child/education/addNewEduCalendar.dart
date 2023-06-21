@@ -65,7 +65,7 @@ class _addNewEduCalendarState extends State<addNewEduCalendar> {
   DateTime _currentCalendarEndDate = DateTime.now();
   DateTime _currentCalendarStartDate = DateTime.now();
   String _currentYear = "Primary School (Year 1)";
-  String _currentStatus = "";
+  String _currentStatus = "Active";
   List<String> _currentSubjects = [];
 
 //school form value holder
@@ -89,7 +89,7 @@ class _addNewEduCalendarState extends State<addNewEduCalendar> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text(
+          title: Text(
             "Add New Calendar",
             style: TextStyle(
               color: Colors.black,
@@ -190,7 +190,7 @@ class _addNewEduCalendarState extends State<addNewEduCalendar> {
                               context: context,
                               initialDate: _currentCalendarStartDate,
                               firstDate: DateTime(1995),
-                              lastDate: DateTime.now(),
+                              lastDate: DateTime(2050),
                             ).then((date) {
                               setState(() {
                                 _currentCalendarStartDate = date!;
@@ -250,7 +250,7 @@ class _addNewEduCalendarState extends State<addNewEduCalendar> {
                               context: context,
                               initialDate: _currentCalendarEndDate,
                               firstDate: DateTime(1995),
-                              lastDate: DateTime.now(),
+                              lastDate: DateTime(2050),
                             ).then((date) {
                               setState(() {
                                 _currentCalendarEndDate = date!;
@@ -685,30 +685,72 @@ class _addNewEduCalendarState extends State<addNewEduCalendar> {
                       style: TextStyle(color: Colors.black),
                     ),
                     onPressed: () async {
-                      //_formKey.currentState!.validate()
-                      if (true) {
+                      if (_formKey.currentState!.validate()) {
                         //------------School-------------
-                        // String schoolIdHolder =
-                        //     DateTime.now().millisecondsSinceEpoch.toString();
-                        // await EduDatabaseService(
-                        //         childId: widget.childId,
-                        //         schoolId: schoolIdHolder)
-                        //     .createSchoolData(
-                        //         schoolIdHolder,
-                        //         _currentSchoolAddress,
-                        //         _currentSchoolEmail,
-                        //         _currentSchoolName,
-                        //         _currentSchoolPhoneNumber);
+                        String schoolIdHolder =
+                            DateTime.now().millisecondsSinceEpoch.toString() +
+                                widget.childId;
+                        await EduDatabaseService(childId: widget.childId)
+                            .createSchoolData(
+                                schoolIdHolder,
+                                _currentSchoolAddress,
+                                _currentSchoolEmail,
+                                _currentSchoolName,
+                                _currentSchoolPhoneNumber);
+
+                        //------------Teacher-------------
+                        String teacherIdHolder =
+                            DateTime.now().millisecondsSinceEpoch.toString() +
+                                widget.childId;
+                        await EduDatabaseService(childId: widget.childId)
+                            .createTeacherData(
+                                teacherIdHolder,
+                                schoolIdHolder,
+                                _currentTeacherEmail,
+                                _currentTeacherName,
+                                _currentTeacherPhoneNumber);
+
+                        //------------Class-------------
+                        String classIdHolder =
+                            DateTime.now().millisecondsSinceEpoch.toString() +
+                                widget.childId;
+                        await EduDatabaseService(childId: widget.childId)
+                            .createClassData(classIdHolder, schoolIdHolder,
+                                _currentClassName, teacherIdHolder);
+
+                        //------------Education Model------------
+                        String educationIdHolder =
+                            DateTime.now().millisecondsSinceEpoch.toString() +
+                                widget.childId;
+                        await EduDatabaseService(childId: widget.childId)
+                            .createEducationData(
+                                educationIdHolder,
+                                _currentCalendarEndDate.millisecondsSinceEpoch
+                                    .toString(),
+                                _currentCalendarStartDate.millisecondsSinceEpoch
+                                    .toString(),
+                                widget.childId,
+                                classIdHolder,
+                                teacherIdHolder,
+                                schoolIdHolder,
+                                _currentYear,
+                                _currentStatus);
 
                         //------------Checked Subjects-------------
                         List<String> checkedSubjects = [];
                         for (var i = 0; i < 13; i++) {
                           if (subjectCheckboxes[i] == true) {
                             checkedSubjects.add(subjects[i]);
-                            await FirebaseFirestore.instance.collection('Education').doc('Kn9QIpUlkh6hSP9boBiZ').collection('subjects').doc().set({'subjectsName': '${subjects[i]}'});
+                            await FirebaseFirestore.instance
+                                .collection('Education')
+                                .doc(educationIdHolder)
+                                .collection('subjects')
+                                .doc()
+                                .set({'subjectsName': '${subjects[i]}'});
                           }
                         }
-                        print(checkedSubjects);
+
+                        Navigator.pop(context);
                       }
                       //await FirebaseFirestore.instance.collection('Education').doc('Kn9QIpUlkh6hSP9boBiZ').collection('subjects').doc().set({'subjectsName': 'Bahasa Melayu'});
                       // await EduDatabaseService(childId: widget.childId).createEducationData(

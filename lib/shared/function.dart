@@ -28,3 +28,17 @@ String getAgeCategory(int age) {
     return '13 years old and above';
   }
 }
+
+String getLastSignedInFormat(String timeInMilliSeconds) {
+  int temp = int.parse(timeInMilliSeconds);
+  DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(temp);
+  return dateTime.hour.toString() +
+      ":" +
+      dateTime.minute.toString() +
+      " " + 
+      dateTime.day.toString() +
+      "/" +
+      dateTime.month.toString() +
+      "/" +
+      dateTime.year.toString();
+}

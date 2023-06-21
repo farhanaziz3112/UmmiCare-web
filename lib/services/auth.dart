@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ummicare/services/database.dart';
 import 'package:ummicare/models/usermodel.dart';
+import 'package:ummicare/shared/function.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -11,6 +12,9 @@ class AuthService {
     return user != null ? UserAuthModel(userId: user.uid) : null;
   }
 
+  String getUserLastSignedIn() {
+    return getLastSignedInFormat(_auth.currentUser!.metadata.lastSignInTime!.millisecondsSinceEpoch.toString());
+  }
 
   // UserModel? _userObjectFromFirebase(User user) {
   //   UserModel usermodel = new UserModel(

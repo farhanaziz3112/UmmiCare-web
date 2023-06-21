@@ -31,7 +31,7 @@ class _registerChildState extends State<registerChild> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           "Register Child",
           style: TextStyle(
             color: Colors.black,
