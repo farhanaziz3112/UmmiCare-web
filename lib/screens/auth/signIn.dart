@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ummicare/screens/auth/forgotPassword.dart';
 import 'package:ummicare/services/auth.dart';
 import 'package:ummicare/shared/constant.dart';
 import 'package:ummicare/shared/loading.dart';
@@ -83,7 +84,29 @@ class _SignInState extends State<SignIn> {
                           : null,
                       onChanged: (value) => {setState(() => password = value)},
                     ),
-                    SizedBox(height: 20.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      forgotPassword())
+                            );
+                          },
+                          child: Text(
+                            'Forgot password?',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
+                              decoration: TextDecoration.underline
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                     Text(
                       errorMessage,
                       style: TextStyle(color: Colors.red, fontSize: 14.0),
@@ -125,7 +148,7 @@ class _SignInState extends State<SignIn> {
                             'Register here',
                             style: TextStyle(
                               color: Colors.black, 
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.w600,
                               decoration: TextDecoration.underline
                             ),
                           ),

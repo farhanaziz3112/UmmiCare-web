@@ -9,6 +9,7 @@ import 'package:ummicare/models/educationmodel.dart';
 import 'package:ummicare/screens/parent_pages/child/childprofile/editChildProfile.dart';
 import 'package:ummicare/screens/parent_pages/child/education/addNewEduCalendar.dart';
 import 'package:ummicare/screens/parent_pages/child/education/educationMain.dart';
+import 'package:ummicare/screens/parent_pages/child/health/healthMain.dart';
 import 'package:ummicare/services/database.dart';
 import 'package:ummicare/shared/function.dart';
 
@@ -356,6 +357,27 @@ class _childProfileState extends State<childProfile> {
                                   style: TextStyle(
                                       fontSize: 20.0, color: Colors.white),
                                 ),
+                                Flexible(
+                                  child: Container(
+                                    alignment: Alignment.centerRight,
+                                    child: IconButton(
+                                      icon: Icon(
+                                        Icons.edit,
+                                        size: 25.0,
+                                        color: Colors.white,
+                                      ),
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  healthMain(
+                                                      childId: child.childId),
+                                            ));
+                                      },
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                             SizedBox(
@@ -364,6 +386,7 @@ class _childProfileState extends State<childProfile> {
                           ],
                         ),
                       ),
+                    ),
                     // ),
                     // TextButton(
                     //   style: TextButton.styleFrom(primary: Colors.blue),
@@ -397,7 +420,6 @@ class _childProfileState extends State<childProfile> {
                     //   },
                     //   child: Text('Health'),
                     // 
-                    ),
                   ],
                 ),
               ),

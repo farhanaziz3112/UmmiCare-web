@@ -47,169 +47,172 @@ class _editChildProfileState extends State<editChildProfile> {
               backgroundColor: Color.fromARGB(255, 255, 255, 255),
             ),
             resizeToAvoidBottomInset: false,
-            body: SingleChildScrollView(
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: <Widget>[
-                      Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          CircleAvatar(
-                            backgroundImage:
-                                NetworkImage(child!.childProfileImg),
-                            radius: 50.0,
-                            backgroundColor: Colors.grey,
-                          ),
-                          Positioned(
-                            bottom: -60,
-                            right: -15,
-                            top: 0,
-                            child: RawMaterialButton(
-                              onPressed: () async {
-                                ImagePicker imagePicker = ImagePicker();
-                                XFile? file = await imagePicker.pickImage(
-                                    source: ImageSource.camera);
-                                print('${file!.path}');
-
-                                StorageService _storageService =
-                                    StorageService();
-                                _storageService.uploadChildProfilePic(
-                                    child, file);
-                              },
-                              constraints: BoxConstraints.tight(Size(30, 30)),
-                              elevation: 2.0,
-                              fillColor: Color.fromARGB(255, 216, 216, 216),
-                              child: Icon(Icons.edit, color: Colors.black),
-                              padding: EdgeInsets.all(0.0),
-                              shape: CircleBorder(),
+            body: Padding(
+              padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: SingleChildScrollView(
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: <Widget>[
+                        Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            CircleAvatar(
+                              backgroundImage:
+                                  NetworkImage(child!.childProfileImg),
+                              radius: 50.0,
+                              backgroundColor: Colors.grey,
                             ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.only(left: 20.0),
-                        child: Text(
-                          'Username',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
+                            Positioned(
+                              bottom: -60,
+                              right: -15,
+                              top: 0,
+                              child: RawMaterialButton(
+                                onPressed: () async {
+                                  ImagePicker imagePicker = ImagePicker();
+                                  XFile? file = await imagePicker.pickImage(
+                                      source: ImageSource.camera);
+                                  print('${file!.path}');
+            
+                                  StorageService _storageService =
+                                      StorageService();
+                                  _storageService.uploadChildProfilePic(
+                                      child, file);
+                                },
+                                constraints: BoxConstraints.tight(Size(30, 30)),
+                                elevation: 2.0,
+                                fillColor: Color.fromARGB(255, 216, 216, 216),
+                                child: Icon(Icons.edit, color: Colors.black),
+                                padding: EdgeInsets.all(0.0),
+                                shape: CircleBorder(),
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.only(left: 20.0),
+                          child: Text(
+                            'Username',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey[500]),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5.0,
+                        ),
+                        TextFormField(
+                          initialValue: _currentChildName == ''
+                              ? child.childName
+                              : _currentChildName,
+                          decoration: textInputDecoration,
+                          validator: (value) => value == ''
+                              ? 'Please enter your child\'s username'
+                              : null,
+                          onChanged: (value) =>
+                              setState(() => _currentChildName = value),
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.only(left: 20.0),
+                          child: Text(
+                            'First Name',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
                               fontSize: 15.0,
                               fontWeight: FontWeight.bold,
-                              color: Colors.grey[500]),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5.0,
-                      ),
-                      TextFormField(
-                        initialValue: _currentChildName == ''
-                            ? child.childName
-                            : _currentChildName,
-                        decoration: textInputDecoration,
-                        validator: (value) => value == ''
-                            ? 'Please enter your child\'s username'
-                            : null,
-                        onChanged: (value) =>
-                            setState(() => _currentChildName = value),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.only(left: 20.0),
-                        child: Text(
-                          'First Name',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[500],
+                              color: Colors.grey[500],
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 5.0,
-                      ),
-                      TextFormField(
-                        initialValue: _currentChildFirstName == ''
-                            ? child.childFirstname
-                            : _currentChildFirstName,
-                        decoration: textInputDecoration,
-                        validator: (value) =>
-                            value == '' ? 'Please enter your first name' : null,
-                        onChanged: (value) =>
-                            setState(() => _currentChildFirstName = value),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.only(left: 20.0),
-                        child: Text(
-                          'Last Name',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[500],
+                        SizedBox(
+                          height: 5.0,
+                        ),
+                        TextFormField(
+                          initialValue: _currentChildFirstName == ''
+                              ? child.childFirstname
+                              : _currentChildFirstName,
+                          decoration: textInputDecoration,
+                          validator: (value) =>
+                              value == '' ? 'Please enter your first name' : null,
+                          onChanged: (value) =>
+                              setState(() => _currentChildFirstName = value),
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.only(left: 20.0),
+                          child: Text(
+                            'Last Name',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontSize: 15.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[500],
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 5.0,
-                      ),
-                      TextFormField(
-                        initialValue: _currentChildLastName == ''
-                            ? child.childLastname
-                            : _currentChildLastName,
-                        decoration: textInputDecoration,
-                        validator: (value) =>
-                            value == '' ? 'Please enter your first name' : null,
-                        onChanged: (value) =>
-                            setState(() => _currentChildLastName = value),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xff8290F0)),
-                        child: Text(
-                          'Update Child Details',
-                          style: TextStyle(color: Colors.white),
+                        SizedBox(
+                          height: 5.0,
                         ),
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            await DatabaseService(userId: child.parentId)
-                                .updateChildData(
-                                    child.childId,
-                                    child.parentId,
-                                    _currentChildName == ''
-                                        ? child.childName
-                                        : _currentChildName,
-                                    _currentChildFirstName == ''
-                                        ? child.childFirstname
-                                        : _currentChildFirstName,
-                                    _currentChildLastName == ''
-                                        ? child.childLastname
-                                        : _currentChildLastName,
-                                    child.childBirthday,
-                                    child.childCurrentAge,
-                                    child.childAgeCategory,
-                                    child.childProfileImg);
-                            Navigator.pop(context);
-                          }
-                        },
-                      )
-                    ],
+                        TextFormField(
+                          initialValue: _currentChildLastName == ''
+                              ? child.childLastname
+                              : _currentChildLastName,
+                          decoration: textInputDecoration,
+                          validator: (value) =>
+                              value == '' ? 'Please enter your first name' : null,
+                          onChanged: (value) =>
+                              setState(() => _currentChildLastName = value),
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xff8290F0)),
+                          child: Text(
+                            'Update Child Details',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              await DatabaseService(userId: child.parentId)
+                                  .updateChildData(
+                                      child.childId,
+                                      child.parentId,
+                                      _currentChildName == ''
+                                          ? child.childName
+                                          : _currentChildName,
+                                      _currentChildFirstName == ''
+                                          ? child.childFirstname
+                                          : _currentChildFirstName,
+                                      _currentChildLastName == ''
+                                          ? child.childLastname
+                                          : _currentChildLastName,
+                                      child.childBirthday,
+                                      child.childCurrentAge,
+                                      child.childAgeCategory,
+                                      child.childProfileImg);
+                              Navigator.pop(context);
+                            }
+                          },
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
