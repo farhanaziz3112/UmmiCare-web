@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ummicare/screens/admin_pages/advisor/registerAdvisor.dart';
-import 'package:ummicare/screens/admin_pages/advisor/advisorProfile/advisorProfile_admin.dart';
 import 'package:ummicare/screens/advisor_pages/mentee/menteeProfile/menteeProfile.dart';
 import 'package:ummicare/screens/parent_pages/child/childprofile/childProfile.dart';
 import 'package:ummicare/screens/parent_pages/child/childprofile/childStory.dart';
@@ -50,7 +48,5 @@ Map<String, WidgetBuilder> routes = {
   '/advisor/mentee/menteeprofile': (context) => menteeProfile(),
   '/advisor/mentee/childprogress': (context) => childProgress(),
   '/advisor/mentee/chattingadvisor': (context) => chattingAdvisor(),
-  '/admin/advisor/advisorprofile': (context) => advisorProfile_admin(),
-  '/admin/advisor/registeradvisor': (context) => registerAdvisor(),
   //'/settings/editprofile': (context) => editProfile(),
 };

@@ -50,8 +50,8 @@ class AuthService {
         .map((User? user) => _userAuthObjectFromFirebase(user!));
   }
 
-  //register new user with email and password
-  Future registerWithEmailAndPassword(String email, String password) async {
+  //register new parent with email and password
+  Future registerParentWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential authResult = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -66,6 +66,30 @@ class AuthService {
         'new profile image',
       );
       return _userAuthObjectFromFirebase(user);
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+    //register new staff with email and password
+  Future registerStaffWithEmailAndPassword(String email, String password, String userType) async {
+    try {
+      //var originalUser = _auth.currentUser!;
+      UserCredential authResult = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      //_auth.sign(originalUser);
+      User? user = authResult.user;
+      await DatabaseService(userId: user!.uid).updateUserData(
+        userType,
+        'new username',
+        'new user first name',
+        'new user last name',
+        email,
+        'new user phone number',
+        'new profile image',
+      );
+      //return _userAuthObjectFromFirebase(user);
     } catch (e) {
       print(e.toString());
       return null;

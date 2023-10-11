@@ -59,11 +59,10 @@ class _SignInState extends State<SignIn> {
                         child: Text(
                           'UmmiCare',
                           style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 50.0,
-                            fontFamily: 'Comfortaa',
-                            fontWeight: FontWeight.bold
-                          ),
+                              color: Colors.black,
+                              fontSize: 50.0,
+                              fontFamily: 'Comfortaa',
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -90,19 +89,16 @@ class _SignInState extends State<SignIn> {
                         TextButton(
                           onPressed: () {
                             Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      forgotPassword())
-                            );
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => forgotPassword()));
                           },
                           child: Text(
                             'Forgot password?',
                             style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
-                              decoration: TextDecoration.underline
-                            ),
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600,
+                                decoration: TextDecoration.underline),
                           ),
                         )
                       ],
@@ -117,7 +113,8 @@ class _SignInState extends State<SignIn> {
                           backgroundColor: Color(0xfff29180)),
                       child: Text(
                         'Sign In',
-                        style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 255, 255, 255)),
                       ),
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
@@ -147,10 +144,9 @@ class _SignInState extends State<SignIn> {
                           child: Text(
                             'Register here',
                             style: TextStyle(
-                              color: Colors.black, 
-                              fontWeight: FontWeight.w600,
-                              decoration: TextDecoration.underline
-                            ),
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600,
+                                decoration: TextDecoration.underline),
                           ),
                         ),
                       ],

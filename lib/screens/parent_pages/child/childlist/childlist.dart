@@ -24,13 +24,10 @@ class _childListState extends State<childList> {
       itemBuilder: (context, index) {
         return childTile(
           childDetail: childDetails[index],
-          childColorIndex: colorPickerIndex(index),
+          childColorIndex: (index % 3),
         );
       },
     );
   }
 }
 
-int colorPickerIndex(int index) {
-  return index % 3;
-}

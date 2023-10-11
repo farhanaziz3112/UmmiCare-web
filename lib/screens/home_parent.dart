@@ -63,12 +63,6 @@ class HomeParentState extends State<HomeParent> {
     );
   }
 
-  void changePage(int newPageIndex) {
-    setState(() {
-      pageIndex = newPageIndex;
-    });
-  }
-
   Container buildBottomBar(BuildContext context) {
     return Container(
         height: 60,

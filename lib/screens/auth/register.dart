@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ummicare/screens/auth/staff_registration/staffRegistration.dart';
 import 'package:ummicare/services/auth.dart';
 import 'package:ummicare/shared/loading.dart';
 import 'package:ummicare/shared/constant.dart';
@@ -58,11 +59,10 @@ class _RegisterState extends State<Register> {
                         child: Text(
                           'UmmiCare',
                           style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 50.0,
-                            fontFamily: 'Comfortaa',
-                            fontWeight: FontWeight.bold
-                          ),
+                              color: Colors.black,
+                              fontSize: 50.0,
+                              fontFamily: 'Comfortaa',
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -88,29 +88,57 @@ class _RegisterState extends State<Register> {
                       errorMessage,
                       style: TextStyle(color: Colors.red, fontSize: 14.0),
                     ),
-                    SizedBox(height: 20.0),
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xfff29180)),
-                        child: Text(
-                          'Register',
-                          style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-                        ),
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            setState(() => loading = true);
-                            dynamic result = await _auth
-                                .registerWithEmailAndPassword(email, password);
-                            if (result == null) {
-                              setState(() {
-                                loading = false;
-                                errorMessage =
-                                    'Please enter a valid email and password';
-                              });
-                            }
-                          }
-                        }),
-                    SizedBox(height: 5.0),
+                    SizedBox(height: 10.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xfff29180)),
+                            child: Text(
+                              'Register',
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 255, 255, 255)),
+                            ),
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                setState(() => loading = true);
+                                dynamic result =
+                                    await _auth.registerParentWithEmailAndPassword(
+                                        email, password);
+                                if (result == null) {
+                                  setState(() {
+                                    loading = false;
+                                    errorMessage =
+                                        'Please enter a valid email and password';
+                                  });
+                                }
+                              }
+                            }),
+                        // ElevatedButton(
+                        // style: ElevatedButton.styleFrom(
+                        //     backgroundColor: Color(0xfff29180)),
+                        // child: Text(
+                        //   'Register As Staff',
+                        //   style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                        // ),
+                        // onPressed: () async {
+                        //   if (_formKey.currentState!.validate()) {
+                        //     setState(() => loading = true);
+                        //     dynamic result = await _auth
+                        //         .registerWithEmailAndPassword(email, password);
+                        //     if (result == null) {
+                        //       setState(() {
+                        //         loading = false;
+                        //         errorMessage =
+                        //             'Please enter a valid email and password';
+                        //       });
+                        //     }
+                        //   }
+                        // }),
+                      ],
+                    ),
+                    SizedBox(height: 10.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -123,10 +151,33 @@ class _RegisterState extends State<Register> {
                           child: Text(
                             'Sign In here',
                             style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w700,
-                              decoration: TextDecoration.underline
-                            ),
+                                color: Colors.black,
+                                fontWeight: FontWeight.w700,
+                                decoration: TextDecoration.underline),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'Registration for staff?',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => staffRegistration()));
+                          },
+                          child: Text(
+                            'Click here',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w700,
+                                decoration: TextDecoration.underline),
                           ),
                         ),
                       ],

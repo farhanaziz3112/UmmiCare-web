@@ -2,9 +2,9 @@ String convertTimeToDate(String timeInMilliseconds) {
   int temp = int.parse(timeInMilliseconds);
   DateTime date = DateTime.fromMillisecondsSinceEpoch(temp);
   return date.day.toString() +
-      " - " +
+      " / " +
       date.month.toString() +
-      " - " +
+      " / " +
       date.year.toString();
 }
 

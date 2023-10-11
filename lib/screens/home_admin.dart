@@ -2,7 +2,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:ummicare/screens/admin_pages/admin/adminMain.dart';
-import 'package:ummicare/screens/admin_pages/advisor/advisorMain_admin.dart';
+import 'package:ummicare/screens/admin_pages/staff/staffHome.dart';
 import 'package:ummicare/screens/settings/settingsMain.dart';
 import 'package:ummicare/services/auth.dart';
 
@@ -28,39 +28,30 @@ class _HomeAdminState extends State<HomeAdmin> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0.0,
+        elevation: 3.0,
         actions: <Widget>[
           IconButton(
+            padding: EdgeInsets.fromLTRB(0.0, 0.0, 15.0, 0.0),
             icon: Icon(
               Icons.notifications,
               color: Colors.grey,
+              size: 30.0,
             ),
             onPressed: () => {},
           ),
-          TextButton(
-            child: Text(
-              'Logout',
-              style: TextStyle(
-                color: Colors.black,
-              ),
-            ),
-            onPressed: () async {
-              await _auth.signOut();
-            },
-          )
         ],
         title: Text(
-          "UmmiCare(Admin)",
+          "UmmiCare",
           style: TextStyle(
             color: Colors.black,
             fontSize: 25,
             fontWeight: FontWeight.bold,
           ),
         ),
-        centerTitle: true,
-        backgroundColor: Color(0xffe1eef5),
+        centerTitle: false,
+        backgroundColor: Color.fromARGB(255, 255, 255, 255),
       ),
-      body: pages[pageIndex],
+      body: SingleChildScrollView(child: pages[pageIndex]),
       bottomNavigationBar: buildBottomBar(context),
     );
   }
@@ -69,11 +60,19 @@ class _HomeAdminState extends State<HomeAdmin> {
     return Container(
         height: 60,
         decoration: BoxDecoration(
-          color: Color(0xff8290f0),
+          color: Colors.white,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
           ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3),
+            ),
+          ],
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -88,12 +87,12 @@ class _HomeAdminState extends State<HomeAdmin> {
               icon: pageIndex == 0
                   ? const Icon(
                       Icons.home_filled,
-                      color: Colors.white,
+                      color: Colors.black,
                       size: 37,
                     )
                   : const Icon(
                       Icons.home_outlined,
-                      color: Colors.white,
+                      color: Colors.black,
                       size: 35,
                     ),
             ),
@@ -107,12 +106,12 @@ class _HomeAdminState extends State<HomeAdmin> {
               icon: pageIndex == 1
                   ? const Icon(
                       Icons.group,
-                      color: Colors.white,
+                      color: Colors.black,
                       size: 37,
                     )
                   : const Icon(
                       Icons.group_outlined,
-                      color: Colors.white,
+                      color: Colors.black,
                       size: 35,
                     ),
             ),
@@ -126,12 +125,12 @@ class _HomeAdminState extends State<HomeAdmin> {
               icon: pageIndex == 2
                   ? const Icon(
                       Icons.settings,
-                      color: Colors.white,
+                      color: Colors.black,
                       size: 37,
                     )
                   : const Icon(
                       Icons.settings_outlined,
-                      color: Colors.white,
+                      color: Colors.black,
                       size: 35,
                     ),
             ),

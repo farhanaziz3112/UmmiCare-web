@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ummicare/models/usermodel.dart';
@@ -23,6 +24,74 @@ class StorageService {
 
   //profile pic child folder reference
   late Reference childFolderReference = referenceRoot.child('child');
+
+  //profile pic child folder reference
+  late Reference teacherFolderReference = referenceRoot.child('teacher');
+
+  //profile pic child folder reference
+  late Reference medicalStaffFolderReference = referenceRoot.child('medicalStaff');
+
+  //upload document for staff application
+  Future<String> uploadDocumentForStaffApplication(String userType, PlatformFile? uploadedFile) async {
+    String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
+    
+    Reference fileToUpload;
+
+    final File filePath = File(uploadedFile!.path.toString());
+
+    if (userType == 'advisor') {
+      fileToUpload = advisorFolderReference.child('application').child(uniqueFileName);
+    } else if (userType == 'teacher') {
+      fileToUpload = teacherFolderReference.child('application').child(uniqueFileName);
+    } else {
+      fileToUpload = medicalStaffFolderReference.child('application').child(uniqueFileName);
+    }
+
+    String documentUrl = '';
+
+    try {
+      await fileToUpload.putFile(filePath);
+      documentUrl = await fileToUpload.getDownloadURL();
+      print('Document URL: ${documentUrl}');
+    } catch (e){
+      print(e);
+    }
+
+    return documentUrl;
+
+  }
+
+  //upload multiple document for staff application
+  Future<List<String>> uploadMultipleDocumentForStaffApplication(String userType, List<File> files) async {
+    String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
+    
+    Reference fileToUpload;
+
+    //final File filePath = File(uploadedFile!.path.toString());
+
+    if (userType == 'advisor') {
+      fileToUpload = advisorFolderReference.child('application').child(uniqueFileName);
+    } else if (userType == 'teacher') {
+      fileToUpload = teacherFolderReference.child('application').child(uniqueFileName);
+    } else {
+      fileToUpload = medicalStaffFolderReference.child('application').child(uniqueFileName);
+    }
+
+    List<String> documentUrl = [];
+
+    for (var i = 0; i < files.length; i++) {
+      //try {
+      await fileToUpload.putFile(File(files[i].path));
+      documentUrl.add(await fileToUpload.getDownloadURL());
+      print('Document URL: ${documentUrl[i]}');
+      // } catch (e) {
+      //   print(e);
+      // }
+    }
+
+    return documentUrl;
+  }
+
 
   //upload image to user folder
   Future<String> uploadUserProfilePic(UserModel user, XFile file) async {
