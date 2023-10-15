@@ -1,15 +1,17 @@
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:ummicare/models/childmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:ummicare/screens/parent_pages/child/childprofile/childProfile.dart';
-import 'package:ummicare/services/database.dart';
-import 'package:ummicare/shared/loading.dart';
+import 'package:ummicare/services/childDatabase.dart';
 
 class childTile extends StatefulWidget {
   const childTile(
-      {super.key, required this.childDetail, required this.childColorIndex});
+      {super.key,
+      required this.childDetail,
+      required this.childColorIndex,
+      required this.childId});
   final ChildModel childDetail;
+  final String childId;
   final int childColorIndex;
 
   @override
@@ -20,7 +22,7 @@ class _childTileState extends State<childTile> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ChildModel>(
-      stream: DatabaseService(userId: widget.childDetail.childId).childData,
+      stream: childDatabase(parentId: widget.childDetail.parentId, childId: widget.childId).childData,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           ChildModel? child = snapshot.data;
@@ -31,16 +33,17 @@ class _childTileState extends State<childTile> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          childProfile(childId: child.childId)),
+                          childProfile(child: child)),
                 );
               },
               child: Padding(
                 padding: const EdgeInsets.only(top: 3.0),
                 child: Card(
-                  margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-                  color: Color(0xff71CBCA),
+                  margin: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                  color: const Color(0xff71CBCA),
                   child: ListTile(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                     leading: CircleAvatar(
                       radius: 25.0,
                       backgroundColor: Colors.grey[300],
@@ -58,16 +61,17 @@ class _childTileState extends State<childTile> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          childProfile(childId: child.childId)),
+                          childProfile(child: child)),
                 );
               },
               child: Padding(
                 padding: const EdgeInsets.only(top: 3.0),
                 child: Card(
-                  margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-                  color: Color(0xffF29180),
+                  margin: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                  color: const Color(0xffF29180),
                   child: ListTile(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                     leading: CircleAvatar(
                       radius: 25.0,
                       backgroundColor: Colors.grey[300],
@@ -85,16 +89,17 @@ class _childTileState extends State<childTile> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          childProfile(childId: child.childId)),
+                          childProfile(child: child)),
                 );
               },
               child: Padding(
                 padding: const EdgeInsets.only(top: 3.0),
                 child: Card(
-                  margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-                  color: Color(0xff8290F0),
+                  margin: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                  color: const Color(0xff8290F0),
                   child: ListTile(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                     title: Text(child!.childName),
                     leading: CircleAvatar(
                       radius: 25.0,

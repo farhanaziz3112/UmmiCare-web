@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ummicare/routes.dart';
 import 'package:provider/provider.dart';
-import 'package:ummicare/models/usermodel.dart';
+import 'package:ummicare/models/userModel.dart';
 import 'package:ummicare/services/auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //will detect the change of user auth state
-    return StreamProvider<UserAuthModel?>.value(
+    return StreamProvider<userModel?>.value(
       value: AuthService().user,
       initialData: null,
       catchError: (_,__) {},

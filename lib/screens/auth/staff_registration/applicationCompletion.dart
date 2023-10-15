@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ummicare/screens/auth/authenticate.dart';
-import 'package:ummicare/screens/auth/signIn.dart';
 
 class applicationCompletion extends StatefulWidget {
   const applicationCompletion({super.key});
@@ -14,59 +13,55 @@ class _applicationCompletionState extends State<applicationCompletion> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Advisor Registration",
+        title: const Text(
+          "Staff Registration",
           style: TextStyle(
-            color: Colors.black,
-            fontSize: 25,
-            fontWeight: FontWeight.bold
-          ),
+              color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),
         ),
-        iconTheme: IconThemeData(color: Colors.black),
+        elevation: 3,
+        iconTheme: const IconThemeData(color: Colors.black),
         automaticallyImplyLeading: false,
         centerTitle: true,
-        backgroundColor: Color(0xfff29180),
+        backgroundColor: const Color(0xfff29180),
       ),
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       body: Container(
-        padding: EdgeInsets.only(top: 40.0),
+        padding: const EdgeInsets.only(top: 40.0),
         child: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Application completed!',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold
-                ),
+                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 20.0),
-              Text(
+              const SizedBox(height: 20.0),
+              const Text(
                 'Kindly check your email for further notice about the application. Thank you for applying with UmmiCare!',
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 15.0),
+              const SizedBox(height: 15.0),
               ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xff8290F0)),
-                child: Text(
-                  'Go Back',
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () async {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            Authenticate()));
-                }
-              )
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xff8290F0),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                  ),
+                  child: const Text(
+                    'Go Back',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () async {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Authenticate()));
+                  })
             ],
           ),
         ),
       ),
-    ) ;
+    );
   }
 }

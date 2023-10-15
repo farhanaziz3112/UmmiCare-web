@@ -1,38 +1,35 @@
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
-import 'package:ummicare/services/database.dart';
-import 'package:ummicare/services/storage.dart';
-import 'package:ummicare/shared/loading.dart';
-import '../../models/usermodel.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:ummicare/models/staffUserModel.dart';
+import 'package:ummicare/services/staffDatabase.dart';
+import 'package:ummicare/services/storage.dart';
 import 'package:ummicare/shared/constant.dart';
 
-class editProfile extends StatefulWidget {
-  const editProfile({super.key, required this.currentuserId});
-  final String currentuserId;
+class advisorEditProfile extends StatefulWidget {
+  const advisorEditProfile({super.key, required this.advisorId});
+  final String advisorId;
 
   @override
-  State<editProfile> createState() => _editProfileState();
+  State<advisorEditProfile> createState() => _advisorEditProfileState();
 }
 
-class _editProfileState extends State<editProfile> {
+class _advisorEditProfileState extends State<advisorEditProfile> {
+
   final _formKey = GlobalKey<FormState>();
 
   //form values holder
-  String _currentName = '';
-  String _currentFirstname = '';
-  String _currentLastname = '';
+  String _currentFullName = '';
+  String _currentFirstName = '';
+  String _currentLastName = '';
   String _currentPhoneNumber = '';
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<UserModel>(
-      stream: DatabaseService(userId: widget.currentuserId).userData,
+    return StreamBuilder<staffUserModel>(
+      stream: staffDatabase(staffId: widget.advisorId).staffData,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          UserModel? usermodel = snapshot.data;
+          staffUserModel? staff = snapshot.data;
           return Scaffold(
             appBar: AppBar(
               title: const Text(
@@ -43,16 +40,17 @@ class _editProfileState extends State<editProfile> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              iconTheme: IconThemeData(color: Colors.black),
+              iconTheme: const IconThemeData(color: Colors.black),
               centerTitle: true,
-              backgroundColor: Color.fromARGB(255, 255, 255, 255),
+              backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+              elevation: 3,
             ),
             resizeToAvoidBottomInset: false,
             body: Padding(
               padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
               child: SingleChildScrollView(
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 20.0),
+                  padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 20.0),
                   child: Form(
                     key: _formKey,
                     child: Column(
@@ -62,7 +60,7 @@ class _editProfileState extends State<editProfile> {
                           children: [
                             CircleAvatar(
                               backgroundImage:
-                                  NetworkImage(usermodel!.userProfileImg),
+                                  NetworkImage(staff!.staffProfileImg),
                               radius: 50.0,
                               backgroundColor: Colors.grey,
                             ),
@@ -78,15 +76,15 @@ class _editProfileState extends State<editProfile> {
                                   print('${file!.path}');
               
                                   StorageService _storageService = StorageService();
-                                  _storageService.uploadUserProfilePic(
-                                      usermodel, file);
+                                  _storageService.uploadStaffProfilePic(
+                                      staff, file);
                                 },
-                                constraints: BoxConstraints.tight(Size(30, 30)),
+                                constraints: BoxConstraints.tight(const Size(30, 30)),
                                 elevation: 2.0,
-                                fillColor: Color.fromARGB(255, 216, 216, 216),
-                                child: Icon(Icons.edit, color: Colors.black),
-                                padding: EdgeInsets.all(0.0),
-                                shape: CircleBorder(),
+                                fillColor: const Color.fromARGB(255, 216, 216, 216),
+                                child: const Icon(Icons.edit, color: Colors.black),
+                                padding: const EdgeInsets.all(0.0),
+                                shape: const CircleBorder(),
                               ),
                             )
                           ],
@@ -95,12 +93,12 @@ class _editProfileState extends State<editProfile> {
                         //   radius: 50.0,
                         //   backgroundImage: NetworkImage(usermodel.userProfileImg),
                         // ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20.0,
                         ),
                         Container(
                           alignment: Alignment.centerLeft,
-                          padding: EdgeInsets.only(left: 20.0),
+                          padding: const EdgeInsets.only(left: 20.0),
                           child: Text(
                             'Username',
                             textAlign: TextAlign.left,
@@ -111,25 +109,25 @@ class _editProfileState extends State<editProfile> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5.0,
                         ),
                         TextFormField(
-                          initialValue: _currentName == ''
-                              ? usermodel.userName
-                              : _currentName,
+                          initialValue: _currentFullName == ''
+                              ? staff.staffFullName
+                              : _currentFullName,
                           decoration: textInputDecoration,
                           validator: (value) =>
-                              value == '' ? 'Please enter your username' : null,
+                              value == '' ? 'Please enter your full name' : null,
                           onChanged: (value) =>
-                              setState(() => _currentName = value),
+                              setState(() => _currentFullName = value),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10.0,
                         ),
                         Container(
                           alignment: Alignment.centerLeft,
-                          padding: EdgeInsets.only(left: 20.0),
+                          padding: const EdgeInsets.only(left: 20.0),
                           child: Text(
                             'First Name',
                             textAlign: TextAlign.left,
@@ -140,25 +138,25 @@ class _editProfileState extends State<editProfile> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5.0,
                         ),
                         TextFormField(
-                          initialValue: _currentFirstname == ''
-                              ? usermodel.userFirstname
-                              : _currentFirstname,
+                          initialValue: _currentFirstName == ''
+                              ? staff.staffFirstName
+                              : _currentFirstName,
                           decoration: textInputDecoration,
                           validator: (value) =>
                               value == '' ? 'Please enter your first name' : null,
                           onChanged: (value) =>
-                              setState(() => _currentFirstname = value),
+                              setState(() => _currentFirstName = value),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10.0,
                         ),
                         Container(
                           alignment: Alignment.centerLeft,
-                          padding: EdgeInsets.only(left: 20.0),
+                          padding: const EdgeInsets.only(left: 20.0),
                           child: Text(
                             'Last Name',
                             textAlign: TextAlign.left,
@@ -169,25 +167,25 @@ class _editProfileState extends State<editProfile> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5.0,
                         ),
                         TextFormField(
-                          initialValue: _currentLastname == ''
-                              ? usermodel.userLastname
-                              : _currentLastname,
+                          initialValue: _currentLastName == ''
+                              ? staff.staffLastName
+                              : _currentLastName,
                           decoration: textInputDecoration,
                           validator: (value) =>
                               value == '' ? 'Please enter your last name' : null,
                           onChanged: (value) =>
-                              setState(() => _currentLastname = value),
+                              setState(() => _currentLastName = value),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10.0,
                         ),
                         Container(
                           alignment: Alignment.centerLeft,
-                          padding: EdgeInsets.only(left: 20.0),
+                          padding: const EdgeInsets.only(left: 20.0),
                           child: Text(
                             'Phone Number',
                             textAlign: TextAlign.left,
@@ -198,12 +196,12 @@ class _editProfileState extends State<editProfile> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5.0,
                         ),
                         TextFormField(
                           initialValue: _currentPhoneNumber == ''
-                              ? usermodel.userPhoneNumber
+                              ? staff.staffPhoneNumber
                               : _currentPhoneNumber,
                           decoration: textInputDecoration,
                           validator: (value) =>
@@ -211,36 +209,42 @@ class _editProfileState extends State<editProfile> {
                           onChanged: (value) =>
                               setState(() => _currentPhoneNumber = value),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10.0,
                         ),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xff8290F0),
+                            backgroundColor: const Color(0xff8290F0),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5)
+                            ),
                           ),
-                          child: Text(
+                          child: const Text(
                             'Update Profile Details',
                             style: TextStyle(color: Colors.white),
                           ),
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              await DatabaseService(userId: widget.currentuserId)
-                                  .updateUserData(
-                                      usermodel.userType,
-                                      _currentName == ''
-                                          ? usermodel.userName
-                                          : _currentName,
-                                      _currentFirstname == ''
-                                          ? usermodel.userFirstname
-                                          : _currentFirstname,
-                                      _currentLastname == ''
-                                          ? usermodel.userLastname
-                                          : _currentLastname,
-                                      usermodel.userEmail,
+                              await staffDatabase(staffId: staff.staffId)
+                                  .updateStaffData(
+                                      staff.staffId,
+                                      staff.staffUserType,
+                                      _currentFullName == ''
+                                          ? staff.staffFullName
+                                          : _currentFullName,
+                                      _currentFirstName == ''
+                                          ? staff.staffFirstName
+                                          : _currentFirstName,
+                                      _currentLastName == ''
+                                          ? staff.staffLastName
+                                          : _currentLastName,
+                                      staff.staffEmail,
                                       _currentPhoneNumber == ''
-                                          ? usermodel.userPhoneNumber
+                                          ? staff.staffPhoneNumber
                                           : _currentPhoneNumber,
-                                      usermodel.userProfileImg);
+                                      staff.staffSupportingDocumentLink,
+                                      staff.staffProfileImg,
+                                      staff.isVerified);
                               Navigator.pop(context);
                             }
                           },
@@ -253,7 +257,7 @@ class _editProfileState extends State<editProfile> {
             ),
           );
         } else {
-          return Container(child: Text('no data'));
+          return Container(child: const Text('no data'));
         }
       },
     );

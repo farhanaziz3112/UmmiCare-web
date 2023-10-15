@@ -25,6 +25,7 @@ class _childListState extends State<childList> {
         return childTile(
           childDetail: childDetails[index],
           childColorIndex: (index % 3),
+          childId: childDetails[index].childId,
         );
       },
     );

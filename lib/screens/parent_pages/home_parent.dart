@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:provider/provider.dart';
 import 'package:ummicare/screens/parent_pages/buddy/buddyMain.dart';
 import 'package:ummicare/screens/parent_pages/child/childMain.dart';
 import 'package:ummicare/screens/parent_pages/parent/parentMain.dart';
-import 'package:ummicare/screens/settings/settingsMain.dart';
-import 'package:ummicare/services/auth.dart';
+import 'package:ummicare/screens/parent_pages/settings/parentSettingsMain.dart';
 
-import '../models/usermodel.dart';
 
 class HomeParent extends StatefulWidget {
   const HomeParent({super.key});
@@ -24,22 +19,19 @@ class HomeParentState extends State<HomeParent> {
     const parentMain(),
     const childMain(),
     const buddyMain(),
-    const settingsMain(),
+    const parentSettingsMain(),
   ];
-
-  AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
-    UserModel? user = Provider.of<UserModel?>(context);
 
     return Scaffold(
       appBar: AppBar(
         elevation: 3.0,
         actions: <Widget>[
           IconButton(
-            padding: EdgeInsets.fromLTRB(0.0, 0.0, 15.0, 0.0),
-            icon: Icon(
+            padding: const EdgeInsets.fromLTRB(0.0, 0.0, 15.0, 0.0),
+            icon: const Icon(
               Icons.notifications,
               color: Colors.grey,
               size: 30.0,
@@ -47,7 +39,7 @@ class HomeParentState extends State<HomeParent> {
             onPressed: () => {},
           ),
         ],
-        title: Text(
+        title: const Text(
           "UmmiCare",
           style: TextStyle(
             color: Colors.black,
@@ -56,7 +48,7 @@ class HomeParentState extends State<HomeParent> {
           ),
         ),
         centerTitle: false,
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       body: SingleChildScrollView(child: pages[pageIndex]),
       bottomNavigationBar: buildBottomBar(context),
@@ -67,7 +59,7 @@ class HomeParentState extends State<HomeParent> {
     return Container(
         height: 60,
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 255, 255, 255),
+          color: const Color.fromARGB(255, 255, 255, 255),
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -77,7 +69,7 @@ class HomeParentState extends State<HomeParent> {
               color: Colors.black.withOpacity(0.2),
               spreadRadius: 5,
               blurRadius: 7,
-              offset: Offset(0, 3),
+              offset: const Offset(0, 3),
             ),
           ],
         ),

@@ -1,98 +1,97 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:ummicare/models/usermodel.dart';
-import 'package:ummicare/models/educationmodel.dart';
-import 'package:ummicare/shared/function.dart';
+import 'package:ummicare/models/parentModel.dart';
 
 import '../models/childmodel.dart';
 
-class DatabaseService {
-  final String userId;
-  DatabaseService({required this.userId});
+class parentDatabase {
+  final String parentId;
+  parentDatabase({required this.parentId});
 
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  // FirebaseAuth _auth = FirebaseAuth.instance;
 
   //------------------------------USER----------------------------------
 
   //collection reference
-  final CollectionReference userCollection =
-      FirebaseFirestore.instance.collection('User');
-
-  //get specific user document stream
-  Stream<UserModel> get userData {
-    return userCollection.doc(userId).snapshots().map(_createUserModelObject);
-  }
-
-  //get all userdetails stream
-  Stream<List<UserModel>> get allUserData {
-    return userCollection.snapshots().map(_createUserModelList);
-  }
-
-  //create a user model object
-  UserModel _createUserModelObject(DocumentSnapshot snapshot) {
-    return UserModel(
-      userId: userId,
-      userType: snapshot['userType'],
-      userName: snapshot['userName'],
-      userFirstname: snapshot['userFirstname'],
-      userLastname: snapshot['userLastname'],
-      userEmail: snapshot['userEmail'],
-      userPhoneNumber: snapshot['userPhoneNumber'],
-      userProfileImg: snapshot['userProfileImg'],
-    );
-  }
-
-  //create a list of user model object
-  List<UserModel> _createUserModelList(QuerySnapshot snapshot) {
-    return snapshot.docs.map((doc) {
-      return UserModel(
-        userId: userId,
-        userType: doc.get('userType'),
-        userName: doc.get('userName'),
-        userFirstname: doc.get('userFirstname'),
-        userLastname: doc.get('userLastname'),
-        userEmail: doc.get('userEmail'),
-        userPhoneNumber: doc.get('userPhoneNumber'),
-        userProfileImg: doc.get('userProfileImg'),
-      );
-    }).toList();
-  }
-
-  //update user data
-  Future<void> updateUserData(
-      String userType,
-      String userName,
-      String userFirstname,
-      String userLastName,
-      String userEmail,
-      String userPhoneNumber,
-      String userProfileImg) async {
-    return await userCollection.doc(userId).set({
-      'userType': userType,
-      'userName': userName,
-      'userFirstname': userFirstname,
-      'userLastname': userLastName,
-      'userEmail': userEmail,
-      'userPhoneNumber': userPhoneNumber,
-      'userProfileImg': userProfileImg,
-    });
-  }
-
-  //------------------------------CHILD----------------------------------
+  final CollectionReference parentCollection =
+      FirebaseFirestore.instance.collection('Parent');
 
   //collection reference
   final CollectionReference childCollection =
       FirebaseFirestore.instance.collection('Child');
 
+  //get specific user document stream
+  Stream<parentModel> get parentData {
+    return parentCollection
+        .doc(parentId)
+        .snapshots()
+        .map(_createparentModelObject);
+  }
+
+  //get all userdetails stream
+  Stream<List<parentModel>> get allParentData {
+    return parentCollection.snapshots().map(_createparentModelList);
+  }
+
+  //create a user model object
+  parentModel _createparentModelObject(DocumentSnapshot snapshot) {
+    return parentModel(
+      parentId: parentId,
+      parentFullName: snapshot['parentFullName'],
+      parentFirstName: snapshot['parentFirstName'],
+      parentLastName: snapshot['parentLastName'],
+      parentEmail: snapshot['parentEmail'],
+      parentPhoneNumber: snapshot['parentPhoneNumber'],
+      parentProfileImg: snapshot['parentProfileImg'],
+    );
+  }
+
+  //create a list of user model object
+  List<parentModel> _createparentModelList(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return parentModel(
+        parentId: parentId,
+        parentFullName: doc.get('parentFullName'),
+        parentFirstName: doc.get('parentFirstName'),
+        parentLastName: doc.get('parentLastName'),
+        parentEmail: doc.get('parentEmail'),
+        parentPhoneNumber: doc.get('parentPhoneNumber'),
+        parentProfileImg: doc.get('parentProfileImg'),
+      );
+    }).toList();
+  }
+
+  //update user data
+  Future<void> updateParentData(
+      String parentId,
+      String parentFullName,
+      String parentFirstName,
+      String parentLastName,
+      String parentEmail,
+      String parentPhoneNumber,
+      String parentProfileImg) async {
+    return await parentCollection.doc(parentId).set({
+      'parentId': parentId,
+      'parentFullName': parentFullName,
+      'parentFirstName': parentFirstName,
+      'parentLastName': parentLastName,
+      'parentEmail': parentEmail,
+      'parentPhoneNumber': parentPhoneNumber,
+      'parentProfileImg': parentProfileImg,
+    });
+  }
+
   //get specific child document stream
   Stream<ChildModel> get childData {
-    return childCollection.doc(userId).snapshots().map(_createChildModelObject);
+    return childCollection
+        .doc(parentId)
+        .snapshots()
+        .map(_createChildModelObject);
   }
 
   //get all childs stream
   Stream<List<ChildModel>> get allChildData {
     return childCollection
-        .where('parentId', isEqualTo: userId)
+        .where('parentId', isEqualTo: parentId)
         .snapshots()
         .map(_createChildModelList);
   }
@@ -174,6 +173,7 @@ class DatabaseService {
     });
   }
 
+
 // //------------------------------EDUCATION----------------------------------
 
 // //collection reference
@@ -183,7 +183,7 @@ class DatabaseService {
 // //get education stream
 // Stream<List<EducationModel>> get educationData {
 //   return educationCollection
-//       .where('childId', isEqualTo: userId)
+//       .where('childId', isEqualTo: parentId)
 //       .where('status', isEqualTo: 'current')
 //       .snapshots()
 //       .map(_createEducationModelList);
@@ -243,7 +243,7 @@ class DatabaseService {
 //   //collection reference
 //   final CollectionReference classCollection =
 //     FirebaseFirestore.instance.collection('Class');
-  
+
 //   //create a school model
 //   ClassModel _createClassModelObject(DocumentSnapshot snapshot) {
 //     return ClassModel(
@@ -270,5 +270,4 @@ class DatabaseService {
 //       classId: snapshot['classId'],
 //     );
 //   }
-
 }

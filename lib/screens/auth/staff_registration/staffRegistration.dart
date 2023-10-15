@@ -51,6 +51,8 @@ class _staffRegistrationState extends State<staffRegistration> {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xff71cbca),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5)),
                   minimumSize: const Size.fromHeight(30.0)),
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0),
@@ -84,8 +86,11 @@ class _staffRegistrationState extends State<staffRegistration> {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xff71cbca),
-                  minimumSize: const Size.fromHeight(30.0)),
+                backgroundColor: Color(0xff71cbca),
+                minimumSize: const Size.fromHeight(30.0),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5)),
+              ),
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0),
                 child: Column(
@@ -118,8 +123,11 @@ class _staffRegistrationState extends State<staffRegistration> {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xff71cbca),
-                  minimumSize: const Size.fromHeight(30.0)),
+                backgroundColor: Color(0xff71cbca),
+                minimumSize: const Size.fromHeight(30.0),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5)),
+              ),
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0),
                 child: Column(

@@ -1,8 +1,8 @@
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ummicare/models/usermodel.dart';
+import 'package:ummicare/models/staffUserModel.dart';
+import 'package:ummicare/models/userModel.dart';
 import 'package:ummicare/services/auth.dart';
 
 class adminMain extends StatefulWidget {
@@ -17,22 +17,22 @@ class _adminMainState extends State<adminMain> {
 
   @override
   Widget build(BuildContext context) {
-    UserModel? user = Provider.of<UserModel>(context);
+    staffUserModel? staff = Provider.of<staffUserModel>(context);
 
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 25.0, vertical: 40.0),
+      margin: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 40.0),
       child: SingleChildScrollView(
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                "Welcome, ${user.userName}!",
-                style: TextStyle(
+                "Welcome, ${staff.staffFullName}!",
+                style: const TextStyle(
                     color: Colors.black,
                     fontSize: 30,
                     fontWeight: FontWeight.w500),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8.0,
               ),
               Text(
@@ -42,18 +42,18 @@ class _adminMainState extends State<adminMain> {
                   fontSize: 15,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30.0,
               ),
               Container(
                 alignment: Alignment.center,
-                child: Text('Statistics',
+                child: const Text('Statistics',
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 25.0,
                         fontWeight: FontWeight.w300)),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20.0,
               ),
               // Container(
@@ -97,15 +97,15 @@ class _adminMainState extends State<adminMain> {
               Container(
                 width: double.infinity,
                 alignment: Alignment.center,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Color(0xff71CBCA),
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: Row(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    child: const Row(
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.all(20.0),
+                          padding: EdgeInsets.all(20.0),
                           child: Icon(
                             Icons.escalator_warning,
                             size: 70.0,
@@ -145,19 +145,19 @@ class _adminMainState extends State<adminMain> {
                       ],
                     )),
               ),
-              SizedBox(height: 15.0),
+              const SizedBox(height: 15.0),
               Container(
                 width: double.infinity,
                 alignment: Alignment.center,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Color(0xff8290F0),
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: Row(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    child: const Row(
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.all(20.0),
+                          padding: EdgeInsets.all(20.0),
                           child: Icon(
                             Icons.support_agent,
                             size: 70.0,
@@ -197,19 +197,19 @@ class _adminMainState extends State<adminMain> {
                       ],
                     )),
               ),
-              SizedBox(height: 15.0),
+              const SizedBox(height: 15.0),
               Container(
                 width: double.infinity,
                 alignment: Alignment.center,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Color(0xffF29180),
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: Row(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    child: const Row(
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.all(20.0),
+                          padding: EdgeInsets.all(20.0),
                           child: Icon(
                             Icons.health_and_safety,
                             size: 70.0,
@@ -249,19 +249,19 @@ class _adminMainState extends State<adminMain> {
                       ],
                     )),
               ),
-              SizedBox(height: 15.0),
+              const SizedBox(height: 15.0),
               Container(
                 width: double.infinity,
                 alignment: Alignment.center,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Color(0xff71CBCA),
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: Row(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    child: const Row(
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.all(20.0),
+                          padding: EdgeInsets.all(20.0),
                           child: Icon(
                             Icons.school,
                             size: 70.0,

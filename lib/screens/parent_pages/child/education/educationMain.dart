@@ -6,7 +6,7 @@ import 'package:ummicare/models/educationmodel.dart';
 import 'package:ummicare/screens/parent_pages/child/education/addNewEduCalendar.dart';
 import 'package:ummicare/screens/parent_pages/child/education/editChildEducation.dart';
 import 'package:ummicare/screens/parent_pages/child/education/educationInfoSelection.dart';
-import 'package:ummicare/services/database.dart';
+import 'package:ummicare/services/parentDatabase.dart';
 
 import '../../../../services/eduDatabase.dart';
 

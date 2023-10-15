@@ -3,14 +3,15 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ummicare/models/childmodel.dart';
-import 'package:ummicare/services/database.dart';
+import 'package:ummicare/services/childDatabase.dart';
+import 'package:ummicare/services/parentDatabase.dart';
 
 import '../../../../services/storage.dart';
 import '../../../../shared/constant.dart';
 
 class editChildProfile extends StatefulWidget {
-  const editChildProfile({super.key, required this.childId});
-  final String childId;
+  const editChildProfile({super.key, required this.child});
+  final ChildModel child;
 
   @override
   State<editChildProfile> createState() => _editChildProfileState();
@@ -24,12 +25,11 @@ class _editChildProfileState extends State<editChildProfile> {
   String _currentChildFirstName = "";
   String _currentChildLastName = "";
   DateTime _currentChildBirthday = DateTime.now();
-  String _currentChildProfileImg = "";
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ChildModel>(
-        stream: DatabaseService(userId: widget.childId).childData,
+        stream: childDatabase(parentId: widget.child.parentId, childId: widget.child.childId).childData,
         builder: (context, snapshot) {
           ChildModel? child = snapshot.data;
           return Scaffold(
@@ -42,6 +42,7 @@ class _editChildProfileState extends State<editChildProfile> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              elevation: 3,
               centerTitle: true,
               iconTheme: IconThemeData(color: Colors.black),
               backgroundColor: Color.fromARGB(255, 255, 255, 255),
@@ -183,14 +184,18 @@ class _editChildProfileState extends State<editChildProfile> {
                         ),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xff8290F0)),
+                              backgroundColor: Color(0xff8290F0),
+                              shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5)
+                            ),
+                          ),
                           child: Text(
                             'Update Child Details',
                             style: TextStyle(color: Colors.white),
                           ),
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              await DatabaseService(userId: child.parentId)
+                              await childDatabase(parentId: widget.child.parentId, childId: widget.child.childId)
                                   .updateChildData(
                                       child.childId,
                                       child.parentId,

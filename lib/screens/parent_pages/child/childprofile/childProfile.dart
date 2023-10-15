@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ummicare/models/childmodel.dart';
@@ -10,14 +7,14 @@ import 'package:ummicare/screens/parent_pages/child/childprofile/editChildProfil
 import 'package:ummicare/screens/parent_pages/child/education/addNewEduCalendar.dart';
 import 'package:ummicare/screens/parent_pages/child/education/educationMain.dart';
 import 'package:ummicare/screens/parent_pages/child/health/healthMain.dart';
-import 'package:ummicare/services/database.dart';
+import 'package:ummicare/services/childDatabase.dart';
 import 'package:ummicare/shared/function.dart';
 
 import '../../../../services/eduDatabase.dart';
 
 class childProfile extends StatefulWidget {
-  const childProfile({super.key, required this.childId});
-  final String childId;
+  const childProfile({super.key, required this.child});
+  final ChildModel child;
 
   @override
   State<childProfile> createState() => _childProfileState();
@@ -27,26 +24,30 @@ class _childProfileState extends State<childProfile> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ChildModel>(
-        stream: DatabaseService(userId: widget.childId).childData,
+        stream: childDatabase(
+                parentId: widget.child.parentId, childId: widget.child.childId)
+            .childData,
         builder: (context, snapshot) {
           ChildModel? child = snapshot.data;
           return Scaffold(
             appBar: AppBar(
               title: Text(
                 '${child!.childName}\'s Profile',
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              iconTheme: IconThemeData(color: Colors.black),
+              elevation: 3,
+              iconTheme: const IconThemeData(color: Colors.black),
               centerTitle: true,
-              backgroundColor: Color.fromARGB(255, 255, 255, 255),
+              backgroundColor: const Color.fromARGB(255, 255, 255, 255),
             ),
             body: SingleChildScrollView(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 30.0, vertical: 30.0),
                 alignment: Alignment.center,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -56,36 +57,38 @@ class _childProfileState extends State<childProfile> {
                       radius: 50.0,
                       backgroundColor: Colors.grey,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20.0,
                     ),
                     Text(
-                      '${child.childName}',
-                      style: TextStyle(fontSize: 25.0, color: Colors.black),
+                      child.childName,
+                      style:
+                          const TextStyle(fontSize: 25.0, color: Colors.black),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 13.0,
                     ),
                     Container(
                       width: double.infinity,
                       alignment: Alignment.centerLeft,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: Color(0xff71CBCA),
                           borderRadius:
                               BorderRadius.all(Radius.circular(10.0))),
                       child: Container(
-                        padding: EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 20.0),
+                        padding:
+                            const EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 20.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Row(
                               children: <Widget>[
-                                Icon(
+                                const Icon(
                                   Icons.account_circle,
                                   size: 30.0,
                                   color: Colors.white,
                                 ),
-                                Text(
+                                const Text(
                                   ' Personal Information',
                                   style: TextStyle(
                                       fontSize: 20.0, color: Colors.white),
@@ -94,7 +97,7 @@ class _childProfileState extends State<childProfile> {
                                   child: Container(
                                     alignment: Alignment.centerRight,
                                     child: IconButton(
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.edit,
                                         size: 25.0,
                                         color: Colors.white,
@@ -105,7 +108,7 @@ class _childProfileState extends State<childProfile> {
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   editChildProfile(
-                                                      childId: child.childId),
+                                                      child: child),
                                             ));
                                       },
                                     ),
@@ -113,7 +116,7 @@ class _childProfileState extends State<childProfile> {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5.0,
                             ),
                             Text(
@@ -123,12 +126,10 @@ class _childProfileState extends State<childProfile> {
                               'Last Name: ${child.childLastname}',
                             ),
                             Text(
-                              'Birthday: ' +
-                                  convertTimeToDate(child.childBirthday),
+                              'Birthday: ${convertTimeToDate(child.childBirthday)}',
                             ),
                             Text(
-                              'Current Age: ' +
-                                  getAge(child.childBirthday).toString(),
+                              'Current Age: ${getAge(child.childBirthday)}',
                             ),
                             Text(
                               'Age Category: ${child.childAgeCategory}',
@@ -137,29 +138,30 @@ class _childProfileState extends State<childProfile> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15.0,
                     ),
                     StreamBuilder<List<EducationModel>>(
-                        stream: EduDatabaseService(childId: widget.childId)
-                            .educationData,
+                        stream:
+                            EduDatabaseService(childId: widget.child.childId)
+                                .educationData,
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
                             return Container(
                               width: double.infinity,
                               alignment: Alignment.centerLeft,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                   color: Color(0xffF29180),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10.0))),
                               child: Container(
-                                padding:
-                                    EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 20.0),
+                                padding: const EdgeInsets.fromLTRB(
+                                    20.0, 10.0, 10.0, 20.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Row(
+                                    const Row(
                                       children: <Widget>[
                                         Icon(
                                           Icons.school,
@@ -174,16 +176,15 @@ class _childProfileState extends State<childProfile> {
                                         ),
                                       ],
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 5.0,
                                     ),
                                     Container(
-                                      alignment: Alignment.center,
-                                      child: SpinKitPulse(
-                                        color: Colors.black,
-                                        size: 20.0,
-                                      )
-                                    )
+                                        alignment: Alignment.center,
+                                        child: const SpinKitPulse(
+                                          color: Colors.black,
+                                          size: 20.0,
+                                        ))
                                   ],
                                 ),
                               ),
@@ -197,17 +198,18 @@ class _childProfileState extends State<childProfile> {
                               return Container(
                                 width: double.infinity,
                                 alignment: Alignment.centerLeft,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     color: Color(0xffF29180),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10.0))),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(10.0))),
                                 child: Container(
-                                  padding:
-                                      EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 20.0),
+                                  padding: const EdgeInsets.fromLTRB(
+                                      20.0, 10.0, 10.0, 20.0),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      Row(
+                                      const Row(
                                         children: <Widget>[
                                           Icon(
                                             Icons.school,
@@ -222,7 +224,7 @@ class _childProfileState extends State<childProfile> {
                                           ),
                                         ],
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 5.0,
                                       ),
                                       Container(
@@ -235,14 +237,15 @@ class _childProfileState extends State<childProfile> {
                                                   color: Colors.grey[800],
                                                   fontSize: 13.0),
                                             ),
+                                            const SizedBox(height: 3),
                                             ElevatedButton(
-                                              child: Text(
-                                                'Register Education Module',
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                              ),
                                               style: ElevatedButton.styleFrom(
-                                                  backgroundColor: Colors.white),
+                                                backgroundColor: Colors.white,
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5)),
+                                              ),
                                               onPressed: () async {
                                                 Navigator.push(
                                                     context,
@@ -250,8 +253,14 @@ class _childProfileState extends State<childProfile> {
                                                         builder: (context) =>
                                                             addNewEduCalendar(
                                                                 childId: widget
+                                                                    .child
                                                                     .childId)));
                                               },
+                                              child: const Text(
+                                                'Register Education Module',
+                                                style: TextStyle(
+                                                    color: Colors.black),
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -264,24 +273,25 @@ class _childProfileState extends State<childProfile> {
                               return Container(
                                 width: double.infinity,
                                 alignment: Alignment.centerLeft,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     color: Color(0xffF29180),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10.0))),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(10.0))),
                                 child: Container(
-                                  padding:
-                                      EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 20.0),
+                                  padding: const EdgeInsets.fromLTRB(
+                                      20.0, 10.0, 10.0, 20.0),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Row(
                                         children: <Widget>[
-                                          Icon(
+                                          const Icon(
                                             Icons.school,
                                             size: 30.0,
                                             color: Colors.white,
                                           ),
-                                          Text(
+                                          const Text(
                                             ' Education',
                                             style: TextStyle(
                                                 fontSize: 20.0,
@@ -293,7 +303,7 @@ class _childProfileState extends State<childProfile> {
                                               child: IconButton(
                                                 icon: Transform.scale(
                                                   scaleX: -1,
-                                                  child: Icon(
+                                                  child: const Icon(
                                                     Icons.arrow_back,
                                                     size: 25.0,
                                                     color: Colors.white,
@@ -305,7 +315,8 @@ class _childProfileState extends State<childProfile> {
                                                       MaterialPageRoute(
                                                         builder: (context) =>
                                                             educationMain(
-                                                                childId: child.childId),
+                                                                childId: child
+                                                                    .childId),
                                                       ));
                                                 },
                                               ),
@@ -313,46 +324,43 @@ class _childProfileState extends State<childProfile> {
                                           ),
                                         ],
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 5.0,
                                       ),
                                       Text(
-                                        'Current Year: ${educationModelData[0].currentYear}'
-                                      ),
+                                          'Current Year: ${educationModelData[0].currentYear}'),
                                       Text(
-                                        'Status: ${educationModelData[0].status}'
-                                      )
+                                          'Status: ${educationModelData[0].status}')
                                     ],
                                   ),
                                 ),
                               );
-                            } 
-                        }
-                      }
-                    ),
-                    SizedBox(
+                            }
+                          }
+                        }),
+                    const SizedBox(
                       height: 15.0,
                     ),
                     Container(
                       width: double.infinity,
                       alignment: Alignment.centerLeft,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: Color(0xff8290F0),
                           borderRadius:
                               BorderRadius.all(Radius.circular(10.0))),
                       child: Container(
-                        padding: EdgeInsets.all(20.0),
+                        padding: const EdgeInsets.all(20.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Row(
                               children: <Widget>[
-                                Icon(
+                                const Icon(
                                   Icons.health_and_safety,
                                   size: 30.0,
                                   color: Colors.white,
                                 ),
-                                Text(
+                                const Text(
                                   ' Health',
                                   style: TextStyle(
                                       fontSize: 20.0, color: Colors.white),
@@ -361,7 +369,7 @@ class _childProfileState extends State<childProfile> {
                                   child: Container(
                                     alignment: Alignment.centerRight,
                                     child: IconButton(
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.edit,
                                         size: 25.0,
                                         color: Colors.white,
@@ -370,9 +378,8 @@ class _childProfileState extends State<childProfile> {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) =>
-                                                  healthMain(
-                                                      childId: child.childId),
+                                              builder: (context) => healthMain(
+                                                  childId: child.childId),
                                             ));
                                       },
                                     ),
@@ -380,7 +387,7 @@ class _childProfileState extends State<childProfile> {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5.0,
                             ),
                           ],
@@ -419,7 +426,7 @@ class _childProfileState extends State<childProfile> {
                     //         .pushNamed('/parent/child/childprofile/health');
                     //   },
                     //   child: Text('Health'),
-                    // 
+                    //
                   ],
                 ),
               ),

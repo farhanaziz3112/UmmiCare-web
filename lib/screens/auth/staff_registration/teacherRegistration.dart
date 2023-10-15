@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ummicare/screens/auth/staff_registration/applicationCompletion.dart';
-import 'package:ummicare/services/staffApplicationDatabaseService.dart';
+import 'package:ummicare/services/auth.dart';
 import 'package:ummicare/shared/constant.dart';
 
 class teacherRegistration extends StatefulWidget {
@@ -12,33 +12,38 @@ class teacherRegistration extends StatefulWidget {
 
 class _teacherRegistrationState extends State<teacherRegistration> {
   final _formKey = GlobalKey<FormState>();
+  final AuthService _auth = AuthService();
 
-  //form values holder
-  String firstName = '';
-  String lastName = '';
-  String fullName = '';
+  //authentication
   String email = '';
-  String phoneNumber = '';
-  String supportingDocumentLink = '';
-  String userType = 'teacher';
-  String applicationStatus = 'pending';
-  String submissionDate = DateTime.now().toString();
-  
+  String password = '';
+
+  //account details
+  String staffUserType = 'teacher';
+  String staffFullName = '';
+  String staffFirstName = '';
+  String staffLastName = '';
+  String staffEmail = '';
+  String staffPhoneNumber = '';
+  String staffProfileImg = '';
+  String isVerified = 'false';
+  String staffSupportingDocumentLink = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Teacher Registration",
+        title: const Text(
+          "Advisor Registration",
           style: TextStyle(
             color: Colors.black,
             fontSize: 25,
             fontWeight: FontWeight.bold
           ),
         ),
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         centerTitle: true,
-        backgroundColor: Color(0xfff29180),
+        backgroundColor: const Color(0xfff29180),
       ),
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
@@ -46,97 +51,37 @@ class _teacherRegistrationState extends State<teacherRegistration> {
         padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 40.0, horizontal: 20.0),
+            padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 20.0),
             child: Form(
               key: _formKey,
               child: Column(
                 children: <Widget>[
-                  Text(
-                    'Please fill in your details',
+                  const Text(
+                    'Please fill in your details.',
                     style: TextStyle(
-                      fontSize: 20.0
+                      fontSize: 23.0,
+                      fontWeight: FontWeight.w700
                     ),
+                    textAlign: TextAlign.start,
                   ),
-                  SizedBox(height: 30.0),
+                  const SizedBox(height: 30.0),
                   Container(
                     alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.only(left: 20.0),
-                    child: Text(
-                      'First Name',
-                      textAlign: TextAlign.left,
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: const Text(
+                      'Authentication Details:',
                       style: TextStyle(
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w500
                       ),
+                      textAlign: TextAlign.start,
                     ),
                   ),
-                  SizedBox(
-                    height: 5.0,
-                  ),
-                  TextFormField(
-                    initialValue: firstName,
-                    decoration: textInputDecoration.copyWith(hintText: 'First Name'),
-                    validator: (value) => value == '' ? 'Please enter your first name' : null,
-                    onChanged: ((value) => setState(() {
-                      firstName = value;
-                    })),
-                  ),
-                  SizedBox(height: 20.0),
+                  const SizedBox(height: 20.0),
                   Container(
                     alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.only(left: 20.0),
-                    child: Text(
-                      'Last Name',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5.0,
-                  ),
-                  TextFormField(
-                    initialValue: lastName,
-                    decoration: textInputDecoration.copyWith(hintText: 'Last Name'),
-                    validator: (value) => value == '' ? 'Please enter your last name' : null,
-                    onChanged: ((value) => setState(() {
-                      lastName = value;
-                    })),
-                  ),
-                  SizedBox(height: 20.0),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.only(left: 20.0),
-                    child: Text(
-                      'Full Name',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5.0,
-                  ),
-                  TextFormField(
-                    initialValue: fullName,
-                    decoration: textInputDecoration.copyWith(hintText: 'Full Name'),
-                    validator: (value) => value == '' ? 'Please enter your full name' : null,
-                    onChanged: ((value) => setState(() {
-                      fullName = value;
-                    })),
-                  ),
-                  SizedBox(height: 20.0),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.only(left: 20.0),
-                    child: Text(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: const Text(
                       'Email',
                       textAlign: TextAlign.left,
                       style: TextStyle(
@@ -146,7 +91,7 @@ class _teacherRegistrationState extends State<teacherRegistration> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5.0,
                   ),
                   TextFormField(
@@ -157,11 +102,125 @@ class _teacherRegistrationState extends State<teacherRegistration> {
                       email = value;
                     })),
                   ),
-                  SizedBox(height: 20.0),
+                  const SizedBox(height: 20.0),
                   Container(
                     alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.only(left: 20.0),
-                    child: Text(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: const Text(
+                      'Password',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5.0,
+                  ),
+                  TextFormField(
+                    initialValue: password,
+                    decoration: textInputDecoration.copyWith(hintText: 'Password'),
+                    obscureText: true,
+                    validator: (value) => value == '' ? 'Please enter your password' : null,
+                    onChanged: ((value) => setState(() {
+                      password = value;
+                    })),
+                  ),
+                  const SizedBox(height: 30.0),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: const Text(
+                      'Account Details:',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w500
+                      ),
+                      textAlign: TextAlign.start,
+                    ),
+                  ),
+                  const SizedBox(height: 20.0),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: const Text(
+                      'First Name',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5.0,
+                  ),
+                  TextFormField(
+                    initialValue: staffFirstName,
+                    decoration: textInputDecoration.copyWith(hintText: 'First Name'),
+                    validator: (value) => value == '' ? 'Please enter your first name' : null,
+                    onChanged: ((value) => setState(() {
+                      staffFirstName = value;
+                    })),
+                  ),
+                  const SizedBox(height: 20.0),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: const Text(
+                      'Last Name',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5.0,
+                  ),
+                  TextFormField(
+                    initialValue: staffLastName,
+                    decoration: textInputDecoration.copyWith(hintText: 'Last Name'),
+                    validator: (value) => value == '' ? 'Please enter your last name' : null,
+                    onChanged: ((value) => setState(() {
+                      staffLastName = value;
+                    })),
+                  ),
+                  const SizedBox(height: 20.0),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: const Text(
+                      'Full Name',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5.0,
+                  ),
+                  TextFormField(
+                    initialValue: staffFullName,
+                    decoration: textInputDecoration.copyWith(hintText: 'Full Name'),
+                    validator: (value) => value == '' ? 'Please enter your full name' : null,
+                    onChanged: ((value) => setState(() {
+                      staffFullName = value;
+                    })),
+                  ),
+                  const SizedBox(height: 20.0),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: const Text(
                       'Phone Number',
                       textAlign: TextAlign.left,
                       style: TextStyle(
@@ -171,22 +230,22 @@ class _teacherRegistrationState extends State<teacherRegistration> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5.0,
                   ),
                   TextFormField(
-                    initialValue: phoneNumber,
+                    initialValue: staffPhoneNumber,
                     decoration: textInputDecoration.copyWith(hintText: 'Phone Number'),
                     validator: (value) => value == '' ? 'Please enter your phone number' : null,
                     onChanged: ((value) => setState(() {
-                      phoneNumber = value;
+                      staffPhoneNumber = value;
                     })),
                   ),
-                  SizedBox(height: 20.0),
+                  const SizedBox(height: 20.0),
                   Container(
                     alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.only(left: 20.0),
-                    child: Text(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: const Text(
                       'Supporting Documents Link',
                       textAlign: TextAlign.left,
                       style: TextStyle(
@@ -196,33 +255,38 @@ class _teacherRegistrationState extends State<teacherRegistration> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 5.0),
+                  const SizedBox(height: 5.0),
                   TextFormField(
-                    initialValue: supportingDocumentLink,
+                    initialValue: staffSupportingDocumentLink,
                     decoration: textInputDecoration.copyWith(hintText: 'Supporting Document Link'),
                     validator: (value) => value == '' ? 'Please enter your supporting document link' : null,
                     onChanged: ((value) => setState(() {
-                      supportingDocumentLink = value;
+                      staffSupportingDocumentLink = value;
                     })),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20.0,
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff8290F0)),
-                    child: Text(
+                        backgroundColor: const Color(0xff8290F0),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5)
+                        ),),
+                    child: const Text(
                       'Submit Application',
                       style: TextStyle(color: Colors.white),
                     ),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        await staffApplicationDatabaseService().createStaffApplicationData(firstName, lastName, fullName, email, phoneNumber, supportingDocumentLink, userType, applicationStatus, submissionDate);
+                        //await staffApplicationDatabaseService().createStaffApplicationData(firstName, lastName, fullName, email, phoneNumber, supportingDocumentLink, staffType, applicationStatus, submissionDate);
+                        dynamic result = await _auth.registerStaffWithEmailAndPassword(email, password, staffUserType, staffFullName, staffFirstName, staffLastName, staffPhoneNumber, staffProfileImg, staffSupportingDocumentLink, isVerified);
+                        print(result);
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  applicationCompletion()),
+                                  const applicationCompletion()),
                         );
                       }
                     },

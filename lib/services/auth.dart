@@ -1,70 +1,46 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:ummicare/services/database.dart';
-import 'package:ummicare/models/usermodel.dart';
+import 'package:ummicare/services/parentDatabase.dart';
+import 'package:ummicare/models/userModel.dart';
+import 'package:ummicare/services/staffDatabase.dart';
+import 'package:ummicare/services/userDatabase.dart';
 import 'package:ummicare/shared/function.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   //create user object based on the firebase user verified
-  UserAuthModel? _userAuthObjectFromFirebase(User user) {
-    return user != null ? UserAuthModel(userId: user.uid) : null;
+  userModel? _userAuthObjectFromFirebase(User user) {
+    // ignore: unnecessary_null_comparison
+    return user != null
+        ? userModel(
+            userId: user.uid, userType: '', userEmail: user.email.toString())
+        : null;
   }
 
   String getUserLastSignedIn() {
-    return getLastSignedInFormat(_auth.currentUser!.metadata.lastSignInTime!.millisecondsSinceEpoch.toString());
+    return getLastSignedInFormat(_auth
+        .currentUser!.metadata.lastSignInTime!.millisecondsSinceEpoch
+        .toString());
   }
 
-  // UserModel? _userObjectFromFirebase(User user) {
-  //   UserModel usermodel = new UserModel(
-  //     userId: user.uid,
-  //     userType: ,
-  //     userName: '',
-  //     userFirstname: '',
-  //     userLastname: '',
-  //     userEmail: '',
-  //     userPhoneNumber: '',
-  //     userProfileImg: '',
-  //   );
-  //   final docRef =
-  //       DatabaseService(userId: user.uid).userCollection.doc(user.uid);
-  //   docRef.get().then((DocumentSnapshot doc) {
-  //     usermodel.userType = doc.get('userType');
-  //     usermodel.userName = doc.get('userName');
-  //     usermodel.userFirstname = doc.get('userFirstName');
-  //     usermodel.userLastname = doc.get('userLastName');
-  //     usermodel.userEmail = doc.get('userEmail');
-  //     usermodel.userPhoneNumber = doc.get('userPhoneNumber');
-  //     usermodel.userProfileImg = doc.get('userProfileImg');
-  //     print('ngehhhhhhhhhhhhhhhh userType:' + doc.get('userType'));
-  //     print('userName:' + doc.get('userName'));
-  //   });
-  //   return user != null ? usermodel : null;
-  // }
-
   //auth change user stream
-  Stream<UserAuthModel?> get user {
+  Stream<userModel?> get user {
     return _auth
         .authStateChanges()
         .map((User? user) => _userAuthObjectFromFirebase(user!));
   }
 
   //register new parent with email and password
-  Future registerParentWithEmailAndPassword(String email, String password) async {
+  Future registerParentWithEmailAndPassword(
+      String email, String password) async {
     try {
       UserCredential authResult = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       User? user = authResult.user;
-      await DatabaseService(userId: user!.uid).updateUserData(
-        'parent',
-        'new username',
-        'new user first name',
-        'new user last name',
-        email,
-        'new user phone number',
-        'new profile image',
-      );
+      await userDatabase(userId: user!.uid)
+          .updateUserData(user.uid, 'parent', user.email.toString());
+      await parentDatabase(parentId: user.uid).updateParentData(
+          user.uid, 'New User', '-', '-', user.email.toString(), '-', '-');
       return _userAuthObjectFromFirebase(user);
     } catch (e) {
       print(e.toString());
@@ -72,23 +48,38 @@ class AuthService {
     }
   }
 
-    //register new staff with email and password
-  Future registerStaffWithEmailAndPassword(String email, String password, String userType) async {
+  //register new staff with email and password
+  Future registerStaffWithEmailAndPassword(
+    String email,
+    String password,
+    String staffUserType,
+    String staffFullName,
+    String staffFirstName,
+    String staffLastName,
+    String staffPhoneNumber,
+    String staffProfileImg,
+    String staffSupportingDocumentLink,
+    String isVerified
+  ) async {
     try {
       //var originalUser = _auth.currentUser!;
       UserCredential authResult = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       //_auth.sign(originalUser);
       User? user = authResult.user;
-      await DatabaseService(userId: user!.uid).updateUserData(
-        userType,
-        'new username',
-        'new user first name',
-        'new user last name',
-        email,
-        'new user phone number',
-        'new profile image',
-      );
+      await userDatabase(userId: user!.uid)
+          .updateUserData(user.uid, staffUserType, user.email.toString());
+      await staffDatabase(staffId: user.uid).updateStaffData(
+          user.uid,
+          staffUserType,
+          staffFullName,
+          staffFirstName,
+          staffLastName,
+          email,
+          staffPhoneNumber,
+          staffSupportingDocumentLink,
+          '-',
+          isVerified);
       //return _userAuthObjectFromFirebase(user);
     } catch (e) {
       print(e.toString());
@@ -129,6 +120,4 @@ class AuthService {
       return false;
     }
   }
-
-
 }

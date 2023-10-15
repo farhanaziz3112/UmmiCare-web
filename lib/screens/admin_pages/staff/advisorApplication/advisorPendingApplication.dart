@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ummicare/models/staffapplicationmodel.dart';
+import 'package:ummicare/models/staffUserModel.dart';
 import 'package:ummicare/screens/admin_pages/staff/applicationList/applicationList.dart';
-import 'package:ummicare/services/staffApplicationDatabaseService.dart';
+import 'package:ummicare/services/adminDatabase.dart';
 
 class advisorPendingApplication extends StatefulWidget {
   const advisorPendingApplication({super.key});
@@ -14,20 +14,21 @@ class advisorPendingApplication extends StatefulWidget {
 class _advisorPendingApplicationState extends State<advisorPendingApplication> {
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<List<StaffApplicationModel>>.value(
+    return StreamProvider<List<staffUserModel>>.value(
       initialData: [],
-      value: staffApplicationDatabaseService().allAdvisorPendingApplications,
+      value: adminDatabase().allStaffData('false', 'advisor'),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
-            "Pending Application",
+          title: const Text(
+            "Advisor Pending Application",
             style: TextStyle(
-              color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold,
+              color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold,
             ),
           ),
           centerTitle: true,
           backgroundColor: Colors.white,
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: const IconThemeData(color: Colors.black),
+          elevation: 3,
         ),
         resizeToAvoidBottomInset: false,
         body: Padding(
@@ -35,12 +36,12 @@ class _advisorPendingApplicationState extends State<advisorPendingApplication> {
               EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           child: SingleChildScrollView(
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 20.0),
               child: Column(
                 children: <Widget>[
-                  SizedBox(height: 15,),
+                  const SizedBox(height: 15,),
                   Container(
-                    child: applicationList(),
+                    child: const applicationList(),
                   )
                 ],
               ),

@@ -2,15 +2,15 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:ummicare/services/database.dart';
+import 'package:ummicare/services/parentDatabase.dart';
 import 'package:ummicare/shared/function.dart';
 
 import '../../../services/storage.dart';
 import '../../../shared/constant.dart';
 
 class registerChild extends StatefulWidget {
-  const registerChild({super.key, required this.currentuserId});
-  final String currentuserId;
+  const registerChild({super.key, required this.parentId});
+  final String parentId;
 
   @override
   State<registerChild> createState() => _registerChildState();
@@ -42,6 +42,7 @@ class _registerChildState extends State<registerChild> {
         centerTitle: true,
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
         iconTheme: IconThemeData(color: Colors.black),
+        elevation: 3,
       ),
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -234,9 +235,18 @@ class _registerChildState extends State<registerChild> {
                           style: TextStyle(fontSize: 20.0),
                         ),
                         ElevatedButton(
-                          child: Text('Set Birthday'),
+                          child: Text(
+                            'Set Birthday',
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black,
+                            backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5),
+                                side: BorderSide(width: 1, color: Colors.black)
+                            ),
                           ),
                           onPressed: () {
                             showDatePicker(
@@ -259,16 +269,20 @@ class _registerChildState extends State<registerChild> {
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff8290F0)),
+                      backgroundColor: Color(0xff8290F0),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)
+                      ),
+                    ),
                     child: Text(
                       'Create child profile',
                       style: TextStyle(color: Colors.white),
                     ),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        await DatabaseService(userId: widget.currentuserId)
+                        await parentDatabase(parentId: widget.parentId)
                             .createChildData(
-                                widget.currentuserId,
+                                widget.parentId,
                                 childName,
                                 childFirstname,
                                 childLastname,

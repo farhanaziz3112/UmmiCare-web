@@ -1,19 +1,12 @@
-import 'dart:io';
+// ignore_for_file: camel_case_types
 
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:ummicare/screens/home_parent.dart';
+import 'package:ummicare/models/parentModel.dart';
 import 'package:ummicare/services/auth.dart';
-import 'package:ummicare/services/database.dart';
-import 'package:ummicare/services/storage.dart';
+import 'package:ummicare/services/parentDatabase.dart';
 import 'package:ummicare/screens/parent_pages/child/childlist/childlist.dart';
-
 import '../../../models/childmodel.dart';
-import '../../../models/usermodel.dart';
 
 class parentMain extends StatefulWidget {
   const parentMain({super.key});
@@ -23,28 +16,28 @@ class parentMain extends StatefulWidget {
 }
 
 class _parentMainState extends State<parentMain> {
-  AuthService _auth = AuthService();
+  final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
-    UserModel? user = Provider.of<UserModel?>(context);
+    parentModel? parent = Provider.of<parentModel?>(context);
     return StreamProvider<List<ChildModel>>.value(
       initialData: [],
-      value: DatabaseService(userId: user!.userId).allChildData,
+      value: parentDatabase(parentId: parent!.parentId).allChildData,
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 25.0, vertical: 40.0),
+        margin: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 40.0),
         child: SingleChildScrollView(
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  "Welcome, ${user.userName}!",
-                  style: TextStyle(
+                  "Welcome, ${parent.parentFullName}!",
+                  style: const TextStyle(
                       color: Colors.black,
                       fontSize: 30,
                       fontWeight: FontWeight.w500),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8.0,
                 ),
                 Text(
@@ -54,19 +47,20 @@ class _parentMainState extends State<parentMain> {
                     fontSize: 15,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30.0,
                 ),
-                Text(
+                const Text(
                   'Recent Activites',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 20.0
                   )
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10.0,
                 ),
+                // ignore: sized_box_for_whitespace
                 Container(
                   height: 150,
                   child: ListView(
@@ -74,8 +68,8 @@ class _parentMainState extends State<parentMain> {
                     children: <Widget>[
                       Container(
                         width: 130,
-                        margin: EdgeInsets.all(5.0),
-                        decoration: BoxDecoration(
+                        margin: const EdgeInsets.all(5.0),
+                        decoration: const BoxDecoration(
                           color: Color(0xff71CBCA),
                           borderRadius:
                               BorderRadius.all(Radius.circular(10.0))),
@@ -83,8 +77,8 @@ class _parentMainState extends State<parentMain> {
                       ),
                       Container(
                         width: 130,
-                        margin: EdgeInsets.all(5.0),
-                        decoration: BoxDecoration(
+                        margin: const EdgeInsets.all(5.0),
+                        decoration: const BoxDecoration(
                           color: Color(0xff8290F0),
                           borderRadius:
                               BorderRadius.all(Radius.circular(10.0))),
@@ -92,8 +86,8 @@ class _parentMainState extends State<parentMain> {
                       ),
                       Container(
                         width: 130,
-                        margin: EdgeInsets.all(5.0),
-                        decoration: BoxDecoration(
+                        margin: const EdgeInsets.all(5.0),
+                        decoration: const BoxDecoration(
                           color: Color(0xffF29180),
                           borderRadius:
                               BorderRadius.all(Radius.circular(10.0))),
@@ -101,8 +95,8 @@ class _parentMainState extends State<parentMain> {
                       ),
                       Container(
                         width: 130,
-                        margin: EdgeInsets.all(5.0),
-                        decoration: BoxDecoration(
+                        margin: const EdgeInsets.all(5.0),
+                        decoration: const BoxDecoration(
                           color: Color(0xff71CBCA),
                           borderRadius:
                               BorderRadius.all(Radius.circular(10.0))),
@@ -111,10 +105,10 @@ class _parentMainState extends State<parentMain> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30.0,
                 ),
-                Row(
+                const Row(
                   children: <Widget>[
                     Text(
                       'Your Child',
@@ -122,11 +116,10 @@ class _parentMainState extends State<parentMain> {
                     ),
                   ],
                 ),
-                childList(),
+                const childList(),
               ]),
         ),
       ),
     );
-    ;
   }
 }

@@ -1,11 +1,15 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:ummicare/models/usermodel.dart';
+import 'package:ummicare/models/parentModel.dart';
+import 'package:ummicare/models/staffUserModel.dart';
+import 'package:ummicare/models/userModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ummicare/services/childDatabase.dart';
 import 'dart:io';
 
-import 'package:ummicare/services/database.dart';
+import 'package:ummicare/services/parentDatabase.dart';
+import 'package:ummicare/services/staffDatabase.dart';
 
 import '../models/childmodel.dart';
 
@@ -15,6 +19,9 @@ class StorageService {
 
   //profile pic parent folder reference
   late Reference parentFolderReference = referenceRoot.child('parent');
+
+  //profile pic parent folder reference
+  late Reference staffFolderReference = referenceRoot.child('staff');
 
   //profile pic advisor folder reference
   late Reference advisorFolderReference = referenceRoot.child('advisor');
@@ -92,21 +99,20 @@ class StorageService {
     return documentUrl;
   }
 
-
   //upload image to user folder
-  Future<String> uploadUserProfilePic(UserModel user, XFile file) async {
+  Future<String> uploadStaffProfilePic(staffUserModel staff, XFile file) async {
     String uniqueFileName =
-        DateTime.now().millisecondsSinceEpoch.toString() + user.userId;
+        DateTime.now().millisecondsSinceEpoch.toString() + staff.staffId;
 
     Reference imageToUpload;
 
-    if (user.userType == 'parent') {
-      imageToUpload = parentFolderReference.child(uniqueFileName);
-    } else if (user.userType == 'advisor') {
-      imageToUpload = advisorFolderReference.child(uniqueFileName);
-    } else {
-      imageToUpload = adminFolderReference.child(uniqueFileName);
-    }
+    // if (user.userType == 'parent') {
+    imageToUpload = staffFolderReference.child(uniqueFileName);
+    // } else if (user.userType == 'advisor') {
+    //   imageToUpload = advisorFolderReference.child(uniqueFileName);
+    // } else {
+    //   imageToUpload = adminFolderReference.child(uniqueFileName);
+    // }
 
     String imageUrl = '';
 
@@ -114,7 +120,36 @@ class StorageService {
       await imageToUpload.putFile(File(file.path));
       imageUrl = await imageToUpload.getDownloadURL();
       print('Image URL: ${imageUrl}');
-      updateUserProfileImageUrl(user, imageUrl);
+      updateStaffProfileImageUrl(staff, imageUrl);
+    } catch (e) {
+      print(e);
+    }
+
+    return imageUrl;
+  }
+
+  //upload image to user folder
+  Future<String> uploadParentProfilePic(parentModel parent, XFile file) async {
+    String uniqueFileName =
+        DateTime.now().millisecondsSinceEpoch.toString() + parent.parentId;
+
+    Reference imageToUpload;
+
+    // if (user.userType == 'parent') {
+    imageToUpload = parentFolderReference.child(uniqueFileName);
+    // } else if (user.userType == 'advisor') {
+    //   imageToUpload = advisorFolderReference.child(uniqueFileName);
+    // } else {
+    //   imageToUpload = adminFolderReference.child(uniqueFileName);
+    // }
+
+    String imageUrl = '';
+
+    try {
+      await imageToUpload.putFile(File(file.path));
+      imageUrl = await imageToUpload.getDownloadURL();
+      print('Image URL: ${imageUrl}');
+      updateParentProfileImageUrl(parent, imageUrl);
     } catch (e) {
       print(e);
     }
@@ -143,22 +178,38 @@ class StorageService {
   }
 
   //update user image url
-  void updateUserProfileImageUrl(UserModel user, String imageUrl) {
-    print('Updating user: ${user.userId}');
-    DatabaseService(userId: user.userId).updateUserData(
-        user.userType,
-        user.userName,
-        user.userFirstname,
-        user.userLastname,
-        user.userEmail,
-        user.userPhoneNumber,
+  void updateParentProfileImageUrl(parentModel parent, String imageUrl) {
+    print('Updating parent: ${parent.parentId}');
+    parentDatabase(parentId: parent.parentId).updateParentData(
+        parent.parentId,
+        parent.parentFullName,
+        parent.parentFirstName,
+        parent.parentLastName,
+        parent.parentEmail,
+        parent.parentPhoneNumber,
         imageUrl);
+  }
+
+  //update user image url
+  void updateStaffProfileImageUrl(staffUserModel staff, String imageUrl) {
+    print('Updating staff: ${staff.staffId}');
+    staffDatabase(staffId: staff.staffId).updateStaffData(
+        staff.staffId,
+        staff.staffUserType,
+        staff.staffFullName,
+        staff.staffFirstName,
+        staff.staffLastName,
+        staff.staffEmail,
+        staff.staffPhoneNumber,
+        staff.staffSupportingDocumentLink,
+        imageUrl,
+        staff.isVerified);
   }
 
   //update child image url
   void updateChildProfileImageUrl(ChildModel child, String imageUrl) {
     print('Updating user: ${child.childId}');
-    DatabaseService(userId: child.parentId).updateChildData(
+    childDatabase(parentId: child.parentId, childId: child.childId).updateChildData(
         child.childId,
         child.parentId,
         child.childName,

@@ -1,5 +1,4 @@
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 
 class advisorMain extends StatefulWidget {
@@ -13,7 +12,7 @@ class _advisorMainState extends State<advisorMain> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Center(
+      child: const Center(
         child: Text(
           "Advisor main page",
           style: TextStyle(
@@ -23,6 +22,6 @@ class _advisorMainState extends State<advisorMain> {
           ),
         ),
       ),
-    );;
+    );
   }
 }

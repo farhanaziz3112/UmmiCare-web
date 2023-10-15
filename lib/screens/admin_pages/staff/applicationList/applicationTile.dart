@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:ummicare/models/staffapplicationmodel.dart';
-import 'package:ummicare/screens/admin_pages/staff/pendingApplicationPage.dart';
-import 'package:ummicare/services/staffApplicationDatabaseService.dart';
-import 'package:ummicare/shared/function.dart';
+import 'package:ummicare/models/staffUserModel.dart';
+import 'package:ummicare/screens/admin_pages/staff/applicationPage/passedApplicationPage.dart';
+import 'package:ummicare/screens/admin_pages/staff/applicationPage/pendingApplicationPage.dart';
+import 'package:ummicare/screens/admin_pages/staff/applicationPage/rejectedApplicationPage.dart';
+import 'package:ummicare/services/adminDatabase.dart';
 
 class applicationTile extends StatefulWidget {
   const applicationTile(
-      {super.key, required this.applicationDetail, required this.colorIndex});
+      {super.key, required this.staffDetail, required this.colorIndex});
 
-  final StaffApplicationModel applicationDetail;
+  final staffUserModel staffDetail;
   final int colorIndex;
 
   @override
@@ -19,173 +19,363 @@ class applicationTile extends StatefulWidget {
 class _applicationTileState extends State<applicationTile> {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<StaffApplicationModel>(
-      stream: staffApplicationDatabaseService()
-          .advisorPendingApplication(widget.applicationDetail.applicationId),
+    return StreamBuilder<staffUserModel>(
+      stream: adminDatabase().staffData(widget.staffDetail.staffId),
       builder: ((context, snapshot) {
         if (snapshot.hasData) {
-          StaffApplicationModel? application = snapshot.data;
-          if (widget.colorIndex == 0) {
-            return InkWell(
-              onTap: (() {
-                Navigator.push(
-                  context, MaterialPageRoute(
-                    builder: (context) => applicationPage(applicationId: application.applicationId)
-                  )
-                );
-              }),
-              child: Padding(
-                padding: const EdgeInsets.only(top: 3.0),
-                child: Card(
-                  margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-                  color: Color(0xff71CBCA),
-                  child: ListTile(
-                    contentPadding:
-                        EdgeInsets.fromLTRB(25, 10, 10, 10),
-                    title: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "${application?.email}",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15
+          staffUserModel? staffData = snapshot.data;
+          if (staffData!.isVerified == 'false') {
+            if (widget.colorIndex == 0) {
+              return InkWell(
+                onTap: (() {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => pendingApplicationPage(
+                              staffId: staffData.staffId)));
+                }),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 3.0),
+                  child: Card(
+                    margin: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                    color: const Color(0xff71CBCA),
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            staffData.staffEmail,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
                           ),
-                        ),
-                        SizedBox(height: 3),
-                        Text(
-                          "${application?.fullName}",
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: 13
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Text(
-                          "Submitted on " + convertTimeToDate(application!.submissionDate),
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.grey[900],
-                            fontStyle: FontStyle.italic
-                          ),
-                        )
-                      ],
+                          const SizedBox(height: 3),
+                          Text(
+                            staffData.staffFullName,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.normal, fontSize: 13),
+                          )
+                        ],
+                      ),
+                      trailing: const Icon(Icons.arrow_forward),
                     ),
-                    trailing: Icon(Icons.arrow_forward),
                   ),
                 ),
-              ),
-            );
-          } else if (widget.colorIndex == 1) {
-            return InkWell(
-              onTap: (() {
-                Navigator.push(
-                  context, MaterialPageRoute(
-                    builder: (context) => applicationPage(applicationId: application.applicationId)
-                  )
-                );
-              }),
-              child: Padding(
-                padding: const EdgeInsets.only(top: 3.0),
-                child: Card(
-                  margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-                  color: Color(0xffF29180),
-                  child: ListTile(
-                    contentPadding:
-                        EdgeInsets.fromLTRB(25, 10, 10, 10),
-                    title: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "${application?.email}",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15
+              );
+            } else if (widget.colorIndex == 1) {
+              return InkWell(
+                onTap: (() {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => pendingApplicationPage(
+                                staffId: staffData.staffId,
+                              )));
+                }),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 3.0),
+                  child: Card(
+                    margin: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                    color: const Color(0xffF29180),
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            staffData.staffEmail,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
                           ),
-                        ),
-                        SizedBox(height: 3),
-                        Text(
-                          "${application?.fullName}",
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: 13
+                          const SizedBox(height: 3),
+                          Text(
+                            staffData.staffFullName,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.normal, fontSize: 13),
                           ),
-                        ),
-                        SizedBox(height: 10),
-                        Text(
-                          "Submitted on " + convertTimeToDate(application!.submissionDate),
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.grey[900],
-                            fontStyle: FontStyle.italic
-                          ),
-                        )
-                      ],
+                        ],
+                      ),
+                      trailing: const Icon(Icons.arrow_forward),
                     ),
-                    trailing: Icon(Icons.arrow_forward),
                   ),
                 ),
-              ),
-            );
+              );
+            } else {
+              return InkWell(
+                onTap: (() {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => pendingApplicationPage(
+                                staffId: staffData.staffId,
+                              )));
+                }),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 3.0),
+                  child: Card(
+                    margin: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                    color: const Color(0xff8290F0),
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            staffData.staffEmail,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          const SizedBox(height: 3),
+                          Text(
+                            staffData.staffFullName,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.normal, fontSize: 13),
+                          ),
+                        ],
+                      ),
+                      trailing: const Icon(Icons.arrow_forward),
+                    ),
+                  ),
+                ),
+              );
+            }
+          } else if (staffData.isVerified == 'rejected') {
+            if (widget.colorIndex == 0) {
+              return InkWell(
+                onTap: (() {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => rejectedApplicationPage(
+                              staffId: staffData.staffId)));
+                }),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 3.0),
+                  child: Card(
+                    margin: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                    color: const Color(0xff71CBCA),
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            staffData.staffEmail,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          const SizedBox(height: 3),
+                          Text(
+                            staffData.staffFullName,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.normal, fontSize: 13),
+                          )
+                        ],
+                      ),
+                      trailing: const Icon(Icons.arrow_forward),
+                    ),
+                  ),
+                ),
+              );
+            } else if (widget.colorIndex == 1) {
+              return InkWell(
+                onTap: (() {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => rejectedApplicationPage(
+                                staffId: staffData.staffId,
+                              )));
+                }),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 3.0),
+                  child: Card(
+                    margin: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                    color: const Color(0xffF29180),
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            staffData.staffEmail,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          const SizedBox(height: 3),
+                          Text(
+                            staffData.staffFullName,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.normal, fontSize: 13),
+                          ),
+                        ],
+                      ),
+                      trailing: const Icon(Icons.arrow_forward),
+                    ),
+                  ),
+                ),
+              );
+            } else {
+              return InkWell(
+                onTap: (() {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => rejectedApplicationPage(
+                                staffId: staffData.staffId,
+                              )));
+                }),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 3.0),
+                  child: Card(
+                    margin: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                    color: const Color(0xff8290F0),
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            staffData.staffEmail,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          const SizedBox(height: 3),
+                          Text(
+                            staffData.staffFullName,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.normal, fontSize: 13),
+                          ),
+                        ],
+                      ),
+                      trailing: const Icon(Icons.arrow_forward),
+                    ),
+                  ),
+                ),
+              );
+            }
+          } else if (staffData.isVerified == 'true') {
+            if (widget.colorIndex == 0) {
+              return InkWell(
+                onTap: (() {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => passedApplicationPage(
+                              staffId: staffData.staffId)));
+                }),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 3.0),
+                  child: Card(
+                    margin: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                    color: const Color(0xff71CBCA),
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            staffData.staffEmail,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          const SizedBox(height: 3),
+                          Text(
+                            staffData.staffFullName,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.normal, fontSize: 13),
+                          )
+                        ],
+                      ),
+                      trailing: const Icon(Icons.arrow_forward),
+                    ),
+                  ),
+                ),
+              );
+            } else if (widget.colorIndex == 1) {
+              return InkWell(
+                onTap: (() {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => passedApplicationPage(
+                                staffId: staffData.staffId,
+                              )));
+                }),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 3.0),
+                  child: Card(
+                    margin: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                    color: const Color(0xffF29180),
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            staffData.staffEmail,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          const SizedBox(height: 3),
+                          Text(
+                            staffData.staffFullName,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.normal, fontSize: 13),
+                          ),
+                        ],
+                      ),
+                      trailing: const Icon(Icons.arrow_forward),
+                    ),
+                  ),
+                ),
+              );
+            } else {
+              return InkWell(
+                onTap: (() {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => passedApplicationPage(
+                                staffId: staffData.staffId,
+                              )));
+                }),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 3.0),
+                  child: Card(
+                    margin: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                    color: const Color(0xff8290F0),
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            staffData.staffEmail,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          const SizedBox(height: 3),
+                          Text(
+                            staffData.staffFullName,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.normal, fontSize: 13),
+                          ),
+                        ],
+                      ),
+                      trailing: const Icon(Icons.arrow_forward),
+                    ),
+                  ),
+                ),
+              );
+            }
           } else {
-            return InkWell(
-              onTap: (() {
-                Navigator.push(
-                  context, MaterialPageRoute(
-                    builder: (context) => applicationPage(applicationId: application.applicationId)
-                  )
-                );
-              }),
-              child: Padding(
-                padding: const EdgeInsets.only(top: 3.0),
-                child: Card(
-                  margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-                  color: Color(0xff8290F0),
-                  child: ListTile(
-                    contentPadding:
-                        EdgeInsets.fromLTRB(25, 10, 10, 10),
-                    title: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "${application?.email}",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15
-                          ),
-                        ),
-                        SizedBox(height: 3),
-                        Text(
-                          "${application?.fullName}",
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: 13
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Text(
-                          "Submitted on " + convertTimeToDate(application!.submissionDate),
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.grey[900],
-                            fontStyle: FontStyle.italic
-                          ),
-                        )
-                      ],
-                    ),
-                    trailing: Icon(Icons.arrow_forward),
-                  ),
-                ),
-              ),
-            );
+            return Container();
           }
         } else {
           return Container();
         }
-      } ),
+      }),
     );
 
     // if (widget.colorIndex == 0) {

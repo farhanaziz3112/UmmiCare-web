@@ -1,28 +1,24 @@
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
-import 'package:ummicare/screens/admin_pages/admin/adminMain.dart';
-import 'package:ummicare/screens/admin_pages/staff/staffHome.dart';
-import 'package:ummicare/screens/settings/settingsMain.dart';
-import 'package:ummicare/services/auth.dart';
+import 'package:ummicare/screens/medicalStaff_pages/medicalStaff/medicalStaffMain.dart';
+import 'package:ummicare/screens/medicalStaff_pages/patient/patientMain.dart';
+import 'package:ummicare/screens/medicalStaff_pages/settings/medicalStaffSettingsMain.dart';
 
-class HomeAdmin extends StatefulWidget {
-  const HomeAdmin({super.key});
+class HomeMedicalStaff extends StatefulWidget {
+  const HomeMedicalStaff({super.key});
 
   @override
-  State<HomeAdmin> createState() => _HomeAdminState();
+  State<HomeMedicalStaff> createState() => _HomeMedicalStaffState();
 }
 
-class _HomeAdminState extends State<HomeAdmin> {
+class _HomeMedicalStaffState extends State<HomeMedicalStaff> {
+
   int pageIndex = 0;
 
   final pages = [
-    const adminMain(),
-    const advisorMain_admin(),
-    const settingsMain(),
+    const medicalStaffMain(),
+    const patientMain(),
+    const medicalStaffSettingsMain()
   ];
-
-  AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +27,8 @@ class _HomeAdminState extends State<HomeAdmin> {
         elevation: 3.0,
         actions: <Widget>[
           IconButton(
-            padding: EdgeInsets.fromLTRB(0.0, 0.0, 15.0, 0.0),
-            icon: Icon(
+            padding: const EdgeInsets.fromLTRB(0.0, 0.0, 15.0, 0.0),
+            icon: const Icon(
               Icons.notifications,
               color: Colors.grey,
               size: 30.0,
@@ -40,7 +36,7 @@ class _HomeAdminState extends State<HomeAdmin> {
             onPressed: () => {},
           ),
         ],
-        title: Text(
+        title: const Text(
           "UmmiCare",
           style: TextStyle(
             color: Colors.black,
@@ -49,7 +45,7 @@ class _HomeAdminState extends State<HomeAdmin> {
           ),
         ),
         centerTitle: false,
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       body: SingleChildScrollView(child: pages[pageIndex]),
       bottomNavigationBar: buildBottomBar(context),
@@ -70,7 +66,7 @@ class _HomeAdminState extends State<HomeAdmin> {
               color: Colors.black.withOpacity(0.2),
               spreadRadius: 5,
               blurRadius: 7,
-              offset: Offset(0, 3),
+              offset: const Offset(0, 3),
             ),
           ],
         ),

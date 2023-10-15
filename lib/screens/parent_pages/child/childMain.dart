@@ -2,12 +2,13 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ummicare/models/parentModel.dart';
 import 'package:ummicare/screens/parent_pages/child/childlist/childlist.dart';
 import 'package:ummicare/screens/parent_pages/child/registerChild.dart';
-import 'package:ummicare/services/database.dart';
+import 'package:ummicare/services/parentDatabase.dart';
 
 import '../../../models/childmodel.dart';
-import '../../../models/usermodel.dart';
+import '../../../models/parentModel.dart';
 
 class childMain extends StatefulWidget {
   const childMain({super.key});
@@ -19,14 +20,14 @@ class childMain extends StatefulWidget {
 class _childMainState extends State<childMain> {
   @override
   Widget build(BuildContext context) {
-    UserModel? user = Provider.of<UserModel?>(context);
-    final userId = user!.userId;
+    parentModel? parent = Provider.of<parentModel?>(context);
+    final parentId = parent!.parentId;
 
     return StreamProvider<List<ChildModel>>.value(
       initialData: [],
-      value: DatabaseService(userId: userId).allChildData,
+      value: parentDatabase(parentId: parentId).allChildData,
       child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
+          margin: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
           child: Column(
             children: <Widget>[
               Container(
@@ -34,7 +35,7 @@ class _childMainState extends State<childMain> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(
+                    const Text(
                       "Your Child",
                       style: TextStyle(
                           color: Colors.black,
@@ -44,8 +45,11 @@ class _childMainState extends State<childMain> {
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xff8290F0),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5)
+                        ),
                       ),
-                      child: Text(
+                      child: const Text(
                         'Add New Child',
                         style: TextStyle(
                           color: Colors.white,
@@ -57,14 +61,14 @@ class _childMainState extends State<childMain> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  registerChild(currentuserId: userId))
+                                  registerChild(parentId: parentId))
                         );
                       }
                     )
                   ]
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8.0,
               ),
               Container(
@@ -84,7 +88,7 @@ class _childMainState extends State<childMain> {
               //         context,
               //         MaterialPageRoute(
               //             builder: (context) =>
-              //                 registerChild(currentuserId: userId)));
+              //                 registerChild(currentparentId: parentId)));
               //   },
               //   child: Text('Register new child'),
               // ),
