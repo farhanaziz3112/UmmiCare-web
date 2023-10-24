@@ -19,7 +19,7 @@ class _medicalStaffRegistrationState extends State<medicalStaffRegistration> {
   String password = '';
 
   //account details
-  String staffUserType = 'medicalStaff';
+  String staffUserType = 'medicalstaff';
   String staffFullName = '';
   String staffFirstName = '';
   String staffLastName = '';
@@ -51,7 +51,7 @@ class _medicalStaffRegistrationState extends State<medicalStaffRegistration> {
         padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: SingleChildScrollView(
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 20.0),
+            padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 700.0),
             child: Form(
               key: _formKey,
               child: Column(

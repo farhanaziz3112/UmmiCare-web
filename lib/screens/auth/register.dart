@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ummicare/screens/auth/staff_registration/staffRegistration.dart';
 import 'package:ummicare/services/auth.dart';
-import 'package:ummicare/shared/loading.dart';
 import 'package:ummicare/shared/constant.dart';
 
 class Register extends StatefulWidget {
+  const Register({super.key, required this.toggleView});
   final Function toggleView;
-  const Register({required this.toggleView});
 
   @override
   State<Register> createState() => _RegisterState();
@@ -25,33 +24,35 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-            backgroundColor: Color(0xff71cbca),
-            // appBar: AppBar(
-            //   backgroundColor: Colors.grey[500],
-            //   elevation: 0.0,
-            //   title: Text('Register new user account'),
-            //   actions: <Widget>[
-            //     TextButton.icon(
-            //       icon: Icon(
-            //         Icons.person,
-            //         color: Colors.black,
-            //       ),
-            //       label: Text(
-            //         'Sign In',
-            //         style: TextStyle(color: Colors.black),
-            //       ),
-            //       onPressed: () => widget.toggleView(),
-            //     )
-            //   ],
-            // ),
-            resizeToAvoidBottomInset: false,
-            body: Container(
-              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+        backgroundColor: const Color(0xff71cbca),
+        // appBar: AppBar(
+        //   backgroundColor: Colors.grey[500],
+        //   elevation: 0.0,
+        //   title: Text('Register new user account'),
+        //   actions: <Widget>[
+        //     TextButton.icon(
+        //       icon: Icon(
+        //         Icons.person,
+        //         color: Colors.black,
+        //       ),
+        //       label: Text(
+        //         'Sign In',
+        //         style: TextStyle(color: Colors.black),
+        //       ),
+        //       onPressed: () => widget.toggleView(),
+        //     )
+        //   ],
+        // ),
+        resizeToAvoidBottomInset: false,
+        body: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 600, minWidth: 200),
+            child: Container(
               child: Form(
                 key: _formKey,
                 child: Column(
                   children: <Widget>[
-                    SizedBox(
+                    const SizedBox(
                       height: 200.0,
                       child: Center(
                         child: Text(
@@ -65,13 +66,12 @@ class _RegisterState extends State<Register> {
                       ),
                     ),
                     TextFormField(
-                      decoration:
-                          textInputDecoration.copyWith(hintText: 'Email'),
+                      decoration: textInputDecoration.copyWith(hintText: 'Email'),
                       validator: (value) =>
                           value!.isEmpty ? 'Enter an email' : null,
                       onChanged: (value) => {setState(() => email = value)},
                     ),
-                    SizedBox(height: 20.0),
+                    const SizedBox(height: 20.0),
                     TextFormField(
                       decoration:
                           textInputDecoration.copyWith(hintText: 'Password'),
@@ -81,23 +81,22 @@ class _RegisterState extends State<Register> {
                           : null,
                       onChanged: (value) => {setState(() => password = value)},
                     ),
-                    SizedBox(height: 20.0),
+                    const SizedBox(height: 20.0),
                     Text(
                       errorMessage,
-                      style: TextStyle(color: Colors.red, fontSize: 14.0),
+                      style: const TextStyle(color: Colors.red, fontSize: 14.0),
                     ),
-                    SizedBox(height: 10.0),
+                    const SizedBox(height: 10.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xfff29180),
-                                shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5)
-                              ),
+                              backgroundColor: const Color(0xfff29180),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5)),
                             ),
-                            child: Text(
+                            child: const Text(
                               'Register',
                               style: TextStyle(
                                   color: Color.fromARGB(255, 255, 255, 255)),
@@ -105,8 +104,8 @@ class _RegisterState extends State<Register> {
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
                                 setState(() => loading = true);
-                                dynamic result =
-                                    await _auth.registerParentWithEmailAndPassword(
+                                dynamic result = await _auth
+                                    .registerParentWithEmailAndPassword(
                                         email, password);
                                 if (result == null) {
                                   setState(() {
@@ -140,17 +139,19 @@ class _RegisterState extends State<Register> {
                         // }),
                       ],
                     ),
-                    SizedBox(height: 10.0),
+                    const SizedBox(height: 20.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(
+                        const Text(
                           'Already have an account?',
                           style: TextStyle(color: Colors.black),
                         ),
                         TextButton(
-                          onPressed: () => widget.toggleView(),
-                          child: Text(
+                          onPressed: () => {
+                            widget.toggleView()
+                          },
+                          child: const Text(
                             'Sign In here',
                             style: TextStyle(
                                 color: Colors.black,
@@ -160,10 +161,11 @@ class _RegisterState extends State<Register> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(
+                        const Text(
                           'Registration for staff?',
                           style: TextStyle(color: Colors.black),
                         ),
@@ -172,9 +174,9 @@ class _RegisterState extends State<Register> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => staffRegistration()));
+                                    builder: (context) => const staffRegistration()));
                           },
-                          child: Text(
+                          child: const Text(
                             'Click here',
                             style: TextStyle(
                                 color: Colors.black,
@@ -187,6 +189,8 @@ class _RegisterState extends State<Register> {
                   ],
                 ),
               ),
-            ));
+            ),
+          ),
+        ));
   }
 }

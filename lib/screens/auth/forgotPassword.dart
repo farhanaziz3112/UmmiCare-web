@@ -23,7 +23,7 @@ class _forgotPasswordState extends State<forgotPassword> {
     return status
         ? Scaffold(
             appBar: AppBar(
-              title: Text(
+              title: const Text(
                 'Reset Password',
                 style: TextStyle(
                   color: Colors.black,
@@ -31,19 +31,19 @@ class _forgotPasswordState extends State<forgotPassword> {
                   fontWeight: FontWeight.bold
                 ),
               ),
-              iconTheme: IconThemeData(color: Colors.black),
+              iconTheme: const IconThemeData(color: Colors.black),
               centerTitle: true,
-              backgroundColor: Color(0xfff29180),
+              backgroundColor: const Color(0xfff29180),
             ),
-            backgroundColor: Color(0xff71cbca),
+            backgroundColor: Colors.white,
             resizeToAvoidBottomInset: false,
             body: Container(
-              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+              padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 700.0),
               child: Form(
                 key: _formKey,
                 child: Column(
                   children: <Widget>[
-                    SizedBox(
+                    const SizedBox(
                       height: 100,
                       child: Center(
                         child: Text(
@@ -51,7 +51,6 @@ class _forgotPasswordState extends State<forgotPassword> {
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 15.0,
-                              fontFamily: 'Comfortaa',
                               fontWeight: FontWeight.w300),
                           textAlign: TextAlign.justify,
                         ),
@@ -64,20 +63,20 @@ class _forgotPasswordState extends State<forgotPassword> {
                           value!.isEmpty ? 'Enter an email' : null,
                       onChanged: (value) => {setState(() => email = value)},
                     ),
-                    SizedBox(height: 20.0),
+                    const SizedBox(height: 20.0),
                     Text(
                       errorMessage,
-                      style: TextStyle(color: Colors.red, fontSize: 14.0),
+                      style: const TextStyle(color: Colors.red, fontSize: 14.0),
                     ),
-                    SizedBox(height: 20.0),
+                    const SizedBox(height: 20.0),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xfff29180),
+                        backgroundColor: const Color(0xff71cbca),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)
                         ),
                       ),
-                      child: Text(
+                      child: const Text(
                         'Reset Password',
                         style: TextStyle(color: Colors.white),
                       ),
@@ -99,7 +98,7 @@ class _forgotPasswordState extends State<forgotPassword> {
           )
         : Scaffold(
             appBar: AppBar(
-              title: Text(
+              title: const Text(
                 'Reset Password',
                 style: TextStyle(
                   color: Colors.black,
@@ -107,15 +106,15 @@ class _forgotPasswordState extends State<forgotPassword> {
                   fontWeight: FontWeight.bold
                 ),
               ),
-              iconTheme: IconThemeData(color: Colors.black),
+              iconTheme: const IconThemeData(color: Colors.black),
               centerTitle: true,
-              backgroundColor: Color(0xfff29180),
+              backgroundColor: const Color(0xfff29180),
             ),
-            backgroundColor: Color(0xff71cbca),
+            backgroundColor: Colors.white,
             resizeToAvoidBottomInset: false,
             body: Container(
-              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-              child: Text(
+              padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+              child: const Text(
                 'A link has been sent to your email. Kindly check your email and click on the link to reset the password. If there is no email received, please go back and try again.',
                 textAlign: TextAlign.justify,
               ),

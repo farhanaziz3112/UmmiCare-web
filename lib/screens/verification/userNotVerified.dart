@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ummicare/services/auth.dart';
 
@@ -16,36 +15,37 @@ class _userNotVerifiedState extends State<userNotVerified> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'User Verification',
           style: TextStyle(
-              color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),
+              color: Colors.white, fontSize: 25),
         ),
         elevation: 3,
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.white),
         automaticallyImplyLeading: false,
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xfff29180),
       ),
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+        alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
         child: Column(
           children: <Widget>[
-            Text(
+            const Text(
               'Oops! Your account is not verified. Please contact the administrator.',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xff8290F0),
+                backgroundColor: const Color(0xff71cbca),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5)),
               ),
-              child: Text(
+              child: const Text(
                 'Exit',
                 style: TextStyle(
                   color: Colors.white

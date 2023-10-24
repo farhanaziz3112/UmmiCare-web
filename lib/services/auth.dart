@@ -7,6 +7,7 @@ import 'package:ummicare/shared/function.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  late final userModel currentUser;
 
   //create user object based on the firebase user verified
   userModel? _userAuthObjectFromFirebase(User user) {
@@ -21,6 +22,14 @@ class AuthService {
     return getLastSignedInFormat(_auth
         .currentUser!.metadata.lastSignInTime!.millisecondsSinceEpoch
         .toString());
+  }
+
+  bool isAuthenticated() {
+    return _auth.currentUser != null;
+  }
+
+  String getUserType() {
+    return currentUser.userType;
   }
 
   //auth change user stream

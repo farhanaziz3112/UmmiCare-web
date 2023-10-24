@@ -27,7 +27,7 @@ class _staffRegistrationState extends State<staffRegistration> {
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 700.0),
         child: Column(
           children: [
             SizedBox(
