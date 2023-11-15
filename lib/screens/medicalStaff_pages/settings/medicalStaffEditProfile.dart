@@ -228,6 +228,7 @@ class _medicalStaffEditProfileState extends State<medicalStaffEditProfile> {
                               await staffDatabase(staffId: staff.staffId)
                                   .updateStaffData(
                                       staff.staffId,
+                                      staff.staffCreatedDate,
                                       staff.staffUserType,
                                       _currentFullName == ''
                                           ? staff.staffFullName

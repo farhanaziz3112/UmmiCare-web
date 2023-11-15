@@ -15,25 +15,25 @@ class _staffRegistrationState extends State<staffRegistration> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Staff Registration",
           style: TextStyle(
               color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),
         ),
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         centerTitle: true,
-        backgroundColor: Color(0xfff29180),
+        backgroundColor: const Color(0xfff29180),
       ),
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 700.0),
+        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 700.0),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
@@ -45,18 +45,18 @@ class _staffRegistrationState extends State<staffRegistration> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 30.0,
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xff71cbca),
+                  backgroundColor: const Color(0xff71cbca),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5)),
                   minimumSize: const Size.fromHeight(30.0)),
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0),
-                child: Column(
+                padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 0),
+                child: const Column(
                   children: <Widget>[
                     Icon(
                       Icons.support_agent,
@@ -78,22 +78,22 @@ class _staffRegistrationState extends State<staffRegistration> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => advisorRegistration()));
+                        builder: (context) => const advisorRegistration()));
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 15.0,
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xff71cbca),
+                backgroundColor: const Color(0xff71cbca),
                 minimumSize: const Size.fromHeight(30.0),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5)),
               ),
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0),
-                child: Column(
+                padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 0),
+                child: const Column(
                   children: <Widget>[
                     Icon(
                       Icons.school,
@@ -115,22 +115,22 @@ class _staffRegistrationState extends State<staffRegistration> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => teacherRegistration()));
+                        builder: (context) => const teacherRegistration()));
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 15.0,
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xff71cbca),
+                backgroundColor: const Color(0xff71cbca),
                 minimumSize: const Size.fromHeight(30.0),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5)),
               ),
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0),
-                child: Column(
+                padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 0),
+                child: const Column(
                   children: <Widget>[
                     Icon(
                       Icons.health_and_safety,
@@ -152,7 +152,7 @@ class _staffRegistrationState extends State<staffRegistration> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => medicalStaffRegistration()));
+                        builder: (context) => const medicalStaffRegistration()));
               },
             ),
           ],

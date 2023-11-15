@@ -49,23 +49,20 @@
 //   //'/settings/editprofile': (context) => editProfile(),
 // };
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ummicare/models/userModel.dart';
 import 'package:ummicare/screens/adminPages/adminHome.dart';
 import 'package:ummicare/screens/adminPages/advisor/adminAdvisor.dart';
 import 'package:ummicare/screens/adminPages/advisor/staffPages/advisorProfilePageDecider.dart';
-import 'package:ummicare/screens/adminPages/home/adminMain.dart';
 import 'package:ummicare/screens/adminPages/medicalStaff/adminMedicalStaff.dart';
 import 'package:ummicare/screens/adminPages/medicalStaff/staffPages/medicalStaffProfilePageDecider.dart';
 import 'package:ummicare/screens/adminPages/settings/adminSettings.dart';
 import 'package:ummicare/screens/adminPages/teacher/adminTeacher.dart';
 import 'package:ummicare/screens/adminPages/teacher/staffPages/teacherProfilePageDecider.dart';
 import 'package:ummicare/screens/advisorPages/advisorHome.dart';
+import 'package:ummicare/screens/advisorPages/parent/child/childPages.dart';
+import 'package:ummicare/screens/advisorPages/parent/parentPages/parentPages.dart';
 import 'package:ummicare/screens/advisorPages/settings/advisorSettings.dart';
-import 'package:ummicare/screens/auth/authenticate.dart';
-import 'package:ummicare/screens/auth/register.dart';
 import 'package:ummicare/screens/auth/signIn.dart';
 import 'package:ummicare/screens/verification/wrapper.dart';
 import 'package:ummicare/services/auth.dart';
@@ -88,7 +85,7 @@ final GoRouter routes = GoRouter(
       GoRoute(
           path: '/auth',
           builder: (BuildContext context, GoRouterState state) {
-            return const Authenticate();
+            return const SignIn();
           }),
       GoRoute(
           path: '/',
@@ -373,7 +370,79 @@ final GoRouter routes = GoRouter(
                 pageBuilder: (context, state) => NoTransitionPage<void>(
                       key: state.pageKey,
                       child: const advisorHome(currentPage: 1),
-                    )),
+                    ),
+                routes: [
+                  GoRoute(
+                      path: ':id',
+                      pageBuilder: (context, state) => NoTransitionPage<void>(
+                          key: state.pageKey,
+                          child: parentPages(
+                            currentPage: 0,
+                            parentId: state.pathParameters['id']!,
+                          )),
+                      routes: [
+                        GoRoute(
+                            path: 'chat',
+                            pageBuilder: (context, state) =>
+                                NoTransitionPage<void>(
+                                    key: state.pageKey,
+                                    child: parentPages(
+                                      currentPage: 1,
+                                      parentId: state.pathParameters['id']!,
+                                    ))),
+                        GoRoute(
+                            path: 'statistics',
+                            pageBuilder: (context, state) =>
+                                NoTransitionPage<void>(
+                                    key: state.pageKey,
+                                    child: parentPages(
+                                      currentPage: 2,
+                                      parentId: state.pathParameters['id']!,
+                                    ))),
+                        GoRoute(
+                            path: 'settings',
+                            pageBuilder: (context, state) =>
+                                NoTransitionPage<void>(
+                                    key: state.pageKey,
+                                    child: parentPages(
+                                      currentPage: 3,
+                                      parentId: state.pathParameters['id']!,
+                                    ))),
+                        GoRoute(
+                            path: ':childId',
+                            pageBuilder: (context, state) =>
+                                NoTransitionPage<void>(
+                                    key: state.pageKey,
+                                    child: childPages(
+                                      currentPage: 0,
+                                      childId: state.pathParameters['childId']!,
+                                    ))),
+                      ]),
+                  // GoRoute(
+                  //     path: ':id/chat',
+                  //     pageBuilder: (context, state) => NoTransitionPage<void>(
+                  //         key: state.pageKey,
+                  //         child: parentPages(
+                  //           currentPage: 1,
+                  //           parentId: state.pathParameters['id']!,
+                  //         ))),
+                  // GoRoute(
+                  //     path: ':id/statistics',
+                  //     pageBuilder: (context, state) => NoTransitionPage<void>(
+                  //         key: state.pageKey,
+                  //         child: parentPages(
+                  //           currentPage: 2,
+                  //           parentId: state.pathParameters['id']!,
+                  //         ))),
+                  // GoRoute(
+                  //     path: ':id/settings',
+                  //     pageBuilder: (context, state) => NoTransitionPage<void>(
+                  //         key: state.pageKey,
+                  //         child: parentPages(
+                  //           currentPage: 3,
+                  //           parentId: state.pathParameters['id']!,
+                  //         )))
+                ]),
             GoRoute(
                 path: 'settings',
                 pageBuilder: (context, state) => NoTransitionPage<void>(

@@ -17,8 +17,8 @@ class _staffListState extends State<staffList> {
 
     if (staffList.isEmpty) {
       return Container(
-        padding: EdgeInsets.only(top: 50),
-        child: Center(
+        padding: const EdgeInsets.only(top: 50),
+        child: const Center(
           child: Text(
             'The list is empty.',
           ),

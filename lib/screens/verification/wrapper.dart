@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
-import 'package:ummicare/screens/auth/authenticate.dart';
 import 'package:ummicare/models/userModel.dart';
+import 'package:ummicare/screens/auth/signIn.dart';
 import 'package:ummicare/screens/verification/userTypeDecider.dart';
 import 'package:ummicare/services/auth.dart';
 import 'package:ummicare/services/userDatabase.dart';
@@ -18,7 +18,7 @@ class Wrapper extends StatelessWidget {
     //return either the Home or Auth pages
     //depending on the current state of auth
     if (user == null) {
-      return const Authenticate();
+      return const SignIn();
     } else {
       _auth.currentUser = user;
       return StreamProvider<userModel?>.value(

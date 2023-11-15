@@ -1,11 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_network/image_network.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:ummicare/models/staffUserModel.dart';
+import 'package:ummicare/models/advisorModel.dart';
 import 'package:ummicare/models/userModel.dart';
-import 'package:ummicare/services/staffDatabase.dart';
+import 'package:ummicare/services/advisorDatabase.dart';
 import 'package:ummicare/services/storage.dart';
 import 'package:ummicare/shared/constant.dart';
 
@@ -29,11 +30,11 @@ class _advisorEditProfileState extends State<advisorEditProfile> {
   Widget build(BuildContext context) {
     userModel? user = Provider.of<userModel?>(context);
 
-    return StreamBuilder<staffUserModel>(
-        stream: staffDatabase(staffId: user!.userId).staffData,
+    return StreamBuilder<advisorModel>(
+        stream: advisorDatabase(advisorId: user!.userId).advisorData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            staffUserModel? staff = snapshot.data;
+            advisorModel? advisor = snapshot.data;
             return Container(
               alignment: Alignment.topLeft,
               child: Column(
@@ -108,12 +109,11 @@ class _advisorEditProfileState extends State<advisorEditProfile> {
                               Stack(
                                 clipBehavior: Clip.none,
                                 children: [
-                                  CircleAvatar(
-                                    backgroundImage:
-                                        NetworkImage(staff!.staffProfileImg),
-                                    radius: 50.0,
-                                    backgroundColor: Colors.grey,
-                                  ),
+                                  ImageNetwork(
+                                      image: advisor!.advisorProfileImg,
+                                      height: 100,
+                                      width: 100,
+                                      borderRadius: BorderRadius.circular(70)),
                                   Positioned(
                                     bottom: -60,
                                     right: -15,
@@ -124,12 +124,12 @@ class _advisorEditProfileState extends State<advisorEditProfile> {
                                         XFile? file =
                                             await imagePicker.pickImage(
                                                 source: ImageSource.gallery);
-                                        print('${file!.path}');
+                                        var f = await file!.readAsBytes();
 
                                         StorageService _storageService =
                                             StorageService();
-                                        _storageService.uploadStaffProfilePic(
-                                            staff, file);
+                                        _storageService.uploadAdvisorProfilePic(
+                                            advisor, file);
                                       },
                                       constraints: BoxConstraints.tight(
                                           const Size(30, 30)),
@@ -145,9 +145,9 @@ class _advisorEditProfileState extends State<advisorEditProfile> {
                                 ],
                               ),
                               const SizedBox(height: 20),
-                              Text(staff.staffFullName),
+                              Text(advisor.advisorFullName),
                               const SizedBox(height: 15),
-                              Text(staff.staffEmail)
+                              Text(advisor.advisorEmail)
                             ],
                           ),
                         ),
@@ -174,7 +174,7 @@ class _advisorEditProfileState extends State<advisorEditProfile> {
                                   ),
                                   TextFormField(
                                     initialValue: _currentFullName == ''
-                                        ? staff.staffFullName
+                                        ? advisor.advisorFullName
                                         : _currentFullName,
                                     decoration: textInputDecoration,
                                     validator: (value) => value == ''
@@ -204,7 +204,7 @@ class _advisorEditProfileState extends State<advisorEditProfile> {
                                   ),
                                   TextFormField(
                                     initialValue: _currentFirstName == ''
-                                        ? staff.staffFirstName
+                                        ? advisor.advisorFirstName
                                         : _currentFirstName,
                                     decoration: textInputDecoration,
                                     validator: (value) => value == ''
@@ -234,7 +234,7 @@ class _advisorEditProfileState extends State<advisorEditProfile> {
                                   ),
                                   TextFormField(
                                     initialValue: _currentLastName == ''
-                                        ? staff.staffLastName
+                                        ? advisor.advisorLastName
                                         : _currentLastName,
                                     decoration: textInputDecoration,
                                     validator: (value) => value == ''
@@ -264,7 +264,7 @@ class _advisorEditProfileState extends State<advisorEditProfile> {
                                   ),
                                   TextFormField(
                                     initialValue: _currentPhoneNumber == ''
-                                        ? staff.staffPhoneNumber
+                                        ? advisor.advisorPhoneNumber
                                         : _currentPhoneNumber,
                                     decoration: textInputDecoration,
                                     validator: (value) => value == ''
@@ -289,28 +289,26 @@ class _advisorEditProfileState extends State<advisorEditProfile> {
                                     ),
                                     onPressed: () async {
                                       if (_formKey.currentState!.validate()) {
-                                        await staffDatabase(
-                                                staffId: staff.staffId)
-                                            .updateStaffData(
-                                                staff.staffId,
-                                                staff.staffUserType,
+                                        await advisorDatabase(
+                                                advisorId: advisor.advisorId)
+                                            .updateAdvisorData(
+                                                advisor.advisorId,
+                                                advisor.advisorCreatedDate,
                                                 _currentFullName == ''
-                                                    ? staff.staffFullName
+                                                    ? advisor.advisorFullName
                                                     : _currentFullName,
                                                 _currentFirstName == ''
-                                                    ? staff.staffFirstName
+                                                    ? advisor.advisorFirstName
                                                     : _currentFirstName,
                                                 _currentLastName == ''
-                                                    ? staff.staffLastName
+                                                    ? advisor.advisorLastName
                                                     : _currentLastName,
-                                                staff.staffEmail,
+                                                advisor.advisorEmail,
                                                 _currentPhoneNumber == ''
-                                                    ? staff.staffPhoneNumber
+                                                    ? advisor.advisorPhoneNumber
                                                     : _currentPhoneNumber,
-                                                staff
-                                                    .staffSupportingDocumentLink,
-                                                staff.staffProfileImg,
-                                                staff.isVerified);
+                                                advisor.advisorProfileImg,
+                                                advisor.noOfParents);
                                         context.go('/advisor/settings');
                                       }
                                     },

@@ -293,6 +293,7 @@ class _adminEditProfileState extends State<adminEditProfile> {
                                                 staffId: staff.staffId)
                                             .updateStaffData(
                                                 staff.staffId,
+                                                staff.staffCreatedDate,
                                                 staff.staffUserType,
                                                 _currentFullName == ''
                                                     ? staff.staffFullName

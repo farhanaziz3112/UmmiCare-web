@@ -14,7 +14,10 @@ class AuthService {
     // ignore: unnecessary_null_comparison
     return user != null
         ? userModel(
-            userId: user.uid, userType: '', userEmail: user.email.toString())
+            userId: user.uid,
+            userType: '',
+            userEmail: user.email.toString(),
+          )
         : null;
   }
 
@@ -39,47 +42,31 @@ class AuthService {
         .map((User? user) => _userAuthObjectFromFirebase(user!));
   }
 
-  //register new parent with email and password
-  Future registerParentWithEmailAndPassword(
-      String email, String password) async {
-    try {
-      UserCredential authResult = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      User? user = authResult.user;
-      await userDatabase(userId: user!.uid)
-          .updateUserData(user.uid, 'parent', user.email.toString());
-      await parentDatabase(parentId: user.uid).updateParentData(
-          user.uid, 'New User', '-', '-', user.email.toString(), '-', '-');
-      return _userAuthObjectFromFirebase(user);
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
-  }
-
   //register new staff with email and password
   Future registerStaffWithEmailAndPassword(
-    String email,
-    String password,
-    String staffUserType,
-    String staffFullName,
-    String staffFirstName,
-    String staffLastName,
-    String staffPhoneNumber,
-    String staffProfileImg,
-    String staffSupportingDocumentLink,
-    String isVerified
-  ) async {
+      String email,
+      String password,
+      String staffUserType,
+      String staffFullName,
+      String staffFirstName,
+      String staffLastName,
+      String staffPhoneNumber,
+      String staffProfileImg,
+      String staffSupportingDocumentLink,
+      String isVerified) async {
     try {
       //var originalUser = _auth.currentUser!;
       UserCredential authResult = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       //_auth.sign(originalUser);
       User? user = authResult.user;
+      //for createdDate store in db
+      String createdDate = DateTime.now().millisecondsSinceEpoch.toString();
       await userDatabase(userId: user!.uid)
           .updateUserData(user.uid, staffUserType, user.email.toString());
       await staffDatabase(staffId: user.uid).updateStaffData(
           user.uid,
+          createdDate,
           staffUserType,
           staffFullName,
           staffFirstName,
@@ -87,7 +74,7 @@ class AuthService {
           email,
           staffPhoneNumber,
           staffSupportingDocumentLink,
-          '-',
+          '',
           isVerified);
       //return _userAuthObjectFromFirebase(user);
     } catch (e) {

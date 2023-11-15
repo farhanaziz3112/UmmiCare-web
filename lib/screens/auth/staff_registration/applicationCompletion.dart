@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ummicare/screens/auth/authenticate.dart';
+import 'package:ummicare/screens/auth/signIn.dart';
 
 class applicationCompletion extends StatefulWidget {
   const applicationCompletion({super.key});
@@ -56,7 +56,7 @@ class _applicationCompletionState extends State<applicationCompletion> {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Authenticate()));
+                            builder: (context) => const SignIn()));
                   })
             ],
           ),

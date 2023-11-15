@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:image_network/image_network.dart';
 import 'package:provider/provider.dart';
-import 'package:ummicare/models/staffUserModel.dart';
+import 'package:ummicare/models/advisorModel.dart';
 import 'package:ummicare/models/userModel.dart';
-import 'package:ummicare/services/staffDatabase.dart';
+import 'package:ummicare/services/advisorDatabase.dart';
 
 class advisorHomeProfile extends StatefulWidget {
   const advisorHomeProfile({super.key});
@@ -17,26 +18,28 @@ class _advisorHomeProfileState extends State<advisorHomeProfile> {
     userModel? user = Provider.of<userModel>(context);
 
     return StreamBuilder(
-        stream: staffDatabase(staffId: user.userId).staffData,
+        stream: advisorDatabase(advisorId: user.userId).advisorData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            staffUserModel? staff = snapshot.data;
+            advisorModel? advisor = snapshot.data;
             return Column(
-              children: <Widget> [
-                CircleAvatar(
-                  backgroundImage: NetworkImage(staff!.staffProfileImg),
-                  radius: 35,
+              children: <Widget>[
+                ImageNetwork(
+                    image: advisor!.advisorProfileImg,
+                    height: 100,
+                    width: 100,
+                    borderRadius: BorderRadius.circular(70)),
+                const SizedBox(
+                  height: 20,
                 ),
-                SizedBox(height: 20,),
-                Text(staff.staffFullName),
-                SizedBox(height: 15),
-                Text(staff.staffEmail)
+                Text(advisor.advisorFullName),
+                const SizedBox(height: 15),
+                Text(advisor.advisorEmail)
               ],
             );
           } else {
             return Container();
           }
-        }
-    );
+        });
   }
 }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ummicare/screens/auth/forgotPassword.dart';
+import 'package:ummicare/screens/auth/staff_registration/staffRegistration.dart';
 import 'package:ummicare/services/auth.dart';
 import 'package:ummicare/shared/constant.dart';
 
 class SignIn extends StatefulWidget {
-  final Function toggleView;
-  const SignIn({super.key, required this.toggleView});
+  const SignIn({super.key});
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -145,7 +145,10 @@ class _SignInState extends State<SignIn> {
                       ),
                       TextButton(
                         onPressed: () {
-                          widget.toggleView();
+                          Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const staffRegistration()));
                         },
                         child: const Text(
                           'Register here',

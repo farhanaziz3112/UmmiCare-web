@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ummicare/models/staffUserModel.dart';
 import 'package:ummicare/services/adminDatabase.dart';
+import 'package:ummicare/services/advisorDatabase.dart';
+import 'package:ummicare/services/medicalStaffDatabase.dart';
 import 'package:ummicare/services/staffDatabase.dart';
+import 'package:ummicare/services/teacherDatabase.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class pendingStaffProfilePage extends StatefulWidget {
@@ -59,7 +62,8 @@ class _pendingStaffProfilePageState extends State<pendingStaffProfilePage> {
                       ],
                     ),
                     ConstrainedBox(
-                      constraints: const BoxConstraints(minWidth: 150, maxWidth: 400),
+                      constraints:
+                          const BoxConstraints(minWidth: 150, maxWidth: 400),
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,7 +131,8 @@ class _pendingStaffProfilePageState extends State<pendingStaffProfilePage> {
                       ],
                     ),
                     ConstrainedBox(
-                      constraints: const BoxConstraints(minWidth: 150, maxWidth: 400),
+                      constraints:
+                          const BoxConstraints(minWidth: 150, maxWidth: 400),
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -160,7 +165,8 @@ class _pendingStaffProfilePageState extends State<pendingStaffProfilePage> {
                       ],
                     ),
                     ConstrainedBox(
-                      constraints: const BoxConstraints(minWidth: 150, maxWidth: 400),
+                      constraints:
+                          const BoxConstraints(minWidth: 150, maxWidth: 400),
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -228,7 +234,8 @@ class _pendingStaffProfilePageState extends State<pendingStaffProfilePage> {
                       ],
                     ),
                     ConstrainedBox(
-                      constraints: const BoxConstraints(minWidth: 150, maxWidth: 400),
+                      constraints:
+                          const BoxConstraints(minWidth: 150, maxWidth: 400),
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -319,6 +326,7 @@ class _pendingStaffProfilePageState extends State<pendingStaffProfilePage> {
                                     onPressed: (() {
                                       adminDatabase().updateStaffData(
                                           staff.staffId,
+                                          staff.staffCreatedDate,
                                           staff.staffUserType,
                                           staff.staffFullName,
                                           staff.staffFirstName,
@@ -328,7 +336,8 @@ class _pendingStaffProfilePageState extends State<pendingStaffProfilePage> {
                                           staff.staffSupportingDocumentLink,
                                           staff.staffProfileImg,
                                           'rejected');
-                                      context.go('/admin/${staff.staffUserType}/pending');
+                                      context.go(
+                                          '/admin/${staff.staffUserType}/pending');
                                     }),
                                     child: Container(
                                       padding: const EdgeInsets.all(10),
@@ -386,6 +395,7 @@ class _pendingStaffProfilePageState extends State<pendingStaffProfilePage> {
                                     onPressed: (() async {
                                       adminDatabase().updateStaffData(
                                           staff.staffId,
+                                          staff.staffCreatedDate,
                                           staff.staffUserType,
                                           staff.staffFullName,
                                           staff.staffFirstName,
@@ -395,7 +405,44 @@ class _pendingStaffProfilePageState extends State<pendingStaffProfilePage> {
                                           staff.staffSupportingDocumentLink,
                                           staff.staffProfileImg,
                                           'true');
-                                      context.go('/admin/${staff.staffUserType}/pending');
+                                      if (staff.staffUserType == 'advisor') {
+                                        advisorDatabase(advisorId: '')
+                                            .updateAdvisorData(
+                                                staff.staffId,
+                                                staff.staffCreatedDate,
+                                                staff.staffFullName,
+                                                staff.staffFirstName,
+                                                staff.staffLastName,
+                                                staff.staffEmail,
+                                                staff.staffPhoneNumber,
+                                                staff.staffProfileImg,
+                                                '0');
+                                      } else if (staff.staffUserType ==
+                                          'teacher') {
+                                        teacherDatabase(teacherId: '')
+                                            .updateTeacherData(
+                                                staff.staffId,
+                                                staff.staffCreatedDate,
+                                                staff.staffFullName,
+                                                staff.staffFirstName,
+                                                staff.staffLastName,
+                                                staff.staffEmail,
+                                                staff.staffPhoneNumber,
+                                                staff.staffProfileImg);
+                                      } else {
+                                        medicalStaffDatabase(medicalStaffId: '')
+                                            .updateMedicalStaffData(
+                                                staff.staffId,
+                                                staff.staffCreatedDate,
+                                                staff.staffFullName,
+                                                staff.staffFirstName,
+                                                staff.staffLastName,
+                                                staff.staffEmail,
+                                                staff.staffPhoneNumber,
+                                                staff.staffProfileImg);
+                                      }
+                                      context.go(
+                                          '/admin/${staff.staffUserType}/pending');
                                     }),
                                     child: Container(
                                       padding: const EdgeInsets.all(10),
