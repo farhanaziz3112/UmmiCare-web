@@ -11,6 +11,9 @@ class advisorDatabase {
   final CollectionReference advisorCollection =
       FirebaseFirestore.instance.collection('Advisor');
 
+  final CollectionReference parentCollection =
+      FirebaseFirestore.instance.collection('Parent');
+
   //get specific advisor document stream
   Stream<advisorModel> get advisorData {
     return advisorCollection.doc(advisorId).snapshots().map(_createAdvisorModelObject);
@@ -57,8 +60,22 @@ class advisorDatabase {
     advisorCollection.doc(advisor.advisorId).collection('Parent').doc(parentId).set(parent);
   }
 
-  Stream<List<parentModel>> getParents(String docId) {
-    return advisorCollection.doc(docId).collection('Parent').snapshots().map(_createParentModelList);
+  Stream<List<parentAdvisorModel>> getParentAdvisorList(String docId) {
+    return advisorCollection.doc(docId).collection('Parent').snapshots().map(_createParentAdvisorModelList);
+  }
+
+  //create a list of user model object
+  List<parentAdvisorModel> _createParentAdvisorModelList(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return parentAdvisorModel(
+        parentId: doc.data().toString().contains('parentId') ? doc.get('parentId') : '',
+        assignedDate: doc.data().toString().contains('assignedDate') ? doc.get('assignedDate') : '',
+      );
+    }).toList();
+  }
+
+  Stream<List<parentModel>> getParentList(String docId) {
+    return parentCollection.where('advisorId', isEqualTo: advisorId).snapshots().map(_createParentModelList);
   }
 
   //create a list of user model object

@@ -1,4 +1,9 @@
-String convertTimeToDate(String timeInMilliseconds) {
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:ummicare/models/childModel.dart';
+import 'package:ummicare/models/studentModel.dart';
+
+String convertTimeToDateString(String timeInMilliseconds) {
   int temp = int.parse(timeInMilliseconds);
   DateTime date = DateTime.fromMillisecondsSinceEpoch(temp);
   return date.day.toString() +
@@ -6,6 +11,67 @@ String convertTimeToDate(String timeInMilliseconds) {
       date.month.toString() +
       " / " +
       date.year.toString();
+}
+
+String convertTimeToDateWithStringMonth(String timeInMilliseconds) {
+  int temp = int.parse(timeInMilliseconds);
+  DateTime date = DateTime.fromMillisecondsSinceEpoch(temp);
+  return date.day.toString() +
+      " " +
+      monthToString(date.month) +
+      " " +
+      date.year.toString();
+}
+
+String convertTimeToHoursMinute(String timeInMilliseconds) {
+  int temp = int.parse(timeInMilliseconds);
+  DateTime date = DateTime.fromMillisecondsSinceEpoch(temp);
+  return date.hour.toString() +
+      " : " +
+      date.minute.toString();
+}
+
+String getTimeFormat(String timeInMilliseconds) {
+  DateTime temp = DateTime.fromMillisecondsSinceEpoch(int.parse(timeInMilliseconds));
+  return DateFormat.jm().format(temp);
+}
+
+String getTimeFormatWithDateTime(String timeInMilliseconds) {
+  DateTime temp = DateTime.fromMillisecondsSinceEpoch(int.parse(timeInMilliseconds));
+  return DateFormat.jm().format(temp);
+}
+
+TimeOfDay convertDateTimeToTimeofDay(String timeInMilliseconds) {
+  DateTime temp = DateTime.fromMillisecondsSinceEpoch(int.parse(timeInMilliseconds));
+  return TimeOfDay(hour: temp.hour, minute: temp.minute);
+}
+
+DateTime convertTimeToDate(String timeInMilliseconds) {
+  int temp = int.parse(timeInMilliseconds);
+  DateTime date = DateTime.fromMillisecondsSinceEpoch(temp);
+  return date;
+}
+
+DateTime convertTimeOfDayToDateTime(TimeOfDay timeOfDay, DateTime dateTime) {
+  return DateTime(dateTime.year, dateTime.month, dateTime.day, timeOfDay.hour, timeOfDay.minute);
+}
+
+String monthToString(int month) {
+  List<String> months = [
+    'Jan',
+    'Feb',
+    'Mac',
+    'Apr',
+    'May',
+    'June',
+    'July',
+    'Aug',
+    'Sept',
+    'Oct',
+    'Nov',
+    'Dec'
+  ];
+  return months.elementAt(month-1);
 }
 
 int getAge(String timeInMilliseconds) {
@@ -35,10 +101,30 @@ String getLastSignedInFormat(String timeInMilliSeconds) {
   return dateTime.hour.toString() +
       ":" +
       dateTime.minute.toString() +
-      " " + 
+      " " +
       dateTime.day.toString() +
       "/" +
       dateTime.month.toString() +
       "/" +
       dateTime.year.toString();
+}
+
+int getNoOfChildCategory(List<childModel> childList, String category) {
+  int total = 0;
+  for (int i = 0; i < childList.length; i++) {
+    if (childList.elementAt(i).childAgeCategory == category) {
+      total++;
+    }
+  }
+  return total;
+}
+
+int getNoOfStudentStatus(List<studentModel>? studentList, String status) {
+  int total = 0;
+  for (int i = 0; i < studentList!.length; i++) {
+    if (studentList.elementAt(i).activationStatus == status) {
+      total++;
+    }
+  }
+  return total;
 }

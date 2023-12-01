@@ -58,12 +58,16 @@ import 'package:ummicare/screens/adminPages/medicalStaff/adminMedicalStaff.dart'
 import 'package:ummicare/screens/adminPages/medicalStaff/staffPages/medicalStaffProfilePageDecider.dart';
 import 'package:ummicare/screens/adminPages/settings/adminSettings.dart';
 import 'package:ummicare/screens/adminPages/teacher/adminTeacher.dart';
+import 'package:ummicare/screens/adminPages/teacher/school/schoolPages.dart';
 import 'package:ummicare/screens/adminPages/teacher/staffPages/teacherProfilePageDecider.dart';
 import 'package:ummicare/screens/advisorPages/advisorHome.dart';
 import 'package:ummicare/screens/advisorPages/parent/child/childPages.dart';
 import 'package:ummicare/screens/advisorPages/parent/parentPages/parentPages.dart';
-import 'package:ummicare/screens/advisorPages/settings/advisorSettings.dart';
+import 'package:ummicare/screens/advisorPages/settings/advisorSettingsPages.dart';
 import 'package:ummicare/screens/auth/signIn.dart';
+import 'package:ummicare/screens/teacherPages/class/classPages.dart';
+import 'package:ummicare/screens/teacherPages/settings/teacherSettingsPages.dart';
+import 'package:ummicare/screens/teacherPages/teacherHome.dart';
 import 'package:ummicare/screens/verification/wrapper.dart';
 import 'package:ummicare/services/auth.dart';
 
@@ -238,6 +242,34 @@ final GoRouter routes = GoRouter(
                     pageBuilder: (context, state) => NoTransitionPage<void>(
                         key: state.pageKey,
                         child: const adminTeacher(currentPage: 4)),
+                  ),
+                  GoRoute(
+                    path: 'school',
+                    pageBuilder: (context, state) => NoTransitionPage<void>(
+                        key: state.pageKey,
+                        child: const schoolPages(
+                          currentPage: 0,
+                          schoolId: '',
+                        )),
+                    routes: [
+                      GoRoute(
+                        path: 'addschool',
+                        pageBuilder: (context, state) => NoTransitionPage<void>(
+                            key: state.pageKey,
+                            child: const schoolPages(
+                              currentPage: 1,
+                              schoolId: '',
+                            )),
+                      ),
+                      GoRoute(
+                        path: ':id',
+                        pageBuilder: (context, state) => NoTransitionPage<void>(
+                            key: state.pageKey,
+                            child: schoolPages(
+                                currentPage: 2,
+                                schoolId: state.pathParameters['id']!)),
+                      ),
+                    ],
                   ),
                 ]),
             GoRoute(
@@ -454,71 +486,311 @@ final GoRouter routes = GoRouter(
                     path: 'editprofile',
                     pageBuilder: (context, state) => NoTransitionPage<void>(
                         key: state.pageKey,
-                        child: const advisorSettings(currentPage: 0)),
+                        child: const advisorSettingsPages(currentPage: 0)),
                   ),
                   GoRoute(
                     path: 'systemsettings',
                     pageBuilder: (context, state) => NoTransitionPage<void>(
                         key: state.pageKey,
-                        child: const advisorSettings(currentPage: 1)),
+                        child: const advisorSettingsPages(currentPage: 1)),
                   ),
                   GoRoute(
                     path: 'version',
                     pageBuilder: (context, state) => NoTransitionPage<void>(
                         key: state.pageKey,
-                        child: const advisorSettings(currentPage: 2)),
+                        child: const advisorSettingsPages(currentPage: 2)),
                   ),
                   GoRoute(
                     path: 'privacyofpolicy',
                     pageBuilder: (context, state) => NoTransitionPage<void>(
                         key: state.pageKey,
-                        child: const advisorSettings(currentPage: 3)),
+                        child: const advisorSettingsPages(currentPage: 3)),
                   ),
                   GoRoute(
                     path: 'termsofuse',
                     pageBuilder: (context, state) => NoTransitionPage<void>(
                         key: state.pageKey,
-                        child: const advisorSettings(currentPage: 4)),
+                        child: const advisorSettingsPages(currentPage: 4)),
                   ),
                   GoRoute(
                     path: 'contactus',
                     pageBuilder: (context, state) => NoTransitionPage<void>(
                         key: state.pageKey,
-                        child: const advisorSettings(currentPage: 5)),
+                        child: const advisorSettingsPages(currentPage: 5)),
                   ),
                 ]),
           ]),
-      // GoRoute(
-      //     path: '/teacher',
-      //     builder: (BuildContext context, GoRouterState state) {
-      //       return const test2(currentPage: 0);
-      //     },
-      //     routes: [
-      //       GoRoute(
-      //           path: 'home',
-      //           pageBuilder: (context, state) => NoTransitionPage<void>(
-      //                 key: state.pageKey,
-      //                 child: const test2(currentPage: 0),
-      //               )),
-      //       GoRoute(
-      //           path: 'parent',
-      //           pageBuilder: (context, state) => NoTransitionPage<void>(
-      //                 key: state.pageKey,
-      //                 child: const test2(currentPage: 1),
-      //               )),
-      //       GoRoute(
-      //           path: 'chat',
-      //           pageBuilder: (context, state) => NoTransitionPage<void>(
-      //                 key: state.pageKey,
-      //                 child: const test2(currentPage: 2),
-      //               )),
-      //       GoRoute(
-      //           path: 'settings',
-      //           pageBuilder: (context, state) => NoTransitionPage<void>(
-      //                 key: state.pageKey,
-      //                 child: const test2(currentPage: 3),
-      //               )),
-      //     ]),
+      GoRoute(
+          path: '/teacher',
+          builder: (BuildContext context, GoRouterState state) {
+            return const teacherHome(currentPage: 0);
+          },
+          routes: [
+            GoRoute(
+                path: 'home',
+                pageBuilder: (context, state) => NoTransitionPage<void>(
+                      key: state.pageKey,
+                      child: const teacherHome(currentPage: 0),
+                    )),
+            GoRoute(
+                path: 'class',
+                pageBuilder: (context, state) => NoTransitionPage<void>(
+                      key: state.pageKey,
+                      child: const teacherHome(currentPage: 1),
+                    ),
+                routes: [
+                  GoRoute(
+                    path: 'registernewclass',
+                    pageBuilder: (context, state) => NoTransitionPage<void>(
+                        key: state.pageKey,
+                        child: const classPages(
+                          currentPage: 0,
+                          academicCalendarId: '',
+                          studentId: '',
+                          feeId: '',
+                          examId: '',
+                          subjectId: '',
+                        )),
+                  ),
+                  GoRoute(
+                      path: ':id',
+                      pageBuilder: (context, state) => NoTransitionPage<void>(
+                          key: state.pageKey,
+                          child: classPages(
+                            currentPage: 1,
+                            academicCalendarId: state.pathParameters['id']!,
+                            studentId: '',
+                            feeId: '',
+                            examId: '',
+                            subjectId: '',
+                          )),
+                      routes: [
+                        GoRoute(
+                            path: 'student',
+                            pageBuilder: (context, state) =>
+                                NoTransitionPage<void>(
+                                    key: state.pageKey,
+                                    child: classPages(
+                                      currentPage: 2,
+                                      academicCalendarId:
+                                          state.pathParameters['id']!,
+                                      studentId: '',
+                                      feeId: '',
+                                      examId: '',
+                                      subjectId: '',
+                                    )),
+                            routes: [
+                              GoRoute(
+                                path: ':studentId',
+                                pageBuilder: (context, state) =>
+                                    NoTransitionPage<void>(
+                                        key: state.pageKey,
+                                        child: classPages(
+                                          currentPage: 3,
+                                          academicCalendarId:
+                                              state.pathParameters['id']!,
+                                          studentId: state
+                                              .pathParameters['studentId']!,
+                                          feeId: '',
+                                          examId: '',
+                                          subjectId: '',
+                                        )),
+                              ),
+                            ]),
+                        GoRoute(
+                          path: 'attendance',
+                          pageBuilder: (context, state) =>
+                              NoTransitionPage<void>(
+                                  key: state.pageKey,
+                                  child: classPages(
+                                    currentPage: 4,
+                                    academicCalendarId:
+                                        state.pathParameters['id']!,
+                                    studentId: '',
+                                    feeId: '',
+                                    examId: '',
+                                    subjectId: '',
+                                  )),
+                        ),
+                        GoRoute(
+                            path: 'fee',
+                            pageBuilder: (context, state) =>
+                                NoTransitionPage<void>(
+                                    key: state.pageKey,
+                                    child: classPages(
+                                      currentPage: 5,
+                                      academicCalendarId:
+                                          state.pathParameters['id']!,
+                                      studentId: '',
+                                      feeId: '',
+                                      examId: '',
+                                      subjectId: '',
+                                    )),
+                            routes: [
+                              GoRoute(
+                                path: ':feeId',
+                                pageBuilder: (context, state) =>
+                                    NoTransitionPage<void>(
+                                        key: state.pageKey,
+                                        child: classPages(
+                                          currentPage: 6,
+                                          academicCalendarId:
+                                              state.pathParameters['id']!,
+                                          studentId: '',
+                                          feeId: state.pathParameters['feeId']!,
+                                          examId: '',
+                                          subjectId: '',
+                                        )),
+                              ),
+                            ]),
+                        GoRoute(
+                            path: 'exam',
+                            pageBuilder: (context, state) =>
+                                NoTransitionPage<void>(
+                                    key: state.pageKey,
+                                    child: classPages(
+                                      currentPage: 7,
+                                      academicCalendarId:
+                                          state.pathParameters['id']!,
+                                      studentId: '',
+                                      feeId: '',
+                                      examId: '',
+                                      subjectId: '',
+                                    )),
+                            routes: [
+                              GoRoute(
+                                  path: 'addnewexam',
+                                  pageBuilder: (context, state) =>
+                                      NoTransitionPage<void>(
+                                          key: state.pageKey,
+                                          child: classPages(
+                                            currentPage: 8,
+                                            academicCalendarId:
+                                                state.pathParameters['id']!,
+                                            studentId: '',
+                                            feeId: '',
+                                            examId: '',
+                                            subjectId: '',
+                                          ))),
+                              GoRoute(
+                                  path: ':examId',
+                                  pageBuilder: (context, state) =>
+                                      NoTransitionPage<void>(
+                                          key: state.pageKey,
+                                          child: classPages(
+                                            currentPage: 9,
+                                            academicCalendarId:
+                                                state.pathParameters['id']!,
+                                            studentId: '',
+                                            feeId: '',
+                                            examId:
+                                                state.pathParameters['examId']!,
+                                            subjectId: '',
+                                          )),
+                                  routes: [
+                                    GoRoute(
+                                      path: 'schedule',
+                                      pageBuilder: (context, state) =>
+                                          NoTransitionPage<void>(
+                                              key: state.pageKey,
+                                              child: classPages(
+                                                currentPage: 10,
+                                                academicCalendarId:
+                                                    state.pathParameters['id']!,
+                                                studentId: '',
+                                                feeId: '',
+                                                examId: state
+                                                    .pathParameters['examId']!,
+                                                subjectId: '',
+                                              )),
+                                    ),
+                                    GoRoute(
+                                      path: ':subjectId',
+                                      pageBuilder: (context, state) =>
+                                          NoTransitionPage<void>(
+                                              key: state.pageKey,
+                                              child: classPages(
+                                                currentPage: 11,
+                                                academicCalendarId:
+                                                    state.pathParameters['id']!,
+                                                studentId: '',
+                                                feeId: '',
+                                                examId: state
+                                                    .pathParameters['examId']!,
+                                                subjectId: state
+                                                    .pathParameters['subjectId']!,
+                                              )),
+                                    ),
+                                  ]),
+                            ]),
+                      ]),
+                ]),
+            GoRoute(
+                path: 'student',
+                pageBuilder: (context, state) => NoTransitionPage<void>(
+                      key: state.pageKey,
+                      child: const teacherHome(currentPage: 2),
+                    )),
+            GoRoute(
+                path: 'settings',
+                pageBuilder: (context, state) => NoTransitionPage<void>(
+                      key: state.pageKey,
+                      child: const teacherHome(currentPage: 3),
+                    ),
+                routes: [
+                  GoRoute(
+                    path: 'editprofile',
+                    pageBuilder: (context, state) => NoTransitionPage<void>(
+                        key: state.pageKey,
+                        child: const teacherSettingsPages(currentPage: 0)),
+                  ),
+                  GoRoute(
+                      path: 'schoolregistration',
+                      pageBuilder: (context, state) => NoTransitionPage<void>(
+                          key: state.pageKey,
+                          child: const teacherSettingsPages(currentPage: 1)),
+                      routes: [
+                        GoRoute(
+                          path: 'registernewschool',
+                          pageBuilder: (context, state) =>
+                              NoTransitionPage<void>(
+                                  key: state.pageKey,
+                                  child: const teacherSettingsPages(
+                                      currentPage: 7)),
+                        ),
+                      ]),
+                  GoRoute(
+                    path: 'systemsettings',
+                    pageBuilder: (context, state) => NoTransitionPage<void>(
+                        key: state.pageKey,
+                        child: const teacherSettingsPages(currentPage: 2)),
+                  ),
+                  GoRoute(
+                    path: 'version',
+                    pageBuilder: (context, state) => NoTransitionPage<void>(
+                        key: state.pageKey,
+                        child: const teacherSettingsPages(currentPage: 3)),
+                  ),
+                  GoRoute(
+                    path: 'privacyofpolicy',
+                    pageBuilder: (context, state) => NoTransitionPage<void>(
+                        key: state.pageKey,
+                        child: const teacherSettingsPages(currentPage: 4)),
+                  ),
+                  GoRoute(
+                    path: 'termsofuse',
+                    pageBuilder: (context, state) => NoTransitionPage<void>(
+                        key: state.pageKey,
+                        child: const teacherSettingsPages(currentPage: 5)),
+                  ),
+                  GoRoute(
+                    path: 'contactus',
+                    pageBuilder: (context, state) => NoTransitionPage<void>(
+                        key: state.pageKey,
+                        child: const teacherSettingsPages(currentPage: 6)),
+                  ),
+                ]),
+          ]),
       // GoRoute(
       //     path: '/medicalstaff',
       //     builder: (BuildContext context, GoRouterState state) {

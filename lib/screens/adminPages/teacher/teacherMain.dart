@@ -50,14 +50,14 @@ class _teacherMainState extends State<teacherMain> {
                     alignment: Alignment.center,
                     padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
-                      color: Color(0xff8290F0),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      color: const Color(0xff8290F0),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 1,
                           blurRadius: 5,
-                          offset: Offset(0, 3), // changes position of shadow
+                          offset: const Offset(0, 3), // changes position of shadow
                         ),
                       ],
                     ),
@@ -95,14 +95,14 @@ class _teacherMainState extends State<teacherMain> {
                     alignment: Alignment.center,
                     padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
-                      color: Color(0xff8290F0),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      color: const Color(0xff8290F0),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 1,
                           blurRadius: 5,
-                          offset: Offset(0, 3), // changes position of shadow
+                          offset: const Offset(0, 3), // changes position of shadow
                         ),
                       ],
                     ),
@@ -140,14 +140,14 @@ class _teacherMainState extends State<teacherMain> {
                     alignment: Alignment.center,
                     padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
-                      color: Color(0xff8290F0),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      color: const Color(0xff8290F0),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 1,
                           blurRadius: 5,
-                          offset: Offset(0, 3), // changes position of shadow
+                          offset: const Offset(0, 3), // changes position of shadow
                         ),
                       ],
                     ),
@@ -185,14 +185,14 @@ class _teacherMainState extends State<teacherMain> {
                     alignment: Alignment.center,
                     padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
-                      color: Color(0xff8290F0),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      color: const Color(0xff8290F0),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 1,
                           blurRadius: 5,
-                          offset: Offset(0, 3), // changes position of shadow
+                          offset: const Offset(0, 3), // changes position of shadow
                         ),
                       ],
                     ),
@@ -230,26 +230,26 @@ class _teacherMainState extends State<teacherMain> {
                     alignment: Alignment.center,
                     padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
-                      color: Color(0xff8290F0),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      color: const Color(0xff8290F0),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 1,
                           blurRadius: 5,
-                          offset: Offset(0, 3), // changes position of shadow
+                          offset: const Offset(0, 3), // changes position of shadow
                         ),
                       ],
                     ),
                     child: Column(
                       children: <Widget>[
-                        Icon(
+                        const Icon(
                           Icons.campaign,
                           color: Colors.white,
                           size: 65,
                         ),
                         const SizedBox(height: 10),
-                        Text(
+                        const Text(
                           'Announcement',
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
@@ -264,6 +264,60 @@ class _teacherMainState extends State<teacherMain> {
                   ),
                 ),
               ),
+            ],
+          ),
+          SizedBox(height: 10),
+          Row(
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: InkWell(
+                  onTap: () {
+                    context.go('/admin/teacher/school');
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                      color: const Color(0xff8290F0),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                          offset: const Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        const Icon(
+                          Icons.school,
+                          color: Colors.white,
+                          size: 65,
+                        ),
+                        const SizedBox(height: 10),
+                        const Text(
+                          'School',
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          'Register and manage school data.',
+                          style:
+                              TextStyle(color: Colors.grey[200], fontSize: 13),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 20),
+              Expanded(
+                flex: 4,
+                child: Container(),
+              )
             ],
           )
         ],

@@ -19,7 +19,7 @@ class _parentMainState extends State<parentMain> {
 
     return StreamProvider<List<parentModel>>.value(
       initialData: [],
-      value: advisorDatabase(advisorId: user!.userId).getParents(user.userId),
+      value: advisorDatabase(advisorId: user!.userId).getParentList(user.userId),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
         alignment: Alignment.topLeft,

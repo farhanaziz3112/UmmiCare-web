@@ -51,6 +51,10 @@ dependencies:
   community_charts_flutter: ^1.0.2
   syncfusion_flutter_charts: ^23.1.41
   image_network: ^2.5.4+1
+  toggle_switch: ^2.1.0
+  intl: ^0.18.1
+  flutter_multi_formatter: ^2.12.1
+  syncfusion_flutter_calendar: ^23.2.6
 
 dev_dependencies:
   flutter_test:

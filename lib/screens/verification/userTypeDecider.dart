@@ -6,6 +6,7 @@ import 'package:ummicare/screens/adminPages/adminHome.dart';
 import 'package:ummicare/screens/verification/staffVerification.dart';
 import 'package:ummicare/models/userModel.dart';
 import 'package:ummicare/services/staffDatabase.dart';
+import 'package:ummicare/shared/loading.dart';
 
 class userTypeDecider extends StatefulWidget {
   const userTypeDecider({super.key});
@@ -19,18 +20,21 @@ class _userTypeDeciderState extends State<userTypeDecider> {
   Widget build(BuildContext context) {
     final user = Provider.of<userModel?>(context);
 
-    if (user?.userType == 'admin') {
-      return StreamProvider<staffUserModel?>.value(
-        value: staffDatabase(staffId: user!.userId).staffData,
-        initialData: null,
-        catchError: (_,__) {
-          return null;
-        },
-        child: adminHome(currentPage: 0),
-      );
+    if (user == null) {
+      return Loading();
     } else {
-      return staffVerification(staffId: user!.userId);
+      if (user.userType == 'admin') {
+        return StreamProvider<staffUserModel?>.value(
+          value: staffDatabase(staffId: user.userId).staffData,
+          initialData: null,
+          catchError: (_, __) {
+            return null;
+          },
+          child: adminHome(currentPage: 0),
+        );
+      } else {
+        return staffVerification(staffId: user.userId);
+      }
     }
-
   }
 }

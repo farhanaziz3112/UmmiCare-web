@@ -22,7 +22,7 @@ class _adminSettingsMainState extends State<adminSettingsMain> {
         children: <Widget>[
           Container(
             alignment: Alignment.centerLeft,
-            child: Text(
+            child: const Text(
               'Settings',
               style: TextStyle(
                   color: Colors.black,
@@ -31,16 +31,16 @@ class _adminSettingsMainState extends State<adminSettingsMain> {
                   fontWeight: FontWeight.w500),
             ),
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Container(
               height: 1.0,
               width: double.infinity,
               color: Colors.grey[300],
             ),
           ),
-          SizedBox(height: 50),
+          const SizedBox(height: 50),
           Container(
             alignment: Alignment.centerLeft,
             child: ElevatedButton.icon(
@@ -51,7 +51,7 @@ class _adminSettingsMainState extends State<adminSettingsMain> {
               ),
               style: OutlinedButton.styleFrom(
                 backgroundColor: const Color(0xff8290F0),
-                fixedSize: Size(300,50),
+                fixedSize: const Size(300,50),
                 alignment: Alignment.centerLeft,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
@@ -79,7 +79,7 @@ class _adminSettingsMainState extends State<adminSettingsMain> {
               ),
               style: OutlinedButton.styleFrom(
                 backgroundColor: const Color(0xff8290F0),
-                fixedSize: Size(300,50),
+                fixedSize: const Size(300,50),
                 alignment: Alignment.centerLeft,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
@@ -107,7 +107,7 @@ class _adminSettingsMainState extends State<adminSettingsMain> {
               ),
               style: OutlinedButton.styleFrom(
                 backgroundColor: const Color(0xff8290F0),
-                fixedSize: Size(300,50),
+                fixedSize: const Size(300,50),
                 alignment: Alignment.centerLeft,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
@@ -135,7 +135,7 @@ class _adminSettingsMainState extends State<adminSettingsMain> {
               ),
               style: OutlinedButton.styleFrom(
                 backgroundColor: const Color(0xff8290F0),
-                fixedSize: Size(300,50),
+                fixedSize: const Size(300,50),
                 alignment: Alignment.centerLeft,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
@@ -163,7 +163,7 @@ class _adminSettingsMainState extends State<adminSettingsMain> {
               ),
               style: OutlinedButton.styleFrom(
                 backgroundColor: const Color(0xff8290F0),
-                fixedSize: Size(300,50),
+                fixedSize: const Size(300,50),
                 alignment: Alignment.centerLeft,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
@@ -191,7 +191,7 @@ class _adminSettingsMainState extends State<adminSettingsMain> {
               ),
               style: OutlinedButton.styleFrom(
                 backgroundColor: const Color(0xff8290F0),
-                fixedSize: Size(300,50),
+                fixedSize: const Size(300,50),
                 alignment: Alignment.centerLeft,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
@@ -219,7 +219,7 @@ class _adminSettingsMainState extends State<adminSettingsMain> {
               ),
               style: OutlinedButton.styleFrom(
                 backgroundColor: const Color(0xff8290F0),
-                fixedSize: Size(300,50),
+                fixedSize: const Size(300,50),
                 alignment: Alignment.centerLeft,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),

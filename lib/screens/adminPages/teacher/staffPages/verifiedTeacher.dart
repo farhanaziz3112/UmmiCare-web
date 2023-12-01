@@ -84,7 +84,10 @@ class _verifiedTeacherState extends State<verifiedTeacher> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Container(
+                    Expanded(
+                    flex: 2,
+                    child: Container(
+                      alignment: Alignment.center,
                       constraints:
                           const BoxConstraints(minWidth: 100, maxWidth: 200),
                       child: const Text(
@@ -92,8 +95,12 @@ class _verifiedTeacherState extends State<verifiedTeacher> {
                         style: TextStyle(color: Colors.grey, fontSize: 15),
                       ),
                     ),
-                    Expanded(flex: 1, child: Container()),
-                    Container(
+                  ),
+                  Expanded(flex: 1, child: Container()),
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      alignment: Alignment.center,
                       constraints:
                           const BoxConstraints(minWidth: 100, maxWidth: 200),
                       child: const Text(
@@ -103,8 +110,12 @@ class _verifiedTeacherState extends State<verifiedTeacher> {
                             fontSize: 15),
                       ),
                     ),
-                    Expanded(flex: 1, child: Container()),
-                    Container(
+                  ),
+                  Expanded(flex: 1, child: Container()),
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      alignment: Alignment.center,
                       constraints:
                           const BoxConstraints(minWidth: 100, maxWidth: 200),
                       child: const Text(
@@ -114,8 +125,12 @@ class _verifiedTeacherState extends State<verifiedTeacher> {
                             fontSize: 15),
                       ),
                     ),
-                    Expanded(flex: 1, child: Container()),
-                    Container(
+                  ),
+                  Expanded(flex: 1, child: Container()),
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      alignment: Alignment.center,
                       constraints:
                           const BoxConstraints(minWidth: 100, maxWidth: 200),
                       child: const Text(
@@ -125,8 +140,12 @@ class _verifiedTeacherState extends State<verifiedTeacher> {
                             fontSize: 15),
                       ),
                     ),
-                    Expanded(flex: 1, child: Container()),
-                    Container(
+                  ),
+                  Expanded(flex: 1, child: Container()),
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      alignment: Alignment.center,
                       constraints:
                           const BoxConstraints(minWidth: 100, maxWidth: 200),
                       child: const Text(
@@ -136,7 +155,7 @@ class _verifiedTeacherState extends State<verifiedTeacher> {
                             fontSize: 15),
                       ),
                     ),
-                    Expanded(flex: 1, child: Container()),
+                  ),
                   ],
                 ),
               ),

@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ummicare/models/childModel.dart';
+import 'package:ummicare/models/parentModel.dart';
 import 'package:ummicare/models/staffUserModel.dart';
 
 class adminDatabase {
@@ -6,8 +8,14 @@ class adminDatabase {
   // //collection reference
   // final CollectionReference staffApplicationCollection = FirebaseFirestore.instance.collection('Staff Application');
 
-  //user collection reference
+  //staff collection reference
   final CollectionReference staffCollection = FirebaseFirestore.instance.collection('Staff');
+
+  //parent collection reference
+  final CollectionReference parentCollection = FirebaseFirestore.instance.collection('Parent');
+
+  //child collection reference
+  final CollectionReference childCollection = FirebaseFirestore.instance.collection('Child');
 
   // //create a staff application model object
   // StaffApplicationModel _createStaffApplicationModel(DocumentSnapshot snapshot) {
@@ -179,6 +187,70 @@ class adminDatabase {
       'staffProfileImg': staffProfileImg,
       'isVerified': isVerified,
     });
+  }
+
+  //get all userdetails stream
+  Stream<List<parentModel>> get allParentData {
+    return parentCollection.snapshots().map(_createparentModelList);
+  }
+
+  //create a user model object
+  parentModel _createparentModelObject(DocumentSnapshot snapshot) {
+    return parentModel(
+      parentId: snapshot['parentId'],
+      parentCreatedDate: snapshot['parentCreatedDate'],
+      parentFullName: snapshot['parentFullName'],
+      parentFirstName: snapshot['parentFirstName'],
+      parentLastName: snapshot['parentLastName'],
+      parentEmail: snapshot['parentEmail'],
+      parentPhoneNumber: snapshot['parentPhoneNumber'],
+      parentProfileImg: snapshot['parentProfileImg'],
+      advisorId: snapshot['advisorId'],
+      noOfChild: snapshot['noOfChild']
+    );
+  }
+
+  //create a list of user model object
+  List<parentModel> _createparentModelList(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return parentModel(
+        parentId: doc.get('parentId'),
+        parentCreatedDate: doc.get('parentCreatedDate'),
+        parentFullName: doc.get('parentFullName'),
+        parentFirstName: doc.get('parentFirstName'),
+        parentLastName: doc.get('parentLastName'),
+        parentEmail: doc.get('parentEmail'),
+        parentPhoneNumber: doc.get('parentPhoneNumber'),
+        parentProfileImg: doc.get('parentProfileImg'),
+        advisorId: doc.get('advisorId'),
+        noOfChild: doc.get('noOfChild')
+      );
+    }).toList();
+  }
+
+  //get all userdetails stream
+  Stream<List<childModel>> get allChildData {
+    return childCollection.snapshots().map(_createchildModelList);
+  }
+
+  //create a list of child model object
+  List<childModel> _createchildModelList(QuerySnapshot snapshot) {
+    return snapshot.docs.map<childModel>((doc) {
+      return childModel(
+        childId: doc.id,
+        parentId: doc.get('parentId') ?? '',
+        childCreatedDate: doc.get('childCreatedDate') ?? '',
+        childName: doc.get('childName') ?? '',
+        childFirstname: doc.get('childFirstname') ?? '',
+        childLastname: doc.get('childLastname') ?? '',
+        childBirthday: doc.get('childBirthday') ?? '',
+        childCurrentAge: doc.get('childCurrentAge') ?? '',
+        childAgeCategory: doc.get('childAgeCategory') ?? '',
+        childProfileImg: doc.get('childProfileImg') ?? '',
+        educationId: doc.get('educationId') ?? '',
+        healthId: doc.get('healthId') ?? '',
+      );
+    }).toList();
   }
 
 }

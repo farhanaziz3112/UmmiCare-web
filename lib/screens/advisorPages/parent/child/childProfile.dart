@@ -347,7 +347,7 @@ class _childProfileState extends State<childProfile> {
                                                         const EdgeInsets.only(
                                                             left: 20),
                                                     child: Text(
-                                                      convertTimeToDate(
+                                                      convertTimeToDateString(
                                                           child.childBirthday),
                                                       textAlign: TextAlign.left,
                                                       style: const TextStyle(
@@ -581,13 +581,13 @@ class _childProfileState extends State<childProfile> {
                                                 borderRadius: const BorderRadius.all(
                                                     Radius.circular(10)),
                                               ),
-                                              child: const Row(
+                                              child: Row(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.center,
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: <Widget>[
-                                                  Expanded(
+                                                  const Expanded(
                                                     flex: 1,
                                                     child: Column(
                                                       mainAxisAlignment:
@@ -612,10 +612,10 @@ class _childProfileState extends State<childProfile> {
                                                       ],
                                                     ),
                                                   ),
-                                                  Icon(
+                                                  const Icon(
                                                     Icons.keyboard_double_arrow_right
                                                   ),
-                                                  Expanded(
+                                                  child.healthId != '' ? const Expanded(
                                                     flex: 1,
                                                     child: Column(
                                                       mainAxisAlignment:
@@ -630,6 +630,30 @@ class _childProfileState extends State<childProfile> {
                                                         SizedBox(height: 5,),
                                                         Text(
                                                           'Active',
+                                                          style: TextStyle(
+                                                              fontSize: 15,
+                                                              color:
+                                                                  Colors.black),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ) : const Expanded(
+                                                    flex: 1,
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.cancel,
+                                                          size: 25,
+                                                          color: Colors.black,
+                                                        ),
+                                                        SizedBox(height: 5,),
+                                                        Text(
+                                                          'Inactive',
                                                           style: TextStyle(
                                                               fontSize: 15,
                                                               color:
@@ -656,13 +680,13 @@ class _childProfileState extends State<childProfile> {
                                                 borderRadius: const BorderRadius.all(
                                                     Radius.circular(10)),
                                               ),
-                                              child: const Row(
+                                              child: Row(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.center,
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: <Widget>[
-                                                  Expanded(
+                                                  const Expanded(
                                                     flex: 1,
                                                     child: Column(
                                                       mainAxisAlignment:
@@ -687,10 +711,34 @@ class _childProfileState extends State<childProfile> {
                                                       ],
                                                     ),
                                                   ),
-                                                  Icon(
+                                                  const Icon(
                                                     Icons.keyboard_double_arrow_right
                                                   ),
-                                                  Expanded(
+                                                  child.educationId != '' ? const Expanded(
+                                                    flex: 1,
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.check,
+                                                          size: 25,
+                                                          color: Colors.black,
+                                                        ),
+                                                        SizedBox(height: 5,),
+                                                        Text(
+                                                          'Active',
+                                                          style: TextStyle(
+                                                              fontSize: 15,
+                                                              color:
+                                                                  Colors.black),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ) : const Expanded(
                                                     flex: 1,
                                                     child: Column(
                                                       mainAxisAlignment:
@@ -731,7 +779,7 @@ class _childProfileState extends State<childProfile> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 80),
+                  const SizedBox(height: 80),
                   Container(
                     alignment: Alignment.centerLeft,
                     child: Text(

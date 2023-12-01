@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_network/image_network.dart';
 import 'package:provider/provider.dart';
 import 'package:ummicare/models/staffUserModel.dart';
 import 'package:ummicare/models/userModel.dart';
@@ -23,13 +24,14 @@ class _adminHomeProfileState extends State<adminHomeProfile> {
             staffUserModel? staff = snapshot.data;
             return Column(
               children: <Widget>[
-                CircleAvatar(
-                  backgroundImage: NetworkImage(staff!.staffProfileImg),
-                  radius: 35.0,
-                ),
-                SizedBox(height: 20),
+                ImageNetwork(
+                    image: staff!.staffProfileImg,
+                    height: 100,
+                    width: 100,
+                    borderRadius: BorderRadius.circular(70)),
+                const SizedBox(height: 20),
                 Text(staff.staffFullName),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 Text(staff.staffEmail)
               ],
             );

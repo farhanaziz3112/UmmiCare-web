@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_network/image_network.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:ummicare/models/staffUserModel.dart';
@@ -108,12 +109,11 @@ class _adminEditProfileState extends State<adminEditProfile> {
                               Stack(
                                 clipBehavior: Clip.none,
                                 children: [
-                                  CircleAvatar(
-                                    backgroundImage:
-                                        NetworkImage(staff!.staffProfileImg),
-                                    radius: 50.0,
-                                    backgroundColor: Colors.grey,
-                                  ),
+                                  ImageNetwork(
+                                      image: staff!.staffProfileImg,
+                                      height: 100,
+                                      width: 100,
+                                      borderRadius: BorderRadius.circular(70)),
                                   Positioned(
                                     bottom: -60,
                                     right: -15,

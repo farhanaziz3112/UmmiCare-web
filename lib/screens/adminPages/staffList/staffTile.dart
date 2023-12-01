@@ -26,86 +26,104 @@ class _staffTileState extends State<staffTile> {
                   var id = staffData.staffId;
                   context.go('/admin/advisor/pending/${id}');
                 }),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 0.0),
-                  child: Card(
-                    margin: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                child: Container(
+                  margin: const EdgeInsets.symmetric(vertical: 5),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+                  decoration: BoxDecoration(
                     color: const Color(0xff8290F0),
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: Text(
-                              staffData.staffEmail,
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: Text(
-                              staffData.staffFirstName,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: Text(
-                              staffData.staffLastName,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: Text(
-                              staffData.staffId,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: const Text(
-                              'Pending',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                        ],
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                        offset:
+                            const Offset(0, 3), // changes position of shadow
                       ),
-                      trailing: const Icon(
-                        Icons.arrow_forward,
-                        color: Colors.white,
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: Text(
+                            staffData.staffEmail,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 15),
+                          ),
+                        ),
                       ),
-                    ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: Text(
+                            staffData.staffFirstName,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: Text(
+                            staffData.staffLastName,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: Text(
+                            staffData.staffId,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: const Text(
+                            'Pending',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               );
@@ -115,86 +133,104 @@ class _staffTileState extends State<staffTile> {
                   var id = staffData.staffId;
                   context.go('/admin/advisor/rejected/${id}');
                 }),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 3.0),
-                  child: Card(
-                    margin: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                child: Container(
+                  margin: const EdgeInsets.symmetric(vertical: 5),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+                  decoration: BoxDecoration(
                     color: const Color(0xff8290F0),
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: Text(
-                              staffData.staffEmail,
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: Text(
-                              staffData.staffFirstName,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: Text(
-                              staffData.staffLastName,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: Text(
-                              staffData.staffId,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: const Text(
-                              'Rejected',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                        ],
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                        offset:
+                            const Offset(0, 3), // changes position of shadow
                       ),
-                      trailing: const Icon(
-                        Icons.arrow_forward,
-                        color: Colors.white,
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: Text(
+                            staffData.staffEmail,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 15),
+                          ),
+                        ),
                       ),
-                    ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: Text(
+                            staffData.staffFirstName,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: Text(
+                            staffData.staffLastName,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: Text(
+                            staffData.staffId,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: const Text(
+                            'Rejected',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               );
@@ -204,86 +240,104 @@ class _staffTileState extends State<staffTile> {
                   var id = staffData.staffId;
                   context.go('/admin/advisor/verified/${id}');
                 }),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 3.0),
-                  child: Card(
-                    margin: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                child: Container(
+                  margin: const EdgeInsets.symmetric(vertical: 5),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+                  decoration: BoxDecoration(
                     color: const Color(0xff8290F0),
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: Text(
-                              staffData.staffEmail,
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: Text(
-                              staffData.staffFirstName,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: Text(
-                              staffData.staffLastName,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: Text(
-                              staffData.staffId,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: const Text(
-                              'Verified',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                        ],
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                        offset:
+                            const Offset(0, 3), // changes position of shadow
                       ),
-                      trailing: const Icon(
-                        Icons.arrow_forward,
-                        color: Colors.white,
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: Text(
+                            staffData.staffEmail,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 15),
+                          ),
+                        ),
                       ),
-                    ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: Text(
+                            staffData.staffFirstName,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: Text(
+                            staffData.staffLastName,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: Text(
+                            staffData.staffId,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: const Text(
+                            'Verified',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               );
@@ -295,287 +349,30 @@ class _staffTileState extends State<staffTile> {
                   var id = staffData.staffId;
                   context.go('/admin/teacher/pending/${id}');
                 }),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 0.0),
-                  child: Card(
-                    margin: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                child: Container(
+                  margin: const EdgeInsets.symmetric(vertical: 5),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+                  decoration: BoxDecoration(
                     color: const Color(0xff8290F0),
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: Text(
-                              staffData.staffEmail,
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: Text(
-                              staffData.staffFirstName,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: Text(
-                              staffData.staffLastName,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: Text(
-                              staffData.staffId,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: const Text(
-                              'Pending',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                        ],
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                        offset:
+                            const Offset(0, 3), // changes position of shadow
                       ),
-                      trailing: const Icon(
-                        Icons.arrow_forward,
-                        color: Colors.white,
-                      ),
-                    ),
+                    ],
                   ),
-                ),
-              );
-            } else if (staffData.isVerified == 'rejected') {
-              return InkWell(
-                onTap: (() {
-                  var id = staffData.staffId;
-                  context.go('/admin/teacher/rejected/${id}');
-                }),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 3.0),
-                  child: Card(
-                    margin: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-                    color: const Color(0xff8290F0),
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: Text(
-                              staffData.staffEmail,
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: Text(
-                              staffData.staffFirstName,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: Text(
-                              staffData.staffLastName,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: Text(
-                              staffData.staffId,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: const Text(
-                              'Rejected',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                        ],
-                      ),
-                      trailing: const Icon(
-                        Icons.arrow_forward,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              );
-            } else {
-              return InkWell(
-                onTap: (() {
-                  var id = staffData.staffId;
-                  context.go('/admin/teacher/verified/${id}');
-                }),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 3.0),
-                  child: Card(
-                    margin: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-                    color: const Color(0xff8290F0),
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: Text(
-                              staffData.staffEmail,
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: Text(
-                              staffData.staffFirstName,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: Text(
-                              staffData.staffLastName,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: Text(
-                              staffData.staffId,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: const Text(
-                              'Verified',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                        ],
-                      ),
-                      trailing: const Icon(
-                        Icons.arrow_forward,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              );
-            }
-          } else {
-            if (staffData.isVerified == 'false') {
-            return InkWell(
-              onTap: (() {
-                var id = staffData.staffId;
-                context.go('/admin/medicalstaff/pending/${id}');
-              }),
-              child: Padding(
-                padding: const EdgeInsets.only(top: 0.0),
-                child: Card(
-                  margin: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-                  color: const Color(0xff8290F0),
-                  child: ListTile(
-                    contentPadding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          alignment: Alignment.centerLeft,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
                           constraints: const BoxConstraints(
                               minWidth: 100, maxWidth: 200),
                           child: Text(
@@ -584,9 +381,12 @@ class _staffTileState extends State<staffTile> {
                                 color: Colors.white, fontSize: 15),
                           ),
                         ),
-                        Expanded(flex: 1, child: Container()),
-                        Container(
-                          alignment: Alignment.centerLeft,
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
                           constraints: const BoxConstraints(
                               minWidth: 100, maxWidth: 200),
                           child: Text(
@@ -597,9 +397,12 @@ class _staffTileState extends State<staffTile> {
                                 fontSize: 15),
                           ),
                         ),
-                        Expanded(flex: 1, child: Container()),
-                        Container(
-                          alignment: Alignment.centerLeft,
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
                           constraints: const BoxConstraints(
                               minWidth: 100, maxWidth: 200),
                           child: Text(
@@ -610,9 +413,12 @@ class _staffTileState extends State<staffTile> {
                                 fontSize: 15),
                           ),
                         ),
-                        Expanded(flex: 1, child: Container()),
-                        Container(
-                          alignment: Alignment.centerLeft,
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
                           constraints: const BoxConstraints(
                               minWidth: 100, maxWidth: 200),
                           child: Text(
@@ -623,9 +429,12 @@ class _staffTileState extends State<staffTile> {
                                 fontSize: 15),
                           ),
                         ),
-                        Expanded(flex: 1, child: Container()),
-                        Container(
-                          alignment: Alignment.centerLeft,
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
                           constraints: const BoxConstraints(
                               minWidth: 100, maxWidth: 200),
                           child: const Text(
@@ -636,35 +445,41 @@ class _staffTileState extends State<staffTile> {
                                 fontSize: 15),
                           ),
                         ),
-                        Expanded(flex: 1, child: Container()),
-                      ],
-                    ),
-                    trailing: const Icon(
-                      Icons.arrow_forward,
-                      color: Colors.white,
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            );
-          } else if (staffData.isVerified == 'rejected') {
-            return InkWell(
-              onTap: (() {
-                var id = staffData.staffId;
-                context.go('/admin/medicalstaff/rejected/${id}');
-              }),
-              child: Padding(
-                padding: const EdgeInsets.only(top: 3.0),
-                child: Card(
-                  margin: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-                  color: const Color(0xff8290F0),
-                  child: ListTile(
-                    contentPadding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          alignment: Alignment.centerLeft,
+              );
+            } else if (staffData.isVerified == 'rejected') {
+              return InkWell(
+                onTap: (() {
+                  var id = staffData.staffId;
+                  context.go('/admin/teacher/rejected/${id}');
+                }),
+                child: Container(
+                  margin: const EdgeInsets.symmetric(vertical: 5),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+                  decoration: BoxDecoration(
+                    color: const Color(0xff8290F0),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                        offset:
+                            const Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
                           constraints: const BoxConstraints(
                               minWidth: 100, maxWidth: 200),
                           child: Text(
@@ -673,9 +488,12 @@ class _staffTileState extends State<staffTile> {
                                 color: Colors.white, fontSize: 15),
                           ),
                         ),
-                        Expanded(flex: 1, child: Container()),
-                        Container(
-                          alignment: Alignment.centerLeft,
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
                           constraints: const BoxConstraints(
                               minWidth: 100, maxWidth: 200),
                           child: Text(
@@ -686,9 +504,12 @@ class _staffTileState extends State<staffTile> {
                                 fontSize: 15),
                           ),
                         ),
-                        Expanded(flex: 1, child: Container()),
-                        Container(
-                          alignment: Alignment.centerLeft,
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
                           constraints: const BoxConstraints(
                               minWidth: 100, maxWidth: 200),
                           child: Text(
@@ -699,9 +520,12 @@ class _staffTileState extends State<staffTile> {
                                 fontSize: 15),
                           ),
                         ),
-                        Expanded(flex: 1, child: Container()),
-                        Container(
-                          alignment: Alignment.centerLeft,
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
                           constraints: const BoxConstraints(
                               minWidth: 100, maxWidth: 200),
                           child: Text(
@@ -712,9 +536,12 @@ class _staffTileState extends State<staffTile> {
                                 fontSize: 15),
                           ),
                         ),
-                        Expanded(flex: 1, child: Container()),
-                        Container(
-                          alignment: Alignment.centerLeft,
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
                           constraints: const BoxConstraints(
                               minWidth: 100, maxWidth: 200),
                           child: const Text(
@@ -725,35 +552,41 @@ class _staffTileState extends State<staffTile> {
                                 fontSize: 15),
                           ),
                         ),
-                        Expanded(flex: 1, child: Container()),
-                      ],
-                    ),
-                    trailing: const Icon(
-                      Icons.arrow_forward,
-                      color: Colors.white,
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            );
-          } else {
-            return InkWell(
-              onTap: (() {
-                var id = staffData.staffId;
-                context.go('/admin/medicalstaff/verified/${id}');
-              }),
-              child: Padding(
-                padding: const EdgeInsets.only(top: 3.0),
-                child: Card(
-                  margin: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-                  color: const Color(0xff8290F0),
-                  child: ListTile(
-                    contentPadding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          alignment: Alignment.centerLeft,
+              );
+            } else {
+              return InkWell(
+                onTap: (() {
+                  var id = staffData.staffId;
+                  context.go('/admin/teacher/verified/${id}');
+                }),
+                child: Container(
+                  margin: const EdgeInsets.symmetric(vertical: 5),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+                  decoration: BoxDecoration(
+                    color: const Color(0xff8290F0),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                        offset:
+                            const Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
                           constraints: const BoxConstraints(
                               minWidth: 100, maxWidth: 200),
                           child: Text(
@@ -762,9 +595,12 @@ class _staffTileState extends State<staffTile> {
                                 color: Colors.white, fontSize: 15),
                           ),
                         ),
-                        Expanded(flex: 1, child: Container()),
-                        Container(
-                          alignment: Alignment.centerLeft,
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
                           constraints: const BoxConstraints(
                               minWidth: 100, maxWidth: 200),
                           child: Text(
@@ -775,9 +611,12 @@ class _staffTileState extends State<staffTile> {
                                 fontSize: 15),
                           ),
                         ),
-                        Expanded(flex: 1, child: Container()),
-                        Container(
-                          alignment: Alignment.centerLeft,
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
                           constraints: const BoxConstraints(
                               minWidth: 100, maxWidth: 200),
                           child: Text(
@@ -788,9 +627,12 @@ class _staffTileState extends State<staffTile> {
                                 fontSize: 15),
                           ),
                         ),
-                        Expanded(flex: 1, child: Container()),
-                        Container(
-                          alignment: Alignment.centerLeft,
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
                           constraints: const BoxConstraints(
                               minWidth: 100, maxWidth: 200),
                           child: Text(
@@ -801,9 +643,12 @@ class _staffTileState extends State<staffTile> {
                                 fontSize: 15),
                           ),
                         ),
-                        Expanded(flex: 1, child: Container()),
-                        Container(
-                          alignment: Alignment.centerLeft,
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
                           constraints: const BoxConstraints(
                               minWidth: 100, maxWidth: 200),
                           child: const Text(
@@ -814,18 +659,335 @@ class _staffTileState extends State<staffTile> {
                                 fontSize: 15),
                           ),
                         ),
-                        Expanded(flex: 1, child: Container()),
-                      ],
-                    ),
-                    trailing: const Icon(
-                      Icons.arrow_forward,
-                      color: Colors.white,
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            );
-          }
+              );
+            }
+          } else {
+            if (staffData.isVerified == 'false') {
+              return InkWell(
+                onTap: (() {
+                  var id = staffData.staffId;
+                  context.go('/admin/medicalstaff/pending/${id}');
+                }),
+                child: Container(
+                  margin: const EdgeInsets.symmetric(vertical: 5),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+                  decoration: BoxDecoration(
+                    color: const Color(0xff8290F0),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                        offset:
+                            const Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: Text(
+                            staffData.staffEmail,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 15),
+                          ),
+                        ),
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: Text(
+                            staffData.staffFirstName,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: Text(
+                            staffData.staffLastName,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: Text(
+                            staffData.staffId,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: const Text(
+                            'Pending',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            } else if (staffData.isVerified == 'rejected') {
+              return InkWell(
+                onTap: (() {
+                  var id = staffData.staffId;
+                  context.go('/admin/medicalstaff/rejected/${id}');
+                }),
+                child: Container(
+                  margin: const EdgeInsets.symmetric(vertical: 5),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+                  decoration: BoxDecoration(
+                    color: const Color(0xff8290F0),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                        offset:
+                            const Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: Text(
+                            staffData.staffEmail,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 15),
+                          ),
+                        ),
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: Text(
+                            staffData.staffFirstName,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: Text(
+                            staffData.staffLastName,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: Text(
+                            staffData.staffId,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: const Text(
+                            'Rejected',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            } else {
+              return InkWell(
+                onTap: (() {
+                  var id = staffData.staffId;
+                  context.go('/admin/medicalstaff/verified/${id}');
+                }),
+                child: Container(
+                  margin: const EdgeInsets.symmetric(vertical: 5),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+                  decoration: BoxDecoration(
+                    color: const Color(0xff8290F0),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                        offset:
+                            const Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: Text(
+                            staffData.staffEmail,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 15),
+                          ),
+                        ),
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: Text(
+                            staffData.staffFirstName,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: Text(
+                            staffData.staffLastName,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: Text(
+                            staffData.staffId,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ),
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 100, maxWidth: 200),
+                          child: const Text(
+                            'Verified',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }
           }
         } else {
           return Container();

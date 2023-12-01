@@ -6,7 +6,6 @@ import 'package:ummicare/screens/advisorPages/home/advisorDashboard.dart';
 import 'package:ummicare/screens/advisorPages/settings/advisorSettingsMain.dart';
 import 'package:ummicare/screens/advisorPages/parent/parentMain.dart';
 import 'package:ummicare/services/advisorDatabase.dart';
-import 'package:ummicare/services/userDatabase.dart';
 
 class advisorMainPane extends StatefulWidget {
   const advisorMainPane({super.key, required this.currentPage});
@@ -30,7 +29,9 @@ class _advisorMainPaneState extends State<advisorMainPane> {
     return StreamProvider<advisorModel?>.value(
       value: advisorDatabase(advisorId: user.userId).advisorData,
       initialData: null,
-      catchError: (_, __) {},
+      catchError: (_, __) {
+        return null;
+      },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 80),
         child: pages[widget.currentPage],

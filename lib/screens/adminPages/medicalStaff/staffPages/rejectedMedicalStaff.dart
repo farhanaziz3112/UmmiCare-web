@@ -84,59 +84,78 @@ class _rejectedMedicalStaffState extends State<rejectedMedicalStaff> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Container(
-                    constraints:
-                        const BoxConstraints(minWidth: 100, maxWidth: 200),
-                    child: const Text(
-                      'Email',
-                      style: TextStyle(color: Colors.grey, fontSize: 15),
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      alignment: Alignment.center,
+                      constraints:
+                          const BoxConstraints(minWidth: 100, maxWidth: 200),
+                      child: const Text(
+                        'Email',
+                        style: TextStyle(color: Colors.grey, fontSize: 15),
+                      ),
                     ),
                   ),
                   Expanded(flex: 1, child: Container()),
-                  Container(
-                    constraints:
-                        const BoxConstraints(minWidth: 100, maxWidth: 200),
-                    child: const Text(
-                      'First Name',
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 15),
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      alignment: Alignment.center,
+                      constraints:
+                          const BoxConstraints(minWidth: 100, maxWidth: 200),
+                      child: const Text(
+                        'First Name',
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 15),
+                      ),
                     ),
                   ),
                   Expanded(flex: 1, child: Container()),
-                  Container(
-                    constraints:
-                        const BoxConstraints(minWidth: 100, maxWidth: 200),
-                    child: const Text(
-                      'Last Name',
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 15),
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      alignment: Alignment.center,
+                      constraints:
+                          const BoxConstraints(minWidth: 100, maxWidth: 200),
+                      child: const Text(
+                        'Last Name',
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 15),
+                      ),
                     ),
                   ),
                   Expanded(flex: 1, child: Container()),
-                  Container(
-                    constraints:
-                        const BoxConstraints(minWidth: 100, maxWidth: 200),
-                    child: const Text(
-                      'User Id',
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 15),
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      alignment: Alignment.center,
+                      constraints:
+                          const BoxConstraints(minWidth: 100, maxWidth: 200),
+                      child: const Text(
+                        'User Id',
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 15),
+                      ),
                     ),
                   ),
                   Expanded(flex: 1, child: Container()),
-                  Container(
-                    constraints:
-                        const BoxConstraints(minWidth: 100, maxWidth: 200),
-                    child: const Text(
-                      'Status',
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 15),
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      alignment: Alignment.center,
+                      constraints:
+                          const BoxConstraints(minWidth: 100, maxWidth: 200),
+                      child: const Text(
+                        'Status',
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 15),
+                      ),
                     ),
                   ),
-                  Expanded(flex: 1, child: Container()),
                 ],
               ),
             ),

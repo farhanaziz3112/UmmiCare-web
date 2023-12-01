@@ -317,9 +317,18 @@ class _pendingStaffProfilePageState extends State<pendingStaffProfilePage> {
                                     onPressed: (() {
                                       Navigator.of(context).pop();
                                     }),
+                                    style: TextButton.styleFrom(
+                                      backgroundColor: const Color(0xffF29180),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                    ),
                                     child: Container(
                                       padding: const EdgeInsets.all(10),
-                                      child: const Text('Cancel'),
+                                      child: const Text(
+                                        'Cancel',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
                                     ),
                                   ),
                                   TextButton(
@@ -339,9 +348,18 @@ class _pendingStaffProfilePageState extends State<pendingStaffProfilePage> {
                                       context.go(
                                           '/admin/${staff.staffUserType}/pending');
                                     }),
+                                    style: TextButton.styleFrom(
+                                      backgroundColor: const Color(0xff8290F0),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                    ),
                                     child: Container(
                                       padding: const EdgeInsets.all(10),
-                                      child: const Text('Confirm'),
+                                      child: const Text(
+                                        'Confirm',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
                                     ),
                                   )
                                 ],
@@ -386,9 +404,18 @@ class _pendingStaffProfilePageState extends State<pendingStaffProfilePage> {
                                     onPressed: (() {
                                       Navigator.of(context).pop();
                                     }),
+                                    style: TextButton.styleFrom(
+                                      backgroundColor: const Color(0xffF29180),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                    ),
                                     child: Container(
                                       padding: const EdgeInsets.all(10),
-                                      child: const Text('Cancel'),
+                                      child: const Text(
+                                        'Cancel',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
                                     ),
                                   ),
                                   TextButton(
@@ -428,7 +455,8 @@ class _pendingStaffProfilePageState extends State<pendingStaffProfilePage> {
                                                 staff.staffLastName,
                                                 staff.staffEmail,
                                                 staff.staffPhoneNumber,
-                                                staff.staffProfileImg);
+                                                staff.staffProfileImg,
+                                                '');
                                       } else {
                                         medicalStaffDatabase(medicalStaffId: '')
                                             .updateMedicalStaffData(
@@ -444,9 +472,18 @@ class _pendingStaffProfilePageState extends State<pendingStaffProfilePage> {
                                       context.go(
                                           '/admin/${staff.staffUserType}/pending');
                                     }),
+                                    style: TextButton.styleFrom(
+                                      backgroundColor: const Color(0xff8290F0),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                    ),
                                     child: Container(
                                       padding: const EdgeInsets.all(10),
-                                      child: const Text('Confirm'),
+                                      child: const Text(
+                                        'Confirm',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
                                     ),
                                   )
                                 ],

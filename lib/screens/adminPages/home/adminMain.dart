@@ -1,12 +1,16 @@
-import 'package:community_charts_flutter/community_charts_flutter.dart'
-    as charts;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:ummicare/models/childModel.dart';
+import 'package:ummicare/models/parentModel.dart';
 import 'package:ummicare/models/staffUserModel.dart';
 import 'package:ummicare/models/userModel.dart';
+import 'package:ummicare/screens/charts/noOfChildsCategory.dart';
+import 'package:ummicare/screens/charts/noOfChildsOverMonth.dart';
+import 'package:ummicare/screens/charts/noOfParentsOverMonth.dart';
+import 'package:ummicare/services/adminDatabase.dart';
 import 'package:ummicare/services/auth.dart';
 import 'package:ummicare/services/staffDatabase.dart';
+import 'package:ummicare/shared/function.dart';
 
 class adminMain extends StatefulWidget {
   const adminMain({super.key});
@@ -21,12 +25,6 @@ class _adminMainState extends State<adminMain> {
   @override
   Widget build(BuildContext context) {
     userModel? user = Provider.of<userModel?>(context);
-
-    final List<ChartData> chartData = [
-      ChartData('David', 25, Color(0xff71CBCA)),
-      ChartData('Jack', 34, Color(0xffF29180)),
-      ChartData('Others', 52, Color(0xff8290F0))
-    ];
 
     return StreamBuilder<staffUserModel>(
         stream: staffDatabase(staffId: user!.userId).staffData,
@@ -86,14 +84,10 @@ class _adminMainState extends State<adminMain> {
                         flex: 1,
                         child: Column(
                           children: <Widget>[
-                            const Text(
-                              'Number of Parent User',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                            SizedBox(
-                                child: SimpleTimeSeriesChart.withSampleData(),
+                            const SizedBox(
                                 width: 800,
-                                height: 350),
+                                height: 350,
+                                child: noOfParentsOverMonth()),
                             const SizedBox(height: 20),
                             Container(
                               width: 800,
@@ -117,54 +111,75 @@ class _adminMainState extends State<adminMain> {
                                         ),
                                       ),
                                       Expanded(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            const Text(
-                                              'Parent',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 20.0,
-                                                  fontStyle: FontStyle.italic),
-                                            ),
-                                            const SizedBox(height: 10.0),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                const Text(
-                                                  'Total Parent Registered: 63',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14.0),
-                                                ),
-                                                Expanded(
-                                                  child: Container(),
-                                                  flex: 1,
-                                                ),
-                                                const Text(
-                                                  'Number of active user: 55',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14.0),
-                                                ),
-                                                Expanded(
-                                                  child: Container(),
-                                                  flex: 1,
-                                                ),
-                                                const Text(
-                                                  'Number of inactive user: 8',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14.0),
-                                                )
-                                              ],
-                                            ),
-                                          ],
-                                        ),
+                                        child: StreamBuilder<List<parentModel>>(
+                                            stream:
+                                                adminDatabase().allParentData,
+                                            builder: (context, snapshot) {
+                                              if (snapshot.hasData) {
+                                                List<parentModel>? parentList =
+                                                    snapshot.data;
+                                                return Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: <Widget>[
+                                                    const Text(
+                                                      'Parent',
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 20.0,
+                                                          fontStyle:
+                                                              FontStyle.italic),
+                                                    ),
+                                                    const SizedBox(
+                                                        height: 10.0),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        Text(
+                                                          'Total Parent Registered: ${parentList!.length}',
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize:
+                                                                      14.0),
+                                                        ),
+                                                        Expanded(
+                                                          flex: 1,
+                                                          child: Container(),
+                                                        ),
+                                                        Text(
+                                                          'Number of Active Parent: ${parentList.length}',
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize:
+                                                                      14.0),
+                                                        ),
+                                                        Expanded(
+                                                          flex: 1,
+                                                          child: Container(),
+                                                        ),
+                                                        const Text(
+                                                          'Number of Inactive Parent: 0',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 14.0),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ],
+                                                );
+                                              } else {
+                                                return Container();
+                                              }
+                                            }),
                                       )
                                     ],
                                   )),
@@ -177,14 +192,10 @@ class _adminMainState extends State<adminMain> {
                         flex: 1,
                         child: Column(
                           children: <Widget>[
-                            const Text(
-                              'Number of Child Registered',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                            SizedBox(
-                                child: SimpleTimeSeriesChart.withSampleData(),
+                            const SizedBox(
                                 width: 800,
-                                height: 350),
+                                height: 350,
+                                child: noOfChildsOverMonth()),
                             const SizedBox(height: 20),
                             Container(
                               width: 800,
@@ -208,54 +219,75 @@ class _adminMainState extends State<adminMain> {
                                         ),
                                       ),
                                       Expanded(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            const Text(
-                                              'Child',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 20.0,
-                                                  fontStyle: FontStyle.italic),
-                                            ),
-                                            const SizedBox(height: 10.0),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                const Text(
-                                                  'Total Child Registered: 63',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14.0),
-                                                ),
-                                                Expanded(
-                                                  child: Container(),
-                                                  flex: 1,
-                                                ),
-                                                const Text(
-                                                  'Number of active user: 55',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14.0),
-                                                ),
-                                                Expanded(
-                                                  child: Container(),
-                                                  flex: 1,
-                                                ),
-                                                const Text(
-                                                  'Number of inactive user: 8',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14.0),
-                                                )
-                                              ],
-                                            ),
-                                          ],
-                                        ),
+                                        child: StreamBuilder<List<childModel>>(
+                                            stream:
+                                                adminDatabase().allChildData,
+                                            builder: (context, snapshot) {
+                                              if (snapshot.hasData) {
+                                                List<childModel>? childList =
+                                                    snapshot.data;
+                                                return Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: <Widget>[
+                                                    const Text(
+                                                      'Child',
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 20.0,
+                                                          fontStyle:
+                                                              FontStyle.italic),
+                                                    ),
+                                                    const SizedBox(
+                                                        height: 10.0),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        Text(
+                                                          'Total Child Registered: ${childList!.length}',
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize:
+                                                                      14.0),
+                                                        ),
+                                                        Expanded(
+                                                          flex: 1,
+                                                          child: Container(),
+                                                        ),
+                                                        Text(
+                                                          'Number of Active Child: ${childList.length}',
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize:
+                                                                      14.0),
+                                                        ),
+                                                        Expanded(
+                                                          flex: 1,
+                                                          child: Container(),
+                                                        ),
+                                                        const Text(
+                                                          'Number of Inactive Child: 0',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 14.0),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ],
+                                                );
+                                              } else {
+                                                return Container();
+                                              }
+                                            }),
                                       )
                                     ],
                                   )),
@@ -265,288 +297,197 @@ class _adminMainState extends State<adminMain> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 50),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: const Text(
-                      'Staff Statistics',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 40.0,
-                          fontFamily: 'Comfortaa',
-                          fontWeight: FontWeight.w500),
-                    ),
+                  const SizedBox(
+                    height: 100,
                   ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Column(
-                          children: [
-                            const Text(
-                              'Number of Staff User',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                            SizedBox(height: 10),
-                            Container(
-                              child: SfCircularChart(
-                                series: <CircularSeries>[
-                                  PieSeries<ChartData, String>(
-                                      dataSource: chartData,
-                                      radius: '100%',
-                                      pointColorMapper: (ChartData data, _) =>
-                                          data.color,
-                                      xValueMapper: (ChartData data, _) =>
-                                          data.x,
-                                      yValueMapper: (ChartData data, _) =>
-                                          data.y,
-                                      dataLabelSettings: DataLabelSettings(
-                                          // Renders the data label
-                                          isVisible: true))
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          children: <Widget>[
-                            Container(
-                              width: 800,
-                              alignment: Alignment.center,
-                              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                              decoration: const BoxDecoration(
-                                  color: Color(0xff71CBCA),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
-                              child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 0),
+                  StreamBuilder<List<childModel>>(
+                      stream: adminDatabase().allChildData,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          List<childModel>? childList = snapshot.data;
+                          return SizedBox(
+                            height: 400,
+                            child: Row(
+                              children: <Widget>[
+                                const Expanded(
+                                  flex: 1,
+                                  child: noOfChildsCategory(),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  flex: 1,
                                   child: Row(
                                     children: <Widget>[
-                                      const Padding(
-                                        padding: EdgeInsets.all(20.0),
-                                        child: Icon(
-                                          Icons.support_agent,
-                                          size: 50.0,
-                                          color: Colors.white,
+                                      Expanded(
+                                        flex: 1,
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          constraints:
+                                              const BoxConstraints.expand(),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 20),
+                                          decoration: const BoxDecoration(
+                                              color: Color(0xff71CBCA),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10))),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              const Icon(
+                                                Icons.child_care,
+                                                size: 80,
+                                                color: Colors.white,
+                                              ),
+                                              const SizedBox(height: 10),
+                                              const Text(
+                                                'Newborn to 3 Years Old',
+                                                style: TextStyle(
+                                                    fontSize: 30,
+                                                    color: Colors.white),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              const SizedBox(height: 5),
+                                              const Padding(
+                                                padding: EdgeInsets.symmetric(horizontal: 20),
+                                                child: Divider(
+                                                  color: Colors.white,
+                                                  thickness: 1,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 5),
+                                              Text(
+                                                getNoOfChildCategory(childList!,
+                                                        'Newborn to 3 years old')
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                    fontSize: 40,
+                                                    color: Colors.white),
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
+                                      const SizedBox(width: 10),
                                       Expanded(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            const Text(
-                                              'Advisor',
-                                              style: TextStyle(
+                                        flex: 1,
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          constraints:
+                                              const BoxConstraints.expand(),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 20),
+                                          decoration: const BoxDecoration(
+                                              color: Color(0xffF29180),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10))),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              const Icon(
+                                                Icons.sentiment_very_satisfied,
+                                                size: 80,
+                                                color: Colors.white,
+                                              ),
+                                              const SizedBox(height: 10),
+                                              const Text(
+                                                '3 to 6 Years Old',
+                                                style: TextStyle(
+                                                    fontSize: 30,
+                                                    color: Colors.white),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              const SizedBox(height: 5),
+                                              const Padding(
+                                                padding: EdgeInsets.symmetric(horizontal: 20),
+                                                child: Divider(
                                                   color: Colors.white,
-                                                  fontSize: 20.0,
-                                                  fontStyle: FontStyle.italic),
-                                            ),
-                                            const SizedBox(height: 10.0),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                const Text(
-                                                  'Total Advisor Registered: 63',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14.0),
+                                                  thickness: 1,
                                                 ),
-                                                Expanded(
-                                                  child: Container(),
-                                                  flex: 1,
-                                                ),
-                                                const Text(
-                                                  'Number of active user: 55',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14.0),
-                                                ),
-                                                Expanded(
-                                                  child: Container(),
-                                                  flex: 1,
-                                                ),
-                                                const Text(
-                                                  'Number of inactive user: 8',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14.0),
-                                                )
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  )),
-                            ),
-                            const SizedBox(height: 10),
-                            Container(
-                              width: 800,
-                              alignment: Alignment.center,
-                              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                              decoration: const BoxDecoration(
-                                  color: Color(0xffF29180),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
-                              child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 0),
-                                  child: Row(
-                                    children: <Widget>[
-                                      const Padding(
-                                        padding: EdgeInsets.all(20.0),
-                                        child: Icon(
-                                          Icons.health_and_safety,
-                                          size: 50.0,
-                                          color: Colors.white,
+                                              ),
+                                              const SizedBox(height: 5),
+                                              Text(
+                                                getNoOfChildCategory(childList,
+                                                        '3 to 6 years old')
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                    fontSize: 40,
+                                                    color: Colors.white),
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
+                                      const SizedBox(width: 10),
                                       Expanded(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            const Text(
-                                              'Medical Staff',
-                                              style: TextStyle(
+                                        flex: 1,
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          constraints:
+                                              const BoxConstraints.expand(),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 20),
+                                          decoration: const BoxDecoration(
+                                              color: Color(0xff8290F0),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10))),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              const Icon(
+                                                Icons.face,
+                                                size: 80,
+                                                color: Colors.white,
+                                              ),
+                                              const SizedBox(height: 10),
+                                              const Text(
+                                                '7 to 12 Years Old',
+                                                style: TextStyle(
+                                                    fontSize: 30,
+                                                    color: Colors.white),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              const SizedBox(height: 5),
+                                              const Padding(
+                                                padding: EdgeInsets.symmetric(horizontal: 20),
+                                                child: Divider(
                                                   color: Colors.white,
-                                                  fontSize: 20.0,
-                                                  fontStyle: FontStyle.italic),
-                                            ),
-                                            const SizedBox(height: 10.0),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                const Text(
-                                                  'Total Medical Staff Registered: 63',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14.0),
+                                                  thickness: 1,
                                                 ),
-                                                Expanded(
-                                                  child: Container(),
-                                                  flex: 1,
-                                                ),
-                                                const Text(
-                                                  'Number of active user: 55',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14.0),
-                                                ),
-                                                Expanded(
-                                                  child: Container(),
-                                                  flex: 1,
-                                                ),
-                                                const Text(
-                                                  'Number of inactive user: 8',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14.0),
-                                                )
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  )),
-                            ),
-                            const SizedBox(height: 10),
-                            Container(
-                              width: 800,
-                              alignment: Alignment.center,
-                              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                              decoration: const BoxDecoration(
-                                  color: Color(0xff8290F0),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
-                              child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 0),
-                                  child: Row(
-                                    children: <Widget>[
-                                      const Padding(
-                                        padding: EdgeInsets.all(20.0),
-                                        child: Icon(
-                                          Icons.school,
-                                          size: 50.0,
-                                          color: Colors.white,
+                                              ),
+                                              const SizedBox(height: 5),
+                                              Text(
+                                                getNoOfChildCategory(childList,
+                                                        '7 to 12 years old')
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                    fontSize: 40,
+                                                    color: Colors.white),
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                      Expanded(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            const Text(
-                                              'Teacher',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 20.0,
-                                                  fontStyle: FontStyle.italic),
-                                            ),
-                                            const SizedBox(height: 10.0),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                const Text(
-                                                  'Total Teacher Registered: 63',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14.0),
-                                                ),
-                                                Expanded(
-                                                  child: Container(),
-                                                  flex: 1,
-                                                ),
-                                                const Text(
-                                                  'Number of Active User: 55',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14.0),
-                                                ),
-                                                Expanded(
-                                                  child: Container(),
-                                                  flex: 1,
-                                                ),
-                                                const Text(
-                                                  'Number of Inactive User: 8',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14.0),
-                                                )
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      )
                                     ],
-                                  )),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                          );
+                        } else {
+                          return Container();
+                        }
+                      }),
                 ],
               ),
             );
@@ -555,65 +496,4 @@ class _adminMainState extends State<adminMain> {
           }
         });
   }
-}
-
-class ChartData {
-  ChartData(this.x, this.y, this.color);
-  final String x;
-  final double y;
-  final Color color;
-}
-
-class SimpleTimeSeriesChart extends StatelessWidget {
-  SimpleTimeSeriesChart(this.seriesList, {required this.animate});
-  final List<charts.Series<dynamic, DateTime>> seriesList;
-  final bool animate;
-
-  /// Creates a [TimeSeriesChart] with sample data and no transition.
-  factory SimpleTimeSeriesChart.withSampleData() {
-    return new SimpleTimeSeriesChart(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return charts.TimeSeriesChart(
-      seriesList,
-      animate: animate,
-      // Optionally pass in a [DateTimeFactory] used by the chart. The factory
-      // should create the same type of [DateTime] as the data provided. If none
-      // specified, the default creates local date time.
-      dateTimeFactory: const charts.LocalDateTimeFactory(),
-    );
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<TimeSeriesSales, DateTime>> _createSampleData() {
-    final data = [
-      new TimeSeriesSales(new DateTime(2017, 9, 19), 5),
-      new TimeSeriesSales(new DateTime(2017, 9, 26), 25),
-      new TimeSeriesSales(new DateTime(2017, 10, 3), 100),
-      new TimeSeriesSales(new DateTime(2017, 10, 10), 75),
-    ];
-
-    return [
-      new charts.Series<TimeSeriesSales, DateTime>(
-        id: 'Sales',
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-        domainFn: (TimeSeriesSales sales, _) => sales.time,
-        measureFn: (TimeSeriesSales sales, _) => sales.sales,
-        data: data,
-      )
-    ];
-  }
-}
-
-class TimeSeriesSales {
-  final DateTime time;
-  final int sales;
-
-  TimeSeriesSales(this.time, this.sales);
 }

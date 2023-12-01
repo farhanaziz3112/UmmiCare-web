@@ -577,7 +577,7 @@ class _parentDashboardState extends State<parentDashboard> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 80),
+                  const SizedBox(height: 80),
                   Container(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -589,7 +589,7 @@ class _parentDashboardState extends State<parentDashboard> {
                           fontWeight: FontWeight.w500),
                     ),
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   Container(
                     constraints:
                         const BoxConstraints(maxHeight: 1000, minHeight: 500),

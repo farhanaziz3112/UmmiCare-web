@@ -88,9 +88,9 @@ class _parentTileState extends State<parentTile> {
                         alignment: Alignment.center,
                         constraints:
                             const BoxConstraints(minWidth: 100, maxWidth: 200),
-                        child: const Text(
-                          '0',
-                          style: TextStyle(
+                        child: Text(
+                          parent.noOfChild,
+                          style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.normal,
                               fontSize: 15),
