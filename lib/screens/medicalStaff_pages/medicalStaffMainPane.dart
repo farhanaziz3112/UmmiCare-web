@@ -1,55 +1,43 @@
-class HealthStatusModel {
-  final String healthStatusId;
-  late final String currentTemperature;
-  late final String currentHeartRate;
-  late final String healthConditionId;
-  late final String physicalConditionId;
-  late final String chronicConditionId;
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:ummicare/models/medicalStaffModel.dart';
+import 'package:ummicare/models/userModel.dart';
+import 'package:ummicare/screens/medicalStaff_pages/medicalStaff/medicalStaffDashboard.dart';
+import 'package:ummicare/screens/medicalStaff_pages/patient/patientMain.dart';
+import 'package:ummicare/screens/medicalStaff_pages/settings/medicalStaffSettingsMain.dart';
+import 'package:ummicare/services/medicalStaffDatabase.dart';
 
-  HealthStatusModel({
-    required this.healthStatusId,
-    required this.currentTemperature,
-    required this.currentHeartRate,
-    required this.healthConditionId,
-    required this.physicalConditionId,
-    required this.chronicConditionId,
-  });
+class medicalStaffMainPane extends StatefulWidget {
+  const medicalStaffMainPane({super.key, required this.currentPage});
+  final int currentPage;
+
+  @override
+  State<medicalStaffMainPane> createState() => _medicalStaffMainPaneState();
 }
 
-class HealthConditionModel {
-  final String healthConditionId;
-  late final String currentSymptom;
-  late final String currentIllness;
-  late final String notes;
+class _medicalStaffMainPaneState extends State<medicalStaffMainPane> {
 
-  HealthConditionModel({
-    required this.healthConditionId,
-    required this.currentSymptom,
-    required this.currentIllness,
-    required this.notes,
-  });
-}
+  final pages = [
+    const medicalStaffDashboard(),
+    const patientMain(),
+    const medicalStaffSettingsMain()
+  ];
 
-class PhysicalConditionModel {
-  final String physicalConditionId;
-  late final String currentInjury;
-  late final String details;
 
-  PhysicalConditionModel({
-    required this.physicalConditionId,
-    required this.currentInjury,
-    required this.details,
-  });
-}
-
-class ChronicConditionModel {
-  final String chronicConditionId;
-  late final String childAllergies;
-  late final String childChronic;
-
-  ChronicConditionModel({
-    required this.chronicConditionId,
-    required this.childAllergies,
-    required this.childChronic,
-  });
+  @override
+  Widget build(BuildContext context) {
+    userModel? user = Provider.of<userModel>(context);
+    return StreamProvider<medicalStaffModel?>.value(
+      value: medicalStaffDatabase(medicalStaffId: user.userId).medicalStaffData,
+      initialData: null,
+      catchError: (_, __) {
+        return null;
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 80),
+        child: pages[widget.currentPage],
+        alignment: Alignment.topLeft,
+      ),
+    );
+  }
 }
