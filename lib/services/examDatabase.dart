@@ -181,16 +181,37 @@ class examDatabase {
         .map(_createSubjectResultModelList);
   }
 
+  Stream<List<subjectResultModel>> subjectResultDataWithStudentIdAndSubjectId(
+      String studentId, String subjectId, String examId) {
+    return subjectResultCollection
+        .where('studentId', isEqualTo: studentId)
+        .where('subjectId', isEqualTo: subjectId)
+        .where('examId', isEqualTo: examId)
+        .snapshots()
+        .map(_createSubjectResultModelList);
+  }
+
+  Stream<List<subjectResultModel>> subjectResultDataWithSubjectIdAndExamId(
+      String subjectId, String examId) {
+    return subjectResultCollection
+        .where('subjectId', isEqualTo: subjectId)
+        .where('examId', isEqualTo: examId)
+        .snapshots()
+        .map(_createSubjectResultModelList);
+  }
+
   subjectResultModel _createSubjectResultModelObject(
       DocumentSnapshot snapshot) {
     return subjectResultModel(
         subjectResultId: snapshot.id,
         subjectId: snapshot['subjectId'],
+        examId: snapshot['examId'],
         examResultId: snapshot['examResultId'],
         studentId: snapshot['studentId'],
         academicCalendarId: snapshot['academicCalendarId'],
         subjectMark: snapshot['subjectMark'],
-        subjectGrade: snapshot['subjectGrade']);
+        subjectGrade: snapshot['subjectGrade'],
+        subjectGradeStatus: snapshot['subjectGradeStatus']);
   }
 
   List<subjectResultModel> _createSubjectResultModelList(
@@ -202,6 +223,9 @@ class examDatabase {
             : '',
         subjectId: doc.data().toString().contains('subjectId')
             ? doc.get('subjectId')
+            : '',
+        examId: doc.data().toString().contains('examId')
+            ? doc.get('examId')
             : '',
         examResultId: doc.data().toString().contains('examResultId')
             ? doc.get('examResultId')
@@ -218,6 +242,9 @@ class examDatabase {
         subjectGrade: doc.data().toString().contains('subjectGrade')
             ? doc.get('subjectGrade')
             : '',
+        subjectGradeStatus: doc.data().toString().contains('subjectGradeStatus')
+            ? doc.get('subjectGradeStatus')
+            : '',
       );
     }).toList();
   }
@@ -225,38 +252,46 @@ class examDatabase {
   Future<void> updateSubjectResultData(
       String subjectResultId,
       String subjectId,
+      String examId,
       String examResultId,
       String studentId,
       String academicCalendarId,
       String subjectMark,
-      String subjectGrade) async {
+      String subjectGrade,
+      String subjectGradeStatus) async {
     return await subjectResultCollection.doc(subjectResultId).set({
       'subjectResultId': subjectResultId,
       'subjectId': subjectId,
+      'examId': examId,
       'examResultId': examResultId,
       'studentId': studentId,
       'academicCalendarId': academicCalendarId,
       'subjectMark': subjectMark,
-      'subjectGrade': subjectGrade
+      'subjectGrade': subjectGrade,
+      'subjectGradeStatus': subjectGradeStatus
     });
   }
 
   Future<void> createSubjectResultData(
       String subjectId,
+      String examId,
       String examResultId,
       String studentId,
       String academicCalendarId,
       String subjectMark,
-      String subjectGrade) async {
+      String subjectGrade,
+      String subjectGradeStatus) async {
     final document = subjectResultCollection.doc();
     return await subjectResultCollection.doc(document.id).set({
       'subjectResultId': document.id,
       'subjectId': subjectId,
+      'examId': examId,
       'examResultId': examResultId,
       'studentId': studentId,
       'academicCalendarId': academicCalendarId,
       'subjectMark': subjectMark,
-      'subjectGrade': subjectGrade
+      'subjectGrade': subjectGrade,
+      'subjectGradeStatus': subjectGradeStatus
     });
   }
 }

@@ -41,20 +41,24 @@ class subjectResultModel {
 
   final String subjectResultId;
   final String subjectId;
+  final String examId;
   final String examResultId;
   final String studentId;
   final String academicCalendarId;
   final String subjectMark;
   final String subjectGrade;
+  final String subjectGradeStatus;
 
   subjectResultModel({
     required this.subjectResultId,
     required this.subjectId,
+    required this.examId,
     required this.examResultId,
     required this.studentId,
     required this.academicCalendarId,
     required this.subjectMark,
-    required this.subjectGrade
+    required this.subjectGrade,
+    required this.subjectGradeStatus
   });
 
 }

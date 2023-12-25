@@ -443,22 +443,25 @@ class _childProfileState extends State<childProfile> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: <Widget>[
-                                            const Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  Icons.child_care,
-                                                  size: 50,
-                                                  color: Colors.white,
-                                                ),
-                                                Text(
-                                                  'Age Category',
-                                                  style: TextStyle(
-                                                      fontSize: 20,
-                                                      color: Colors.white),
-                                                ),
-                                              ],
+                                            Expanded(
+                                              flex: 2,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Icon(
+                                                    Icons.child_care,
+                                                    size: 50,
+                                                    color: Colors.white,
+                                                  ),
+                                                  Text(
+                                                    'Age Category',
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: Colors.white),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                             Container(
                                                 padding:
@@ -468,13 +471,21 @@ class _childProfileState extends State<childProfile> {
                                                 child: const VerticalDivider(
                                                   color: Colors.white,
                                                 )),
-                                            Text(
-                                              child.childAgeCategory,
-                                              style: const TextStyle(
-                                                  fontSize: 15,
-                                                  color: Colors.white),
-                                              softWrap: true,
-                                              maxLines: 2,
+                                            Expanded(
+                                              flex: 2,
+                                              child: Container(
+                                                height: double.maxFinite,
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  child.childAgeCategory,
+                                                  style: const TextStyle(
+                                                      fontSize: 15,
+                                                      color: Colors.white),
+                                                  maxLines: 2,
+                                                  softWrap: true,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
                                             ),
                                           ],
                                         ),

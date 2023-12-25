@@ -485,7 +485,7 @@ class _examProfileState extends State<examProfile> {
                                       Container(
                                         alignment: Alignment.centerLeft,
                                         child: const Text(
-                                          'Subject List',
+                                          'Subject List Grading',
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 30.0,

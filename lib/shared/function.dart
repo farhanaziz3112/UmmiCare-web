@@ -128,3 +128,27 @@ int getNoOfStudentStatus(List<studentModel>? studentList, String status) {
   }
   return total;
 }
+
+
+String getGrade(String markInString) {
+    int mark = int.parse(markInString);
+    if (mark <= 100 && mark >= 80) {
+      return 'A';
+    }  else if (mark >= 60 && mark < 80) {
+      return 'B';
+    } else if (mark >= 40 && mark < 60) {
+      return 'C';
+    } else if (mark >= 20 && mark < 40) {
+      return 'D';
+    } else {
+      return 'E';
+    }
+  }
+
+String getGradeStatus(String grade) {
+    if (grade == 'A' || grade == 'B' || grade == 'C') {
+      return 'pass';
+    } else {
+      return 'fail';
+    }
+  }
