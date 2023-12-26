@@ -51,7 +51,7 @@ class _medicalStaffEditProfileState extends State<medicalStaffEditProfile> {
                                   decoration: TextDecoration.underline),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  context.go('/medicalStaff/settings');
+                                  context.go('/medicalstaff/settings');
                                 }),
                         ),
                         const SizedBox(width: 10),
@@ -318,7 +318,7 @@ class _medicalStaffEditProfileState extends State<medicalStaffEditProfile> {
                                                       : _currentPhoneNumber,
                                                   medicalStaff.medicalStaffProfileImg,
                                                   medicalStaff.clinicId);
-                                          context.go('/medicalStaff/settings');
+                                          context.go('/medicalstaff/settings');
                                         }
                                       },
                                     ),

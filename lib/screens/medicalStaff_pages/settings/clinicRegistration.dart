@@ -38,7 +38,7 @@ class _clinicRegistrationState extends State<clinicRegistration> {
                                 decoration: TextDecoration.underline),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                context.go('/medicalStaff/settings');
+                                context.go('/medicalstaff/settings');
                               }),
                       ),
                       const SizedBox(width: 10),
@@ -116,7 +116,7 @@ class _clinicRegistrationState extends State<clinicRegistration> {
                                 side: BorderSide.none),
                           ),
                           onPressed: () {
-                            context.go('/medicalStaff/settings/clinicregistration/registernewclinic');
+                            context.go('/medicalstaff/settings/clinicregistration/registernewclinic');
                           },
                           label: const Text(
                             'Register New clinic',

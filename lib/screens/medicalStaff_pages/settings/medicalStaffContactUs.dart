@@ -25,7 +25,7 @@ class _medicalStaffContactUsState extends State<medicalStaffContactUs> {
                         decoration: TextDecoration.underline),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
-                        context.go('/medicalStaff/settings');
+                        context.go('/medicalstaff/settings');
                       }),
               ),
               const SizedBox(width: 10),

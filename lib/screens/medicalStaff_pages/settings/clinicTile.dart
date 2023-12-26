@@ -271,7 +271,7 @@ class _clinicTileState extends State<clinicTile> {
                                                               .medicalStaffProfileImg,
                                                           clinic.clinicId);
                                                   context.go(
-                                                      '/medicalStaff/settings/clinicregistration');
+                                                      '/medicalstaff/settings/clinicregistration');
                                                 },
                                                 child: const Text("Confirm",
                                                     style: TextStyle(

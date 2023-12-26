@@ -58,7 +58,7 @@ class _medicalStaffSettingsMainState extends State<medicalStaffSettingsMain> {
                     side: BorderSide.none),
               ),
               onPressed: () {
-                context.go('/medicalStaff/settings/editprofile');
+                context.go('/medicalstaff/settings/editprofile');
               },
               label: const Text(
                 'Edit Profile',
@@ -86,10 +86,10 @@ class _medicalStaffSettingsMainState extends State<medicalStaffSettingsMain> {
                     side: BorderSide.none),
               ),
               onPressed: () {
-                context.go('/medicalStaff/settings/schoolregistration');
+                context.go('/medicalstaff/settings/clinicregistration');
               },
               label: const Text(
-                'School Registration',
+                'Clinic Registration',
                 style: TextStyle(fontSize: 20.0, color: Colors.white),
               ),
             ),
@@ -114,7 +114,7 @@ class _medicalStaffSettingsMainState extends State<medicalStaffSettingsMain> {
                     side: BorderSide.none),
               ),
               onPressed: () {
-                context.go('/medicalStaff/settings/systemsettings');
+                context.go('/medicalstaff/settings/systemsettings');
               },
               label: const Text(
                 'System Settings',
@@ -142,7 +142,7 @@ class _medicalStaffSettingsMainState extends State<medicalStaffSettingsMain> {
                     side: BorderSide.none),
               ),
               onPressed: () {
-                context.go('/medicalStaff/settings/version');
+                context.go('/medicalstaff/settings/version');
               },
               label: const Text(
                 'Version',
@@ -170,7 +170,7 @@ class _medicalStaffSettingsMainState extends State<medicalStaffSettingsMain> {
                     side: BorderSide.none),
               ),
               onPressed: () {
-                context.go('/medicalStaff/settings/privacyofpolicy');
+                context.go('/medicalstaff/settings/privacyofpolicy');
               },
               label: const Text(
                 'Privacy of Policy',
@@ -198,7 +198,7 @@ class _medicalStaffSettingsMainState extends State<medicalStaffSettingsMain> {
                     side: BorderSide.none),
               ),
               onPressed: () {
-                context.go('/medicalStaff/settings/termsofuse');
+                context.go('/medicalstaff/settings/termsofuse');
               },
               label: const Text(
                 'Terms of Use',
@@ -226,7 +226,7 @@ class _medicalStaffSettingsMainState extends State<medicalStaffSettingsMain> {
                     side: BorderSide.none),
               ),
               onPressed: () {
-                context.go('/medicalStaff/settings/contactus');
+                context.go('/medicalstaff/settings/contactus');
               },
               label: const Text(
                 'Contact Us',

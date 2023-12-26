@@ -28,9 +28,9 @@ class medicalStaffLeftPane extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 50),
-              mainNavItem('/medicalStaff_pages/home', selected == 0, 'Home'),
-              mainNavItem('/medicalStaff_pages/patient', selected == 1, 'Patient'),
-              mainNavItem('/medicalStaff_pages/settings', selected == 2, 'Settings'),
+              mainNavItem('/medicalstaff/home', selected == 0, 'Home'),
+              mainNavItem('/medicalstaff/patient', selected == 1, 'Patient'),
+              mainNavItem('/medicalstaff/settings', selected == 2, 'Settings'),
               Expanded(child: Container()),
               const medicalStaffHomeProfile(),
               const SizedBox(height: 50)
