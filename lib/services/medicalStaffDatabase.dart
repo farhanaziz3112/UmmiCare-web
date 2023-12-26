@@ -30,6 +30,7 @@ class medicalStaffDatabase {
       medicalStaffEmail: snapshot['medicalStaffEmail'],
       medicalStaffPhoneNumber: snapshot['medicalStaffPhoneNumber'],
       medicalStaffProfileImg: snapshot['medicalStaffProfileImg'],
+      clinicId : snapshot['clinicId'],
     );
   }
 
@@ -44,7 +45,8 @@ class medicalStaffDatabase {
           medicalStaffLastName: doc.data().toString().contains('medicalStaffLastName') ? doc.get('medicalStaffLastName') : '',
           medicalStaffEmail: doc.data().toString().contains('medicalStaffEmail') ? doc.get('medicalStaffEmail') : '',
           medicalStaffPhoneNumber: doc.data().toString().contains('medicalStaffPhoneNumber') ? doc.get('medicalStaffPhoneNumber') : '',
-          medicalStaffProfileImg: doc.data().toString().contains('medicalStaffProfileImg') ? doc.get('medicalStaffProfileImg') : '');
+          medicalStaffProfileImg: doc.data().toString().contains('medicalStaffProfileImg') ? doc.get('medicalStaffProfileImg') : '',
+          clinicId: doc.data().toString().contains('clinicId') ? doc.get('clinicId'): '',);
     }).toList();
   }
 
@@ -81,7 +83,8 @@ class medicalStaffDatabase {
       String medicalStaffLastName,
       String medicalStaffEmail,
       String medicalStaffPhoneNumber,
-      String medicalStaffProfileImg,) async {
+      String medicalStaffProfileImg,
+      String clinicId) async {
     return await medicalStaffCollection.doc(medicalStaffId).set({
       'medicalStaffId': medicalStaffId,
       'medicalStaffCreatedDate': medicalStaffCreatedDate,
@@ -91,44 +94,12 @@ class medicalStaffDatabase {
       'medicalStaffEmail': medicalStaffEmail,
       'medicalStaffPhoneNumber': medicalStaffPhoneNumber,
       'medicalStaffProfileImg': medicalStaffProfileImg,
+      'clinicId' : clinicId,
     });
   }
   
 
-  //------------------------------Doctor----------------------------------
-  //collection reference
-  final CollectionReference doctorCollection =
-      FirebaseFirestore.instance.collection('Doctor');
-
-  //get specific Doctor document stream
-  Stream<DoctorModel> doctorData (String doctorId) {
-    return doctorCollection
-        .doc(doctorId)
-        .snapshots()
-        .map(_createDoctorModelObject);
-  }
-
-  //create a Doctor model object
-  DoctorModel _createDoctorModelObject(DocumentSnapshot snapshot) {
-    return DoctorModel(
-      doctorId: snapshot.id,
-      doctorFullName: snapshot['doctorFullName'],
-      doctorPhoneNumber: snapshot['doctorPhoneNumber'],
-    );
-  }
-
-  //create Doctor data
-  Future<void> createDoctorData(
-    String doctorId,
-    String doctorFullName,
-    String doctorPhoneNumber) async {
-    return await doctorCollection.doc(doctorId).set({
-      'doctorFullName': doctorFullName,
-      'doctorPhoneNumber': doctorPhoneNumber,
-    });
-  }
-
-  //------------------------------Clinic----------------------------------
+ //------------------------------Clinic----------------------------------
   //collection reference
   final CollectionReference clinicCollection =
       FirebaseFirestore.instance.collection('Clinic');
@@ -147,8 +118,62 @@ class medicalStaffDatabase {
       clinicId: snapshot.id,
       clinicName: snapshot['clinicName'],
       clinicAddress: snapshot['clinicAddress'],
+      clinicEmail: snapshot['clinicEmail'],
       clinicPhoneNumber: snapshot['clinicPhoneNumber']
     );
+  }
+
+  Stream<List<ClinicModel>> get allClinicData {
+    return medicalStaffCollection.snapshots().map(_createClinicModelList);
+  }
+
+  List<ClinicModel> _createClinicModelList(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return ClinicModel(
+          clinicId: doc.get('clinicId'),
+          clinicName: doc.get('clinicName'),
+          clinicAddress: doc.get('clinicAddress'),
+          clinicEmail: doc.get('clinicEmail'),
+          clinicPhoneNumber: doc.get('clinicPhoneNumber'));
+    }).toList();
+  }
+
+  Stream<List<ClinicModel>> clinicSearch(String search) {
+    return clinicCollection
+        .where('ClinicModelName', isGreaterThanOrEqualTo: search)
+        .where('search', isLessThan: search + 'z')
+        .snapshots()
+        .map(_createClinicModelList);
+  }
+
+  String searchClinicModelNameFormatting(String clinicName) {
+    if (clinicName == '') {
+      return clinicName;
+    }
+    String temp = clinicName[0].toUpperCase() + clinicName.substring(1);
+    if (temp.length > 2) {
+      for (int i = 0; i < temp.length; i++) {
+        if (temp[i] == ' ' && temp[i + 1] != ' ') {
+          temp = temp.substring(0, i + 1) +
+              temp[i + 1].toUpperCase() +
+              temp.substring(i + 2);
+        }
+      }
+    }
+
+    return temp;
+  }
+
+  Future<void> updateClinicData(
+    String clinicId,
+    String clinicName,
+    String clinicAddress,
+    String clinicPhoneNumber) async {
+    return await clinicCollection.doc(clinicId).set({
+      'clinicName': clinicName,
+      'clinicAddress': clinicAddress,
+      'clinicPhoneNumber': clinicPhoneNumber,
+    });
   }
 
   //create Clinic data

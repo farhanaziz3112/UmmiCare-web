@@ -7,6 +7,7 @@ class medicalStaffModel {
   late final String medicalStaffEmail;
   late final String medicalStaffPhoneNumber;
   late final String medicalStaffProfileImg;
+  late final String clinicId;
 
   medicalStaffModel({
     required this.medicalStaffId,
@@ -17,6 +18,7 @@ class medicalStaffModel {
     required this.medicalStaffEmail,
     required this.medicalStaffPhoneNumber,
     required this.medicalStaffProfileImg,
+    required this.clinicId,
   });
 
 }
@@ -25,24 +27,14 @@ class ClinicModel {
   final String clinicId;
   late final String clinicName;
   late final String clinicAddress;
+  late final String clinicEmail;
   late final String clinicPhoneNumber;
 
   ClinicModel({
     required this.clinicId,
     required this.clinicName,
     required this.clinicAddress,
+    required this.clinicEmail,
     required this.clinicPhoneNumber,
-  });
-}
-
-class DoctorModel {
-  final String doctorId;
-  late final String doctorFullName;
-  late final String doctorPhoneNumber;
-
-  DoctorModel({
-    required this.doctorId,
-    required this.doctorFullName,
-    required this.doctorPhoneNumber,
   });
 }

@@ -65,6 +65,8 @@ import 'package:ummicare/screens/advisorPages/parent/child/childPages.dart';
 import 'package:ummicare/screens/advisorPages/parent/parentPages/parentPages.dart';
 import 'package:ummicare/screens/advisorPages/settings/advisorSettingsPages.dart';
 import 'package:ummicare/screens/auth/signIn.dart';
+import 'package:ummicare/screens/medicalStaff_pages/medicalStaffHome.dart';
+import 'package:ummicare/screens/medicalStaff_pages/settings/medicalStaffSettingsPages.dart';
 import 'package:ummicare/screens/teacherPages/class/classPages.dart';
 import 'package:ummicare/screens/teacherPages/settings/teacherSettingsPages.dart';
 import 'package:ummicare/screens/teacherPages/teacherHome.dart';
@@ -788,6 +790,84 @@ final GoRouter routes = GoRouter(
                     pageBuilder: (context, state) => NoTransitionPage<void>(
                         key: state.pageKey,
                         child: const teacherSettingsPages(currentPage: 6)),
+                  ),
+                ]),
+          ]),
+        GoRoute(
+          path: '/medicalstaff',
+          builder: (BuildContext context, GoRouterState state) {
+            return const medicalStaffHome(currentPage: 0);
+          },
+          routes: [
+            GoRoute(
+                path: 'home',
+                pageBuilder: (context, state) => NoTransitionPage<void>(
+                      key: state.pageKey,
+                      child: const medicalStaffHome(currentPage: 0),
+                    )),
+            GoRoute(
+                path: 'patient',
+                pageBuilder: (context, state) => NoTransitionPage<void>(
+                      key: state.pageKey,
+                      child: const medicalStaffHome(currentPage: 1),
+                    ),),
+            GoRoute(
+                path: 'settings',
+                pageBuilder: (context, state) => NoTransitionPage<void>(
+                      key: state.pageKey,
+                      child: const medicalStaffHome(currentPage: 2),
+                    ),
+                routes: [
+                  GoRoute(
+                    path: 'editprofile',
+                    pageBuilder: (context, state) => NoTransitionPage<void>(
+                        key: state.pageKey,
+                        child: const medicalStaffSettingsPages(currentPage: 0)),
+                  ),
+                  GoRoute(
+                      path: 'clinicregistration',
+                      pageBuilder: (context, state) => NoTransitionPage<void>(
+                          key: state.pageKey,
+                          child: const medicalStaffSettingsPages(currentPage: 1)),
+                      routes: [
+                        GoRoute(
+                          path: 'registernewclinic',
+                          pageBuilder: (context, state) =>
+                              NoTransitionPage<void>(
+                                  key: state.pageKey,
+                                  child: const medicalStaffSettingsPages(
+                                      currentPage: 7)),
+                        ),
+                      ]),
+                  GoRoute(
+                    path: 'systemsettings',
+                    pageBuilder: (context, state) => NoTransitionPage<void>(
+                        key: state.pageKey,
+                        child: const medicalStaffSettingsPages(currentPage: 2)),
+                  ),
+                  GoRoute(
+                    path: 'version',
+                    pageBuilder: (context, state) => NoTransitionPage<void>(
+                        key: state.pageKey,
+                        child: const medicalStaffSettingsPages(currentPage: 3)),
+                  ),
+                  GoRoute(
+                    path: 'privacyofpolicy',
+                    pageBuilder: (context, state) => NoTransitionPage<void>(
+                        key: state.pageKey,
+                        child: const medicalStaffSettingsPages(currentPage: 4)),
+                  ),
+                  GoRoute(
+                    path: 'termsofuse',
+                    pageBuilder: (context, state) => NoTransitionPage<void>(
+                        key: state.pageKey,
+                        child: const medicalStaffSettingsPages(currentPage: 5)),
+                  ),
+                  GoRoute(
+                    path: 'contactus',
+                    pageBuilder: (context, state) => NoTransitionPage<void>(
+                        key: state.pageKey,
+                        child: const medicalStaffSettingsPages(currentPage: 6)),
                   ),
                 ]),
           ]),

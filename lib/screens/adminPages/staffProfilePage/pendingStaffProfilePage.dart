@@ -467,7 +467,8 @@ class _pendingStaffProfilePageState extends State<pendingStaffProfilePage> {
                                                 staff.staffLastName,
                                                 staff.staffEmail,
                                                 staff.staffPhoneNumber,
-                                                staff.staffProfileImg);
+                                                staff.staffProfileImg,
+                                                '',);
                                       }
                                       context.go(
                                           '/admin/${staff.staffUserType}/pending');
