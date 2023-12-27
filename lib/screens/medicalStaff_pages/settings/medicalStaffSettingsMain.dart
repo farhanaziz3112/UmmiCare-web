@@ -14,9 +14,7 @@ class _medicalStaffSettingsMainState extends State<medicalStaffSettingsMain> {
   Widget build(BuildContext context) {
     AuthService _auth = AuthService();
 
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-      alignment: Alignment.topLeft,
+    return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[

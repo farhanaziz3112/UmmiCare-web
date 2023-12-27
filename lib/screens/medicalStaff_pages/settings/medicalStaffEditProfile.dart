@@ -37,8 +37,7 @@ class _medicalStaffEditProfileState extends State<medicalStaffEditProfile> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               medicalStaffModel? medicalStaff = snapshot.data;
-              return Container(
-                alignment: Alignment.topLeft,
+              return SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
                     Row(
