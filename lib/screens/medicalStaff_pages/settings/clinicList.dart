@@ -27,7 +27,7 @@ class _clinicListState extends State<clinicList> {
         shrinkWrap: true,
         itemCount: widget.clinicDetails.length,
         itemBuilder: ((context, index) {
-          return clinicTile();
+          return const clinicTile();
         }),
       );
     }
