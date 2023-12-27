@@ -5,6 +5,7 @@ import 'package:ummicare/screens/medicalStaff_Pages/settings/medicalStaffPrivacy
 import 'package:ummicare/screens/medicalStaff_Pages/settings/medicalStaffSystemSettings.dart';
 import 'package:ummicare/screens/medicalStaff_Pages/settings/medicalStaffVersion.dart';
 import 'package:ummicare/screens/medicalStaff_Pages/medicalStaffLeftPane.dart';
+import 'package:ummicare/screens/medicalStaff_pages/settings/addNewClinic.dart';
 import 'package:ummicare/screens/medicalStaff_pages/settings/clinicRegistration.dart';
 import 'package:ummicare/screens/medicalStaff_pages/settings/medicalStaffTermsOfUse.dart';
 import 'package:ummicare/screens/medicalStaff_pages/settings/registerNewClinic.dart';
@@ -27,7 +28,8 @@ class _medicalStaffSettingsPagesState extends State<medicalStaffSettingsPages> {
     const medicalStaffPrivacyOfPolicy(),
     const medicalStaffTermsOfUse(),
     const medicalStaffContactUs(),
-    const registerNewClinic()
+    const registerNewClinic(),
+    const addNewClinic(),
   ];
 
   @override

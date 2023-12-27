@@ -7,8 +7,7 @@ import 'package:ummicare/models/userModel.dart';
 import 'package:ummicare/services/medicalStaffDatabase.dart';
 
 class clinicTile extends StatefulWidget {
-  const clinicTile({super.key, required this.clinicDetail});
-  final ClinicModel clinicDetail;
+  const clinicTile({super.key});
 
   @override
   State<clinicTile> createState() => _clinicTileState();
@@ -21,11 +20,11 @@ class _clinicTileState extends State<clinicTile> {
   Widget build(BuildContext context) {
     userModel? user = Provider.of<userModel?>(context);
 
-    return StreamBuilder<ClinicModel>(
-      stream: medicalStaffDatabase(medicalStaffId: user!.userId).clinicData(widget.clinicDetail.clinicId),
+    return StreamBuilder<List<ClinicModel>>(
+      stream: medicalStaffDatabase(medicalStaffId: user!.userId).allClinicData,
       builder: ((context, snapshot) {
         if (snapshot.hasData) {
-          ClinicModel? clinic = snapshot.data;
+          List<ClinicModel>? clinic = snapshot.data;
           return Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: InkWell(
@@ -41,7 +40,7 @@ class _clinicTileState extends State<clinicTile> {
                           children: [
                             const Icon(Icons.local_hospital),
                             const SizedBox(width: 10),
-                            Text(clinic.clinicName),
+                            Text(clinic[0].clinicName),
                           ],
                         ),
                       ),
@@ -67,7 +66,7 @@ class _clinicTileState extends State<clinicTile> {
                             Container(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                clinic.clinicName,
+                                clinic[0].clinicName,
                                 textAlign: TextAlign.left,
                                 style: const TextStyle(
                                   fontSize: 15.0,
@@ -94,7 +93,7 @@ class _clinicTileState extends State<clinicTile> {
                             Container(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                clinic.clinicEmail,
+                                clinic[0].clinicEmail,
                                 textAlign: TextAlign.left,
                                 style: const TextStyle(
                                   fontSize: 15.0,
@@ -121,7 +120,7 @@ class _clinicTileState extends State<clinicTile> {
                             Container(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                clinic.clinicAddress,
+                                clinic[0].clinicAddress,
                                 textAlign: TextAlign.left,
                                 style: const TextStyle(
                                   fontSize: 15.0,
@@ -148,7 +147,7 @@ class _clinicTileState extends State<clinicTile> {
                             Container(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                clinic.clinicPhoneNumber,
+                                clinic[0].clinicPhoneNumber,
                                 textAlign: TextAlign.left,
                                 style: const TextStyle(
                                   fontSize: 15.0,
@@ -216,7 +215,7 @@ class _clinicTileState extends State<clinicTile> {
                                                   const Text(
                                                       'Are you sure you want to register with '),
                                                   Text(
-                                                    '${clinic.clinicName}?',
+                                                    '${clinic[0].clinicName}?',
                                                     style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold),
@@ -269,7 +268,7 @@ class _clinicTileState extends State<clinicTile> {
                                                               .medicalStaffPhoneNumber,
                                                           medicalStaff
                                                               .medicalStaffProfileImg,
-                                                          clinic.clinicId);
+                                                          clinic[0].clinicId);
                                                   context.go(
                                                       '/medicalstaff/settings/clinicregistration');
                                                 },
@@ -318,7 +317,7 @@ class _clinicTileState extends State<clinicTile> {
                         constraints:
                             const BoxConstraints(minWidth: 100, maxWidth: 200),
                         child: Text(
-                          clinic!.clinicName,
+                          clinic![0].clinicName,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                               color: Colors.white, fontSize: 15),
@@ -336,7 +335,7 @@ class _clinicTileState extends State<clinicTile> {
                         constraints:
                             const BoxConstraints(minWidth: 100, maxWidth: 200),
                         child: Text(
-                          clinic.clinicAddress,
+                          clinic[0].clinicAddress,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                               color: Colors.white,
@@ -356,7 +355,7 @@ class _clinicTileState extends State<clinicTile> {
                         constraints:
                             const BoxConstraints(minWidth: 100, maxWidth: 200),
                         child: Text(
-                          clinic.clinicEmail,
+                          clinic[0].clinicEmail,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                               color: Colors.white,
@@ -376,7 +375,7 @@ class _clinicTileState extends State<clinicTile> {
                         constraints:
                             const BoxConstraints(minWidth: 100, maxWidth: 200),
                         child: Text(
-                          clinic.clinicPhoneNumber,
+                          clinic[0].clinicPhoneNumber,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                               color: Colors.white,
@@ -396,7 +395,7 @@ class _clinicTileState extends State<clinicTile> {
                         constraints:
                             const BoxConstraints(minWidth: 100, maxWidth: 200),
                         child: Text(
-                          clinic.clinicId,
+                          clinic[0].clinicId,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                               color: Colors.white,

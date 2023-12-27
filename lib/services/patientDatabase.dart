@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:ummicare/models/vaccinationAppointmentModel.dart';
+import 'package:ummicare/models/patientModel.dart';
 
 class VaccinationAppointmentDatabaseService {
   final String healthId;
@@ -9,7 +9,74 @@ class VaccinationAppointmentDatabaseService {
   VaccinationAppointmentDatabaseService(
     {required this.healthId, this.vaccinationAppointmentId}
   );
+  //------------------------------Patient----------------------------------
+  final CollectionReference patientCollection =
+      FirebaseFirestore.instance.collection('patient');
 
+  //get specific patient document stream
+  Stream<patientModel> patientData(String patientId) {
+    return patientCollection
+        .doc(patientId)
+        .snapshots()
+        .map(_createPatientModelObject);
+  }
+  
+  //create a patient model object
+  patientModel _createPatientModelObject(DocumentSnapshot snapshot) {
+    return patientModel(
+        patientId: snapshot.id,
+        childId: snapshot['childId'],
+        clinicId: snapshot['clinicId'],
+        vaccinationAppointmentId: snapshot['vaccinationAppointmentId'],
+    );
+  }
+
+  //create a list of patient model object
+  List<patientModel> _createPatientListModelObject(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return patientModel(
+        patientId: doc.data().toString().contains('patientId')
+            ? doc.get('patientId')
+            : '',
+        childId:
+            doc.data().toString().contains('childId') ? doc.get('childId') : '',
+        clinicId: doc.data().toString().contains('clinicId')
+            ? doc.get('clinicId')
+            : '',
+        vaccinationAppointmentId: doc.data().toString().contains('vaccinationAppointmentId')
+            ? doc.get('vaccinationAppointmentId')
+            : '',
+      );
+    }).toList();
+  }
+
+  Future<void> updateStudentData(
+      String patientId,
+      String childId,
+      String clinicId,
+      String vaccinationAppointmentId,) async {
+    return await patientCollection.doc(patientId).set({
+      'patientId': patientId,
+      'childId': childId,
+      'clinicId': clinicId,
+      'vaccinationAppointmentId': vaccinationAppointmentId,
+    });
+  }
+
+  Future<void> createStudentData(
+      String childId,
+      String clinicId,
+      String vaccinationAppointmentId,) async {
+    final document = patientCollection.doc();
+    return await patientCollection.doc(document.id).set({
+      'patientId': document.id,
+      'childId': childId,
+      'clinicId': clinicId,
+      'vaccinationAppointmentId': vaccinationAppointmentId,
+    });
+  }
+
+  //------------------------------Vaccination Appointment----------------------------------
   //collection reference
   final CollectionReference vaccinationAppointmentCollection =
       FirebaseFirestore.instance.collection('Vaccination Appointment');
@@ -37,7 +104,7 @@ class VaccinationAppointmentDatabaseService {
       vaccineTime: snapshot['vaccineTime'],
       healthId: snapshot['healthId'],
       clinicId: snapshot['clinicId'],
-      doctorId: snapshot['doctorId']
+      medicalStaffId: snapshot['medicalStaffId']
     );
   }
 
@@ -50,7 +117,7 @@ class VaccinationAppointmentDatabaseService {
         vaccineTime: doc.get('vaccineTime') ?? '',
         healthId: doc.get('healthId') ?? '',
         clinicId: doc.get('clinicId') ?? '',
-        doctorId: doc.get('doctorId') ?? '',
+        medicalStaffId: doc.get('medicalStaffId') ?? '',
       );
     }).toList();
   }
@@ -63,14 +130,14 @@ class VaccinationAppointmentDatabaseService {
     String vaccineTime,
     String healthId,
     String clinicId,
-    String doctorId,) async {
+    String medicalStaffId,) async {
     return await vaccinationAppointmentCollection.doc(vaccinationAppointmentId).set({
       'vaccineType': vaccineType,
       'vaccineDate': vaccineDate,
       'vaccineTime': vaccineTime,
       'healthId': healthId,
       'clinicId': clinicId,
-      'doctorId': doctorId,
+      'medicalStaffId': medicalStaffId,
     });
   }
 
@@ -81,14 +148,14 @@ class VaccinationAppointmentDatabaseService {
     String vaccineTime,
     String healthId,
     String clinicId,
-    String doctorId,) async {
+    String medicalStaffId,) async {
     return await vaccinationAppointmentCollection.doc(vaccinationAppointmentId).update({
       'vaccineType': vaccineType,
       'vaccineDate': vaccineDate,
       'vaccineTime': vaccineTime,
       'healthId': healthId,
       'clinicId': clinicId,
-      'doctorId': doctorId,
+      'doctorId': medicalStaffId,
     }).then((value) => print('Data updated successfully!'))
     .catchError((error) => print('Failed to update data: $error'));
   }

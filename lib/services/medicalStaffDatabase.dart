@@ -178,11 +178,12 @@ class medicalStaffDatabase {
 
   //create Clinic data
   Future<void> createClinicData(
-    String clinicId,
     String clinicName,
     String clinicAddress,
     String clinicPhoneNumber) async {
-    return await clinicCollection.doc(clinicId).set({
+    final document = clinicCollection.doc();
+    return await clinicCollection.doc(document.id).set({
+      'clinicId': document.id,
       'clinicName': clinicName,
       'clinicAddress': clinicAddress,
       'clinicPhoneNumber': clinicPhoneNumber,

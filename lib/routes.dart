@@ -835,8 +835,16 @@ final GoRouter routes = GoRouter(
                           pageBuilder: (context, state) =>
                               NoTransitionPage<void>(
                                   key: state.pageKey,
-                                  child: const medicalStaffSettingsPages(
-                                      currentPage: 7)),
+                                  child: const medicalStaffSettingsPages(currentPage: 7)),
+                          routes: [
+                            GoRoute(
+                              path: 'addnewclinic',
+                              pageBuilder: (context, state) =>
+                                  NoTransitionPage<void>(
+                                      key: state.pageKey,
+                                      child: const medicalStaffSettingsPages(currentPage: 8)),
+                            )
+                          ]
                         ),
                       ]),
                   GoRoute(

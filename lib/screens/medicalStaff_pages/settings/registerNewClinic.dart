@@ -106,7 +106,34 @@ class _registerNewClinicState extends State<registerNewClinic> {
                   color: Colors.grey[300],
                 ),
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 20),
+              Container(
+                alignment: Alignment.topLeft,
+                child: ElevatedButton.icon(
+                  icon: const Icon(
+                    Icons.add_circle,
+                    size: 24.0,
+                    color: Colors.white,
+                  ),
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: const Color(0xffF29180),
+                    fixedSize: const Size(250, 50),
+                    alignment: Alignment.center,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        side: BorderSide.none),
+                  ),
+                  onPressed: () {
+                    context.go('/medicalstaff/settings/clinicregistration/registernewclinic/addnewclinic');
+                  },
+                  label: const Text(
+                    'Add New Clinic',
+                    style:
+                        TextStyle(fontSize: 15.0, color: Colors.white),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
               StreamBuilder<List<ClinicModel>>(
                   stream: medicalStaffDatabase(medicalStaffId: user.userId).allClinicData,
                   builder: (context, snapshot) {

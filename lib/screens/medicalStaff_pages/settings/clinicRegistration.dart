@@ -46,7 +46,7 @@ class _clinicRegistrationState extends State<clinicRegistration> {
                       const SizedBox(width: 10),
                       RichText(
                         text: const TextSpan(
-                          text: 'clinic Registration',
+                          text: 'Clinic Registration',
                           style: TextStyle(color: Colors.grey),
                         ),
                       ),
@@ -56,7 +56,7 @@ class _clinicRegistrationState extends State<clinicRegistration> {
                   Container(
                     alignment: Alignment.centerLeft,
                     child: const Text(
-                      'clinic Registration',
+                      'Clinic Registration',
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 45.0,
@@ -90,7 +90,7 @@ class _clinicRegistrationState extends State<clinicRegistration> {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: const Text(
-                          'clinic Details',
+                          'Clinic Details',
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 30.0,
@@ -119,7 +119,7 @@ class _clinicRegistrationState extends State<clinicRegistration> {
                             context.go('/medicalstaff/settings/clinicregistration/registernewclinic');
                           },
                           label: const Text(
-                            'Register New clinic',
+                            'Register New Clinic',
                             style:
                                 TextStyle(fontSize: 15.0, color: Colors.white),
                           ),
@@ -146,7 +146,7 @@ class _clinicRegistrationState extends State<clinicRegistration> {
                                             padding: const EdgeInsets.only(
                                                 left: 20.0),
                                             child: const Text(
-                                              'clinic Name',
+                                              'Clinic Name',
                                               textAlign: TextAlign.left,
                                               style: TextStyle(
                                                 fontSize: 15.0,
@@ -177,7 +177,7 @@ class _clinicRegistrationState extends State<clinicRegistration> {
                                             padding: const EdgeInsets.only(
                                                 left: 20.0),
                                             child: const Text(
-                                              'clinic Email',
+                                              'Clinic Email',
                                               textAlign: TextAlign.left,
                                               style: TextStyle(
                                                 fontSize: 15.0,
@@ -208,7 +208,7 @@ class _clinicRegistrationState extends State<clinicRegistration> {
                                             padding: const EdgeInsets.only(
                                                 left: 20.0),
                                             child: const Text(
-                                              'clinic Address',
+                                              'Clinic Address',
                                               textAlign: TextAlign.left,
                                               style: TextStyle(
                                                 fontSize: 15.0,
@@ -239,7 +239,7 @@ class _clinicRegistrationState extends State<clinicRegistration> {
                                             padding: const EdgeInsets.only(
                                                 left: 20.0),
                                             child: const Text(
-                                              'clinic Contact Number',
+                                              'Clinic Contact Number',
                                               textAlign: TextAlign.left,
                                               style: TextStyle(
                                                 fontSize: 15.0,
@@ -277,7 +277,7 @@ class _clinicRegistrationState extends State<clinicRegistration> {
                       : Container(
                           alignment: Alignment.centerLeft,
                           child: const Text(
-                              'No clinic registered at the moment! Please click \'Register New clinic\' button above to register to new clinic.'),
+                              'No clinic registered at the moment! Please click \'Register New Clinic\' button above to register to new clinic.'),
                         ),
                 ],
               ),
