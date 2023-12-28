@@ -13,7 +13,6 @@ class _medicalStaffSettingsMainState extends State<medicalStaffSettingsMain> {
   @override
   Widget build(BuildContext context) {
     AuthService _auth = AuthService();
-
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,

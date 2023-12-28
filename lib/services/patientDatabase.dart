@@ -2,16 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ummicare/models/patientModel.dart';
 
-class VaccinationAppointmentDatabaseService {
-  final String healthId;
-  final String? vaccinationAppointmentId;
-
-  VaccinationAppointmentDatabaseService(
-    {required this.healthId, this.vaccinationAppointmentId}
-  );
+class PatientDatabaseService {
   //------------------------------Patient----------------------------------
   final CollectionReference patientCollection =
-      FirebaseFirestore.instance.collection('patient');
+      FirebaseFirestore.instance.collection('Patient');
 
   //get specific patient document stream
   Stream<patientModel> patientData(String patientId) {
@@ -28,24 +22,30 @@ class VaccinationAppointmentDatabaseService {
         childId: snapshot['childId'],
         clinicId: snapshot['clinicId'],
         vaccinationAppointmentId: snapshot['vaccinationAppointmentId'],
+        patientProfileImage: snapshot['patientProfileImage'],
+        patientName: snapshot['patientName'],
+        patientCurrentAge: snapshot['patientCurrentAge'],
     );
   }
 
+  Stream<List<patientModel>> allPatientData (String clinicId){
+    return patientCollection
+        .where('clinicId', isEqualTo: clinicId)
+        .snapshots()
+        .map(_createPatientList);
+  }
+
   //create a list of patient model object
-  List<patientModel> _createPatientListModelObject(QuerySnapshot snapshot) {
-    return snapshot.docs.map((doc) {
+  List<patientModel> _createPatientList(QuerySnapshot snapshot) {
+    return snapshot.docs.map<patientModel>((doc) {
       return patientModel(
-        patientId: doc.data().toString().contains('patientId')
-            ? doc.get('patientId')
-            : '',
-        childId:
-            doc.data().toString().contains('childId') ? doc.get('childId') : '',
-        clinicId: doc.data().toString().contains('clinicId')
-            ? doc.get('clinicId')
-            : '',
-        vaccinationAppointmentId: doc.data().toString().contains('vaccinationAppointmentId')
-            ? doc.get('vaccinationAppointmentId')
-            : '',
+        patientId: doc.id,
+        childId: doc.get('childId') ?? '',
+        clinicId: doc.get('clinicId') ?? '',
+        vaccinationAppointmentId: doc.get('vaccinationAppointmentId') ?? '',
+        patientProfileImage: doc.get('patientProfileImage') ?? '',
+        patientName: doc.get('patientName') ?? '',
+        patientCurrentAge: doc.get('patientCurrentAge') ?? '',
       );
     }).toList();
   }
@@ -54,25 +54,37 @@ class VaccinationAppointmentDatabaseService {
       String patientId,
       String childId,
       String clinicId,
-      String vaccinationAppointmentId,) async {
+      String vaccinationAppointmentId,
+      String patientProfileImage,
+      String patientName,
+      int patientCurrentAge) async {
     return await patientCollection.doc(patientId).set({
       'patientId': patientId,
       'childId': childId,
       'clinicId': clinicId,
       'vaccinationAppointmentId': vaccinationAppointmentId,
+      'patientProfileImage': patientProfileImage,
+      'patientName': patientName,
+      'patientCurrentAge': patientCurrentAge,
     });
   }
 
   Future<void> createStudentData(
       String childId,
       String clinicId,
-      String vaccinationAppointmentId,) async {
+      String vaccinationAppointmentId,
+      String patientProfileImage,
+      String patientName,
+      int patientCurrentAge) async {
     final document = patientCollection.doc();
     return await patientCollection.doc(document.id).set({
       'patientId': document.id,
       'childId': childId,
       'clinicId': clinicId,
       'vaccinationAppointmentId': vaccinationAppointmentId,
+      'patientProfileImage': patientProfileImage,
+      'patientName': patientName,
+      'patientCurrentAge': patientCurrentAge,
     });
   }
 
@@ -82,7 +94,7 @@ class VaccinationAppointmentDatabaseService {
       FirebaseFirestore.instance.collection('Vaccination Appointment');
 
   //get specific Vaccincation Appointment document stream
-  Stream<VaccinationAppointmentModel> get vaccincationAppointmentData {
+  Stream<VaccinationAppointmentModel>vaccincationAppointmentData (String vaccinationAppointmentId) {
     return vaccinationAppointmentCollection
       .doc(vaccinationAppointmentId)
       .snapshots()

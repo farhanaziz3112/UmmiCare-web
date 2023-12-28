@@ -3,13 +3,21 @@ class patientModel{
   final String childId;
   final String clinicId;
   final String vaccinationAppointmentId;
+  final String patientProfileImage;
+  final String patientName;
+  final int patientCurrentAge;
   
   patientModel({
     required this.patientId,
     required this.childId,
     required this.clinicId,
     required this.vaccinationAppointmentId,
+    required this.patientProfileImage,
+    required this.patientName,
+    required this.patientCurrentAge,
   });
+
+  get childProfileImage => null;
 }
 
 class VaccinationAppointmentModel {
