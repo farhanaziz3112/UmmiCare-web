@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ummicare/models/medicalStaffModel.dart';
 import 'package:ummicare/models/userModel.dart';
-import 'package:ummicare/screens/medicalStaff_pages/patient/patientGrid.dart';
+import 'package:ummicare/screens/medicalStaff_pages/patient/patientList/patientGrid.dart';
 import 'package:ummicare/services/medicalStaffDatabase.dart';
 
 class patientMain extends StatefulWidget {

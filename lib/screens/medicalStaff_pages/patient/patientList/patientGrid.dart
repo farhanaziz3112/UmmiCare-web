@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ummicare/models/patientModel.dart';
-import 'package:ummicare/screens/medicalStaff_pages/patient/patientTile.dart';
+import 'package:ummicare/screens/medicalStaff_pages/patient/patientList/patientTile.dart';
 import 'package:ummicare/services/patientDatabase.dart';
 
 class patientGrid extends StatefulWidget {

@@ -66,6 +66,7 @@ import 'package:ummicare/screens/advisorPages/parent/parentPages/parentPages.dar
 import 'package:ummicare/screens/advisorPages/settings/advisorSettingsPages.dart';
 import 'package:ummicare/screens/auth/signIn.dart';
 import 'package:ummicare/screens/medicalStaff_pages/medicalStaffHome.dart';
+import 'package:ummicare/screens/medicalStaff_pages/patient/patientList/patientPages.dart';
 import 'package:ummicare/screens/medicalStaff_pages/settings/medicalStaffSettingsPages.dart';
 import 'package:ummicare/screens/teacherPages/class/classPages.dart';
 import 'package:ummicare/screens/teacherPages/settings/teacherSettingsPages.dart';
@@ -810,7 +811,20 @@ final GoRouter routes = GoRouter(
                 pageBuilder: (context, state) => NoTransitionPage<void>(
                       key: state.pageKey,
                       child: const medicalStaffHome(currentPage: 1),
-                    ),),
+                    ),
+                    routes: [
+                      GoRoute(
+                        path: ':patientId',
+                        pageBuilder: (context, state) => 
+                        NoTransitionPage<void>(
+                          key: state.pageKey,
+                          child: patientPages(
+                            currentPage: 0,
+                            patientId: state.pathParameters['patientId']!,
+                          ),
+                        ),
+                      )
+                    ]),
             GoRoute(
                 path: 'settings',
                 pageBuilder: (context, state) => NoTransitionPage<void>(
