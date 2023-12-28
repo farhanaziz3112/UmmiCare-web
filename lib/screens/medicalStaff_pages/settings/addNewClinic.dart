@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:ummicare/models/medicalStaffModel.dart';
 import 'package:ummicare/models/userModel.dart';
-import 'package:ummicare/screens/medicalStaff_pages/settings/clinicList.dart';
 import 'package:ummicare/services/medicalStaffDatabase.dart';
 import 'package:ummicare/shared/constant.dart';
 

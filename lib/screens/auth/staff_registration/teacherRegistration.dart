@@ -51,7 +51,7 @@ class _teacherRegistrationState extends State<teacherRegistration> {
         padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: SingleChildScrollView(
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 700.0),
+            padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 30.0),
             child: Form(
               key: _formKey,
               child: Column(
