@@ -85,18 +85,11 @@ class healthDatabaseService {
       FirebaseFirestore.instance.collection('Bmi');
 
   //get specific health status document stream
-  Stream<BmiModel> bmiData (bmiId) {
+  Stream<BmiModel> bmiData (String bmiId) {
     return bmiCollection
         .doc(bmiId)
         .snapshots()
         .map(_createBmiModelObject);
-  }
-
-  Stream<List<BmiModel>> allBmiDataWithSameHealthId (String healthId){
-    return bmiCollection
-        .where('healthId' ,isEqualTo: healthId)
-        .snapshots()
-        .map(_createBmiModelList);
   }
 
   //create a Health Status model object
@@ -112,6 +105,13 @@ class healthDatabaseService {
       bmiData : snapshot['bmiData'],
       createdAt: creationTime,
     );
+  }
+
+  Stream<List<BmiModel>> allBmiDataWithSameHealthId (String healthId){
+    return bmiCollection
+        .where('healthId' ,isEqualTo: healthId)
+        .snapshots()
+        .map(_createBmiModelList);
   }
 
   List<BmiModel> _createBmiModelList(QuerySnapshot snapshot) {

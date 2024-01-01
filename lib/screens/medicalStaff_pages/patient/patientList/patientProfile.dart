@@ -2,10 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_network/image_network.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:ummicare/models/healthmodel.dart';
 import 'package:ummicare/models/patientModel.dart';
-import 'package:ummicare/services/healthDatabase.dart';
+import 'package:ummicare/screens/charts/childBmi.dart';
 import 'package:ummicare/services/patientDatabase.dart';
 
 class patientProfile extends StatefulWidget {
@@ -86,7 +84,6 @@ class _patientProfileState extends State<patientProfile> {
                           flex: 1,
                           child: Container(
                             alignment: Alignment.center,
-                            padding: const EdgeInsets.fromLTRB(40, 30, 10, 50),
                             decoration: BoxDecoration(
                               color: Colors.white,
                               border: Border.all(),
@@ -104,29 +101,9 @@ class _patientProfileState extends State<patientProfile> {
                             ),
                             child: Column(
                               children: <Widget>[
-                                StreamBuilder<List<BmiModel>>(
-                                stream: healthDatabaseService().allBmiDataWithSameHealthId(patient.healthId), 
-                                builder: (context, snapshot){
-                                  final bmi = snapshot.data;
-                                  for(int i=0; i<bmi!.length-1; i++){
-                                    bmiData.add(bmi[i].bmiData);
-                                  }
-                                  List<Map<String, dynamic>> bmiGraph = List.generate(
-                                    bmi.length-1,
-                                    (index) => {'date': dateLabels[index], 'bmiValue': bmiData[index]},
-                                  );
-                                  return SfCartesianChart(
-                                    primaryXAxis: CategoryAxis(),
-                                    series: <ChartSeries>[
-                                      LineSeries<Map<String, dynamic>, String>(
-                                        dataSource: bmiGraph,
-                                        xValueMapper: (Map<String, dynamic> data, _) => data['date']!,
-                                        yValueMapper: (Map<String, dynamic> data, _) => data['bmiValue']!,
-                                        dataLabelSettings: const DataLabelSettings(isVisible: true),
-                                      )
-                                    ],
-                                  );
-                                }),
+                                SizedBox(
+                                height: 200,
+                                child: childBmi(healthId: patient.healthId)),
                               ],
                             ),
                           ),
