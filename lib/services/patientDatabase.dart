@@ -18,6 +18,7 @@ class PatientDatabaseService {
   patientModel _createPatientModelObject(DocumentSnapshot snapshot) {
     return patientModel(
         patientId: snapshot.id,
+        healthId: snapshot['healthId'],
         childId: snapshot['childId'],
         clinicId: snapshot['clinicId'],
         vaccinationAppointmentId: snapshot['vaccinationAppointmentId'],
@@ -39,6 +40,7 @@ class PatientDatabaseService {
     return snapshot.docs.map<patientModel>((doc) {
       return patientModel(
         patientId: doc.id,
+        healthId: doc.get('healthId') ?? '',
         childId: doc.get('childId') ?? '',
         clinicId: doc.get('clinicId') ?? '',
         vaccinationAppointmentId: doc.get('vaccinationAppointmentId') ?? '',
@@ -51,6 +53,7 @@ class PatientDatabaseService {
 
   Future<void> updateStudentData(
       String patientId,
+      String healthId,
       String childId,
       String clinicId,
       String vaccinationAppointmentId,
@@ -60,6 +63,7 @@ class PatientDatabaseService {
     return await patientCollection.doc(patientId).set({
       'patientId': patientId,
       'childId': childId,
+      'healthId': healthId,
       'clinicId': clinicId,
       'vaccinationAppointmentId': vaccinationAppointmentId,
       'patientProfileImage': patientProfileImage,
@@ -70,6 +74,7 @@ class PatientDatabaseService {
 
   Future<void> createStudentData(
       String childId,
+      String healthId,
       String clinicId,
       String vaccinationAppointmentId,
       String patientProfileImage,
@@ -78,6 +83,7 @@ class PatientDatabaseService {
     final document = patientCollection.doc();
     return await patientCollection.doc(document.id).set({
       'patientId': document.id,
+      'healthId': healthId,
       'childId': childId,
       'clinicId': clinicId,
       'vaccinationAppointmentId': vaccinationAppointmentId,

@@ -2,7 +2,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_network/image_network.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:ummicare/models/healthmodel.dart';
 import 'package:ummicare/models/patientModel.dart';
+import 'package:ummicare/services/healthDatabase.dart';
 import 'package:ummicare/services/patientDatabase.dart';
 
 class patientProfile extends StatefulWidget {
@@ -14,6 +17,9 @@ class patientProfile extends StatefulWidget {
 }
 
 class _patientProfileState extends State<patientProfile> {
+  List<double> bmiData = [];
+  List<int> dateLabels = [];
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<patientModel>(
@@ -97,121 +103,30 @@ class _patientProfileState extends State<patientProfile> {
                               ],
                             ),
                             child: Column(
-                              children: [
-                                Container(
-                                  alignment: Alignment.topCenter,
-                                  child: Text(
-                                    '${patient.patientName}\'s Profile',
-                                    textAlign: TextAlign.start,
-                                    style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20.0,
-                                        fontFamily: 'Comfortaa',
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                const SizedBox(height: 30),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>[
-                                    ImageNetwork(
-                                        image: patient.patientProfileImage,
-                                        height: 150,
-                                        width: 150,
-                                        borderRadius:
-                                            BorderRadius.circular(70)),
-                                    const SizedBox(width: 10),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Container(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 20),
-                                                  child: const Text(
-                                                    'Full Name',
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.black),
-                                                  ),
-                                                ),
-                                                const SizedBox(height: 10),
-                                                Container(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 20),
-                                                  child: Text(
-                                                    patient.patientName,
-                                                    textAlign: TextAlign.left,
-                                                    style: const TextStyle(
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        color: Colors.black),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 40),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Container(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 20),
-                                                  child: const Text(
-                                                    'Current Age',
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.black),
-                                                  ),
-                                                ),
-                                                const SizedBox(height: 10),
-                                                Container(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 20),
-                                                  child: Text(
-                                                    patient.patientCurrentAge
-                                                        .toString(),
-                                                    textAlign: TextAlign.left,
-                                                    style: const TextStyle(
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        color: Colors.black),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                      ],
-                                    )
-                                  ],
-                                ),
+                              children: <Widget>[
+                                StreamBuilder<List<BmiModel>>(
+                                stream: healthDatabaseService().allBmiDataWithSameHealthId(patient.healthId), 
+                                builder: (context, snapshot){
+                                  final bmi = snapshot.data;
+                                  for(int i=0; i<bmi!.length-1; i++){
+                                    bmiData.add(bmi[i].bmiData);
+                                  }
+                                  List<Map<String, dynamic>> bmiGraph = List.generate(
+                                    bmi.length-1,
+                                    (index) => {'date': dateLabels[index], 'bmiValue': bmiData[index]},
+                                  );
+                                  return SfCartesianChart(
+                                    primaryXAxis: CategoryAxis(),
+                                    series: <ChartSeries>[
+                                      LineSeries<Map<String, dynamic>, String>(
+                                        dataSource: bmiGraph,
+                                        xValueMapper: (Map<String, dynamic> data, _) => data['date']!,
+                                        yValueMapper: (Map<String, dynamic> data, _) => data['bmiValue']!,
+                                        dataLabelSettings: const DataLabelSettings(isVisible: true),
+                                      )
+                                    ],
+                                  );
+                                }),
                               ],
                             ),
                           ),
@@ -375,128 +290,147 @@ class _patientProfileState extends State<patientProfile> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          alignment: Alignment.center,
-                          padding: const EdgeInsets.fromLTRB(10, 50, 10, 50),
-                          decoration: BoxDecoration(
-                            color: const Color(0xfff29180),
-                            border: Border.all(),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 1,
-                                blurRadius: 5,
-                                offset: const Offset(
-                                    0, 3), // changes position of shadow
+                  SizedBox(
+                    height: 100,
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Container(
+                            width: double.infinity,
+                            alignment: Alignment.centerRight,
+                            child: Center(
+                              child: ElevatedButton.icon(
+                                icon: const Icon(
+                                  Icons.health_and_safety,
+                                  size: 50.0,
+                                  color: Colors.white,
+                                ),
+                                style: OutlinedButton.styleFrom(
+                                  backgroundColor: const Color(0xfff29180),
+                                  fixedSize: const Size(double.maxFinite, double.maxFinite),
+                                  alignment: Alignment.center,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    side: BorderSide.none,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  var id = patient.patientId;
+                                  context.go('/advisor/parent/${id}/statistics');
+                                },
+                                label: const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      child: Text(
+                                        'Health Condition',
+                                        style: TextStyle(fontSize: 20.0, color: Colors.white),
+                                      ),
+                                    ),
+                                    SizedBox(width: 20),
+                                    Icon(
+                                      Icons.arrow_forward,
+                                      color: Colors.white,
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ],
-                          ),
-                          child:Container(
-                            alignment: Alignment.center,
-                            child: const Text(
-                              'Health Condition',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20.0,
-                                  fontFamily: 'Comfortaa',
-                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),
-                      ),
-                      Container(
-                        padding:
-                          const EdgeInsets.symmetric(
-                            vertical: 0,
-                            horizontal: 15),
-                        child: const VerticalDivider(
-                          color: Colors.white,
-                        )),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          alignment: Alignment.center,
-                          padding: const EdgeInsets.fromLTRB(10, 50, 10, 50),
-                          decoration: BoxDecoration(
-                            color: const Color(0xff71CBCA),
-                            border: Border.all(),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 1,
-                                blurRadius: 5,
-                                offset: const Offset(
-                                    0, 3), // changes position of shadow
+                        const SizedBox(width: 50),
+                        Expanded(
+                          child: Container(
+                            width: double.infinity,
+                            alignment: Alignment.centerRight,
+                            child: Center(
+                              child: ElevatedButton.icon(
+                                icon: const Icon(
+                                  Icons.personal_injury,
+                                  size: 50.0,
+                                  color: Colors.white,
+                                ),
+                                style: OutlinedButton.styleFrom(
+                                  backgroundColor: const Color(0xff71CBCA),
+                                  fixedSize: const Size(double.maxFinite, double.maxFinite),
+                                  alignment: Alignment.center,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    side: BorderSide.none,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  var id = patient.patientId;
+                                  context.go('/advisor/parent/${id}/statistics');
+                                },
+                                label: const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      child: Text(
+                                        'Physical Condition',
+                                        style: TextStyle(fontSize: 20.0, color: Colors.white),
+                                      ),
+                                    ),
+                                    SizedBox(width: 20),
+                                    Icon(
+                                      Icons.arrow_forward,
+                                      color: Colors.white,
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ],
-                          ),
-                          child:Container(
-                            alignment: Alignment.center,
-                            child: const Text(
-                              'Physical Condition',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20.0,
-                                  fontFamily: 'Comfortaa',
-                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),
-                      ),
-                      Container(
-                        padding:
-                          const EdgeInsets.symmetric(
-                            vertical: 0,
-                            horizontal: 15),
-                        child: const VerticalDivider(
-                          color: Colors.white,
-                        )),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          alignment: Alignment.center,
-                          padding: const EdgeInsets.fromLTRB(10, 50, 10, 50),
-                          decoration: BoxDecoration(
-                            color: const Color(0xff8290F0),
-                            border: Border.all(),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 1,
-                                blurRadius: 5,
-                                offset: const Offset(
-                                    0, 3), // changes position of shadow
+                        const SizedBox(width: 50),
+                        Expanded(
+                          child: Container(
+                            width: double.infinity,
+                            alignment: Alignment.centerRight,
+                            child: Center(
+                              child: ElevatedButton.icon(
+                                icon: const Icon(
+                                  Icons.emergency,
+                                  size: 50.0,
+                                  color: Colors.white,
+                                ),
+                                style: OutlinedButton.styleFrom(
+                                  backgroundColor: const Color(0xff8290F0),
+                                  fixedSize: const Size(double.maxFinite, double.maxFinite),
+                                  alignment: Alignment.center,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    side: BorderSide.none,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  var id = patient.patientId;
+                                  context.go('/advisor/parent/${id}/statistics');
+                                },
+                                label: const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      child: Text(
+                                        'Chronic Condition',
+                                        style: TextStyle(fontSize: 20.0, color: Colors.white),
+                                      ),
+                                    ),
+                                    SizedBox(width: 20),
+                                    Icon(
+                                      Icons.arrow_forward,
+                                      color: Colors.white,
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ],
-                          ),
-                          child:Container(
-                            alignment: Alignment.center,
-                            child: const Text(
-                              'Chronic Condition',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20.0,
-                                  fontFamily: 'Comfortaa',
-                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  )
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

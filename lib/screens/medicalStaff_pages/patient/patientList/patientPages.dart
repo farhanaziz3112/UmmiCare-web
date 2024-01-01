@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ummicare/screens/advisorPages/advisorLeftPane.dart';
+import 'package:ummicare/screens/medicalStaff_pages/medicalStaffLeftPane.dart';
 import 'package:ummicare/screens/medicalStaff_pages/patient/patientList/patientProfile.dart';
 
 class patientPages extends StatefulWidget {
@@ -26,7 +26,7 @@ class _patientPagesState extends State<patientPages> {
           Container(
               width: 300,
               color: const Color(0xff71CBCA),
-              child: const advisorLeftPane(selected: 1)),
+              child: const medicalStaffLeftPane(selected: 1)),
           Expanded(
               child: Container(
                   alignment: Alignment.topLeft,

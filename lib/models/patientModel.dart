@@ -1,5 +1,6 @@
 class patientModel{ 
   final String patientId;
+  final String healthId;
   final String childId;
   final String clinicId;
   final String vaccinationAppointmentId;
@@ -9,6 +10,7 @@ class patientModel{
   
   patientModel({
     required this.patientId,
+    required this.healthId,
     required this.childId,
     required this.clinicId,
     required this.vaccinationAppointmentId,
