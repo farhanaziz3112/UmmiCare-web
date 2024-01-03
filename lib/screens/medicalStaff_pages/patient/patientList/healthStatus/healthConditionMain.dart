@@ -24,8 +24,6 @@ class _healthConditionMainState extends State<healthConditionMain> {
           HealthStatusModel? health = snapshot.data;
           return SingleChildScrollView(
             child: Container(
-              margin:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
               alignment: Alignment.topLeft,
               child: Column(
                 children: <Widget>[
@@ -60,7 +58,7 @@ class _healthConditionMainState extends State<healthConditionMain> {
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
                                     context.go(
-                                        '/advisor/parent/${patient.patientId}');
+                                        '/medicalstaff/patient/${patient.patientId}');
                                   },
                               ),
                             );
@@ -102,12 +100,170 @@ class _healthConditionMainState extends State<healthConditionMain> {
                     ),
                   ),
                   const SizedBox(height: 30),
+                  // StreamBuilder<HealthConditionModel>(
+                  //   stream: healthDatabaseService().healthConditionData(health.healthConditionId),
+                  //   builder: ((context, snapshot) {
+                  //     if(snapshot.hasData){
+                  //       HealthConditionModel? condition = snapshot.data;
+                  //       return Column(
+                  //         children: [
+                  //           Container(
+                  //             alignment: Alignment.topCenter,
+                  //             child: const Text(
+                  //               'Latest Health Condition',
+                  //               textAlign: TextAlign.start,
+                  //               style: TextStyle(
+                  //                   color: Colors.black,
+                  //                   fontSize: 20.0,
+                  //                   fontFamily: 'Comfortaa',
+                  //                   fontWeight: FontWeight.bold),
+                  //             ),
+                  //           ),
+                  //           const SizedBox(height: 30),
+                  //           Row(
+                  //             crossAxisAlignment: CrossAxisAlignment.start,
+                  //             mainAxisAlignment: MainAxisAlignment.center,
+                  //             children: <Widget>[
+                  //               Column(
+                  //                 crossAxisAlignment: CrossAxisAlignment.start,
+                  //                 children: <Widget>[
+                  //                   Container(
+                  //                     alignment: Alignment.centerLeft,
+                  //                     padding:
+                  //                       const EdgeInsets.only(
+                  //                           left: 20),
+                  //                     child: const Text(
+                  //                       'Illness',
+                  //                       textAlign: TextAlign.left,
+                  //                       style: TextStyle(
+                  //                         fontSize: 15,
+                  //                         fontWeight:FontWeight.bold,
+                  //                         color: Colors.black),
+                  //                     ),
+                  //                   ),
+                  //                   const SizedBox(height: 10),
+                  //                   Container(
+                  //                     alignment:
+                  //                         Alignment.centerLeft,
+                  //                     padding:
+                  //                         const EdgeInsets.only(
+                  //                             left: 20),
+                  //                     child: Text(
+                  //                       condition!.currentIllness,
+                  //                       textAlign: TextAlign.left,
+                  //                       style: const TextStyle(
+                  //                           fontSize: 15,
+                  //                           fontWeight:
+                  //                               FontWeight.normal,
+                  //                           color: Colors.black),
+                  //                     ),
+                  //                   ),
+                  //                 ],
+                  //               ),
+                  //               const SizedBox(height: 40),
+                  //               Column(
+                  //                 crossAxisAlignment: CrossAxisAlignment.start,
+                  //                 children: <Widget>[
+                  //                   Container(
+                  //                     alignment: Alignment.centerLeft,
+                  //                     padding:
+                  //                       const EdgeInsets.only(
+                  //                           left: 20),
+                  //                     child: const Text(
+                  //                       'Symptom',
+                  //                       textAlign: TextAlign.left,
+                  //                       style: TextStyle(
+                  //                         fontSize: 15,
+                  //                         fontWeight:FontWeight.bold,
+                  //                         color: Colors.black),
+                  //                     ),
+                  //                   ),
+                  //                   const SizedBox(height: 10),
+                  //                   Container(
+                  //                     alignment:
+                  //                         Alignment.centerLeft,
+                  //                     padding:
+                  //                         const EdgeInsets.only(
+                  //                             left: 20),
+                  //                     child: Text(
+                  //                       condition.currentSymptom,
+                  //                       textAlign: TextAlign.left,
+                  //                       style: const TextStyle(
+                  //                           fontSize: 15,
+                  //                           fontWeight:
+                  //                               FontWeight.normal,
+                  //                           color: Colors.black),
+                  //                     ),
+                  //                   ),
+                  //                 ],
+                  //               ),
+                  //               const SizedBox(height: 40),
+                  //               Column(
+                  //                 crossAxisAlignment: CrossAxisAlignment.start,
+                  //                 children: <Widget>[
+                  //                   Container(
+                  //                     alignment: Alignment.centerLeft,
+                  //                     padding:
+                  //                       const EdgeInsets.only(
+                  //                           left: 20),
+                  //                     child: const Text(
+                  //                       'Notes',
+                  //                       textAlign: TextAlign.left,
+                  //                       style: TextStyle(
+                  //                         fontSize: 15,
+                  //                         fontWeight:FontWeight.bold,
+                  //                         color: Colors.black),
+                  //                     ),
+                  //                   ),
+                  //                   const SizedBox(height: 10),
+                  //                   Container(
+                  //                     alignment:
+                  //                         Alignment.centerLeft,
+                  //                     padding:
+                  //                         const EdgeInsets.only(
+                  //                             left: 20),
+                  //                     child: Text(
+                  //                       condition.notes,
+                  //                       textAlign: TextAlign.left,
+                  //                       style: const TextStyle(
+                  //                           fontSize: 15,
+                  //                           fontWeight:
+                  //                               FontWeight.normal,
+                  //                           color: Colors.black),
+                  //                     ),
+                  //                   ),
+                  //                 ],
+                  //               ),
+                  //             ],
+                  //           )
+                  //         ],
+                  //       );
+                  //     } else {
+                  //       return Container();
+                  //     }
+                  //   }),
+                  // ),
+                  const SizedBox(height: 80),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: const Text(
+                      'History',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 30.0,
+                          fontFamily: 'Comfortaa',
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
                 ],
               ),
             ),
           );
         } else {
-          return Container();
+          return Container(
+            child: Text("ss"),
+          );
         }
       },
     );

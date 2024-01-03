@@ -160,14 +160,15 @@ class _patientProfileState extends State<patientProfile> {
                                             BorderRadius.circular(70)),
                                     const SizedBox(width: 10),
                                     Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: <Widget>[
-                                        Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                        Row(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: <Widget>[
+                                            Column(
+                                              crossAxisAlignment:CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 Container(
                                                   alignment:
@@ -204,7 +205,7 @@ class _patientProfileState extends State<patientProfile> {
                                                 ),
                                               ],
                                             ),
-                                            const SizedBox(height: 40),
+                                            const SizedBox(width: 40),
                                             Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
@@ -245,8 +246,80 @@ class _patientProfileState extends State<patientProfile> {
                                                 ),
                                               ],
                                             ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 20),
+                                        StreamBuilder<List<BmiHealthModel>>(
+                                          stream: healthDatabaseService().allBmiHealthData(patient.healthId),
+                                          builder: (context, snapshot) {
+                                            if(snapshot.hasData){
+                                              List<BmiHealthModel>? bmi = snapshot.data;
+                                              String bmiStatus = 'ss';
+                                              // if(bmi![bmi.length].bmiData < 16){
+                                              //   bmiStatus = "Severe Thinness";
+                                              // } else if(bmi[bmi.length].bmiData < 17){
+                                              //   bmiStatus = "Moderate Thinness";
+                                              // } else if(bmi[bmi.length].bmiData < 18.5){
+                                              //   bmiStatus = "Mild Thinness";
+                                              // } else if(bmi[bmi.length].bmiData < 25){
+                                              //   bmiStatus = "Normal";
+                                              // } else if(bmi[bmi.length].bmiData < 30){
+                                              //   bmiStatus = "Overweight";
+                                              // } else if(bmi[bmi.length].bmiData < 35){
+                                              //   bmiStatus = "Obese Class I";
+                                              // } else if(bmi[bmi.length].bmiData < 40){
+                                              //   bmiStatus = "Obese Class II";
+                                              // } else if(bmi[bmi.length].bmiData > 40){
+                                              //   bmiStatus = "Obese Class III";
+                                              // }else{
+                                              //   bmiStatus = "No Status";
+                                              // }
+                                              return Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 20),
+                                                    child: const Text(
+                                                      'Current BMI',
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 20),
+                                                    child: Text(
+                                                      bmiStatus,
+                                                      textAlign: TextAlign.left,
+                                                      style: const TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          color: Colors.black),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            } else {
+                                              return Container();
+                                            }
+                                          },
+                                        )
                                       ],
-                                    )
+                                    ),
                                   ],
                                 ),
                               ],
@@ -301,7 +374,7 @@ class _patientProfileState extends State<patientProfile> {
                                       onPressed: () {
                                         var id = patient.patientId;
                                         var healthId = health?.healthStatusId;
-                                        context.go('/medicalstaff/patient/${id}/${healthId}');
+                                        context.go('/medicalstaff/patient/${id}/$healthId');
                                       },
                                       label: const Row(
                                         mainAxisAlignment: MainAxisAlignment.center,

@@ -15,10 +15,10 @@ class medicalStaffHomeProfile extends StatefulWidget {
 class _medicalStaffHomeProfileState extends State<medicalStaffHomeProfile> {
   @override
   Widget build(BuildContext context) {
-    userModel? user = Provider.of<userModel>(context);
+    userModel? user = Provider.of<userModel?>(context);
 
     return StreamBuilder(
-        stream: medicalStaffDatabase(medicalStaffId: user.userId).medicalStaffData,
+        stream: medicalStaffDatabase(medicalStaffId: user!.userId).medicalStaffData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             medicalStaffModel? doc = snapshot.data;

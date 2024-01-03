@@ -63,12 +63,12 @@ class BmiPerIndex {
 }
 
 BmiPerIndex getBmiPerIndex(List<BmiModel> bmiData, int index) {
-  return BmiPerIndex(monthToString(index), bmiData[index].bmiData);
+  return BmiPerIndex((index+1).toString(), bmiData[index].bmiData);
 } 
 
 List<BmiPerIndex> getBmiPerIndexList(List<BmiModel> bmiData) {
   List<BmiPerIndex> BmiPerIndexList = [];
-  for (int i = 0; i < bmiData.length-1; i++) {
+  for (int i = 0; i < bmiData.length; i++) {
     BmiPerIndex bmiPerIndex = getBmiPerIndex(bmiData, i);
     BmiPerIndexList.add(bmiPerIndex);
   }

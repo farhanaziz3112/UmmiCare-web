@@ -78,6 +78,39 @@ class healthDatabaseService {
       });
     }
 
+  Stream<BmiHealthModel> bmiHealthData(String healthId, String bmiId) {
+    return healthCollection
+        .doc(healthId)
+        .collection('Bmi')
+        .doc(bmiId)
+        .snapshots()
+        .map(_createBmiHealthModelObject);
+  }
+
+  //create a user model object
+  BmiHealthModel _createBmiHealthModelObject(DocumentSnapshot snapshot) {
+    return BmiHealthModel(
+        bmiId: snapshot.id, 
+        bmiData: snapshot['bmiData']);
+  }
+
+  Stream<List<BmiHealthModel>> allBmiHealthData(String healthId) {
+    return healthCollection
+        .doc(healthId)
+        .collection('Bmi')
+        .snapshots()
+        .map(_createBmiHealthModelList);
+  }
+
+  List<BmiHealthModel> _createBmiHealthModelList(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return BmiHealthModel(
+        bmiId: doc.get('bmiId'),
+        bmiData: doc.get('bmiData'),
+      );
+    }).toList();
+  }
+
   //--------------------------------------Bmi------------------------------------
 
   //collection reference
@@ -116,13 +149,15 @@ class healthDatabaseService {
 
   List<BmiModel> _createBmiModelList(QuerySnapshot snapshot) {
     return snapshot.docs.map<BmiModel>((doc) {
+      Timestamp createdAt = doc.get('createdAt');
+      DateTime creationTime = createdAt.toDate();
       return BmiModel(
         bmiId: doc.id,
         healthId: doc.get('healthId'),
         currentHeight: doc.get('currentHeight') ?? '',
         currentWeight: doc.get('currentWeight') ?? '',
         bmiData: doc.get('bmiData') ?? '',
-        createdAt: doc.get('createdAt') ?? '',
+        createdAt: creationTime,
       );
     }).toList();
   }
