@@ -2,8 +2,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_network/image_network.dart';
+import 'package:ummicare/models/healthmodel.dart';
 import 'package:ummicare/models/patientModel.dart';
 import 'package:ummicare/screens/charts/childBmi.dart';
+import 'package:ummicare/services/healthDatabase.dart';
 import 'package:ummicare/services/patientDatabase.dart';
 
 class patientProfile extends StatefulWidget {
@@ -267,147 +269,160 @@ class _patientProfileState extends State<patientProfile> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  SizedBox(
-                    height: 100,
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Container(
-                            width: double.infinity,
-                            alignment: Alignment.centerRight,
-                            child: Center(
-                              child: ElevatedButton.icon(
-                                icon: const Icon(
-                                  Icons.health_and_safety,
-                                  size: 50.0,
-                                  color: Colors.white,
-                                ),
-                                style: OutlinedButton.styleFrom(
-                                  backgroundColor: const Color(0xfff29180),
-                                  fixedSize: const Size(double.maxFinite, double.maxFinite),
-                                  alignment: Alignment.center,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                    side: BorderSide.none,
-                                  ),
-                                ),
-                                onPressed: () {
-                                  var id = patient.patientId;
-                                  context.go('/advisor/parent/${id}/statistics');
-                                },
-                                label: const Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      child: Text(
-                                        'Health Condition',
-                                        style: TextStyle(fontSize: 20.0, color: Colors.white),
+                  StreamBuilder<healthModel>(
+                    stream: healthDatabaseService().healthData(patient.healthId),
+                    builder: ((context, snapshot) {
+                      if(snapshot.hasData){
+                        healthModel? health = snapshot.data;
+                        return SizedBox(
+                          height: 100,
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  width: double.infinity,
+                                  alignment: Alignment.centerRight,
+                                  child: Center(
+                                    child: ElevatedButton.icon(
+                                      icon: const Icon(
+                                        Icons.health_and_safety,
+                                        size: 50.0,
+                                        color: Colors.white,
+                                      ),
+                                      style: OutlinedButton.styleFrom(
+                                        backgroundColor: const Color(0xfff29180),
+                                        fixedSize: const Size(double.maxFinite, double.maxFinite),
+                                        alignment: Alignment.center,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(5),
+                                          side: BorderSide.none,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        var id = patient.patientId;
+                                        var healthId = health?.healthStatusId;
+                                        context.go('/medicalstaff/patient/${id}/${healthId}');
+                                      },
+                                      label: const Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            child: Text(
+                                              'Health Condition',
+                                              style: TextStyle(fontSize: 20.0, color: Colors.white),
+                                            ),
+                                          ),
+                                          SizedBox(width: 20),
+                                          Icon(
+                                            Icons.arrow_forward,
+                                            color: Colors.white,
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    SizedBox(width: 20),
-                                    Icon(
-                                      Icons.arrow_forward,
-                                      color: Colors.white,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 50),
-                        Expanded(
-                          child: Container(
-                            width: double.infinity,
-                            alignment: Alignment.centerRight,
-                            child: Center(
-                              child: ElevatedButton.icon(
-                                icon: const Icon(
-                                  Icons.personal_injury,
-                                  size: 50.0,
-                                  color: Colors.white,
-                                ),
-                                style: OutlinedButton.styleFrom(
-                                  backgroundColor: const Color(0xff71CBCA),
-                                  fixedSize: const Size(double.maxFinite, double.maxFinite),
-                                  alignment: Alignment.center,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                    side: BorderSide.none,
                                   ),
                                 ),
-                                onPressed: () {
-                                  var id = patient.patientId;
-                                  context.go('/advisor/parent/${id}/statistics');
-                                },
-                                label: const Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      child: Text(
-                                        'Physical Condition',
-                                        style: TextStyle(fontSize: 20.0, color: Colors.white),
+                              ),
+                              const SizedBox(width: 50),
+                              Expanded(
+                                child: Container(
+                                  width: double.infinity,
+                                  alignment: Alignment.centerRight,
+                                  child: Center(
+                                    child: ElevatedButton.icon(
+                                      icon: const Icon(
+                                        Icons.personal_injury,
+                                        size: 50.0,
+                                        color: Colors.white,
+                                      ),
+                                      style: OutlinedButton.styleFrom(
+                                        backgroundColor: const Color(0xff71CBCA),
+                                        fixedSize: const Size(double.maxFinite, double.maxFinite),
+                                        alignment: Alignment.center,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(5),
+                                          side: BorderSide.none,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        var id = patient.patientId;
+                                        var healthId = health?.healthStatusId;
+                                        context.go('/medicalstaff/patient/${id}/${healthId}');
+                                      },
+                                      label: const Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            child: Text(
+                                              'Physical Condition',
+                                              style: TextStyle(fontSize: 20.0, color: Colors.white),
+                                            ),
+                                          ),
+                                          SizedBox(width: 20),
+                                          Icon(
+                                            Icons.arrow_forward,
+                                            color: Colors.white,
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    SizedBox(width: 20),
-                                    Icon(
-                                      Icons.arrow_forward,
-                                      color: Colors.white,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 50),
-                        Expanded(
-                          child: Container(
-                            width: double.infinity,
-                            alignment: Alignment.centerRight,
-                            child: Center(
-                              child: ElevatedButton.icon(
-                                icon: const Icon(
-                                  Icons.emergency,
-                                  size: 50.0,
-                                  color: Colors.white,
-                                ),
-                                style: OutlinedButton.styleFrom(
-                                  backgroundColor: const Color(0xff8290F0),
-                                  fixedSize: const Size(double.maxFinite, double.maxFinite),
-                                  alignment: Alignment.center,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                    side: BorderSide.none,
                                   ),
                                 ),
-                                onPressed: () {
-                                  var id = patient.patientId;
-                                  context.go('/advisor/parent/${id}/statistics');
-                                },
-                                label: const Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      child: Text(
-                                        'Chronic Condition',
-                                        style: TextStyle(fontSize: 20.0, color: Colors.white),
+                              ),
+                              const SizedBox(width: 50),
+                              Expanded(
+                                child: Container(
+                                  width: double.infinity,
+                                  alignment: Alignment.centerRight,
+                                  child: Center(
+                                    child: ElevatedButton.icon(
+                                      icon: const Icon(
+                                        Icons.emergency,
+                                        size: 50.0,
+                                        color: Colors.white,
+                                      ),
+                                      style: OutlinedButton.styleFrom(
+                                        backgroundColor: const Color(0xff8290F0),
+                                        fixedSize: const Size(double.maxFinite, double.maxFinite),
+                                        alignment: Alignment.center,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(5),
+                                          side: BorderSide.none,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        var id = patient.patientId;
+                                        var healthId = health?.healthStatusId;
+                                        context.go('/medicalstaff/patient/${id}/${healthId}');
+                                      },
+                                      label: const Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            child: Text(
+                                              'Chronic Condition',
+                                              style: TextStyle(fontSize: 20.0, color: Colors.white),
+                                            ),
+                                          ),
+                                          SizedBox(width: 20),
+                                          Icon(
+                                            Icons.arrow_forward,
+                                            color: Colors.white,
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    SizedBox(width: 20),
-                                    Icon(
-                                      Icons.arrow_forward,
-                                      color: Colors.white,
-                                    ),
-                                  ],
+                                  ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
+                        );
+                      } else {
+                        return Container();
+                      }
+                    }),
+                  )
                 ],
               ),
             ),

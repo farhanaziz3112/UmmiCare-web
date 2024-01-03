@@ -173,7 +173,8 @@ class healthDatabaseService {
       currentHeartRate: snapshot['currentHeartRate'],
       healthConditionId: snapshot['healthConditionId'],
       physicalConditionId: snapshot['physicalConditionId'],
-      chronicConditionId: snapshot['chronicConditionId']
+      chronicConditionId: snapshot['chronicConditionId'],
+      patientId: snapshot['patientId'],
     );
   }
 
@@ -186,6 +187,7 @@ class healthDatabaseService {
         healthConditionId: doc.data().toString().contains('healthConditionId') ? doc.get('healthConditionId') : '',
         physicalConditionId: doc.data().toString().contains('physicalConditionId') ? doc.get('physicalConditionId') : '',
         chronicConditionId: doc.data().toString().contains('chronicConditionId') ? doc.get('chronicConditionId') : '',
+        patientId: doc.data().toString().contains('patientId') ? doc.get('patientId') : '',
       );
     }).toList();
   }
@@ -226,7 +228,7 @@ class healthDatabaseService {
       healthConditionId: snapshot.id,
       currentSymptom: snapshot['currentSymptom'],
       currentIllness: snapshot['currentIllness'],
-      notes: snapshot['notes']
+      notes: snapshot['notes'],
     );
   }
 
@@ -235,11 +237,13 @@ class healthDatabaseService {
     String healthConditionId,
     String currentSymptom,
     String currentIllness,
-    String notes) async {
+    String notes,
+    String patientId) async {
     return await healthConditionCollection.doc(healthConditionId).set({
       'currentSysmptom' : currentSymptom,
       'currentIllness' : currentIllness,
       'notes': notes,
+      'patientId': patientId,
     });
   }
 
@@ -261,7 +265,7 @@ class healthDatabaseService {
     return PhysicalConditionModel(
       physicalConditionId: snapshot.id,
       currentInjury: snapshot['currentInjur'],
-      details: snapshot['details']
+      details: snapshot['details'],
     );
   }
 
@@ -269,10 +273,12 @@ class healthDatabaseService {
   Future<void> createPhysicalConditionData(
     String physicalConditionId,
     String currentInjury,
-    String details) async {
+    String details,
+    String patientId) async {
     return await physicalConditionCollection.doc(physicalConditionId).set({
       'currentInjury': currentInjury,
       'details': details,
+      'patientId': patientId,
     });
   }
 
@@ -294,7 +300,7 @@ class healthDatabaseService {
     return ChronicConditionModel(
       chronicConditionId: snapshot.id,
       childAllergies: snapshot['childAllergies'],
-      childChronic: snapshot['childChronic']
+      childChronic: snapshot['childChronic'],
     );
   }
 
@@ -302,10 +308,12 @@ class healthDatabaseService {
   Future<void> createChronicConditionData(
     String chronicConditionId,
     String childAllergies,
-    String childChronic) async {
+    String childChronic,
+    String patientId) async {
     return await chronicConditionCollection.doc(chronicConditionId).set({
       'childAllergies': childAllergies,
       'childChronic': childChronic,
+      'patientId': patientId,
     });
   }
 }

@@ -66,6 +66,7 @@ import 'package:ummicare/screens/advisorPages/parent/parentPages/parentPages.dar
 import 'package:ummicare/screens/advisorPages/settings/advisorSettingsPages.dart';
 import 'package:ummicare/screens/auth/signIn.dart';
 import 'package:ummicare/screens/medicalStaff_pages/medicalStaffHome.dart';
+import 'package:ummicare/screens/medicalStaff_pages/patient/patientList/healthStatus/healthStatusPages.dart';
 import 'package:ummicare/screens/medicalStaff_pages/patient/patientList/patientPages.dart';
 import 'package:ummicare/screens/medicalStaff_pages/settings/medicalStaffSettingsPages.dart';
 import 'package:ummicare/screens/teacherPages/class/classPages.dart';
@@ -823,6 +824,41 @@ final GoRouter routes = GoRouter(
                             patientId: state.pathParameters['patientId']!,
                           ),
                         ),
+                        routes: [
+                          GoRoute(
+                            path: ':healthStatusId',
+                            pageBuilder: (context, state) => 
+                            NoTransitionPage<void>(
+                              key: state.pageKey,
+                              child: healthStatusPages(
+                                currentPage: 0,
+                                healthStatusId: state.pathParameters['healthStatusId']!,
+                              ),
+                            ),
+                          ),
+                          GoRoute(
+                            path: ':healthStatusId',
+                            pageBuilder: (context, state) => 
+                            NoTransitionPage<void>(
+                              key: state.pageKey,
+                              child: healthStatusPages(
+                                currentPage: 1,
+                                healthStatusId: state.pathParameters['healthStatusId']!,
+                              ),
+                            ),
+                          ),
+                          GoRoute(
+                            path: ':healthStatusId',
+                            pageBuilder: (context, state) => 
+                            NoTransitionPage<void>(
+                              key: state.pageKey,
+                              child: healthStatusPages(
+                                currentPage: 2,
+                                healthStatusId: state.pathParameters['healthStatusId']!,
+                              ),
+                            ),
+                          )
+                        ]
                       )
                     ]),
             GoRoute(

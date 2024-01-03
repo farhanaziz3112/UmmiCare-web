@@ -5,6 +5,7 @@ class HealthStatusModel {
   late final String healthConditionId;
   late final String physicalConditionId;
   late final String chronicConditionId;
+  late final String patientId;
 
   HealthStatusModel({
     required this.healthStatusId,
@@ -13,6 +14,7 @@ class HealthStatusModel {
     required this.healthConditionId,
     required this.physicalConditionId,
     required this.chronicConditionId,
+    required this.patientId,
   });
 }
 
