@@ -255,25 +255,26 @@ class _patientProfileState extends State<patientProfile> {
                                             if(snapshot.hasData){
                                               List<BmiHealthModel>? bmi = snapshot.data;
                                               String bmiStatus = 'ss';
-                                              // if(bmi![bmi.length].bmiData < 16){
-                                              //   bmiStatus = "Severe Thinness";
-                                              // } else if(bmi[bmi.length].bmiData < 17){
-                                              //   bmiStatus = "Moderate Thinness";
-                                              // } else if(bmi[bmi.length].bmiData < 18.5){
-                                              //   bmiStatus = "Mild Thinness";
-                                              // } else if(bmi[bmi.length].bmiData < 25){
-                                              //   bmiStatus = "Normal";
-                                              // } else if(bmi[bmi.length].bmiData < 30){
-                                              //   bmiStatus = "Overweight";
-                                              // } else if(bmi[bmi.length].bmiData < 35){
-                                              //   bmiStatus = "Obese Class I";
-                                              // } else if(bmi[bmi.length].bmiData < 40){
-                                              //   bmiStatus = "Obese Class II";
-                                              // } else if(bmi[bmi.length].bmiData > 40){
-                                              //   bmiStatus = "Obese Class III";
-                                              // }else{
-                                              //   bmiStatus = "No Status";
-                                              // }
+                                              double lastBmiData = bmi![0].bmiData;
+                                              if (lastBmiData < 16) {
+                                                bmiStatus = "Severe Thinness";
+                                              } else if (lastBmiData < 17) {
+                                                bmiStatus = "Moderate Thinness";
+                                              } else if (lastBmiData < 18.5) {
+                                                bmiStatus = "Mild Thinness";
+                                              } else if (lastBmiData < 25) {
+                                                bmiStatus = "Normal";
+                                              } else if (lastBmiData < 30) {
+                                                bmiStatus = "Overweight";
+                                              } else if (lastBmiData < 35) {
+                                                bmiStatus = "Obese Class I";
+                                              } else if (lastBmiData < 40) {
+                                                bmiStatus = "Obese Class II";
+                                              } else if (lastBmiData >= 40) {
+                                                bmiStatus = "Obese Class III";
+                                              } else {
+                                                bmiStatus = "No Status";
+                                              }
                                               return Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 mainAxisAlignment: MainAxisAlignment.start,
