@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:ummicare/models/healthmodel.dart';
 import 'package:ummicare/services/healthDatabase.dart';
-import 'package:ummicare/shared/function.dart';
 
 class childBmi extends StatefulWidget {
   const childBmi({super.key, required this.healthId});
