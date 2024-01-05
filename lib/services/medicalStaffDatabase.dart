@@ -124,7 +124,7 @@ class medicalStaffDatabase {
   }
 
   Stream<List<ClinicModel>> get allClinicData {
-    return medicalStaffCollection.snapshots().map(_createClinicModelList);
+    return clinicCollection.snapshots().map(_createClinicModelList);
   }
 
   List<ClinicModel> _createClinicModelList(QuerySnapshot snapshot) {

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ummicare/models/patientModel.dart';
 import 'package:ummicare/screens/medicalStaff_pages/patient/patientList/patientTile.dart';
-import 'package:ummicare/services/patientDatabase.dart';
 
 class patientGrid extends StatefulWidget {
   const patientGrid({super.key, required this.patientList});
@@ -27,7 +26,7 @@ class _patientGridState extends State<patientGrid> {
       return GridView.builder(
         gridDelegate:
             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5, childAspectRatio: (0.7)),
-        itemCount: widget.patientList!.length,
+        itemCount: widget.patientList.length,
         itemBuilder: ((context, index) {
           return patientTile(
             patientDetail: widget.patientList[index],

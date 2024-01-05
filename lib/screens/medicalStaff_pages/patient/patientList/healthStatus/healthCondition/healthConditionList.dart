@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:ummicare/models/healthStatusModel.dart';
 import 'package:ummicare/screens/medicalStaff_pages/patient/patientList/healthStatus/healthCondition/healthConditionTile.dart';
-import 'package:ummicare/services/healthDatabase.dart';
 
 class healthConditionList extends StatefulWidget {
   const healthConditionList({super.key, required this.conditionDetail});

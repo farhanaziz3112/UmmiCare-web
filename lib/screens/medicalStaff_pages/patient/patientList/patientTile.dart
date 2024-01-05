@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_network/image_network.dart';
+import 'package:ummicare/models/healthmodel.dart';
 import 'package:ummicare/models/patientModel.dart';
+import 'package:ummicare/services/healthDatabase.dart';
 import 'package:ummicare/services/patientDatabase.dart';
 
 class patientTile extends StatefulWidget {
@@ -33,7 +35,7 @@ class _patientTileState extends State<patientTile> {
                 child: Container(
                   alignment: Alignment.center,
                   height: double.maxFinite,
-                  padding: const EdgeInsets.fromLTRB(20, 30, 20, 50),
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
                   decoration: BoxDecoration(
                     color: const Color(0xffF29180),
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -68,6 +70,43 @@ class _patientTileState extends State<patientTile> {
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Text((patient.patientCurrentAge).toString()),
+                        const SizedBox(height: 10),
+                        const Text(
+                          'Current BMI Status',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        StreamBuilder<List<BmiHealthModel>>(
+                          stream: healthDatabaseService().allBmiHealthData(patient.healthId),
+                          builder: (context, snapshot) {
+                            if(snapshot.hasData){
+                              List<BmiHealthModel>? bmi = snapshot.data;
+                              String bmiStatus = '';
+                              double lastBmiData = bmi![0].bmiData;
+                              if (lastBmiData < 16) {
+                                bmiStatus = "Severe Thinness";
+                              } else if (lastBmiData < 17) {
+                                bmiStatus = "Moderate Thinness";
+                              } else if (lastBmiData < 18.5) {
+                                bmiStatus = "Mild Thinness";
+                              } else if (lastBmiData < 25) {
+                                bmiStatus = "Normal";
+                              } else if (lastBmiData < 30) {
+                                bmiStatus = "Overweight";
+                              } else if (lastBmiData < 35) {
+                                bmiStatus = "Obese Class I";
+                              } else if (lastBmiData < 40) {
+                                bmiStatus = "Obese Class II";
+                              } else if (lastBmiData >= 40) {
+                                bmiStatus = "Obese Class III";
+                              } else {
+                                bmiStatus = "No Status";
+                              }
+                              return Text(bmiStatus);
+                            } else {
+                              return Container();
+                            }
+                          },
+                        )
                       ],
                     ),
                   ),
@@ -83,7 +122,7 @@ class _patientTileState extends State<patientTile> {
                 padding: const EdgeInsets.all(5),
                 child: Container(
                   alignment: Alignment.center,
-                  padding: const EdgeInsets.fromLTRB(20, 30, 20, 50),
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
                   decoration: BoxDecoration(
                     color: const Color(0xff71CBCA),
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -118,6 +157,43 @@ class _patientTileState extends State<patientTile> {
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Text((patient.patientCurrentAge).toString()),
+                        const SizedBox(height: 10),
+                        const Text(
+                          'Current BMI Status',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        StreamBuilder<List<BmiHealthModel>>(
+                          stream: healthDatabaseService().allBmiHealthData(patient.healthId),
+                          builder: (context, snapshot) {
+                            if(snapshot.hasData){
+                              List<BmiHealthModel>? bmi = snapshot.data;
+                              String bmiStatus = '';
+                              double lastBmiData = bmi![0].bmiData;
+                              if (lastBmiData < 16) {
+                                bmiStatus = "Severe Thinness";
+                              } else if (lastBmiData < 17) {
+                                bmiStatus = "Moderate Thinness";
+                              } else if (lastBmiData < 18.5) {
+                                bmiStatus = "Mild Thinness";
+                              } else if (lastBmiData < 25) {
+                                bmiStatus = "Normal";
+                              } else if (lastBmiData < 30) {
+                                bmiStatus = "Overweight";
+                              } else if (lastBmiData < 35) {
+                                bmiStatus = "Obese Class I";
+                              } else if (lastBmiData < 40) {
+                                bmiStatus = "Obese Class II";
+                              } else if (lastBmiData >= 40) {
+                                bmiStatus = "Obese Class III";
+                              } else {
+                                bmiStatus = "No Status";
+                              }
+                              return Text(bmiStatus);
+                            } else {
+                              return Container();
+                            }
+                          },
+                        )
                       ],
                     ),
                   ),
@@ -133,7 +209,7 @@ class _patientTileState extends State<patientTile> {
                 padding: const EdgeInsets.all(5),
                 child: Container(
                   alignment: Alignment.center,
-                  padding: const EdgeInsets.fromLTRB(20, 30, 20, 50),
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
                   decoration: BoxDecoration(
                     color: const Color(0xff8290F0),
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -168,6 +244,43 @@ class _patientTileState extends State<patientTile> {
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Text((patient.patientCurrentAge).toString()),
+                        const SizedBox(height: 10),
+                        const Text(
+                          'Current BMI Status',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        StreamBuilder<List<BmiHealthModel>>(
+                          stream: healthDatabaseService().allBmiHealthData(patient.healthId),
+                          builder: (context, snapshot) {
+                            if(snapshot.hasData){
+                              List<BmiHealthModel>? bmi = snapshot.data;
+                              String bmiStatus = '';
+                              double lastBmiData = bmi![0].bmiData;
+                              if (lastBmiData < 16) {
+                                bmiStatus = "Severe Thinness";
+                              } else if (lastBmiData < 17) {
+                                bmiStatus = "Moderate Thinness";
+                              } else if (lastBmiData < 18.5) {
+                                bmiStatus = "Mild Thinness";
+                              } else if (lastBmiData < 25) {
+                                bmiStatus = "Normal";
+                              } else if (lastBmiData < 30) {
+                                bmiStatus = "Overweight";
+                              } else if (lastBmiData < 35) {
+                                bmiStatus = "Obese Class I";
+                              } else if (lastBmiData < 40) {
+                                bmiStatus = "Obese Class II";
+                              } else if (lastBmiData >= 40) {
+                                bmiStatus = "Obese Class III";
+                              } else {
+                                bmiStatus = "No Status";
+                              }
+                              return Text(bmiStatus);
+                            } else {
+                              return Container();
+                            }
+                          },
+                        )
                       ],
                     ),
                   ),

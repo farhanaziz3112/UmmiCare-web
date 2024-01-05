@@ -135,61 +135,67 @@ class _registerNewClinicState extends State<registerNewClinic> {
               ),
               const SizedBox(height: 20),
               StreamBuilder<List<ClinicModel>>(
-                  stream: medicalStaffDatabase(medicalStaffId: user.userId).allClinicData,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      List<ClinicModel>? clinics = snapshot.data;
-                      return Form(
-                        key: _formKey,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: TextFormField(
-                                initialValue: searchName,
-                                decoration: textInputDecoration.copyWith(
-                                    hintText: 'Clinic Name'),
-                                validator: (value) => value == ''
-                                    ? 'Please enter Clinic name'
-                                    : null,
-                                onChanged: ((value) => setState(() {
-                                      searchName = value;
-                                    })),
-                              ),
+                stream: medicalStaffDatabase(medicalStaffId: user.userId).allClinicData,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError){
+                    return Container(
+    child: Text('Error: ${snapshot.error}'),
+  );
+                  }
+                  if (snapshot.hasData) {
+                    List<ClinicModel>? clinics = snapshot.data;
+                    return Form(
+                      key: _formKey,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: TextFormField(
+                              initialValue: searchName,
+                              decoration: textInputDecoration.copyWith(
+                                  hintText: 'Clinic Name'),
+                              validator: (value) => value == ''
+                                  ? 'Please enter Clinic name'
+                                  : null,
+                              onChanged: ((value) => setState(() {
+                                    searchName = value;
+                                  })),
                             ),
-                            const SizedBox(
-                              width: 10,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.search,
+                              size: 30,
+                              color: Colors.white,
                             ),
-                            IconButton(
-                              icon: const Icon(
-                                Icons.search,
-                                size: 30,
-                                color: Colors.white,
-                              ),
-                              style: IconButton.styleFrom(
-                                  backgroundColor: const Color(0xffF29180)),
-                              onPressed: () async {
-                                ClinicDetails.clear();
-                                for (int i = 0; i < clinics!.length; i++) {
-                                  if (clinics[i]
-                                      .clinicName
-                                      .toLowerCase()
-                                      .contains(searchName.toLowerCase())) {
-                                    setState(() {
-                                      ClinicDetails.add(clinics[i]);
-                                    });
-                                  }
+                            style: IconButton.styleFrom(
+                                backgroundColor: const Color(0xffF29180)),
+                            onPressed: () async {
+                              ClinicDetails.clear();
+                              for (int i = 0; i < clinics!.length; i++) {
+                                if (clinics[i]
+                                    .clinicName
+                                    .toLowerCase()
+                                    .contains(searchName.toLowerCase())) {
+                                  setState(() {
+                                    ClinicDetails.add(clinics[i]);
+                                  });
                                 }
-                              },
-                            ),
-                            Expanded(flex: 2, child: Container()),
-                          ],
-                        ),
-                      );
-                    } else {
-                      return Container();
-                    }
-                  }),
+                              }
+                            },
+                          ),
+                          Expanded(flex: 2, child: Container()),
+                        ],
+                      ),
+                    );
+                  } else {
+                    return Container();
+                  }
+                }
+              ),
               const SizedBox(height: 50),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
