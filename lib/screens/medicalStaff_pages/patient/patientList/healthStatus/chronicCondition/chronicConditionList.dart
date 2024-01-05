@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:ummicare/models/healthStatusModel.dart';
-import 'package:ummicare/screens/medicalStaff_pages/patient/patientList/healthStatus/healthCondition/healthConditionTile.dart';
-import 'package:ummicare/services/healthDatabase.dart';
+import 'package:ummicare/screens/medicalStaff_pages/patient/patientList/healthStatus/chronicCondition/chronicConditionTile.dart';
 
-class healthConditionList extends StatefulWidget {
-  const healthConditionList({super.key, required this.conditionDetail});
-  final List<HealthConditionModel>? conditionDetail;
+class chronicConditionList extends StatefulWidget {
+  const chronicConditionList({super.key, required this.chronicDetail});
+  final List<ChronicConditionModel>? chronicDetail;
 
   @override
-  State<healthConditionList> createState() => _healthConditionListState();
+  State<chronicConditionList> createState() => _chronicConditionListState();
 }
 
-class _healthConditionListState extends State<healthConditionList> {
+class _chronicConditionListState extends State<chronicConditionList> {
   @override
   Widget build(BuildContext context) {
-    if (widget.conditionDetail!.isEmpty) {
+    if (widget.chronicDetail!.isEmpty) {
       return Container(
         padding: const EdgeInsets.only(top: 50),
         child: const Center(
@@ -27,10 +25,10 @@ class _healthConditionListState extends State<healthConditionList> {
     } else {
       return ListView.builder(
         shrinkWrap: true,
-        itemCount: widget.conditionDetail?.length,
+        itemCount: widget.chronicDetail?.length,
         itemBuilder: ((context, index) {
-          return healthConditionTile(
-            healthCondition: widget.conditionDetail![index],
+          return chronicConditionTile(
+            chronicCondition: widget.chronicDetail![index],
           );
         }),
       );

@@ -5,8 +5,8 @@ import 'package:ummicare/screens/medicalStaff_pages/patient/patientList/healthSt
 import 'package:ummicare/screens/medicalStaff_pages/patient/patientList/healthStatus/physicalConditionMain.dart';
 
 class healthStatusPages extends StatefulWidget {
-  const healthStatusPages({super.key, required this.healthStatusId, required this.currentPage});
-  final String healthStatusId;
+  const healthStatusPages({super.key, required this.patientId, required this.currentPage});
+  final String patientId;
   final int currentPage;
 
   @override
@@ -17,9 +17,9 @@ class _healthStatusPagesState extends State<healthStatusPages> {
   @override
   Widget build(BuildContext context) {
     final pages = [
-      healthConditionMain(healthStatusId: widget.healthStatusId),
-      physicalConditionMain(healthStatusId: widget.healthStatusId),
-      chronicConditionMain(healthStatusId: widget.healthStatusId)
+      healthConditionMain(patientId: widget.patientId),
+      physicalConditionMain(patientId: widget.patientId),
+      chronicConditionMain(patientId: widget.patientId)
     ];
 
     int page = widget.currentPage;

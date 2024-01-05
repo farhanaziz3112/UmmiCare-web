@@ -9,8 +9,8 @@ import 'package:ummicare/services/patientDatabase.dart';
 import 'package:ummicare/shared/constant.dart';
 
 class physicalConditionMain extends StatefulWidget {
-  const physicalConditionMain({super.key, required this.healthStatusId});
-  final String healthStatusId;
+  const physicalConditionMain({super.key, required this.patientId});
+  final String patientId;
 
   @override
   State<physicalConditionMain> createState() => _physicalConditionMainState();
@@ -24,11 +24,11 @@ class _physicalConditionMainState extends State<physicalConditionMain> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<HealthStatusModel>(
-      stream: healthDatabaseService().healthStatusData(widget.healthStatusId),
+    return StreamBuilder<patientModel>(
+      stream: PatientDatabaseService().patientData(widget.patientId),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          HealthStatusModel? health = snapshot.data;
+          patientModel? patient = snapshot.data;
           return SingleChildScrollView(
             child: Container(
               margin:
@@ -52,29 +52,18 @@ class _physicalConditionMainState extends State<physicalConditionMain> {
                       const SizedBox(width: 10),
                       const Text('>'),
                       const SizedBox(width: 10),
-                      StreamBuilder<patientModel>(
-                        stream: PatientDatabaseService()
-                            .patientData(health!.patientId),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            patientModel? patient = snapshot.data;
-                            return RichText(
-                              text: TextSpan(
-                                text: patient!.patientName,
-                                style: const TextStyle(
-                                    color: Colors.grey,
-                                    decoration: TextDecoration.underline),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    context.go(
-                                        '/advisor/parent/${patient.patientId}');
-                                  },
-                              ),
-                            );
-                          } else {
-                            return Container();
-                          }
-                        }
+                      RichText(
+                        text: TextSpan(
+                          text: patient!.patientName,
+                          style: const TextStyle(
+                              color: Colors.grey,
+                              decoration: TextDecoration.underline),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              context.go(
+                                  '/medicalstaff/patient/${patient.patientId}');
+                            },
+                        ),
                       ),
                       const SizedBox(width: 10),
                       const Text('>'),
@@ -110,9 +99,10 @@ class _physicalConditionMainState extends State<physicalConditionMain> {
                   ),
                   const SizedBox(height: 30),
                   StreamBuilder<HealthStatusModel>(
-                    stream: healthDatabaseService().healthStatusData(widget.healthStatusId),
+                    stream: healthDatabaseService().healthStatusData(patient.healthStatusId),
                     builder:(context, snapshot) {
-                      if(health.healthConditionId.isNotEmpty){
+                      HealthStatusModel? health = snapshot.data;
+                      if(health!.healthConditionId.isNotEmpty){
                         StreamBuilder<PhysicalConditionModel>(
                         stream: healthDatabaseService().physicalConditionData(health.physicalConditionId),
                         builder: ((context, snapshot) {
@@ -404,7 +394,7 @@ class _physicalConditionMainState extends State<physicalConditionMain> {
                   ),
                   const SizedBox(height: 20),
                   StreamBuilder<List<PhysicalConditionModel>>(
-                    stream: healthDatabaseService().allPhysicalConditionData(health.patientId),
+                    stream: healthDatabaseService().allPhysicalConditionData(widget.patientId),
                     builder: (context, snapshot) {
                       if(snapshot.hasData){
                         List<PhysicalConditionModel>? physical = snapshot.data;

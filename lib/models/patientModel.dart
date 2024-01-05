@@ -3,6 +3,7 @@ class patientModel{
   final String healthId;
   final String childId;
   final String clinicId;
+  final String healthStatusId;
   final String vaccinationAppointmentId;
   final String patientProfileImage;
   final String patientName;
@@ -13,6 +14,7 @@ class patientModel{
     required this.healthId,
     required this.childId,
     required this.clinicId,
+    required this.healthStatusId,
     required this.vaccinationAppointmentId,
     required this.patientProfileImage,
     required this.patientName,

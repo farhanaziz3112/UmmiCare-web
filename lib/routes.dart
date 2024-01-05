@@ -826,35 +826,35 @@ final GoRouter routes = GoRouter(
                         ),
                         routes: [
                           GoRoute(
-                            path: ':healthStatusId',
+                            path: 'healthcondition',
                             pageBuilder: (context, state) => 
                             NoTransitionPage<void>(
                               key: state.pageKey,
                               child: healthStatusPages(
                                 currentPage: 0,
-                                healthStatusId: state.pathParameters['healthStatusId']!,
+                                patientId: state.pathParameters['patientId']!,
                               ),
                             ),
                           ),
                           GoRoute(
-                            path: ':healthStatusId',
+                            path: 'physicalcondition',
                             pageBuilder: (context, state) => 
                             NoTransitionPage<void>(
                               key: state.pageKey,
                               child: healthStatusPages(
                                 currentPage: 1,
-                                healthStatusId: state.pathParameters['healthStatusId']!,
+                                patientId: state.pathParameters['patientId']!,
                               ),
                             ),
                           ),
                           GoRoute(
-                            path: ':healthStatusId',
+                            path: 'chroniccondition',
                             pageBuilder: (context, state) => 
                             NoTransitionPage<void>(
                               key: state.pageKey,
                               child: healthStatusPages(
                                 currentPage: 2,
-                                healthStatusId: state.pathParameters['healthStatusId']!,
+                                patientId: state.pathParameters['patientId']!,
                               ),
                             ),
                           )

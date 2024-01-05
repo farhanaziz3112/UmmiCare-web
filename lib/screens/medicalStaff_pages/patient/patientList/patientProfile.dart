@@ -374,8 +374,7 @@ class _patientProfileState extends State<patientProfile> {
                                       ),
                                       onPressed: () {
                                         var id = patient.patientId;
-                                        var healthId = health?.healthStatusId;
-                                        context.go('/medicalstaff/patient/${id}/$healthId');
+                                        context.go('/medicalstaff/patient/${id}/healthcondition');
                                       },
                                       label: const Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
@@ -420,8 +419,7 @@ class _patientProfileState extends State<patientProfile> {
                                       ),
                                       onPressed: () {
                                         var id = patient.patientId;
-                                        var healthId = health?.healthStatusId;
-                                        context.go('/medicalstaff/patient/${id}/${healthId}');
+                                        context.go('/medicalstaff/patient/${id}/physicalcondition');
                                       },
                                       label: const Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
@@ -466,8 +464,7 @@ class _patientProfileState extends State<patientProfile> {
                                       ),
                                       onPressed: () {
                                         var id = patient.patientId;
-                                        var healthId = health?.healthStatusId;
-                                        context.go('/medicalstaff/patient/${id}/${healthId}');
+                                        context.go('/medicalstaff/patient/${id}/chroniccondition');
                                       },
                                       label: const Row(
                                         mainAxisAlignment: MainAxisAlignment.center,

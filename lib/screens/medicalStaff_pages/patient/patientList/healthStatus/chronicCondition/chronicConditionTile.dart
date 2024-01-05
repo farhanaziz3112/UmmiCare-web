@@ -3,25 +3,25 @@ import 'package:go_router/go_router.dart';
 import 'package:ummicare/models/healthStatusModel.dart';
 import 'package:ummicare/services/healthDatabase.dart';
 
-class healthConditionTile extends StatefulWidget {
-  const healthConditionTile({super.key, required this.healthCondition});
-  final HealthConditionModel healthCondition;
+class chronicConditionTile extends StatefulWidget {
+  const chronicConditionTile({super.key, required this.chronicCondition});
+  final ChronicConditionModel chronicCondition;
 
   @override
-  State<healthConditionTile> createState() => _healthConditionTileState();
+  State<chronicConditionTile> createState() => _chronicConditionTileState();
 }
 
-class _healthConditionTileState extends State<healthConditionTile> {
+class _chronicConditionTileState extends State<chronicConditionTile> {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<HealthConditionModel>(
-      stream: healthDatabaseService().healthConditionData(widget.healthCondition.healthConditionId),
+    return StreamBuilder<ChronicConditionModel>(
+      stream: healthDatabaseService().chronicConditionData(widget.chronicCondition.chronicConditionId),
       builder: ((context, snapshot) {
         if (snapshot.hasData) {
-          HealthConditionModel? condition = snapshot.data;
+          ChronicConditionModel? chronic = snapshot.data;
           return InkWell(
             onTap: () {
-              var id = condition.healthConditionId;
+              var id = chronic.chronicConditionId;
               context.go('/advisor/parent/${id}');
             },
             child: Padding(
@@ -39,7 +39,7 @@ class _healthConditionTileState extends State<healthConditionTile> {
                         constraints:
                             const BoxConstraints(minWidth: 100, maxWidth: 200),
                         child: Text(
-                          condition!.currentTemperature,
+                          chronic!.childAllergies,
                           style: const TextStyle(
                               color: Colors.white, fontSize: 15),
                         ),
@@ -50,7 +50,7 @@ class _healthConditionTileState extends State<healthConditionTile> {
                         constraints:
                             const BoxConstraints(minWidth: 100, maxWidth: 200),
                         child: Text(
-                          condition.currentHeartRate,
+                          chronic.childChronic,
                           style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.normal,
@@ -63,20 +63,7 @@ class _healthConditionTileState extends State<healthConditionTile> {
                         constraints:
                             const BoxConstraints(minWidth: 100, maxWidth: 200),
                         child: Text(
-                          condition.currentIllness,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 15),
-                        ),
-                      ),
-                      Expanded(flex: 1, child: Container()),
-                      Container(
-                        alignment: Alignment.center,
-                        constraints:
-                            const BoxConstraints(minWidth: 100, maxWidth: 200),
-                        child: Text(
-                          condition.healthConditionId,
+                          chronic.chronicConditionId,
                           style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.normal,

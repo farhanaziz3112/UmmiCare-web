@@ -9,8 +9,8 @@ import 'package:ummicare/services/patientDatabase.dart';
 import 'package:ummicare/shared/constant.dart';
 
 class healthConditionMain extends StatefulWidget {
-  const healthConditionMain({super.key, required this.healthStatusId});
-  final String healthStatusId;
+  const healthConditionMain({super.key, required this.patientId});
+  final String patientId;
 
   @override
   State<healthConditionMain> createState() => _healthConditionMainState();
@@ -24,11 +24,11 @@ class _healthConditionMainState extends State<healthConditionMain> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<HealthStatusModel>(
-      stream: healthDatabaseService().healthStatusData(widget.healthStatusId),
+    return StreamBuilder<patientModel>(
+      stream: PatientDatabaseService().patientData(widget.patientId),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          HealthStatusModel? health = snapshot.data;
+          patientModel? patient = snapshot.data;
           return SingleChildScrollView(
             child: Container(
               alignment: Alignment.topLeft,
@@ -50,29 +50,18 @@ class _healthConditionMainState extends State<healthConditionMain> {
                       const SizedBox(width: 10),
                       const Text('>'),
                       const SizedBox(width: 10),
-                      StreamBuilder<patientModel>(
-                        stream: PatientDatabaseService()
-                            .patientData(health!.patientId),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            patientModel? patient = snapshot.data;
-                            return RichText(
-                              text: TextSpan(
-                                text: patient!.patientName,
-                                style: const TextStyle(
-                                    color: Colors.grey,
-                                    decoration: TextDecoration.underline),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    context.go(
-                                        '/medicalstaff/patient/${patient.patientId}');
-                                  },
-                              ),
-                            );
-                          } else {
-                            return Container();
-                          }
-                        }
+                      RichText(
+                        text: TextSpan(
+                          text: patient!.patientName,
+                          style: const TextStyle(
+                              color: Colors.grey,
+                              decoration: TextDecoration.underline),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              context.go(
+                                  '/medicalstaff/patient/${patient.patientId}');
+                            },
+                        ),
                       ),
                       const SizedBox(width: 10),
                       const Text('>'),
@@ -108,9 +97,10 @@ class _healthConditionMainState extends State<healthConditionMain> {
                   ),
                   const SizedBox(height: 30),
                   StreamBuilder<HealthStatusModel>(
-                    stream: healthDatabaseService().healthStatusData(widget.healthStatusId),
+                    stream: healthDatabaseService().healthStatusData(patient.healthStatusId),
                     builder:(context, snapshot) {
-                      if(health.healthConditionId.isNotEmpty){
+                      HealthStatusModel? health = snapshot.data;
+                      if(health!.healthConditionId.isNotEmpty){
                         StreamBuilder<HealthConditionModel>(
                         stream: healthDatabaseService().healthConditionData(health.healthConditionId),
                         builder: ((context, snapshot) {
@@ -476,7 +466,7 @@ class _healthConditionMainState extends State<healthConditionMain> {
                   ),
                   const SizedBox(height: 20),
                   StreamBuilder<List<HealthConditionModel>>(
-                    stream: healthDatabaseService().allHealthConditionData(health.patientId),
+                    stream: healthDatabaseService().allHealthConditionData(widget.patientId),
                     builder: (context, snapshot) {
                       if(snapshot.hasData){
                         List<HealthConditionModel>? condition = snapshot.data;

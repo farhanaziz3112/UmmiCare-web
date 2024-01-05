@@ -391,6 +391,24 @@ class healthDatabaseService {
     );
   }
 
+  Stream<List<ChronicConditionModel>> allChronicConditionData (String patientId){
+    return chronicConditionCollection
+        .where('patientId', isEqualTo: patientId)
+        .snapshots()
+        .map(_createChronicConditionModelList);
+  }
+
+  List<ChronicConditionModel> _createChronicConditionModelList(QuerySnapshot snapshot){
+    return snapshot.docs.map<ChronicConditionModel>((doc) {
+      return ChronicConditionModel(
+        chronicConditionId: doc.data().toString().contains('chronicConditionId') ? doc.get('chronicConditionId') : '',
+        childAllergies: doc.data().toString().contains('childAllergies') ? doc.get('childAllergies') : '',
+        childChronic: doc.data().toString().contains('childChronic') ? doc.get('childChronic') : '',
+        patientId: doc.data().toString().contains('patientId') ? doc.get('patientId') : '',
+      );
+    }).toList();
+  }
+
   //create chronic condition data
   Future<void> createChronicConditionData(
     String childAllergies,
