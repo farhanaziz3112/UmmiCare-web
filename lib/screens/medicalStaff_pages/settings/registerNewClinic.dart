@@ -137,11 +137,6 @@ class _registerNewClinicState extends State<registerNewClinic> {
               StreamBuilder<List<ClinicModel>>(
                 stream: medicalStaffDatabase(medicalStaffId: user.userId).allClinicData,
                 builder: (context, snapshot) {
-                  if (snapshot.hasError){
-                    return Container(
-    child: Text('Error: ${snapshot.error}'),
-  );
-                  }
                   if (snapshot.hasData) {
                     List<ClinicModel>? clinics = snapshot.data;
                     return Form(
