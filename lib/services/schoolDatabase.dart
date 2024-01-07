@@ -135,7 +135,6 @@ class schoolDatabase {
   Stream<List<classModel>> allclassDataWithSchoolId(String schoolId) {
     return classCollection
         .where('schoolId', isEqualTo: schoolId)
-        .orderBy('classYear', descending: true)
         .snapshots()
         .map(_createClassModelList);
   }

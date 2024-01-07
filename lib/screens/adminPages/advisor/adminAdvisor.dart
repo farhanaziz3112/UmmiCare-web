@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:image_network/image_network.dart';
+import 'package:provider/provider.dart';
+import 'package:ummicare/models/staffUserModel.dart';
+import 'package:ummicare/models/userModel.dart';
 import 'package:ummicare/screens/adminPages/adminLeftPane.dart';
+import 'package:ummicare/screens/adminPages/adminMainPane.dart';
+import 'package:ummicare/screens/adminPages/adminMenu.dart';
 import 'package:ummicare/screens/adminPages/advisor/announcement/advisorAnnouncement.dart';
 import 'package:ummicare/screens/adminPages/advisor/report/advisorReport.dart';
 import 'package:ummicare/screens/adminPages/advisor/staffPages/pendingAdvisor.dart';
 import 'package:ummicare/screens/adminPages/advisor/staffPages/rejectedAdvisor.dart';
 import 'package:ummicare/screens/adminPages/advisor/staffPages/verifiedAdvisor.dart';
+import 'package:ummicare/services/staffDatabase.dart';
 
 class adminAdvisor extends StatefulWidget {
   const adminAdvisor({super.key, required this.currentPage});
@@ -15,33 +22,107 @@ class adminAdvisor extends StatefulWidget {
 }
 
 class _adminAdvisorState extends State<adminAdvisor> {
-
   final pages = [
-    pendingAdvisor(),
-    rejectedAdvisor(),
-    verifiedAdvisor(),
-    advisorReport(),
-    advisorAnnouncement(),
+    const pendingAdvisor(),
+    const rejectedAdvisor(),
+    const verifiedAdvisor(),
+    const advisorReport(),
+    const advisorAnnouncement(),
   ];
+
+  bool viewMenu = false;
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     int page = widget.currentPage;
-    return Scaffold(
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Container(
-              width: 300,
-              color: const Color(0xff71CBCA),
-              child: const adminLeftPane(selected: 1)),
-          Expanded(
-              child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 70, vertical: 80),
-                  child: pages[page])),
-        ],
-      ),
-    );
+    userModel? user = Provider.of<userModel?>(context);
+    if (screenSize.width < 1300) {
+      return Scaffold(
+          appBar: AppBar(
+            title: const Text(
+              "UmmiCare",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            automaticallyImplyLeading: false,
+            centerTitle: false,
+            backgroundColor: const Color(0xff71CBCA),
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(
+                  Icons.menu,
+                  color: Colors.white,
+                  size: 30.0,
+                ),
+                onPressed: () {
+                  setState(() {
+                    viewMenu = !viewMenu;
+                  });
+                },
+              ),
+              const SizedBox(width: 10),
+              StreamBuilder<staffUserModel>(
+                  stream: staffDatabase(staffId: user!.userId).staffData,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      staffUserModel? staff = snapshot.data;
+                      return ImageNetwork(
+                          image: staff!.staffProfileImg,
+                          height: 40,
+                          width: 40,
+                          borderRadius: BorderRadius.circular(70));
+                    } else {
+                      return Container();
+                    }
+                  }),
+              const SizedBox(width: 10)
+            ],
+          ),
+          body: viewMenu
+              ? Column(
+                  children: <Widget>[
+                    const adminMenu(selected: 1),
+                    Expanded(
+                        child: SingleChildScrollView(
+                          child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 70, vertical: 80),
+                              child: pages[page]),
+                        )),
+                  ],
+                )
+              : Column(
+                  children: <Widget>[
+                    Expanded(
+                        child: SingleChildScrollView(
+                          child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 70, vertical: 80),
+                              child: pages[page]),
+                        )),
+                  ],
+                ));
+    } else {
+      return Scaffold(
+        body: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+                width: 300,
+                color: const Color(0xff71CBCA),
+                child: const adminLeftPane(selected: 1)),
+            Expanded(
+                child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 70, vertical: 80),
+                    child: pages[page])),
+          ],
+        ),
+      );
+    }
   }
 }

@@ -583,12 +583,7 @@ class _schoolProfileState extends State<schoolProfile> {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  StreamProvider<List<classModel>>.value(
-                    initialData: [],
-                    value: schoolDatabase()
-                        .allclassDataWithSchoolId(school.schoolId),
-                    child: const classList(),
-                  ),
+                  classList(schoolId: school.schoolId),
                   const SizedBox(
                     height: 200,
                   )

@@ -358,34 +358,28 @@ final GoRouter routes = GoRouter(
                         child: const adminSettings(currentPage: 0)),
                   ),
                   GoRoute(
-                    path: 'systemsettings',
+                    path: 'version',
                     pageBuilder: (context, state) => NoTransitionPage<void>(
                         key: state.pageKey,
                         child: const adminSettings(currentPage: 1)),
                   ),
                   GoRoute(
-                    path: 'version',
+                    path: 'privacyofpolicy',
                     pageBuilder: (context, state) => NoTransitionPage<void>(
                         key: state.pageKey,
                         child: const adminSettings(currentPage: 2)),
                   ),
                   GoRoute(
-                    path: 'privacyofpolicy',
+                    path: 'termsofuse',
                     pageBuilder: (context, state) => NoTransitionPage<void>(
                         key: state.pageKey,
                         child: const adminSettings(currentPage: 3)),
                   ),
                   GoRoute(
-                    path: 'termsofuse',
-                    pageBuilder: (context, state) => NoTransitionPage<void>(
-                        key: state.pageKey,
-                        child: const adminSettings(currentPage: 4)),
-                  ),
-                  GoRoute(
                     path: 'contactus',
                     pageBuilder: (context, state) => NoTransitionPage<void>(
                         key: state.pageKey,
-                        child: const adminSettings(currentPage: 5)),
+                        child: const adminSettings(currentPage: 4)),
                   ),
                 ]),
           ]),

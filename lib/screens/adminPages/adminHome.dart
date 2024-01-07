@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:image_network/image_network.dart';
+import 'package:provider/provider.dart';
+import 'package:ummicare/models/staffUserModel.dart';
+import 'package:ummicare/models/userModel.dart';
 import 'package:ummicare/screens/adminPages/adminLeftPane.dart';
 import 'package:ummicare/screens/adminPages/adminMainPane.dart';
+import 'package:ummicare/screens/adminPages/adminMenu.dart';
+import 'package:ummicare/services/staffDatabase.dart';
 
 class adminHome extends StatefulWidget {
   const adminHome({super.key, required this.currentPage});
@@ -11,29 +17,101 @@ class adminHome extends StatefulWidget {
 }
 
 class _adminHomeState extends State<adminHome> {
-  
+  bool viewMenu = false;
+
   @override
   Widget build(BuildContext context) {
+    userModel? user = Provider.of<userModel?>(context);
+    var screenSize = MediaQuery.of(context).size;
     int page = widget.currentPage;
-    return Scaffold(
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Container(
-              width: 300,
-              color: const Color(0xff71CBCA),
-              child: adminLeftPane(selected: page)),
-          Expanded(
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  child: adminMainPane(currentPage: page)
-                )
-              ],
+    if (screenSize.width < 1300) {
+      return Scaffold(
+          appBar: AppBar(
+            title: const Text(
+              "UmmiCare",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          )
-        ],
-      ),
-    );
+            automaticallyImplyLeading: false,
+            centerTitle: false,
+            backgroundColor: const Color(0xff71CBCA),
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(
+                  Icons.menu,
+                  color: Colors.white,
+                  size: 30.0,
+                ),
+                onPressed: () {
+                  setState(() {
+                    viewMenu = !viewMenu;
+                  });
+                },
+              ),
+              SizedBox(width: 10),
+              StreamBuilder<staffUserModel>(
+                  stream: staffDatabase(staffId: user!.userId).staffData,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      staffUserModel? staff = snapshot.data;     
+                      return ImageNetwork(
+                          image: staff!.staffProfileImg,
+                          height: 40,
+                          width: 40,
+                          borderRadius: BorderRadius.circular(70));
+                    } else {
+                      return Container();
+                    }
+                  }),
+              SizedBox(width: 10)
+            ],
+          ),
+          body: viewMenu
+              ? Column(
+                  children: <Widget>[
+                    adminMenu(selected: page),
+                    Expanded(
+                      child: Column(
+                        children: <Widget>[
+                          Expanded(child: adminMainPane(currentPage: page))
+                        ],
+                      ),
+                    )
+                  ],
+                )
+              : Column(
+                  children: <Widget>[
+                    Expanded(
+                      child: Column(
+                        children: <Widget>[
+                          Expanded(child: adminMainPane(currentPage: page))
+                        ],
+                      ),
+                    )
+                  ],
+                ));
+    } else {
+      return Scaffold(
+        body: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+                width: 300,
+                color: const Color(0xff71CBCA),
+                child: adminLeftPane(selected: page)),
+            Expanded(
+              child: Column(
+                children: <Widget>[
+                  Expanded(child: adminMainPane(currentPage: page))
+                ],
+              ),
+            )
+          ],
+        ),
+      );
+    }
   }
 }

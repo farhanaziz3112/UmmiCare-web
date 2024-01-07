@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ummicare/screens/adminPages/adminHomeProfile.dart';
+import 'package:ummicare/screens/adminPages/adminMenu.dart';
 import 'package:ummicare/screens/nav/mainNavItem.dart';
 
 class adminLeftPane extends StatelessWidget {
@@ -28,11 +29,7 @@ class adminLeftPane extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 50),
-              mainNavItem('/admin/home', selected == 0, 'Home'),
-              mainNavItem('/admin/advisor', selected == 1, 'Advisor'),
-              mainNavItem('/admin/teacher', selected == 2, 'Teacher'),
-              mainNavItem('/admin/medicalstaff', selected == 3, 'Medical Staff'),
-              mainNavItem('/admin/settings', selected == 4, 'Settings'),
+              adminMenu(selected: selected),
               Expanded(child: Container()),
               adminHomeProfile(),
               SizedBox(height: 50)
