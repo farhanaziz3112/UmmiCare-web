@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ummicare/screens/nav/mainNavItem.dart';
 import 'package:ummicare/screens/teacherPages/teacherHomeProfile.dart';
+import 'package:ummicare/screens/teacherPages/teacherMenu.dart';
 
 class teacherLeftPane extends StatelessWidget {
   const teacherLeftPane({super.key, required this.selected});
@@ -28,10 +29,7 @@ class teacherLeftPane extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 50),
-              mainNavItem('/teacher/home', selected == 0, 'Home'),
-              mainNavItem('/teacher/class', selected == 1, 'Class'),
-              mainNavItem('/teacher/student', selected == 2, 'Student'),
-              mainNavItem('/teacher/settings', selected == 3, 'Settings'),
+              teacherMenu(selected: selected),
               Expanded(child: Container()),
               const teacherHomeProfile(),
               const SizedBox(height: 50)

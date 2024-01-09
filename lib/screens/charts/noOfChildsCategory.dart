@@ -20,12 +20,6 @@ class _noOfChildsCategoryState extends State<noOfChildsCategory> {
     super.initState();
   }
 
-  final List<CategoryData> categoryData = [
-    CategoryData('Newborn to 3 years old', 2, const Color(0xff71CBCA)),
-    CategoryData('3 to 6 years old', 3, const Color(0xffF29180)),
-    CategoryData('7 to 12 years olf', 5, const Color(0xff8290F0))
-  ];
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<childModel>>(

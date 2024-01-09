@@ -16,102 +16,184 @@ class _parentMainState extends State<parentMain> {
   @override
   Widget build(BuildContext context) {
     userModel? user = Provider.of<userModel?>(context);
+    var screenSize = MediaQuery.of(context).size;
 
-    return StreamProvider<List<parentModel>>.value(
-      initialData: [],
-      value: advisorDatabase(advisorId: user!.userId).getParentList(user.userId),
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-        alignment: Alignment.topLeft,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              alignment: Alignment.centerLeft,
-              child: const Text(
-                'Parent',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 50.0,
-                    fontFamily: 'Comfortaa',
-                    fontWeight: FontWeight.w500),
+    if (screenSize.width < 1600) {
+      return StreamProvider<List<parentModel>>.value(
+        initialData: [],
+        value:
+            advisorDatabase(advisorId: user!.userId).getParentList(user.userId),
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+          alignment: Alignment.topLeft,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                alignment: Alignment.centerLeft,
+                child: const Text(
+                  'Parent',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 50.0,
+                      fontFamily: 'Comfortaa',
+                      fontWeight: FontWeight.w500),
+                ),
               ),
-            ),
-            const SizedBox(height: 30),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Container(
-                height: 1.0,
-                width: double.infinity,
-                color: Colors.grey[300],
+              const SizedBox(height: 30),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Container(
+                  height: 1.0,
+                  width: double.infinity,
+                  color: Colors.grey[300],
+                ),
               ),
-            ),
-            const SizedBox(height: 30),
-            Container(
-              padding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    constraints:
-                        const BoxConstraints(minWidth: 100, maxWidth: 200),
-                    child: const Text(
-                      'Email',
-                      style: TextStyle(color: Colors.grey, fontSize: 15),
+              const SizedBox(height: 30),
+              Container(
+                padding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      constraints:
+                          const BoxConstraints(minWidth: 100, maxWidth: 200),
+                      child: const Text(
+                        'Email',
+                        style: TextStyle(color: Colors.grey, fontSize: 15),
+                      ),
                     ),
-                  ),
-                  Expanded(flex: 1, child: Container()),
-                  Container(
-                    alignment: Alignment.center,
-                    constraints:
-                        const BoxConstraints(minWidth: 100, maxWidth: 200),
-                    child: const Text(
-                      'First Name',
-                      style: TextStyle(color: Colors.grey, fontSize: 15),
+                    Expanded(flex: 1, child: Container()),
+                    Container(
+                      alignment: Alignment.center,
+                      constraints:
+                          const BoxConstraints(minWidth: 100, maxWidth: 200),
+                      child: const Text(
+                        'First Name',
+                        style: TextStyle(color: Colors.grey, fontSize: 15),
+                      ),
                     ),
-                  ),
-                  Expanded(flex: 1, child: Container()),
-                  Container(
-                    alignment: Alignment.center,
-                    constraints:
-                        const BoxConstraints(minWidth: 100, maxWidth: 200),
-                    child: const Text(
-                      'Last Name',
-                      style: TextStyle(color: Colors.grey, fontSize: 15),
+                    Expanded(flex: 1, child: Container()),
+                    Container(
+                      alignment: Alignment.center,
+                      constraints:
+                          const BoxConstraints(minWidth: 100, maxWidth: 200),
+                      child: const Text(
+                        'Last Name',
+                        style: TextStyle(color: Colors.grey, fontSize: 15),
+                      ),
                     ),
-                  ),
-                  Expanded(flex: 1, child: Container()),
-                  Container(
-                    alignment: Alignment.center,
-                    constraints:
-                        const BoxConstraints(minWidth: 100, maxWidth: 200),
-                    child: const Text(
-                      'User Id',
-                      style: TextStyle(color: Colors.grey, fontSize: 15),
-                    ),
-                  ),
-                  Expanded(flex: 1, child: Container()),
-                  Container(
-                    alignment: Alignment.center,
-                    constraints:
-                        const BoxConstraints(minWidth: 100, maxWidth: 200),
-                    child: const Text(
-                      'Number of Children',
-                      style: TextStyle(color: Colors.grey, fontSize: 15),
-                    ),
-                  ),
-                  Expanded(flex: 1, child: Container()),
-                ],
+                    Expanded(flex: 1, child: Container()),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 10),
-            Container(
-              child: parentList(),
-            )
-          ],
+              const SizedBox(height: 10),
+              Container(
+                child: parentList(),
+              )
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    } else {
+      return StreamProvider<List<parentModel>>.value(
+        initialData: [],
+        value:
+            advisorDatabase(advisorId: user!.userId).getParentList(user.userId),
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+          alignment: Alignment.topLeft,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                alignment: Alignment.centerLeft,
+                child: const Text(
+                  'Parent',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 50.0,
+                      fontFamily: 'Comfortaa',
+                      fontWeight: FontWeight.w500),
+                ),
+              ),
+              const SizedBox(height: 30),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Container(
+                  height: 1.0,
+                  width: double.infinity,
+                  color: Colors.grey[300],
+                ),
+              ),
+              const SizedBox(height: 30),
+              Container(
+                padding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      constraints:
+                          const BoxConstraints(minWidth: 100, maxWidth: 200),
+                      child: const Text(
+                        'Email',
+                        style: TextStyle(color: Colors.grey, fontSize: 15),
+                      ),
+                    ),
+                    Expanded(flex: 1, child: Container()),
+                    Container(
+                      alignment: Alignment.center,
+                      constraints:
+                          const BoxConstraints(minWidth: 100, maxWidth: 200),
+                      child: const Text(
+                        'First Name',
+                        style: TextStyle(color: Colors.grey, fontSize: 15),
+                      ),
+                    ),
+                    Expanded(flex: 1, child: Container()),
+                    Container(
+                      alignment: Alignment.center,
+                      constraints:
+                          const BoxConstraints(minWidth: 100, maxWidth: 200),
+                      child: const Text(
+                        'Last Name',
+                        style: TextStyle(color: Colors.grey, fontSize: 15),
+                      ),
+                    ),
+                    Expanded(flex: 1, child: Container()),
+                    Container(
+                      alignment: Alignment.center,
+                      constraints:
+                          const BoxConstraints(minWidth: 100, maxWidth: 200),
+                      child: const Text(
+                        'User Id',
+                        style: TextStyle(color: Colors.grey, fontSize: 15),
+                      ),
+                    ),
+                    Expanded(flex: 1, child: Container()),
+                    Container(
+                      alignment: Alignment.center,
+                      constraints:
+                          const BoxConstraints(minWidth: 100, maxWidth: 200),
+                      child: const Text(
+                        'Number of Children',
+                        style: TextStyle(color: Colors.grey, fontSize: 15),
+                      ),
+                    ),
+                    Expanded(flex: 1, child: Container()),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              Container(
+                child: parentList(),
+              )
+            ],
+          ),
+        ),
+      );
+    }
   }
 }

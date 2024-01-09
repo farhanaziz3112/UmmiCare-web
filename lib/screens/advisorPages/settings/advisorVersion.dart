@@ -71,6 +71,47 @@ class _advisorVersionState extends State<advisorVersion> {
               color: Colors.grey[300],
             ),
           ),
+          const SizedBox(height: 30),
+          Row(
+            children: <Widget>[
+              Expanded(
+                  flex: 1,
+                  child: Container(
+                    alignment: Alignment.topLeft,
+                    padding: const EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                          offset:
+                              const Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: const Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Version 1.0.0',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                            'The first version of the app is out! Our first launch comes with web application (Staff User) and mobile application (Parent User). Multiple modules such as Health module and Education module will be available.')
+                      ],
+                    ),
+                  )),
+              Expanded(flex: 1, child: Container())
+            ],
+          )
         ]));
   }
 }

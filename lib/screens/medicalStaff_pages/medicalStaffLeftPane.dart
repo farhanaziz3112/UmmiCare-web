@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ummicare/screens/medicalStaff_pages/medicalStaffMenu.dart';
 import 'package:ummicare/screens/nav/mainNavItem.dart';
 import 'package:ummicare/screens/medicalStaff_pages/medicalStaffHomeProfile.dart';
 
@@ -28,9 +29,7 @@ class medicalStaffLeftPane extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 50),
-              mainNavItem('/medicalstaff/home', selected == 0, 'Home'),
-              mainNavItem('/medicalstaff/patient', selected == 1, 'Patient'),
-              mainNavItem('/medicalstaff/settings', selected == 2, 'Settings'),
+              medicalStaffMenu(selected: selected),
               Expanded(child: Container()),
               const medicalStaffHomeProfile(),
               const SizedBox(height: 50)

@@ -249,6 +249,7 @@ class adminDatabase {
         childProfileImg: doc.get('childProfileImg') ?? '',
         educationId: doc.get('educationId') ?? '',
         healthId: doc.get('healthId') ?? '',
+        overallStatus: doc.get('overallStatus') ?? '',
       );
     }).toList();
   }

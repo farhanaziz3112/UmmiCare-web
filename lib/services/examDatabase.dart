@@ -181,6 +181,15 @@ class examDatabase {
         .map(_createSubjectResultModelList);
   }
 
+  Stream<List<subjectResultModel>> allSubjectResultDataWithAcademicCalendarAndStudentId(
+      String studentId, String academicCalendarId) {
+    return subjectResultCollection
+        .where('studentId', isEqualTo: studentId)
+        .where('academicCalendarId', isEqualTo: academicCalendarId)
+        .snapshots()
+        .map(_createSubjectResultModelList);
+  }
+
   Stream<List<subjectResultModel>> subjectResultDataWithStudentIdAndSubjectId(
       String studentId, String subjectId, String examId) {
     return subjectResultCollection

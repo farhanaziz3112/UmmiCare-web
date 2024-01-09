@@ -13,6 +13,8 @@ class patientGrid extends StatefulWidget {
 class _patientGridState extends State<patientGrid> {
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+
     if (widget.patientList.isEmpty) {
       return Container(
         padding: const EdgeInsets.only(top: 50),
@@ -25,7 +27,7 @@ class _patientGridState extends State<patientGrid> {
     } else {
       return GridView.builder(
         gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5, childAspectRatio: (0.7)),
+             SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1500 <= screenSize.width && screenSize.width < 1700 ? 4 : 1300 <= screenSize.width && screenSize.width < 1500 ? 3 : screenSize.width < 1300 ? 3 : 4, childAspectRatio: (0.7)),
         itemCount: widget.patientList.length,
         itemBuilder: ((context, index) {
           return patientTile(

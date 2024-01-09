@@ -430,15 +430,6 @@ final GoRouter routes = GoRouter(
                                       parentId: state.pathParameters['id']!,
                                     ))),
                         GoRoute(
-                            path: 'settings',
-                            pageBuilder: (context, state) =>
-                                NoTransitionPage<void>(
-                                    key: state.pageKey,
-                                    child: parentPages(
-                                      currentPage: 3,
-                                      parentId: state.pathParameters['id']!,
-                                    ))),
-                        GoRoute(
                             path: ':childId',
                             pageBuilder: (context, state) =>
                                 NoTransitionPage<void>(
@@ -487,34 +478,28 @@ final GoRouter routes = GoRouter(
                         child: const advisorSettingsPages(currentPage: 0)),
                   ),
                   GoRoute(
-                    path: 'systemsettings',
+                    path: 'version',
                     pageBuilder: (context, state) => NoTransitionPage<void>(
                         key: state.pageKey,
                         child: const advisorSettingsPages(currentPage: 1)),
                   ),
                   GoRoute(
-                    path: 'version',
+                    path: 'privacyofpolicy',
                     pageBuilder: (context, state) => NoTransitionPage<void>(
                         key: state.pageKey,
                         child: const advisorSettingsPages(currentPage: 2)),
                   ),
                   GoRoute(
-                    path: 'privacyofpolicy',
+                    path: 'termsofuse',
                     pageBuilder: (context, state) => NoTransitionPage<void>(
                         key: state.pageKey,
                         child: const advisorSettingsPages(currentPage: 3)),
                   ),
                   GoRoute(
-                    path: 'termsofuse',
-                    pageBuilder: (context, state) => NoTransitionPage<void>(
-                        key: state.pageKey,
-                        child: const advisorSettingsPages(currentPage: 4)),
-                  ),
-                  GoRoute(
                     path: 'contactus',
                     pageBuilder: (context, state) => NoTransitionPage<void>(
                         key: state.pageKey,
-                        child: const advisorSettingsPages(currentPage: 5)),
+                        child: const advisorSettingsPages(currentPage: 4)),
                   ),
                 ]),
           ]),
@@ -754,38 +739,32 @@ final GoRouter routes = GoRouter(
                               NoTransitionPage<void>(
                                   key: state.pageKey,
                                   child: const teacherSettingsPages(
-                                      currentPage: 7)),
+                                      currentPage: 6)),
                         ),
                       ]),
                   GoRoute(
-                    path: 'systemsettings',
+                    path: 'version',
                     pageBuilder: (context, state) => NoTransitionPage<void>(
                         key: state.pageKey,
                         child: const teacherSettingsPages(currentPage: 2)),
                   ),
                   GoRoute(
-                    path: 'version',
+                    path: 'privacyofpolicy',
                     pageBuilder: (context, state) => NoTransitionPage<void>(
                         key: state.pageKey,
                         child: const teacherSettingsPages(currentPage: 3)),
                   ),
                   GoRoute(
-                    path: 'privacyofpolicy',
+                    path: 'termsofuse',
                     pageBuilder: (context, state) => NoTransitionPage<void>(
                         key: state.pageKey,
                         child: const teacherSettingsPages(currentPage: 4)),
                   ),
                   GoRoute(
-                    path: 'termsofuse',
-                    pageBuilder: (context, state) => NoTransitionPage<void>(
-                        key: state.pageKey,
-                        child: const teacherSettingsPages(currentPage: 5)),
-                  ),
-                  GoRoute(
                     path: 'contactus',
                     pageBuilder: (context, state) => NoTransitionPage<void>(
                         key: state.pageKey,
-                        child: const teacherSettingsPages(currentPage: 6)),
+                        child: const teacherSettingsPages(currentPage: 5)),
                   ),
                 ]),
           ]),
@@ -879,47 +858,41 @@ final GoRouter routes = GoRouter(
                           pageBuilder: (context, state) =>
                               NoTransitionPage<void>(
                                   key: state.pageKey,
-                                  child: const medicalStaffSettingsPages(currentPage: 7)),
+                                  child: const medicalStaffSettingsPages(currentPage: 6)),
                           routes: [
                             GoRoute(
                               path: 'addnewclinic',
                               pageBuilder: (context, state) =>
                                   NoTransitionPage<void>(
                                       key: state.pageKey,
-                                      child: const medicalStaffSettingsPages(currentPage: 8)),
+                                      child: const medicalStaffSettingsPages(currentPage: 7)),
                             )
                           ]
                         ),
                       ]),
                   GoRoute(
-                    path: 'systemsettings',
+                    path: 'version',
                     pageBuilder: (context, state) => NoTransitionPage<void>(
                         key: state.pageKey,
                         child: const medicalStaffSettingsPages(currentPage: 2)),
                   ),
                   GoRoute(
-                    path: 'version',
+                    path: 'privacyofpolicy',
                     pageBuilder: (context, state) => NoTransitionPage<void>(
                         key: state.pageKey,
                         child: const medicalStaffSettingsPages(currentPage: 3)),
                   ),
                   GoRoute(
-                    path: 'privacyofpolicy',
+                    path: 'termsofuse',
                     pageBuilder: (context, state) => NoTransitionPage<void>(
                         key: state.pageKey,
                         child: const medicalStaffSettingsPages(currentPage: 4)),
                   ),
                   GoRoute(
-                    path: 'termsofuse',
-                    pageBuilder: (context, state) => NoTransitionPage<void>(
-                        key: state.pageKey,
-                        child: const medicalStaffSettingsPages(currentPage: 5)),
-                  ),
-                  GoRoute(
                     path: 'contactus',
                     pageBuilder: (context, state) => NoTransitionPage<void>(
                         key: state.pageKey,
-                        child: const medicalStaffSettingsPages(currentPage: 6)),
+                        child: const medicalStaffSettingsPages(currentPage: 5)),
                   ),
                 ]),
           ]),

@@ -22,6 +22,13 @@ class studentDatabase {
   // }
 
   //get all userdetails stream
+  Stream<List<studentModel>> allStudents() {
+    return studentCollection
+        .snapshots()
+        .map(_createStudentListModelObject);
+  }
+
+  //get all userdetails stream
   Stream<List<studentModel>> allStudentWithAcademicCalendar(
       String academicCalendarId) {
     return studentCollection

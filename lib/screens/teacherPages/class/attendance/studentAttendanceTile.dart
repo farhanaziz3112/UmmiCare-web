@@ -69,26 +69,6 @@ class _studentAttendanceTileState extends State<studentAttendanceTile> {
                               flex: 1,
                               child: Container(),
                             ),
-                            Expanded(
-                              flex: 2,
-                              child: Container(
-                                alignment: Alignment.center,
-                                constraints: const BoxConstraints(
-                                    minWidth: 100, maxWidth: 200),
-                                child: Text(
-                                  student.studentId,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 15),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Container(),
-                            ),
                             StreamBuilder<List<studentAttendanceModel>>(
                                 stream: studentAttendanceDatabase()
                                     .allStudentAttendanceWithStudentIdAndSpecificDate(
@@ -108,6 +88,7 @@ class _studentAttendanceTileState extends State<studentAttendanceTile> {
                                           constraints: const BoxConstraints(
                                               minWidth: 100, maxWidth: 200),
                                           child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
                                               ElevatedButton.icon(
                                                 style: ElevatedButton.styleFrom(

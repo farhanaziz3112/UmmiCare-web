@@ -124,6 +124,7 @@ class parentDatabase {
         childProfileImg: doc.get('childProfileImg') ?? '',
         educationId: doc.get('educationId') ?? '',
         healthId: doc.get('healthId') ?? '',
+        overallStatus: doc.get('overallStatus') ?? '',
       );
     }).toList();
   }
@@ -142,7 +143,8 @@ class parentDatabase {
       childAgeCategory: snapshot['childAgeCategory'],
       childProfileImg: snapshot['childProfileImg'],
       educationId: snapshot['educationId'],
-      healthId: snapshot['healthId']
+      healthId: snapshot['healthId'],
+      overallStatus: snapshot['overallStatus'],
     );
   }
 
@@ -159,7 +161,8 @@ class parentDatabase {
       String childAgeCategory,
       String childProfileImg,
       String educationId,
-      String healthId) async {
+      String healthId,
+      String overallStatus) async {
     return await childCollection.doc(childId).set({
       'childId': childId,
       'parentId': parentId,
@@ -171,7 +174,8 @@ class parentDatabase {
       'childAgeCategory': childAgeCategory,
       'childProfileImg': childProfileImg,
       'educationId': educationId,
-      'healthId': healthId
+      'healthId': healthId,
+      'overallStatus': overallStatus
     });
   }
 
@@ -188,7 +192,8 @@ class parentDatabase {
       String childAgeCategory,
       String childProfileImg,
       String educationId,
-      String healthId) async {
+      String healthId,
+      String overallStatus) async {
         final document = childCollection.doc();
     return await childCollection.doc(document.id).set({
       'childId': document.id,
@@ -201,7 +206,8 @@ class parentDatabase {
       'childAgeCategory': childAgeCategory,
       'childProfileImg': childProfileImg,
       'educationId': educationId,
-      'healthId': healthId
+      'healthId': healthId,
+      'overallStatus': overallStatus
     });
   }
 

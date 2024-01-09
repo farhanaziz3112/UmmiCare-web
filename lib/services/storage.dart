@@ -271,7 +271,8 @@ class StorageService {
             child.childAgeCategory,
             imageUrl,
             child.educationId,
-            child.healthId);
+            child.healthId,
+            child.overallStatus);
   }
 
   Future<String> uploadChatImage(XFile file) async {

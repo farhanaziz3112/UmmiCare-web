@@ -14,6 +14,8 @@ class classGrid extends StatefulWidget {
 class _classListState extends State<classGrid> {
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+    
     return StreamBuilder<List<academicCalendarModel>>(
       stream: academicCalendarDatabase()
           .allAcademicCalendarDataWithTeacherId(widget.teacherId),
@@ -31,8 +33,8 @@ class _classListState extends State<classGrid> {
             );
           } else {
             return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4, childAspectRatio: (0.5)),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: screenSize.width < 1400 ? 2 : 3, childAspectRatio: (0.5)),
               itemCount: academicCalendarList.length,
               itemBuilder: ((context, index) {
                 return classTile(

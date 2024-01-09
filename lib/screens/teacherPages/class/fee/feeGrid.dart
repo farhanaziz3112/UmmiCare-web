@@ -13,6 +13,7 @@ class feeGrid extends StatefulWidget {
 class _feeGridState extends State<feeGrid> {
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     if (widget.feeList!.isEmpty) {
       return Container(
         padding: const EdgeInsets.only(top: 50),
@@ -24,8 +25,8 @@ class _feeGridState extends State<feeGrid> {
       );
     } else {
       return GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 5, childAspectRatio: (0.6)),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: screenSize.width < 1700 ? 3 : 4, childAspectRatio: (0.6)),
         itemCount: widget.feeList!.length,
         itemBuilder: ((context, index) {
           return feeTile(fee: widget.feeList![index]);

@@ -29,11 +29,42 @@ class studentAttendanceDatabase {
 
   //get all userdetails stream
   Stream<List<studentAttendanceModel>>
+      allStudentAttendanceWithStudentId(
+          String studentId) {
+    return studentAttendanceCollection
+        .where('studentId', isEqualTo: studentId)
+        .snapshots()
+        .map(_createStudentAttendanceModelList);
+  }
+
+  //get all userdetails stream
+  Stream<List<studentAttendanceModel>>
+      allStudentAttendance() {
+    return studentAttendanceCollection
+        .snapshots()
+        .map(_createStudentAttendanceModelList);
+  }
+
+  //get all userdetails stream
+  Stream<List<studentAttendanceModel>>
       allStudentAttendanceWithAcademicCalendarIdAndSpecificDate(
           String academicCalendarId, String day, String month, String year) {
     return studentAttendanceCollection
         .where('academicCalendarId', isEqualTo: academicCalendarId)
         .where('attendanceDateDay', isEqualTo: day)
+        .where('attendanceDateMonth', isEqualTo: month)
+        .where('attendanceDateYear', isEqualTo: year)
+        .snapshots()
+        .map(_createStudentAttendanceModelList);
+  }
+
+  //get all userdetails stream
+  Stream<List<studentAttendanceModel>>
+      allStudentAttendanceWithStudentIdAcademicCalendarIdAndSpecificMonth(
+          String studentId, String academicCalendarId, String month, String year) {
+    return studentAttendanceCollection
+        .where('academicCalendarId', isEqualTo: academicCalendarId)
+        .where('studentId', isEqualTo: studentId)
         .where('attendanceDateMonth', isEqualTo: month)
         .where('attendanceDateYear', isEqualTo: year)
         .snapshots()

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ummicare/screens/advisorPages/advisorHomeProfile.dart';
+import 'package:ummicare/screens/advisorPages/advisorMenu.dart';
 import 'package:ummicare/screens/nav/mainNavItem.dart';
 
 class advisorLeftPane extends StatelessWidget {
@@ -28,9 +29,7 @@ class advisorLeftPane extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 50),
-              mainNavItem('/advisor/home', selected == 0, 'Home'),
-              mainNavItem('/advisor/parent', selected == 1, 'Parent'),
-              mainNavItem('/advisor/settings', selected == 2, 'Settings'),
+              advisorMenu(selected: selected),
               Expanded(child: Container()),
               advisorHomeProfile(),
               SizedBox(height: 50)

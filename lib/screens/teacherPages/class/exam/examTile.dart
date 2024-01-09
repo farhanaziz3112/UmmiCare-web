@@ -16,6 +16,7 @@ class examTile extends StatefulWidget {
 class _examTileState extends State<examTile> {
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return StreamBuilder<examModel>(
       stream: examDatabase().examData(widget.examId),
       builder: (context, snapshot) {
@@ -44,18 +45,7 @@ class _examTileState extends State<examTile> {
                     flex: 2,
                     child: Container(
                       alignment: Alignment.center,
-                      child: Text(exam!.examId),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: Text(exam.examTitle),
+                      child: Text(exam!.examTitle),
                     ),
                   ),
                   Expanded(
@@ -104,19 +94,23 @@ class _examTileState extends State<examTile> {
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(10)),
                                       ),
-                                      padding: EdgeInsets.all(10),
-                                      child: const Row(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: <Widget>[
-                                          Icon(
-                                            Icons.schedule,
-                                            color: Colors.white,
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
+                                          screenSize.width < 1700
+                                              ? Container()
+                                              : const Icon(
+                                                  Icons.schedule,
+                                                  color: Colors.white,
+                                                ),
+                                          screenSize.width < 1700
+                                              ? Container()
+                                              : const SizedBox(
+                                                  width: 10,
+                                                ),
+                                          const Text(
                                             'Inactive',
                                             style:
                                                 TextStyle(color: Colors.white),
@@ -147,23 +141,27 @@ class _examTileState extends State<examTile> {
                                                 const BorderRadius.all(
                                                     Radius.circular(10)),
                                           ),
-                                          padding: EdgeInsets.all(10),
-                                          child: const Row(
+                                          padding: const EdgeInsets.all(10),
+                                          child:  Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
-                                              Icon(
-                                                Icons.check,
-                                                color: Colors.white,
-                                              ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Text(
-                                                'Ongoing',
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              )
+                                              screenSize.width < 1700
+                                              ? Container()
+                                              : const Icon(
+                                                  Icons.check,
+                                                  color: Colors.white,
+                                                ),
+                                          screenSize.width < 1700
+                                              ? Container()
+                                              : const SizedBox(
+                                                  width: 10,
+                                                ),
+                                          const Text(
+                                            'Ongoing',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          )
                                             ],
                                           )),
                                     ),
@@ -189,23 +187,27 @@ class _examTileState extends State<examTile> {
                                                 const BorderRadius.all(
                                                     Radius.circular(10)),
                                           ),
-                                          padding: EdgeInsets.all(10),
-                                          child: const Row(
+                                          padding: const EdgeInsets.all(10),
+                                          child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
-                                              Icon(
-                                                Icons.cancel,
-                                                color: Colors.white,
-                                              ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Text(
-                                                'Ended',
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              )
+                                              screenSize.width < 1700
+                                              ? Container()
+                                              : const Icon(
+                                                  Icons.cancel,
+                                                  color: Colors.white,
+                                                ),
+                                          screenSize.width < 1700
+                                              ? Container()
+                                              : const SizedBox(
+                                                  width: 10,
+                                                ),
+                                          const Text(
+                                            'Ended',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          )
                                             ],
                                           )),
                                     ),
@@ -219,7 +221,7 @@ class _examTileState extends State<examTile> {
                     flex: 1,
                     child: Container(
                       child: IconButton(
-                        icon: Icon(Icons.arrow_forward_ios_sharp),
+                        icon: const Icon(Icons.arrow_forward_ios_sharp),
                         onPressed: () {
                           String currentStatus = exam.examStatus;
                           if (DateTime.now().isAfter(
@@ -251,7 +253,7 @@ class _examTileState extends State<examTile> {
             ),
           );
         } else {
-          return Loading();
+          return const Loading();
         }
       },
     );

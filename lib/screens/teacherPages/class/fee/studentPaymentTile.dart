@@ -20,6 +20,7 @@ class studentPaymentTile extends StatefulWidget {
 class _studentPaymentTileState extends State<studentPaymentTile> {
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return StreamBuilder<feePaymentModel>(
       stream: feeDatabase().feePaymentData(widget.feePaymentId),
       builder: (context, snapshot) {
@@ -118,20 +119,20 @@ class _studentPaymentTileState extends State<studentPaymentTile> {
                                                               Radius.circular(
                                                                   10)),
                                                     ),
-                                                    padding: EdgeInsets.all(5),
-                                                    child: const Row(
+                                                    padding: const EdgeInsets.all(5),
+                                                    child: Row(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
                                                               .center,
                                                       children: <Widget>[
-                                                        Icon(
+                                                        screenSize.width < 1300 ? Container() : const Icon(
                                                           Icons.cancel,
                                                           color: Colors.white,
                                                         ),
-                                                        const SizedBox(
+                                                        screenSize.width < 1300 ? Container() : const SizedBox(
                                                           width: 10,
                                                         ),
-                                                        Text(
+                                                        const Text(
                                                           'Unpaid',
                                                           style: TextStyle(
                                                               color:
@@ -165,29 +166,6 @@ class _studentPaymentTileState extends State<studentPaymentTile> {
                                                   textAlign: TextAlign.center,
                                                   style: const TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
-                                                ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              flex: 1,
-                                              child: Container(),
-                                            ),
-                                            Expanded(
-                                              flex: 2,
-                                              child: Container(
-                                                alignment: Alignment.center,
-                                                constraints:
-                                                    const BoxConstraints(
-                                                        minWidth: 100,
-                                                        maxWidth: 200),
-                                                child: Text(
-                                                  feePayment.studentId,
-                                                  textAlign: TextAlign.center,
-                                                  style: const TextStyle(
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.normal,
                                                       fontSize: 15),
                                                 ),
                                               ),
@@ -261,7 +239,7 @@ class _studentPaymentTileState extends State<studentPaymentTile> {
                                                         decoration:
                                                             BoxDecoration(
                                                           color: Colors
-                                                              .yellow[500],
+                                                              .yellow[800],
                                                           borderRadius:
                                                               const BorderRadius
                                                                   .all(Radius
@@ -269,33 +247,32 @@ class _studentPaymentTileState extends State<studentPaymentTile> {
                                                                           10)),
                                                         ),
                                                         padding:
-                                                            EdgeInsets.all(5),
-                                                        child: const Row(
+                                                            const EdgeInsets.all(5),
+                                                        child:  Row(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
                                                                   .center,
                                                           children: <Widget>[
-                                                            Icon(
-                                                              Icons.schedule,
+                                                            screenSize.width < 1300 ? Container() : const Icon(
+                                                          Icons.schedule,
+                                                          color: Colors.white,
+                                                        ),
+                                                        screenSize.width < 1300 ? Container() : const SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        const Text(
+                                                          'Pending',
+                                                          style: TextStyle(
                                                               color:
-                                                                  Colors.black,
-                                                            ),
-                                                            SizedBox(
-                                                              width: 10,
-                                                            ),
-                                                            Text(
-                                                              'Pending',
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .black),
-                                                            )
+                                                                  Colors.white),
+                                                        )
                                                           ],
                                                         )),
                                                   ),
                                                   Expanded(
                                                       flex: 1,
                                                       child: IconButton(
-                                                        icon: Icon(Icons
+                                                        icon: const Icon(Icons
                                                             .arrow_forward_ios),
                                                         onPressed: () {
                                                           showDialog(
@@ -386,7 +363,7 @@ class _studentPaymentTileState extends State<studentPaymentTile> {
                                                                         ],
                                                                       );
                                                                     } else {
-                                                                      return Loading();
+                                                                      return const Loading();
                                                                     }
                                                                   },
                                                                 );
@@ -415,29 +392,6 @@ class _studentPaymentTileState extends State<studentPaymentTile> {
                                                   textAlign: TextAlign.center,
                                                   style: const TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
-                                                ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              flex: 1,
-                                              child: Container(),
-                                            ),
-                                            Expanded(
-                                              flex: 2,
-                                              child: Container(
-                                                alignment: Alignment.center,
-                                                constraints:
-                                                    const BoxConstraints(
-                                                        minWidth: 100,
-                                                        maxWidth: 200),
-                                                child: Text(
-                                                  feePayment.studentId,
-                                                  textAlign: TextAlign.center,
-                                                  style: const TextStyle(
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.normal,
                                                       fontSize: 15),
                                                 ),
                                               ),
@@ -519,33 +473,32 @@ class _studentPaymentTileState extends State<studentPaymentTile> {
                                                                           10)),
                                                         ),
                                                         padding:
-                                                            EdgeInsets.all(5),
-                                                        child: const Row(
+                                                            const EdgeInsets.all(5),
+                                                        child:  Row(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
                                                                   .center,
                                                           children: <Widget>[
-                                                            Icon(
-                                                              Icons.check,
+                                                            screenSize.width < 1300 ? Container() : const Icon(
+                                                          Icons.check,
+                                                          color: Colors.white,
+                                                        ),
+                                                        screenSize.width < 1300 ? Container() : const SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        const Text(
+                                                          'Paid',
+                                                          style: TextStyle(
                                                               color:
-                                                                  Colors.white,
-                                                            ),
-                                                            SizedBox(
-                                                              width: 10,
-                                                            ),
-                                                            Text(
-                                                              'Paid',
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white),
-                                                            )
+                                                                  Colors.white),
+                                                        )
                                                           ],
                                                         )),
                                                   ),
                                                   Expanded(
                                                       flex: 1,
                                                       child: IconButton(
-                                                        icon: Icon(Icons
+                                                        icon: const Icon(Icons
                                                             .arrow_forward_ios),
                                                         onPressed: () {
                                                           showDialog(
@@ -608,7 +561,7 @@ class _studentPaymentTileState extends State<studentPaymentTile> {
                                                                         ),
                                                                       );
                                                                     } else {
-                                                                      return Loading();
+                                                                      return const Loading();
                                                                     }
                                                                   },
                                                                 );
@@ -626,7 +579,7 @@ class _studentPaymentTileState extends State<studentPaymentTile> {
                       }
                     });
               } else {
-                return Loading();
+                return const Loading();
               }
             },
           );

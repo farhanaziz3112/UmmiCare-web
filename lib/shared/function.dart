@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:ummicare/models/academicCalendarModel.dart';
 import 'package:ummicare/models/childModel.dart';
+import 'package:ummicare/models/studentAttendanceModel.dart';
 import 'package:ummicare/models/studentModel.dart';
+import 'package:ummicare/screens/teacherPages/class/student/studentNameList/studentList.dart';
 
 String convertTimeToDateString(String timeInMilliseconds) {
   int temp = int.parse(timeInMilliseconds);
@@ -26,23 +29,24 @@ String convertTimeToDateWithStringMonth(String timeInMilliseconds) {
 String convertTimeToHoursMinute(String timeInMilliseconds) {
   int temp = int.parse(timeInMilliseconds);
   DateTime date = DateTime.fromMillisecondsSinceEpoch(temp);
-  return date.hour.toString() +
-      " : " +
-      date.minute.toString();
+  return date.hour.toString() + " : " + date.minute.toString();
 }
 
 String getTimeFormat(String timeInMilliseconds) {
-  DateTime temp = DateTime.fromMillisecondsSinceEpoch(int.parse(timeInMilliseconds));
+  DateTime temp =
+      DateTime.fromMillisecondsSinceEpoch(int.parse(timeInMilliseconds));
   return DateFormat.jm().format(temp);
 }
 
 String getTimeFormatWithDateTime(String timeInMilliseconds) {
-  DateTime temp = DateTime.fromMillisecondsSinceEpoch(int.parse(timeInMilliseconds));
+  DateTime temp =
+      DateTime.fromMillisecondsSinceEpoch(int.parse(timeInMilliseconds));
   return DateFormat.jm().format(temp);
 }
 
 TimeOfDay convertDateTimeToTimeofDay(String timeInMilliseconds) {
-  DateTime temp = DateTime.fromMillisecondsSinceEpoch(int.parse(timeInMilliseconds));
+  DateTime temp =
+      DateTime.fromMillisecondsSinceEpoch(int.parse(timeInMilliseconds));
   return TimeOfDay(hour: temp.hour, minute: temp.minute);
 }
 
@@ -53,7 +57,8 @@ DateTime convertTimeToDate(String timeInMilliseconds) {
 }
 
 DateTime convertTimeOfDayToDateTime(TimeOfDay timeOfDay, DateTime dateTime) {
-  return DateTime(dateTime.year, dateTime.month, dateTime.day, timeOfDay.hour, timeOfDay.minute);
+  return DateTime(dateTime.year, dateTime.month, dateTime.day, timeOfDay.hour,
+      timeOfDay.minute);
 }
 
 String monthToString(int month) {
@@ -71,7 +76,7 @@ String monthToString(int month) {
     'Nov',
     'Dec'
   ];
-  return months.elementAt(month-1);
+  return months.elementAt(month - 1);
 }
 
 int getAge(String timeInMilliseconds) {
@@ -119,6 +124,70 @@ int getNoOfChildCategory(List<childModel> childList, String category) {
   return total;
 }
 
+int getNoOfAttendanceStatus(List<studentAttendanceModel> list, String status) {
+  int total = 0;
+  if (status == 'present') {
+    for (int i = 0; i < list.length; i++) {
+      if (list.elementAt(i).attendanceStatus == "present") {
+        total++;
+      }
+    }
+  } else {
+    for (int i = 0; i < list.length; i++) {
+      if (list.elementAt(i).attendanceStatus == "absent") {
+        total++;
+      }
+    }
+  }
+  return total;
+}
+
+int getNoOfChildEducationStatus(List<childModel> childList, bool status) {
+  int total = 0;
+  if (status == true) {
+    for (int i = 0; i < childList.length; i++) {
+      if (childList.elementAt(i).educationId != "") {
+        total++;
+      }
+    }
+  } else {
+    for (int i = 0; i < childList.length; i++) {
+      if (childList.elementAt(i).educationId == "") {
+        total++;
+      }
+    }
+  }
+  return total;
+}
+
+int getNoOfChildHealthStatus(List<childModel> childList, bool status) {
+  int total = 0;
+  if (status == true) {
+    for (int i = 0; i < childList.length; i++) {
+      if (childList.elementAt(i).healthId != "") {
+        total++;
+      }
+    }
+  } else {
+    for (int i = 0; i < childList.length; i++) {
+      if (childList.elementAt(i).healthId == "") {
+        total++;
+      }
+    }
+  }
+  return total;
+}
+
+int getNoOfChildStatus(List<childModel> childList, String status) {
+  int total = 0;
+  for (int i = 0; i < childList.length; i++) {
+    if (childList.elementAt(i).overallStatus == status) {
+      total++;
+    }
+  }
+  return total;
+}
+
 int getNoOfStudentStatus(List<studentModel>? studentList, String status) {
   int total = 0;
   for (int i = 0; i < studentList!.length; i++) {
@@ -129,26 +198,61 @@ int getNoOfStudentStatus(List<studentModel>? studentList, String status) {
   return total;
 }
 
+int getNoOfStudentStatusBasedOnAcademicCalendar(List<studentModel> studentList,
+    List<academicCalendarModel> academicCalendar, String status) {
+  int total = 0;
+  for (int i = 0; i < academicCalendar.length; i++) {
+    for (int j = 0; j < studentList.length; j++) {
+      if (studentList[j].academicCalendarId ==
+          academicCalendar[i].academicCalendarId) {
+        if (studentList[j].activationStatus == status) {
+          total = total + 1;
+        }
+      }
+    }
+  }
+  return total;
+}
+
+int getNoOfStudentAttendanceBasedOnAcademicCalendar(List<studentAttendanceModel> attendanceList,
+    List<academicCalendarModel> academicCalendar, String status) {
+  int total = 0;
+  for (int i = 0; i < academicCalendar.length; i++) {
+    for (int j = 0; j < attendanceList.length; j++) {
+      if (attendanceList[j].academicCalendarId ==
+          academicCalendar[i].academicCalendarId) {
+        if (attendanceList[j].attendanceStatus == status) {
+          total = total + 1;
+        }
+      }
+    }
+  }
+  return total;
+}
+
+double getPercentageFromInt(int subject, int total) {
+  return double.parse(((subject / total) * 100).toStringAsFixed(2));
+}
 
 String getGrade(String markInString) {
-    int mark = int.parse(markInString);
-    if (mark <= 100 && mark >= 80) {
-      return 'A';
-    }  else if (mark >= 60 && mark < 80) {
-      return 'B';
-    } else if (mark >= 40 && mark < 60) {
-      return 'C';
-    } else if (mark >= 20 && mark < 40) {
-      return 'D';
-    } else {
-      return 'E';
-    }
+  int mark = int.parse(markInString);
+  if (mark <= 100 && mark >= 80) {
+    return 'A';
+  } else if (mark >= 60 && mark < 80) {
+    return 'B';
+  } else if (mark >= 40 && mark < 60) {
+    return 'C';
+  } else if (mark >= 20 && mark < 40) {
+    return 'D';
+  } else {
+    return 'E';
   }
+}
 
 String getGradeStatus(String grade) {
-    if (grade == 'A' || grade == 'B' || grade == 'C') {
-      return 'pass';
-    } else {
-      return 'fail';
-    }
+  if (grade == 'A' || grade == 'B' || grade == 'C') {
+    return 'pass';
+  } else {
+    return 'fail';
   }
+}

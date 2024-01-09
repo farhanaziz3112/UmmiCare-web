@@ -21,6 +21,7 @@ class examMain extends StatefulWidget {
 class _examMainState extends State<examMain> {
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return StreamBuilder<academicCalendarModel>(
       stream: academicCalendarDatabase()
           .academicCalendarData(widget.academicCalendarId),
@@ -141,22 +142,6 @@ class _examMainState extends State<examMain> {
                           const SizedBox(height: 50),
                           Row(
                             children: <Widget>[
-                              Expanded(
-                                flex: 2,
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: const Text(
-                                    'Exam ID',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Container(),
-                              ),
                               Expanded(
                                 flex: 2,
                                 child: Container(

@@ -55,6 +55,7 @@ dependencies:
   intl: ^0.18.1
   flutter_multi_formatter: ^2.12.1
   syncfusion_flutter_calendar: ^23.2.6
+  month_picker_dialog: ^2.4.0
 
 dev_dependencies:
   flutter_test:

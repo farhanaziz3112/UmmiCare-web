@@ -27,6 +27,7 @@ class _studentAttendanceState extends State<studentAttendance> {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return StreamBuilder<academicCalendarModel>(
       stream: academicCalendarDatabase()
           .academicCalendarData(widget.academicCalendarId),
@@ -142,26 +143,6 @@ class _studentAttendanceState extends State<studentAttendance> {
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.grey, fontSize: 15),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Container(),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  constraints: const BoxConstraints(
-                                      minWidth: 100, maxWidth: 200),
-                                  child: const Text(
-                                    'Student ID',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.grey,
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 15),
                                   ),
                                 ),
                               ),
@@ -530,7 +511,7 @@ class _studentAttendanceState extends State<studentAttendance> {
                                           ],
                                         )),
                                       ),
-                                      Expanded(
+                                      screenSize.width < 1700 ? Container() : Expanded(
                                         flex: 1,
                                         child: Container(),
                                       )

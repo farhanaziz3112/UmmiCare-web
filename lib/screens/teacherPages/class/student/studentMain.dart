@@ -356,7 +356,7 @@ class _studentMainState extends State<studentMain> {
                                 ),
                                 child: Row(
                                   children: <Widget>[
-                                    Expanded(flex: 1, child: Icon(Icons.info)),
+                                    const Expanded(flex: 1, child: Icon(Icons.info)),
                                     Expanded(
                                       flex: 4,
                                       child: Container(
@@ -499,7 +499,7 @@ class _studentMainState extends State<studentMain> {
                                 ),
                                 child: Row(
                                   children: <Widget>[
-                                    Expanded(flex: 1, child: Icon(Icons.info)),
+                                    const Expanded(flex: 1, child: Icon(Icons.info)),
                                     Expanded(
                                       flex: 4,
                                       child: Container(

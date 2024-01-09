@@ -29,6 +29,7 @@ class examProfile extends StatefulWidget {
 class _examProfileState extends State<examProfile> {
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return StreamBuilder<academicCalendarModel>(
       stream: academicCalendarDatabase()
           .academicCalendarData(widget.academicCalendarId),
@@ -474,10 +475,12 @@ class _examProfileState extends State<examProfile> {
                                                 ),
                                               ),
                                             ),
-                                            Expanded(
-                                              flex: 1,
-                                              child: Container(),
-                                            )
+                                            screenSize.width < 1300
+                                                ? Container()
+                                                : Expanded(
+                                                    flex: 1,
+                                                    child: Container(),
+                                                  )
                                           ],
                                         ),
                                       ),
@@ -557,10 +560,11 @@ class _examProfileState extends State<examProfile> {
                                       ),
                                       const SizedBox(height: 30),
                                       examSubjectList(
-                                          academicCalendarId: academicCalendar
-                                              .academicCalendarId,
-                                          subjects: subjects,
-                                          examId: exam.examId,),
+                                        academicCalendarId:
+                                            academicCalendar.academicCalendarId,
+                                        subjects: subjects,
+                                        examId: exam.examId,
+                                      ),
                                       const SizedBox(height: 80),
                                       Container(
                                         alignment: Alignment.centerLeft,
@@ -617,33 +621,34 @@ class _examProfileState extends State<examProfile> {
                                           builder: (context, snapshot) {
                                             if (snapshot.hasData) {
                                               return SizedBox(
-                                              height: 500,
-                                              child: SfCalendar(
-                                                minDate: convertTimeToDate(
-                                                        exam.examStartDate)
-                                                    .subtract(const Duration(
-                                                        days: 1)),
-                                                maxDate: convertTimeToDate(
-                                                        exam.examEndDate)
-                                                    .add(const Duration(
-                                                        days: 1)),
-                                                view: CalendarView.week,
-                                                dataSource:
-                                                    academicCalendarScheduler(
-                                                        _getDataSource(
-                                                            snapshot.data)),
-                                                timeSlotViewSettings:
-                                                    const TimeSlotViewSettings(
-                                                        startHour: 6,
-                                                        endHour: 18,
-                                                        timeIntervalHeight: 50),
-                                                monthViewSettings:
-                                                    const MonthViewSettings(
-                                                        appointmentDisplayMode:
-                                                            MonthAppointmentDisplayMode
-                                                                .appointment),
-                                              ),
-                                            );
+                                                height: 500,
+                                                child: SfCalendar(
+                                                  minDate: convertTimeToDate(
+                                                          exam.examStartDate)
+                                                      .subtract(const Duration(
+                                                          days: 1)),
+                                                  maxDate: convertTimeToDate(
+                                                          exam.examEndDate)
+                                                      .add(const Duration(
+                                                          days: 1)),
+                                                  view: CalendarView.week,
+                                                  dataSource:
+                                                      academicCalendarScheduler(
+                                                          _getDataSource(
+                                                              snapshot.data)),
+                                                  timeSlotViewSettings:
+                                                      const TimeSlotViewSettings(
+                                                          startHour: 6,
+                                                          endHour: 18,
+                                                          timeIntervalHeight:
+                                                              50),
+                                                  monthViewSettings:
+                                                      const MonthViewSettings(
+                                                          appointmentDisplayMode:
+                                                              MonthAppointmentDisplayMode
+                                                                  .appointment),
+                                                ),
+                                              );
                                             } else {
                                               return Loading();
                                             }

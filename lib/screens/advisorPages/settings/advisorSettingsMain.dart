@@ -73,34 +73,6 @@ class _advisorSettingsMainState extends State<advisorSettingsMain> {
             alignment: Alignment.centerLeft,
             child: ElevatedButton.icon(
               icon: const Icon(
-                Icons.settings,
-                size: 24.0,
-                color: Colors.white,
-              ),
-              style: OutlinedButton.styleFrom(
-                backgroundColor: const Color(0xff8290F0),
-                fixedSize: const Size(300,50),
-                alignment: Alignment.centerLeft,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                    side: BorderSide.none),
-              ),
-              onPressed: () {
-                context.go('/advisor/settings/systemsettings');
-              },
-              label: const Text(
-                'System Settings',
-                style: TextStyle(fontSize: 20.0, color: Colors.white),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 8.0,
-          ),
-          Container(
-            alignment: Alignment.centerLeft,
-            child: ElevatedButton.icon(
-              icon: const Icon(
                 Icons.system_update_alt,
                 size: 24.0,
                 color: Colors.white,

@@ -36,6 +36,7 @@ class _examSubjectState extends State<examSubject> {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return StreamBuilder<academicCalendarModel>(
       stream: academicCalendarDatabase()
           .academicCalendarData(widget.academicCalendarId),
@@ -521,30 +522,6 @@ class _examSubjectState extends State<examSubject> {
                                                             minWidth: 100,
                                                             maxWidth: 200),
                                                     child: const Text(
-                                                      'Student ID',
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                          color: Colors.grey,
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                          fontSize: 15),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  flex: 1,
-                                                  child: Container(),
-                                                ),
-                                                Expanded(
-                                                  flex: 2,
-                                                  child: Container(
-                                                    alignment: Alignment.center,
-                                                    constraints:
-                                                        const BoxConstraints(
-                                                            minWidth: 100,
-                                                            maxWidth: 200),
-                                                    child: const Text(
                                                       'Grade',
                                                       textAlign:
                                                           TextAlign.center,
@@ -724,41 +701,6 @@ class _examSubjectState extends State<examSubject> {
                                                                           100,
                                                                       maxWidth:
                                                                           200),
-                                                                  child: Text(
-                                                                    students[
-                                                                            index]
-                                                                        .studentId,
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                    style: const TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .normal,
-                                                                        fontSize:
-                                                                            15),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Expanded(
-                                                                flex: 1,
-                                                                child:
-                                                                    Container(),
-                                                              ),
-                                                              Expanded(
-                                                                flex: 2,
-                                                                child:
-                                                                    Container(
-                                                                  alignment:
-                                                                      Alignment
-                                                                          .center,
-                                                                  constraints: const BoxConstraints(
-                                                                      minWidth:
-                                                                          100,
-                                                                      maxWidth:
-                                                                          200),
                                                                   child: result!
                                                                               .first
                                                                               .subjectGrade ==
@@ -870,18 +812,19 @@ class _examSubjectState extends State<examSubject> {
                                                                                       color: Colors.green[500],
                                                                                       borderRadius: const BorderRadius.all(Radius.circular(10)),
                                                                                     ),
-                                                                                    padding: EdgeInsets.all(5),
-                                                                                    child: const Row(
+                                                                                    padding: const EdgeInsets.all(5),
+                                                                                    child: Row(
                                                                                       mainAxisAlignment: MainAxisAlignment.center,
                                                                                       children: <Widget>[
-                                                                                        Icon(
+                                                                                        screenSize.width < 1500 ? Container() :
+                                                                                        const Icon(
                                                                                           Icons.check,
                                                                                           color: Colors.white,
                                                                                         ),
-                                                                                        SizedBox(
+                                                                                        screenSize.width < 1500 ? Container() : const SizedBox(
                                                                                           width: 10,
                                                                                         ),
-                                                                                        Text(
+                                                                                        const Text(
                                                                                           'Pass',
                                                                                           style: TextStyle(color: Colors.white),
                                                                                         )
@@ -911,18 +854,18 @@ class _examSubjectState extends State<examSubject> {
                                                                                       color: Colors.red[500],
                                                                                       borderRadius: const BorderRadius.all(Radius.circular(10)),
                                                                                     ),
-                                                                                    padding: EdgeInsets.all(5),
-                                                                                    child: const Row(
+                                                                                    padding: const EdgeInsets.all(5),
+                                                                                    child:  Row(
                                                                                       mainAxisAlignment: MainAxisAlignment.center,
                                                                                       children: <Widget>[
-                                                                                        Icon(
+                                                                                        screenSize.width < 1500 ? Container() : const Icon(
                                                                                           Icons.close,
                                                                                           color: Colors.white,
                                                                                         ),
-                                                                                        SizedBox(
+                                                                                        screenSize.width < 1500 ? Container() : const SizedBox(
                                                                                           width: 10,
                                                                                         ),
-                                                                                        Text(
+                                                                                        const Text(
                                                                                           'Fail',
                                                                                           style: TextStyle(color: Colors.white),
                                                                                         )
