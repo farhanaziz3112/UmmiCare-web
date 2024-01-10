@@ -103,16 +103,14 @@ class _healthConditionMainState extends State<healthConditionMain> {
                       stream: healthDatabaseService()
                           .healthStatusData(patient.healthStatusId),
                       builder: (context, snapshot) {
-                        HealthStatusModel? health = snapshot.data;
-                        if (snapshot.hasData && health!.healthConditionId.isNotEmpty) {
-                          StreamBuilder<HealthConditionModel>(
-                            stream: healthDatabaseService()
-                                .healthConditionData(health.healthConditionId),
+                        HealthStatusModel? status = snapshot.data;
+                        if (snapshot.hasData && status!.healthConditionId.isNotEmpty) {
+                          return StreamBuilder<HealthConditionModel>(
+                            stream: healthDatabaseService().healthConditionData(status.healthConditionId),
                             builder: ((context, snapshot) {
                               if (snapshot.hasData) {
                                 HealthConditionModel? condition = snapshot.data;
                                 return SizedBox(
-                                  height: 300,
                                   child: Row(
                                     children: <Widget>[
                                       Expanded(
@@ -496,7 +494,6 @@ class _healthConditionMainState extends State<healthConditionMain> {
                             ),
                           );
                         }
-                        return Container();
                       },
                     ),
                     const SizedBox(height: 30),
@@ -526,7 +523,7 @@ class _healthConditionMainState extends State<healthConditionMain> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 80),
+                    const SizedBox(height: 30),
                     Container(
                       alignment: Alignment.centerLeft,
                       child: const Text(
@@ -595,13 +592,13 @@ class _healthConditionMainState extends State<healthConditionMain> {
                             ),
                           );
                         } else {
-                          return Container();
+                          return Text("s");
                         }
                       },
                     ),
                     const SizedBox(height: 20),
                     Container(
-                      padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
+                      padding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -643,7 +640,7 @@ class _healthConditionMainState extends State<healthConditionMain> {
                             constraints: const BoxConstraints(
                                 minWidth: 100, maxWidth: 200),
                             child: const Text(
-                              'Id',
+                              'Health Condition Id',
                               style:
                                   TextStyle(color: Colors.grey, fontSize: 15),
                             ),
@@ -740,16 +737,14 @@ class _healthConditionMainState extends State<healthConditionMain> {
                       stream: healthDatabaseService()
                           .healthStatusData(patient.healthStatusId),
                       builder: (context, snapshot) {
-                        HealthStatusModel? health = snapshot.data;
-                        if (snapshot.hasData && health!.healthConditionId.isNotEmpty) {
-                          StreamBuilder<HealthConditionModel>(
-                            stream: healthDatabaseService()
-                                .healthConditionData(health.healthConditionId),
+                        HealthStatusModel? status = snapshot.data;
+                        if (snapshot.hasData && status!.healthConditionId.isNotEmpty) {
+                          return StreamBuilder<HealthConditionModel>(
+                            stream: healthDatabaseService().healthConditionData(status.healthConditionId),
                             builder: ((context, snapshot) {
                               if (snapshot.hasData) {
                                 HealthConditionModel? condition = snapshot.data;
                                 return SizedBox(
-                                  height: 300,
                                   child: Row(
                                     children: <Widget>[
                                       Expanded(
@@ -958,7 +953,6 @@ class _healthConditionMainState extends State<healthConditionMain> {
                           );
                         } else {
                           return SizedBox(
-                            height: 300,
                             child: Row(
                               children: <Widget>[
                                 Expanded(
@@ -1134,7 +1128,6 @@ class _healthConditionMainState extends State<healthConditionMain> {
                             ),
                           );
                         }
-                        return Container();
                       },
                     ),
                     const SizedBox(height: 30),
@@ -1233,7 +1226,7 @@ class _healthConditionMainState extends State<healthConditionMain> {
                             ),
                           );
                         } else {
-                          return Container();
+                          return Text("s");
                         }
                       },
                     ),

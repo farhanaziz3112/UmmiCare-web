@@ -73,10 +73,6 @@ class _physicalConditionTileState extends State<physicalConditionTile> {
                       Expanded(flex: 1, child: Container()),
                     ],
                   ),
-                  trailing: const Icon(
-                    Icons.arrow_forward,
-                    color: Colors.white,
-                  ),
                 ),
               ),
             ),

@@ -104,147 +104,147 @@ class _chronicConditionMainState extends State<chronicConditionMain> {
                       builder:(context, snapshot) {
                         HealthStatusModel? health = snapshot.data;
                         if(snapshot.hasData && health!.chronicConditionId.isNotEmpty){
-                          StreamBuilder<ChronicConditionModel>(
-                          stream: healthDatabaseService().chronicConditionData(health.chronicConditionId),
-                          builder: ((context, snapshot) {
-                            if(snapshot.hasData){
-                              ChronicConditionModel? chronic = snapshot.data;
-                              return SizedBox(
-                                height: 300,
-                                child: Row(
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 1,
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        padding: const EdgeInsets.fromLTRB(30, 30, 30, 30),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          border: Border.all(),
-                                          borderRadius:
-                                              const BorderRadius.all(Radius.circular(10)),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.grey.withOpacity(0.5),
-                                              spreadRadius: 1,
-                                              blurRadius: 5,
-                                              offset: const Offset(
-                                                  0, 3), // changes position of shadow
-                                            ),
-                                          ],
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            Container(
-                                              alignment: Alignment.topCenter,
-                                              child: const Text(
-                                                'Latest Chronic Condition',
-                                                textAlign: TextAlign.start,
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 20.0,
-                                                    fontFamily: 'Comfortaa',
-                                                    fontWeight: FontWeight.bold),
+                          return StreamBuilder<ChronicConditionModel>(
+                            stream: healthDatabaseService().chronicConditionData(health.chronicConditionId),
+                            builder: ((context, snapshot) {
+                              if(snapshot.hasData){
+                                ChronicConditionModel? chronic = snapshot.data;
+                                return SizedBox(
+                                  height: 300,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        flex: 1,
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          padding: const EdgeInsets.fromLTRB(30, 30, 30, 30),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            border: Border.all(),
+                                            borderRadius:
+                                                const BorderRadius.all(Radius.circular(10)),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey.withOpacity(0.5),
+                                                spreadRadius: 1,
+                                                blurRadius: 5,
+                                                offset: const Offset(
+                                                    0, 3), // changes position of shadow
                                               ),
-                                            ),
-                                            const SizedBox(height: 30),
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: <Widget>[
-                                                Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: <Widget>[
-                                                    Container(
-                                                      alignment: Alignment.centerLeft,
-                                                      padding:
-                                                        const EdgeInsets.only(
-                                                            left: 20),
-                                                      child: const Text(
-                                                        'Allergies',
-                                                        textAlign: TextAlign.left,
-                                                        style: TextStyle(
-                                                          fontSize: 15,
-                                                          fontWeight:FontWeight.bold,
-                                                          color: Colors.black),
-                                                      ),
-                                                    ),
-                                                    const SizedBox(height: 5),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.centerLeft,
-                                                      padding:
+                                            ],
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                alignment: Alignment.topCenter,
+                                                child: const Text(
+                                                  'Latest Chronic Condition',
+                                                  textAlign: TextAlign.start,
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 20.0,
+                                                      fontFamily: 'Comfortaa',
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              const SizedBox(height: 30),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: <Widget>[
+                                                      Container(
+                                                        alignment: Alignment.centerLeft,
+                                                        padding:
                                                           const EdgeInsets.only(
                                                               left: 20),
-                                                      child: Text(
-                                                        chronic!.childAllergies,
-                                                        textAlign: TextAlign.left,
-                                                        style: const TextStyle(
+                                                        child: const Text(
+                                                          'Allergies',
+                                                          textAlign: TextAlign.left,
+                                                          style: TextStyle(
                                                             fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight.normal,
+                                                            fontWeight:FontWeight.bold,
                                                             color: Colors.black),
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                const SizedBox(height: 10),
-                                                Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: <Widget>[
-                                                    Container(
-                                                      alignment: Alignment.centerLeft,
-                                                      padding:
-                                                        const EdgeInsets.only(
-                                                            left: 20),
-                                                      child: const Text(
-                                                        'Chronic',
-                                                        textAlign: TextAlign.left,
-                                                        style: TextStyle(
-                                                          fontSize: 15,
-                                                          fontWeight:FontWeight.bold,
-                                                          color: Colors.black),
+                                                      const SizedBox(height: 5),
+                                                      Container(
+                                                        alignment:
+                                                            Alignment.centerLeft,
+                                                        padding:
+                                                            const EdgeInsets.only(
+                                                                left: 20),
+                                                        child: Text(
+                                                          chronic!.childAllergies,
+                                                          textAlign: TextAlign.left,
+                                                          style: const TextStyle(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight.normal,
+                                                              color: Colors.black),
+                                                        ),
                                                       ),
-                                                    ),
-                                                    const SizedBox(height: 5),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.centerLeft,
-                                                      padding:
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: <Widget>[
+                                                      Container(
+                                                        alignment: Alignment.centerLeft,
+                                                        padding:
                                                           const EdgeInsets.only(
                                                               left: 20),
-                                                      child: Text(
-                                                        chronic.childChronic,
-                                                        textAlign: TextAlign.left,
-                                                        style: const TextStyle(
+                                                        child: const Text(
+                                                          'Details',
+                                                          textAlign: TextAlign.left,
+                                                          style: TextStyle(
                                                             fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight.normal,
+                                                            fontWeight:FontWeight.bold,
                                                             color: Colors.black),
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            )
-                                          ],
+                                                      const SizedBox(height: 5),
+                                                      Container(
+                                                        alignment:
+                                                            Alignment.centerLeft,
+                                                        padding:
+                                                            const EdgeInsets.only(
+                                                                left: 20),
+                                                        child: Text(
+                                                          chronic.childChronic,
+                                                          textAlign: TextAlign.left,
+                                                          style: const TextStyle(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight.normal,
+                                                              color: Colors.black),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      width: 30,
-                                    ),
-                                    Expanded(
-                                      child: Container(),
-                                    )
-                                  ],
-                                ),
-                              );
-                            } else {
-                              return Container();
-                            }
-                          }),
-                        );
+                                      const SizedBox(
+                                        width: 30,
+                                      ),
+                                      Expanded(
+                                        child: Container(),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              } else {
+                                return Container();
+                              }
+                            }),
+                          );
                         }else{
                           return SizedBox(
                             height: 300,
@@ -335,7 +335,7 @@ class _chronicConditionMainState extends State<chronicConditionMain> {
                                                     const EdgeInsets.only(
                                                         left: 20),
                                                   child: const Text(
-                                                    'Chronic',
+                                                    'Details',
                                                     textAlign: TextAlign.left,
                                                     style: TextStyle(
                                                       fontSize: 15,
@@ -378,10 +378,36 @@ class _chronicConditionMainState extends State<chronicConditionMain> {
                             ),
                           );
                         }
-                        return Container();
                       },
                     ),
-                    const SizedBox(height: 80),
+                    const SizedBox(height: 30),
+                    Container(
+                      alignment: Alignment.bottomLeft,
+                      child: ElevatedButton.icon(
+                        icon: const Icon(
+                          Icons.add_circle,
+                          size: 24.0,
+                          color: Colors.white,
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: const Color(0xffF29180),
+                          fixedSize: const Size(250, 50),
+                          alignment: Alignment.center,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              side: BorderSide.none),
+                        ),
+                        onPressed: () {
+                          context.go('/medicalstaff/patient/${patient.patientId}/chroniccondition/addnewchroniccondition');
+                        },
+                        label: const Text(
+                          'Add New Chronic Condition',
+                          style:
+                              TextStyle(fontSize: 15.0, color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 30),
                     Container(
                       alignment: Alignment.centerLeft,
                       child: const Text(
@@ -472,7 +498,7 @@ class _chronicConditionMainState extends State<chronicConditionMain> {
                             constraints:
                                 const BoxConstraints(minWidth: 100, maxWidth: 200),
                             child: const Text(
-                              'Chronic',
+                              'Details',
                               style: TextStyle(color: Colors.grey, fontSize: 15),
                             ),
                           ),
@@ -579,147 +605,147 @@ class _chronicConditionMainState extends State<chronicConditionMain> {
                       builder:(context, snapshot) {
                         HealthStatusModel? health = snapshot.data;
                         if(snapshot.hasData && health!.chronicConditionId.isNotEmpty){
-                          StreamBuilder<ChronicConditionModel>(
-                          stream: healthDatabaseService().chronicConditionData(health.chronicConditionId),
-                          builder: ((context, snapshot) {
-                            if(snapshot.hasData){
-                              ChronicConditionModel? chronic = snapshot.data;
-                              return SizedBox(
-                                height: 300,
-                                child: Row(
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 1,
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        padding: const EdgeInsets.fromLTRB(30, 30, 30, 30),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          border: Border.all(),
-                                          borderRadius:
-                                              const BorderRadius.all(Radius.circular(10)),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.grey.withOpacity(0.5),
-                                              spreadRadius: 1,
-                                              blurRadius: 5,
-                                              offset: const Offset(
-                                                  0, 3), // changes position of shadow
-                                            ),
-                                          ],
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            Container(
-                                              alignment: Alignment.topCenter,
-                                              child: const Text(
-                                                'Latest Chronic Condition',
-                                                textAlign: TextAlign.start,
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 20.0,
-                                                    fontFamily: 'Comfortaa',
-                                                    fontWeight: FontWeight.bold),
+                          return StreamBuilder<ChronicConditionModel>(
+                            stream: healthDatabaseService().chronicConditionData(health.chronicConditionId),
+                            builder: ((context, snapshot) {
+                              if(snapshot.hasData){
+                                ChronicConditionModel? chronic = snapshot.data;
+                                return SizedBox(
+                                  height: 300,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        flex: 1,
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          padding: const EdgeInsets.fromLTRB(30, 30, 30, 30),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            border: Border.all(),
+                                            borderRadius:
+                                                const BorderRadius.all(Radius.circular(10)),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey.withOpacity(0.5),
+                                                spreadRadius: 1,
+                                                blurRadius: 5,
+                                                offset: const Offset(
+                                                    0, 3), // changes position of shadow
                                               ),
-                                            ),
-                                            const SizedBox(height: 30),
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: <Widget>[
-                                                Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: <Widget>[
-                                                    Container(
-                                                      alignment: Alignment.centerLeft,
-                                                      padding:
-                                                        const EdgeInsets.only(
-                                                            left: 20),
-                                                      child: const Text(
-                                                        'Allergies',
-                                                        textAlign: TextAlign.left,
-                                                        style: TextStyle(
-                                                          fontSize: 15,
-                                                          fontWeight:FontWeight.bold,
-                                                          color: Colors.black),
-                                                      ),
-                                                    ),
-                                                    const SizedBox(height: 5),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.centerLeft,
-                                                      padding:
+                                            ],
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                alignment: Alignment.topCenter,
+                                                child: const Text(
+                                                  'Latest Chronic Condition',
+                                                  textAlign: TextAlign.start,
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 20.0,
+                                                      fontFamily: 'Comfortaa',
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                              const SizedBox(height: 30),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: <Widget>[
+                                                      Container(
+                                                        alignment: Alignment.centerLeft,
+                                                        padding:
                                                           const EdgeInsets.only(
                                                               left: 20),
-                                                      child: Text(
-                                                        chronic!.childAllergies,
-                                                        textAlign: TextAlign.left,
-                                                        style: const TextStyle(
+                                                        child: const Text(
+                                                          'Allergies',
+                                                          textAlign: TextAlign.left,
+                                                          style: TextStyle(
                                                             fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight.normal,
+                                                            fontWeight:FontWeight.bold,
                                                             color: Colors.black),
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                const SizedBox(height: 10),
-                                                Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: <Widget>[
-                                                    Container(
-                                                      alignment: Alignment.centerLeft,
-                                                      padding:
-                                                        const EdgeInsets.only(
-                                                            left: 20),
-                                                      child: const Text(
-                                                        'Chronic',
-                                                        textAlign: TextAlign.left,
-                                                        style: TextStyle(
-                                                          fontSize: 15,
-                                                          fontWeight:FontWeight.bold,
-                                                          color: Colors.black),
+                                                      const SizedBox(height: 5),
+                                                      Container(
+                                                        alignment:
+                                                            Alignment.centerLeft,
+                                                        padding:
+                                                            const EdgeInsets.only(
+                                                                left: 20),
+                                                        child: Text(
+                                                          chronic!.childAllergies,
+                                                          textAlign: TextAlign.left,
+                                                          style: const TextStyle(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight.normal,
+                                                              color: Colors.black),
+                                                        ),
                                                       ),
-                                                    ),
-                                                    const SizedBox(height: 5),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.centerLeft,
-                                                      padding:
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: <Widget>[
+                                                      Container(
+                                                        alignment: Alignment.centerLeft,
+                                                        padding:
                                                           const EdgeInsets.only(
                                                               left: 20),
-                                                      child: Text(
-                                                        chronic.childChronic,
-                                                        textAlign: TextAlign.left,
-                                                        style: const TextStyle(
+                                                        child: const Text(
+                                                          'Details',
+                                                          textAlign: TextAlign.left,
+                                                          style: TextStyle(
                                                             fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight.normal,
+                                                            fontWeight:FontWeight.bold,
                                                             color: Colors.black),
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            )
-                                          ],
+                                                      const SizedBox(height: 5),
+                                                      Container(
+                                                        alignment:
+                                                            Alignment.centerLeft,
+                                                        padding:
+                                                            const EdgeInsets.only(
+                                                                left: 20),
+                                                        child: Text(
+                                                          chronic.childChronic,
+                                                          textAlign: TextAlign.left,
+                                                          style: const TextStyle(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight.normal,
+                                                              color: Colors.black),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      width: 30,
-                                    ),
-                                    Expanded(
-                                      child: Container(),
-                                    )
-                                  ],
-                                ),
-                              );
-                            } else {
-                              return Container();
-                            }
-                          }),
-                        );
+                                      const SizedBox(
+                                        width: 30,
+                                      ),
+                                      Expanded(
+                                        child: Container(),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              } else {
+                                return Container();
+                              }
+                            }),
+                          );
                         }else{
                           return SizedBox(
                             height: 300,
@@ -810,7 +836,7 @@ class _chronicConditionMainState extends State<chronicConditionMain> {
                                                     const EdgeInsets.only(
                                                         left: 20),
                                                   child: const Text(
-                                                    'Chronic',
+                                                    'Details',
                                                     textAlign: TextAlign.left,
                                                     style: TextStyle(
                                                       fontSize: 15,
@@ -853,10 +879,36 @@ class _chronicConditionMainState extends State<chronicConditionMain> {
                             ),
                           );
                         }
-                        return Container();
                       },
                     ),
-                    const SizedBox(height: 80),
+                    const SizedBox(height: 30),
+                    Container(
+                      alignment: Alignment.bottomLeft,
+                      child: ElevatedButton.icon(
+                        icon: const Icon(
+                          Icons.add_circle,
+                          size: 24.0,
+                          color: Colors.white,
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: const Color(0xffF29180),
+                          fixedSize: const Size(250, 50),
+                          alignment: Alignment.center,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              side: BorderSide.none),
+                        ),
+                        onPressed: () {
+                          context.go('/medicalstaff/patient/${patient.patientId}/chroniccondition/addnewchroniccondition');
+                        },
+                        label: const Text(
+                          'Add New Chronic Condition',
+                          style:
+                              TextStyle(fontSize: 15.0, color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 30),
                     Container(
                       alignment: Alignment.centerLeft,
                       child: const Text(
@@ -947,7 +999,7 @@ class _chronicConditionMainState extends State<chronicConditionMain> {
                             constraints:
                                 const BoxConstraints(minWidth: 100, maxWidth: 200),
                             child: const Text(
-                              'Chronic',
+                              'Details',
                               style: TextStyle(color: Colors.grey, fontSize: 15),
                             ),
                           ),

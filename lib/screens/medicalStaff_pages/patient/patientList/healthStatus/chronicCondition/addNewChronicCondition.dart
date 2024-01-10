@@ -8,22 +8,19 @@ import 'package:ummicare/services/healthDatabase.dart';
 import 'package:ummicare/services/patientDatabase.dart';
 import 'package:ummicare/shared/constant.dart';
 
-class addNewHealthCondition extends StatefulWidget {
-  const addNewHealthCondition({super.key, required this.patientId});
+class addNewChronicCondition extends StatefulWidget {
+  const addNewChronicCondition({super.key, required this.patientId});
   final String patientId;
 
   @override
-  State<addNewHealthCondition> createState() => _addNewHealthConditionState();
+  State<addNewChronicCondition> createState() => _addNewChronicConditionState();
 }
 
-class _addNewHealthConditionState extends State<addNewHealthCondition> {
+class _addNewChronicConditionState extends State<addNewChronicCondition> {
   final _formKey = GlobalKey<FormState>();
 
-  String currentTemperature = '';
-  String currentHeartRate= '';
-  String currentSymptom = '';
-  String currentIllness = '';
-  String notes = '';
+  String childAllergies = '';
+  String childChronic= '';
 
   @override
   Widget build(BuildContext context) {
@@ -74,14 +71,14 @@ class _addNewHealthConditionState extends State<addNewHealthCondition> {
                         const SizedBox(width: 10),
                         RichText(
                           text: TextSpan(
-                            text: 'Health Condition',
+                            text: 'Chronic Condition',
                             style: const TextStyle(
                                 color: Colors.grey,
                                 decoration: TextDecoration.underline),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 context.go(
-                                    '/medicalstaff/patient/${patient.patientId}/healthcondition');
+                                    '/medicalstaff/patient/${patient.patientId}/chroniccondition');
                               },
                           ),
                         ),
@@ -90,7 +87,7 @@ class _addNewHealthConditionState extends State<addNewHealthCondition> {
                         const SizedBox(width: 10),
                         RichText(
                           text: const TextSpan(
-                            text: 'Add Health Condition',
+                            text: 'Add Chronic Condition',
                             style: TextStyle(color: Colors.grey),
                           ),
                         ),
@@ -100,7 +97,7 @@ class _addNewHealthConditionState extends State<addNewHealthCondition> {
                     Container(
                       alignment: Alignment.centerLeft,
                       child: const Text(
-                        'Health Condition',
+                        'Add Chronic Condition',
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 45.0,
@@ -133,7 +130,7 @@ class _addNewHealthConditionState extends State<addNewHealthCondition> {
                                     alignment: Alignment.centerLeft,
                                     padding: EdgeInsets.only(left: 20.0),
                                     child: Text(
-                                      'Temperature',
+                                      'Allergies',
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                         fontSize: 15.0,
@@ -146,12 +143,12 @@ class _addNewHealthConditionState extends State<addNewHealthCondition> {
                                     height: 30.0,
                                   ),
                                   TextFormField(
-                                    initialValue: currentTemperature,
+                                    initialValue: childAllergies,
                                     decoration: textInputDecoration,
                                     validator: (value) =>
                                         value == '' ? 'Please enter the temperature' : null,
                                     onChanged: (value) =>
-                                        setState(() => currentTemperature = value),
+                                        setState(() => childAllergies = value),
                                   ),
                                   SizedBox(
                                     height: 30.0,
@@ -160,7 +157,7 @@ class _addNewHealthConditionState extends State<addNewHealthCondition> {
                                     alignment: Alignment.centerLeft,
                                     padding: EdgeInsets.only(left: 20.0),
                                     child: Text(
-                                      'Heart Rate',
+                                      'Details',
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                         fontSize: 15.0,
@@ -173,93 +170,12 @@ class _addNewHealthConditionState extends State<addNewHealthCondition> {
                                     height: 30.0,
                                   ),
                                   TextFormField(
-                                    initialValue: currentHeartRate,
+                                    initialValue: childChronic,
                                     decoration: textInputDecoration,
                                     validator: (value) =>
                                         value == '' ? 'Please enter the heart rate' : null,
                                     onChanged: (value) =>
-                                        setState(() => currentHeartRate = value),
-                                  ),
-                                  SizedBox(
-                                    height: 30.0,
-                                  ),
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    padding: EdgeInsets.only(left: 20.0),
-                                    child: Text(
-                                      'Symptom',
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontSize: 15.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey[500],
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 30.0,
-                                  ),
-                                  TextFormField(
-                                    initialValue: currentSymptom,
-                                    decoration: textInputDecoration,
-                                    validator: (value) =>
-                                        value == '' ? 'Please enter the symptom' : null,
-                                    onChanged: (value) =>
-                                        setState(() => currentSymptom = value),
-                                  ),
-                                  SizedBox(
-                                    height: 30.0,
-                                  ),
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    padding: EdgeInsets.only(left: 20.0),
-                                    child: Text(
-                                      'Illness',
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontSize: 15.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey[500],
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 30.0,
-                                  ),
-                                  TextFormField(
-                                    initialValue: currentIllness,
-                                    decoration: textInputDecoration,
-                                    validator: (value) =>
-                                        value == '' ? 'Please enter the illness' : null,
-                                    onChanged: (value) =>
-                                        setState(() => currentIllness = value),
-                                  ),
-                                  SizedBox(
-                                    height: 30.0,
-                                  ),
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    padding: EdgeInsets.only(left: 20.0),
-                                    child: Text(
-                                      'Notes',
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontSize: 15.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey[500],
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 30.0,
-                                  ),
-                                  TextFormField(
-                                    initialValue: notes,
-                                    decoration: textInputDecoration,
-                                    validator: (value) =>
-                                        value == '' ? 'Please enter the Notes' : null,
-                                    onChanged: (value) =>
-                                        setState(() => notes = value),
+                                        setState(() => childChronic = value),
                                   ),
                                   SizedBox(
                                     height: 30.0,
@@ -274,26 +190,23 @@ class _addNewHealthConditionState extends State<addNewHealthCondition> {
                                   ),
                                   onPressed: () async {
                                     if (_formKey.currentState!.validate()) {
-                                      final healthConditionDocument = FirebaseFirestore.instance
-                                                          .collection('Health Condition')
+                                      final chronicConditionDocument = FirebaseFirestore.instance
+                                                          .collection('Chronic Condition')
                                                           .doc();
                                       await healthDatabaseService()
-                                          .createHealthConditionData(
-                                            healthConditionDocument.id,
-                                            currentTemperature,
-                                            currentHeartRate,
-                                            currentSymptom,
-                                            currentIllness,
-                                            notes,
+                                          .createChronicConditionData(
+                                            chronicConditionDocument.id,
+                                            childAllergies,
+                                            childChronic,
                                             widget.patientId,
                                           );   
 
                                       await healthDatabaseService()
                                           .updateHealthStatusData(
                                             patient.healthStatusId,
-                                            healthConditionDocument.id,
-                                            status!.physicalConditionId,
-                                            status.chronicConditionId,
+                                            status!.healthConditionId,
+                                            status.physicalConditionId,
+                                            chronicConditionDocument.id,
                                             patient.patientId,
                                           );
                                       }
@@ -364,14 +277,14 @@ class _addNewHealthConditionState extends State<addNewHealthCondition> {
                         const SizedBox(width: 10),
                         RichText(
                           text: TextSpan(
-                            text: 'Health Condition',
+                            text: 'Chronic Condition',
                             style: const TextStyle(
                                 color: Colors.grey,
                                 decoration: TextDecoration.underline),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 context.go(
-                                    '/medicalstaff/patient/${patient.patientId}/healthcondition');
+                                    '/medicalstaff/patient/${patient.patientId}/chroniccondition');
                               },
                           ),
                         ),
@@ -380,7 +293,7 @@ class _addNewHealthConditionState extends State<addNewHealthCondition> {
                         const SizedBox(width: 10),
                         RichText(
                           text: const TextSpan(
-                            text: 'Add Health Condition',
+                            text: 'Add Chronic Condition',
                             style: TextStyle(color: Colors.grey),
                           ),
                         ),
@@ -390,7 +303,7 @@ class _addNewHealthConditionState extends State<addNewHealthCondition> {
                     Container(
                       alignment: Alignment.centerLeft,
                       child: const Text(
-                        'Health Condition',
+                        'Add Chronic Condition',
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 45.0,
@@ -423,7 +336,7 @@ class _addNewHealthConditionState extends State<addNewHealthCondition> {
                                     alignment: Alignment.centerLeft,
                                     padding: EdgeInsets.only(left: 20.0),
                                     child: Text(
-                                      'Temperature',
+                                      'Allergies',
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                         fontSize: 15.0,
@@ -436,12 +349,12 @@ class _addNewHealthConditionState extends State<addNewHealthCondition> {
                                     height: 30.0,
                                   ),
                                   TextFormField(
-                                    initialValue: currentTemperature,
+                                    initialValue: childAllergies,
                                     decoration: textInputDecoration,
                                     validator: (value) =>
                                         value == '' ? 'Please enter the temperature' : null,
                                     onChanged: (value) =>
-                                        setState(() => currentTemperature = value),
+                                        setState(() => childAllergies = value),
                                   ),
                                   SizedBox(
                                     height: 30.0,
@@ -450,7 +363,7 @@ class _addNewHealthConditionState extends State<addNewHealthCondition> {
                                     alignment: Alignment.centerLeft,
                                     padding: EdgeInsets.only(left: 20.0),
                                     child: Text(
-                                      'Heart Rate',
+                                      'Details',
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                         fontSize: 15.0,
@@ -463,93 +376,12 @@ class _addNewHealthConditionState extends State<addNewHealthCondition> {
                                     height: 30.0,
                                   ),
                                   TextFormField(
-                                    initialValue: currentHeartRate,
+                                    initialValue: childChronic,
                                     decoration: textInputDecoration,
                                     validator: (value) =>
                                         value == '' ? 'Please enter the heart rate' : null,
                                     onChanged: (value) =>
-                                        setState(() => currentHeartRate = value),
-                                  ),
-                                  SizedBox(
-                                    height: 30.0,
-                                  ),
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    padding: EdgeInsets.only(left: 20.0),
-                                    child: Text(
-                                      'Symptom',
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontSize: 15.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey[500],
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 30.0,
-                                  ),
-                                  TextFormField(
-                                    initialValue: currentSymptom,
-                                    decoration: textInputDecoration,
-                                    validator: (value) =>
-                                        value == '' ? 'Please enter the symptom' : null,
-                                    onChanged: (value) =>
-                                        setState(() => currentSymptom = value),
-                                  ),
-                                  SizedBox(
-                                    height: 30.0,
-                                  ),
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    padding: EdgeInsets.only(left: 20.0),
-                                    child: Text(
-                                      'Illness',
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontSize: 15.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey[500],
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 30.0,
-                                  ),
-                                  TextFormField(
-                                    initialValue: currentIllness,
-                                    decoration: textInputDecoration,
-                                    validator: (value) =>
-                                        value == '' ? 'Please enter the illness' : null,
-                                    onChanged: (value) =>
-                                        setState(() => currentIllness = value),
-                                  ),
-                                  SizedBox(
-                                    height: 30.0,
-                                  ),
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    padding: EdgeInsets.only(left: 20.0),
-                                    child: Text(
-                                      'Notes',
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontSize: 15.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey[500],
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 30.0,
-                                  ),
-                                  TextFormField(
-                                    initialValue: notes,
-                                    decoration: textInputDecoration,
-                                    validator: (value) =>
-                                        value == '' ? 'Please enter the Notes' : null,
-                                    onChanged: (value) =>
-                                        setState(() => notes = value),
+                                        setState(() => childChronic = value),
                                   ),
                                   SizedBox(
                                     height: 30.0,
@@ -564,26 +396,23 @@ class _addNewHealthConditionState extends State<addNewHealthCondition> {
                                   ),
                                   onPressed: () async {
                                     if (_formKey.currentState!.validate()) {
-                                      final healthConditionDocument = FirebaseFirestore.instance
-                                                          .collection('Health Condition')
+                                      final chronicConditionDocument = FirebaseFirestore.instance
+                                                          .collection('Chronic Condition')
                                                           .doc();
                                       await healthDatabaseService()
-                                          .createHealthConditionData(
-                                            healthConditionDocument.id,
-                                            currentTemperature,
-                                            currentHeartRate,
-                                            currentSymptom,
-                                            currentIllness,
-                                            notes,
+                                          .createChronicConditionData(
+                                            chronicConditionDocument.id,
+                                            childAllergies,
+                                            childChronic,
                                             widget.patientId,
                                           );   
 
                                       await healthDatabaseService()
                                           .updateHealthStatusData(
                                             patient.healthStatusId,
-                                            healthConditionDocument.id,
-                                            status!.physicalConditionId,
-                                            status.chronicConditionId,
+                                            status!.healthConditionId,
+                                            status.physicalConditionId,
+                                            chronicConditionDocument.id,
                                             patient.patientId,
                                           );
                                       }

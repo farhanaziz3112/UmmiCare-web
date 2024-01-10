@@ -258,7 +258,7 @@ class healthDatabaseService {
       FirebaseFirestore.instance.collection('Health Condition');
 
   //get specific health Condition document stream
-  Stream<HealthConditionModel> healthConditionData (healthConditionId) {
+  Stream<HealthConditionModel> healthConditionData (String healthConditionId) {
     return healthConditionCollection
         .doc(healthConditionId)
         .snapshots()
@@ -288,13 +288,13 @@ class healthDatabaseService {
   List<HealthConditionModel> _createHealthConditionModelList(QuerySnapshot snapshot){
     return snapshot.docs.map<HealthConditionModel>((doc) {
       return HealthConditionModel(
-        healthConditionId: doc.data().toString().contains('healthConditionId') ? doc.get('healthConditionId') : '',
-        currentTemperature: doc.data().toString().contains('currentTemperature') ? doc.get('currentTemperature') : '',
-        currentHeartRate: doc.data().toString().contains('currentHeartRate') ? doc.get('currentHeartRate') : '',
-        currentSymptom: doc.data().toString().contains('currentSymptom') ? doc.get('currentSymptom') : '',
-        currentIllness: doc.data().toString().contains('currentIllness') ? doc.get('currentIllness') : '',
-        notes: doc.data().toString().contains('notes') ? doc.get('notes') : '',
-        patientId: doc.data().toString().contains('patientId') ? doc.get('patientId') : '',
+        healthConditionId: doc.id,
+        currentTemperature: doc.get('currentTemperature'),
+        currentHeartRate: doc.get('currentHeartRate'),
+        currentSymptom: doc.get('currentSymptom'),
+        currentIllness: doc.get('currentIllness'),
+        notes: doc.get('notes'),
+        patientId: doc.get('patientId'),
       );
     }).toList();
   }
@@ -311,7 +311,7 @@ class healthDatabaseService {
     return await healthConditionCollection.doc(healthConditionId).set({
       'currentTemperature': currentTemperature,
       'currentHeartRate': currentHeartRate,
-      'currentSysmptom' : currentSymptom,
+      'currentSymptom' : currentSymptom,
       'currentIllness' : currentIllness,
       'notes': notes,
       'patientId': patientId,
@@ -324,7 +324,7 @@ class healthDatabaseService {
       FirebaseFirestore.instance.collection('Physical Condition');
 
   //get specific physical Condition document stream
-  Stream<PhysicalConditionModel> physicalConditionData (physicalConditionId) {
+  Stream<PhysicalConditionModel> physicalConditionData (String physicalConditionId) {
     return physicalConditionCollection
         .doc(physicalConditionId)
         .snapshots()
@@ -335,7 +335,7 @@ class healthDatabaseService {
   PhysicalConditionModel _createPhysicalConditionModelObject(DocumentSnapshot snapshot) {
     return PhysicalConditionModel(
       physicalConditionId: snapshot.id,
-      currentInjury: snapshot['currentInjur'],
+      currentInjury: snapshot['currentInjury'],
       details: snapshot['details'],
       patientId: snapshot['patientId'],
     );
@@ -351,7 +351,7 @@ class healthDatabaseService {
   List<PhysicalConditionModel> _createPhysicalConditionModelList(QuerySnapshot snapshot){
     return snapshot.docs.map<PhysicalConditionModel>((doc) {
       return PhysicalConditionModel(
-        physicalConditionId: doc.data().toString().contains('physicalConditionId') ? doc.get('physicalConditionId') : '',
+        physicalConditionId: doc.id,
         currentInjury: doc.data().toString().contains('currentInjury') ? doc.get('currentInjury') : '',
         details: doc.data().toString().contains('details') ? doc.get('details') : '',
         patientId: doc.data().toString().contains('patientId') ? doc.get('patientId') : '',
@@ -361,11 +361,11 @@ class healthDatabaseService {
 
   //create physical condition data
   Future<void> createPhysicalConditionData(
+    String physicalConditionId,
     String currentInjury,
     String details,
     String patientId) async {
-    final doc = physicalConditionCollection.doc();
-    return await physicalConditionCollection.doc(doc.id).set({
+    return await physicalConditionCollection.doc(physicalConditionId).set({
       'currentInjury': currentInjury,
       'details': details,
       'patientId': patientId,
@@ -405,7 +405,7 @@ class healthDatabaseService {
   List<ChronicConditionModel> _createChronicConditionModelList(QuerySnapshot snapshot){
     return snapshot.docs.map<ChronicConditionModel>((doc) {
       return ChronicConditionModel(
-        chronicConditionId: doc.data().toString().contains('chronicConditionId') ? doc.get('chronicConditionId') : '',
+        chronicConditionId: doc.id,
         childAllergies: doc.data().toString().contains('childAllergies') ? doc.get('childAllergies') : '',
         childChronic: doc.data().toString().contains('childChronic') ? doc.get('childChronic') : '',
         patientId: doc.data().toString().contains('patientId') ? doc.get('patientId') : '',
@@ -415,11 +415,11 @@ class healthDatabaseService {
 
   //create chronic condition data
   Future<void> createChronicConditionData(
+    String chronicConditionId,
     String childAllergies,
     String childChronic,
     String patientId) async {
-    final doc = chronicConditionCollection.doc();
-    return await chronicConditionCollection.doc(doc.id).set({
+    return await chronicConditionCollection.doc(chronicConditionId).set({
       'childAllergies': childAllergies,
       'childChronic': childChronic,
       'patientId': patientId,

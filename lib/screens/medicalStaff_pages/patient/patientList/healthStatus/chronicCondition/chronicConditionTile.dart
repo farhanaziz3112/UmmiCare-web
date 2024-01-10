@@ -73,10 +73,6 @@ class _chronicConditionTileState extends State<chronicConditionTile> {
                       Expanded(flex: 1, child: Container()),
                     ],
                   ),
-                  trailing: const Icon(
-                    Icons.arrow_forward,
-                    color: Colors.white,
-                  ),
                 ),
               ),
             ),
