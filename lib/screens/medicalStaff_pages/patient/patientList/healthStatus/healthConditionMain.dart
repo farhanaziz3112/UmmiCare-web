@@ -104,7 +104,7 @@ class _healthConditionMainState extends State<healthConditionMain> {
                           .healthStatusData(patient.healthStatusId),
                       builder: (context, snapshot) {
                         HealthStatusModel? health = snapshot.data;
-                        if (health!.healthConditionId.isNotEmpty) {
+                        if (snapshot.hasData && health!.healthConditionId.isNotEmpty) {
                           StreamBuilder<HealthConditionModel>(
                             stream: healthDatabaseService()
                                 .healthConditionData(health.healthConditionId),
@@ -311,9 +311,6 @@ class _healthConditionMainState extends State<healthConditionMain> {
                                       const SizedBox(
                                         width: 30,
                                       ),
-                                      Expanded(
-                                        child: Container(),
-                                      )
                                     ],
                                   ),
                                 );
@@ -324,7 +321,6 @@ class _healthConditionMainState extends State<healthConditionMain> {
                           );
                         } else {
                           return SizedBox(
-                            height: 300,
                             child: Row(
                               children: <Widget>[
                                 Expanded(
@@ -496,15 +492,39 @@ class _healthConditionMainState extends State<healthConditionMain> {
                                 const SizedBox(
                                   width: 30,
                                 ),
-                                Expanded(
-                                  child: Container(),
-                                )
                               ],
                             ),
                           );
                         }
                         return Container();
                       },
+                    ),
+                    const SizedBox(height: 30),
+                    Container(
+                      alignment: Alignment.bottomLeft,
+                      child: ElevatedButton.icon(
+                        icon: const Icon(
+                          Icons.add_circle,
+                          size: 24.0,
+                          color: Colors.white,
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: const Color(0xffF29180),
+                          fixedSize: const Size(250, 50),
+                          alignment: Alignment.center,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              side: BorderSide.none),
+                        ),
+                        onPressed: () {
+                          context.go('/medicalstaff/patient/${patient.patientId}/healthcondition/addnewhealthcondition');
+                        },
+                        label: const Text(
+                          'Add New Health Condition',
+                          style:
+                              TextStyle(fontSize: 15.0, color: Colors.white),
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 80),
                     Container(
@@ -721,7 +741,7 @@ class _healthConditionMainState extends State<healthConditionMain> {
                           .healthStatusData(patient.healthStatusId),
                       builder: (context, snapshot) {
                         HealthStatusModel? health = snapshot.data;
-                        if (health!.healthConditionId.isNotEmpty) {
+                        if (snapshot.hasData && health!.healthConditionId.isNotEmpty) {
                           StreamBuilder<HealthConditionModel>(
                             stream: healthDatabaseService()
                                 .healthConditionData(health.healthConditionId),
@@ -928,9 +948,6 @@ class _healthConditionMainState extends State<healthConditionMain> {
                                       const SizedBox(
                                         width: 30,
                                       ),
-                                      Expanded(
-                                        child: Container(),
-                                      )
                                     ],
                                   ),
                                 );
@@ -1113,15 +1130,39 @@ class _healthConditionMainState extends State<healthConditionMain> {
                                 const SizedBox(
                                   width: 30,
                                 ),
-                                Expanded(
-                                  child: Container(),
-                                )
                               ],
                             ),
                           );
                         }
                         return Container();
                       },
+                    ),
+                    const SizedBox(height: 30),
+                    Container(
+                      alignment: Alignment.bottomLeft,
+                      child: ElevatedButton.icon(
+                        icon: const Icon(
+                          Icons.add_circle,
+                          size: 24.0,
+                          color: Colors.white,
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: const Color(0xffF29180),
+                          fixedSize: const Size(250, 50),
+                          alignment: Alignment.center,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              side: BorderSide.none),
+                        ),
+                        onPressed: () {
+                          context.go('/medicalstaff/patient/${patient.patientId}/healthcondition/addnewhealthcondition');
+                        },
+                        label: const Text(
+                          'Add New Health Condition',
+                          style:
+                              TextStyle(fontSize: 15.0, color: Colors.white),
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 80),
                     Container(

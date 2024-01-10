@@ -301,12 +301,16 @@ class healthDatabaseService {
 
   //create health condition data
   Future<void> createHealthConditionData(
+    String healthConditionId,
+    String currentTemperature,
+    String currentHeartRate,
     String currentSymptom,
     String currentIllness,
     String notes,
     String patientId) async {
-    final doc = healthConditionCollection.doc();
-    return await healthConditionCollection.doc(doc.id).set({
+    return await healthConditionCollection.doc(healthConditionId).set({
+      'currentTemperature': currentTemperature,
+      'currentHeartRate': currentHeartRate,
       'currentSysmptom' : currentSymptom,
       'currentIllness' : currentIllness,
       'notes': notes,

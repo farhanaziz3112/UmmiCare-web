@@ -4,7 +4,7 @@ import 'package:ummicare/screens/medicalStaff_pages/patient/patientList/healthSt
 
 class healthConditionList extends StatefulWidget {
   const healthConditionList({super.key, required this.conditionDetail});
-  final List<HealthConditionModel>? conditionDetail;
+  final List<HealthConditionModel> conditionDetail;
 
   @override
   State<healthConditionList> createState() => _healthConditionListState();
@@ -13,7 +13,7 @@ class healthConditionList extends StatefulWidget {
 class _healthConditionListState extends State<healthConditionList> {
   @override
   Widget build(BuildContext context) {
-    if (widget.conditionDetail!.isEmpty) {
+    if (widget.conditionDetail.isEmpty) {
       return Container(
         padding: const EdgeInsets.only(top: 50),
         child: const Center(
@@ -25,10 +25,10 @@ class _healthConditionListState extends State<healthConditionList> {
     } else {
       return ListView.builder(
         shrinkWrap: true,
-        itemCount: widget.conditionDetail?.length,
+        itemCount: widget.conditionDetail.length,
         itemBuilder: ((context, index) {
           return healthConditionTile(
-            healthCondition: widget.conditionDetail![index],
+            healthCondition: widget.conditionDetail[index],
           );
         }),
       );
