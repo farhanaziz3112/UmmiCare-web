@@ -233,12 +233,6 @@ class _physicalConditionMainState extends State<physicalConditionMain> {
                                           ),
                                         ),
                                       ),
-                                      const SizedBox(
-                                        width: 30,
-                                      ),
-                                      Expanded(
-                                        child: Container(),
-                                      )
                                     ],
                                   ),
                                 );
@@ -369,12 +363,6 @@ class _physicalConditionMainState extends State<physicalConditionMain> {
                                     ),
                                   )
                                 ),
-                                const SizedBox(
-                                  width: 30,
-                                ),
-                                Expanded(
-                                  child: Container(),
-                                )
                               ],
                             ),
                           );
@@ -734,12 +722,6 @@ class _physicalConditionMainState extends State<physicalConditionMain> {
                                           ),
                                         ),
                                       ),
-                                      const SizedBox(
-                                        width: 30,
-                                      ),
-                                      Expanded(
-                                        child: Container(),
-                                      )
                                     ],
                                   ),
                                 );
@@ -870,12 +852,6 @@ class _physicalConditionMainState extends State<physicalConditionMain> {
                                     ),
                                   )
                                 ),
-                                const SizedBox(
-                                  width: 30,
-                                ),
-                                Expanded(
-                                  child: Container(),
-                                )
                               ],
                             ),
                           );

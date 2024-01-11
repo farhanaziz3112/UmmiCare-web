@@ -318,6 +318,24 @@ class healthDatabaseService {
     });
   }
 
+  Future<void> updateHealthConditionData(
+    String healthConditionId,
+    String currentTemperature,
+    String currentHeartRate,
+    String currentSymptom,
+    String currentIllness,
+    String notes,
+    String patientId) async {
+    return await healthConditionCollection.doc(healthConditionId).set({
+      'currentTemperature': currentTemperature,
+      'currentHeartRate': currentHeartRate,
+      'currentSymptom' : currentSymptom,
+      'currentIllness' : currentIllness,
+      'notes': notes,
+      'patientId': patientId,
+    });
+  }
+
 //------------------------------Physical Condition----------------------------------
   //collection reference
   final CollectionReference physicalConditionCollection =
@@ -372,6 +390,18 @@ class healthDatabaseService {
     });
   }
 
+  Future<void> updatePhysicalConditionData(
+    String physicalConditionId,
+    String currentInjury,
+    String details,
+    String patientId) async {
+    return await physicalConditionCollection.doc(physicalConditionId).set({
+      'currentInjury': currentInjury,
+      'details': details,
+      'patientId': patientId,
+    });
+  }
+
   //------------------------------Chronic Condition----------------------------------
   //collection reference
   final CollectionReference chronicConditionCollection =
@@ -415,6 +445,18 @@ class healthDatabaseService {
 
   //create chronic condition data
   Future<void> createChronicConditionData(
+    String chronicConditionId,
+    String childAllergies,
+    String childChronic,
+    String patientId) async {
+    return await chronicConditionCollection.doc(chronicConditionId).set({
+      'childAllergies': childAllergies,
+      'childChronic': childChronic,
+      'patientId': patientId,
+    });
+  }
+
+  Future<void> updateChronicConditionData(
     String chronicConditionId,
     String childAllergies,
     String childChronic,

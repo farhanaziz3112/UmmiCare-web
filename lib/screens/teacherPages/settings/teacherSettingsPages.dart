@@ -116,7 +116,7 @@ class _teacherSettingsPagesState extends State<teacherSettingsPages> {
             Container(
                 width: 300,
                 color: const Color(0xff71CBCA),
-                child: teacherLeftPane(selected: page)),
+                child: teacherLeftPane(selected: 3)),
             Expanded(
                 child: Container(
                       padding: const EdgeInsets.symmetric(

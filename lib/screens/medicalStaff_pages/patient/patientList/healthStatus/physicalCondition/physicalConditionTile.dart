@@ -22,7 +22,7 @@ class _physicalConditionTileState extends State<physicalConditionTile> {
           return InkWell(
             onTap: () {
               var id = physical.physicalConditionId;
-              context.go('/advisor/parent/${id}');
+              context.go('/medicalstaff/patient/${physical.patientId}/physicalcondition/$id');
             },
             child: Padding(
               padding: const EdgeInsets.only(top: 0.0),

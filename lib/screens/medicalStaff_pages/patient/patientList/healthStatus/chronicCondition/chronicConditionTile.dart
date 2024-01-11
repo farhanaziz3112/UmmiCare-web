@@ -22,7 +22,7 @@ class _chronicConditionTileState extends State<chronicConditionTile> {
           return InkWell(
             onTap: () {
               var id = chronic.chronicConditionId;
-              context.go('/advisor/parent/${id}');
+              context.go('/medicalstaff/patient/${chronic.patientId}/chroniccondition/$id');
             },
             child: Padding(
               padding: const EdgeInsets.only(top: 0.0),

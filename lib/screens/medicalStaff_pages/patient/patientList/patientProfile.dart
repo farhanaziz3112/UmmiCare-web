@@ -381,7 +381,6 @@ class _patientProfileState extends State<patientProfile> {
                               ),
                             ),
                           ),
-                          Expanded(child: Container()),
                         ],
                       ),
                     ),
@@ -440,7 +439,6 @@ class _patientProfileState extends State<patientProfile> {
                               ),
                             ),
                           ),
-                          Expanded(child: Container())
                         ],
                       ),
                     ),
@@ -497,7 +495,6 @@ class _patientProfileState extends State<patientProfile> {
                               ),
                             ),
                           ),
-                          Expanded(child: Container())
                         ],
                       ),
                     ),

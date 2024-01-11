@@ -170,7 +170,7 @@ class _healthConditionMainState extends State<healthConditionMain> {
                                                             const EdgeInsets
                                                                 .only(left: 20),
                                                         child: const Text(
-                                                          'Illness',
+                                                          'Temperature',
                                                           textAlign:
                                                               TextAlign.left,
                                                           style: TextStyle(
@@ -191,6 +191,102 @@ class _healthConditionMainState extends State<healthConditionMain> {
                                                                 .only(left: 20),
                                                         child: Text(
                                                           condition!
+                                                              .currentTemperature,
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                          style: const TextStyle(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal,
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: <Widget>[
+                                                      Container(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(left: 20),
+                                                        child: const Text(
+                                                          'Heart Rate',
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                          style: TextStyle(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(height: 5),
+                                                      Container(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(left: 20),
+                                                        child: Text(
+                                                          condition
+                                                              .currentHeartRate,
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                          style: const TextStyle(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal,
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: <Widget>[
+                                                      Container(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(left: 20),
+                                                        child: const Text(
+                                                          'Illness',
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                          style: TextStyle(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(height: 5),
+                                                      Container(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(left: 20),
+                                                        child: Text(
+                                                          condition
                                                               .currentIllness,
                                                           textAlign:
                                                               TextAlign.left,
@@ -363,6 +459,86 @@ class _healthConditionMainState extends State<healthConditionMain> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
                                             children: <Widget>[
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 20),
+                                                    child: const Text(
+                                                      'Temperature',
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 5),
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 20),
+                                                    child: const Text(
+                                                      "No data",
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          color: Colors.black),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(height: 10),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 20),
+                                                    child: const Text(
+                                                      'Heart Rate',
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 5),
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 20),
+                                                    child: const Text(
+                                                      "No data",
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          color: Colors.black),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(height: 10),
                                               Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -597,60 +773,74 @@ class _healthConditionMainState extends State<healthConditionMain> {
                       },
                     ),
                     const SizedBox(height: 20),
-                    Container(
-                      padding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            alignment: Alignment.center,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: const Text(
-                              'Temperature',
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.center,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: const Text(
-                              'Heart Rate',
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.center,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: const Text(
-                              'Illness',
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                          Container(
-                            alignment: Alignment.center,
-                            constraints: const BoxConstraints(
-                                minWidth: 100, maxWidth: 200),
-                            child: const Text(
-                              'Health Condition Id',
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 15),
-                            ),
-                          ),
-                          Expanded(flex: 1, child: Container()),
-                        ],
+                    SingleChildScrollView(
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Row(
+                          children: <Widget>[
+                            Column(
+                              children: <Widget>[
+                                Container(
+                                  padding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        alignment: Alignment.center,
+                                        constraints: const BoxConstraints(
+                                            minWidth: 100, maxWidth: 200),
+                                        child: const Text(
+                                          'Temperature',
+                                          style:
+                                              TextStyle(color: Colors.grey, fontSize: 15),
+                                        ),
+                                      ),
+                                      Expanded(flex: 1, child: Container()),
+                                      Container(
+                                        alignment: Alignment.center,
+                                        constraints: const BoxConstraints(
+                                            minWidth: 100, maxWidth: 200),
+                                        child: const Text(
+                                          'Heart Rate',
+                                          style:
+                                              TextStyle(color: Colors.grey, fontSize: 15),
+                                        ),
+                                      ),
+                                      Expanded(flex: 1, child: Container()),
+                                      Container(
+                                        alignment: Alignment.center,
+                                        constraints: const BoxConstraints(
+                                            minWidth: 100, maxWidth: 200),
+                                        child: const Text(
+                                          'Illness',
+                                          style:
+                                              TextStyle(color: Colors.grey, fontSize: 15),
+                                        ),
+                                      ),
+                                      Expanded(flex: 1, child: Container()),
+                                      Container(
+                                        alignment: Alignment.center,
+                                        constraints: const BoxConstraints(
+                                            minWidth: 100, maxWidth: 200),
+                                        child: const Text(
+                                          'Health Condition Id',
+                                          style:
+                                              TextStyle(color: Colors.grey, fontSize: 15),
+                                        ),
+                                      ),
+                                      Expanded(flex: 1, child: Container()),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                healthConditionList(conditionDetail: conditionDetails)
+                              ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    healthConditionList(conditionDetail: conditionDetails)
+                    )
+                    
                   ],
                 ),
               ),
@@ -804,7 +994,7 @@ class _healthConditionMainState extends State<healthConditionMain> {
                                                             const EdgeInsets
                                                                 .only(left: 20),
                                                         child: const Text(
-                                                          'Illness',
+                                                          'Temperature',
                                                           textAlign:
                                                               TextAlign.left,
                                                           style: TextStyle(
@@ -825,6 +1015,102 @@ class _healthConditionMainState extends State<healthConditionMain> {
                                                                 .only(left: 20),
                                                         child: Text(
                                                           condition!
+                                                              .currentTemperature,
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                          style: const TextStyle(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal,
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: <Widget>[
+                                                      Container(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(left: 20),
+                                                        child: const Text(
+                                                          'Heart Rate',
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                          style: TextStyle(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(height: 5),
+                                                      Container(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(left: 20),
+                                                        child: Text(
+                                                          condition
+                                                              .currentHeartRate,
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                          style: const TextStyle(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal,
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: <Widget>[
+                                                      Container(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(left: 20),
+                                                        child: const Text(
+                                                          'Illness',
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                          style: TextStyle(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(height: 5),
+                                                      Container(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(left: 20),
+                                                        child: Text(
+                                                          condition
                                                               .currentIllness,
                                                           textAlign:
                                                               TextAlign.left,
@@ -997,6 +1283,86 @@ class _healthConditionMainState extends State<healthConditionMain> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
                                             children: <Widget>[
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 20),
+                                                    child: const Text(
+                                                      'Temperature',
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 5),
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 20),
+                                                    child: const Text(
+                                                      "No data",
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          color: Colors.black),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(height: 10),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 20),
+                                                    child: const Text(
+                                                      'Heart Rate',
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 5),
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 20),
+                                                    child: const Text(
+                                                      "No data",
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          color: Colors.black),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(height: 10),
                                               Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,

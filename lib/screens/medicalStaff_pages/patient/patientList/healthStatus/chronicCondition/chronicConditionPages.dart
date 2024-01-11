@@ -6,12 +6,15 @@ import 'package:ummicare/models/userModel.dart';
 import 'package:ummicare/screens/medicalStaff_pages/medicalStaffLeftPane.dart';
 import 'package:ummicare/screens/medicalStaff_pages/medicalStaffMenu.dart';
 import 'package:ummicare/screens/medicalStaff_pages/patient/patientList/healthStatus/chronicCondition/addNewChronicCondition.dart';
+import 'package:ummicare/screens/medicalStaff_pages/patient/patientList/healthStatus/chronicCondition/editChronicCondition.dart';
+import 'package:ummicare/screens/medicalStaff_pages/patient/patientList/healthStatus/chronicCondition/viewChronicCondition.dart';
 import 'package:ummicare/services/medicalStaffDatabase.dart';
 
 class chronicConditionPages extends StatefulWidget {
   const chronicConditionPages(
-      {super.key, required this.patientId, required this.currentPage});
+      {super.key, required this.patientId, required this.chronicConditionId, required this.currentPage});
   final String patientId;
+  final String chronicConditionId;
   final int currentPage;
 
   @override
@@ -25,6 +28,8 @@ class _chronicConditionPagesState extends State<chronicConditionPages> {
   Widget build(BuildContext context) {
     final pages = [
       addNewChronicCondition(patientId: widget.patientId),
+      viewChronicCondition(patientId: widget.patientId, chronicConditionId: widget.chronicConditionId),
+      editChronicCondition(patientId: widget.patientId, chronicConditionId: widget.chronicConditionId)
     ];
 
     userModel? user = Provider.of<userModel?>(context);
