@@ -3,7 +3,9 @@ import 'package:image_network/image_network.dart';
 import 'package:provider/provider.dart';
 import 'package:ummicare/models/teacherModel.dart';
 import 'package:ummicare/models/userModel.dart';
+import 'package:ummicare/screens/teacherPages/class/announcement/announcementMain.dart';
 import 'package:ummicare/screens/teacherPages/class/classProfile.dart';
+import 'package:ummicare/screens/teacherPages/class/event/eventMain.dart';
 import 'package:ummicare/screens/teacherPages/class/exam/examProfile.dart';
 import 'package:ummicare/screens/teacherPages/class/exam/examSchedule.dart';
 import 'package:ummicare/screens/teacherPages/class/exam/addNewExam.dart';
@@ -74,7 +76,9 @@ class _classPagesState extends State<classPages> {
       examSubject(
           academicCalendarId: widget.academicCalendarId,
           subjectId: widget.subjectId,
-          examId: widget.examId)
+          examId: widget.examId),
+      announcementMain(academicCalendarId: widget.academicCalendarId),
+      eventMain(academicCalendarId: widget.academicCalendarId)
     ];
 
     if (screenSize.width < 1300) {
