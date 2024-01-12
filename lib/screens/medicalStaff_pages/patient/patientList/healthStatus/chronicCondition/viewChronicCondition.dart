@@ -326,7 +326,7 @@ class _viewChronicConditionState extends State<viewChronicCondition> {
                                   status!.healthConditionId,
                                   status!.physicalConditionId,
                                   status?.chronicConditionId == widget.chronicConditionId
-                                    ? ''
+                                    ? ' '
                                     : status!.chronicConditionId,
                                   status!.patientId,
                                 );
@@ -654,7 +654,7 @@ class _viewChronicConditionState extends State<viewChronicCondition> {
                                   status!.healthConditionId,
                                   status!.physicalConditionId,
                                   status?.chronicConditionId == widget.chronicConditionId
-                                    ? ''
+                                    ? ' '
                                     : status!.chronicConditionId,
                                   status!.patientId,
                                 );

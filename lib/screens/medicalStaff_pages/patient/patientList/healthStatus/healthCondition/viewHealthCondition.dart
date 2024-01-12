@@ -440,7 +440,7 @@ class _viewHealthConditionState extends State<viewHealthCondition> {
                                 await HealthDatabaseService().updateHealthStatusData(
                                   status!.healthStatusId,
                                   status?.healthConditionId == widget.healthConditionId
-                                    ? ''
+                                    ? ' '
                                     : status!.healthConditionId,
                                   status!.physicalConditionId,
                                   status!.chronicConditionId,
@@ -933,7 +933,7 @@ class _viewHealthConditionState extends State<viewHealthCondition> {
                                 await HealthDatabaseService().updateHealthStatusData(
                                   status!.healthStatusId,
                                   status?.healthConditionId == widget.healthConditionId
-                                    ? ''
+                                    ? ' '
                                     : status!.healthConditionId,
                                   status!.physicalConditionId,
                                   status!.chronicConditionId,

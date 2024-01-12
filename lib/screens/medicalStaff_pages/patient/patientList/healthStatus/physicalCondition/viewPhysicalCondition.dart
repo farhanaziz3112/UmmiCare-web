@@ -316,7 +316,7 @@ class _viewPhysicalConditionState extends State<viewPhysicalCondition> {
                                   status!.healthStatusId,
                                   status!.healthConditionId,
                                   status?.physicalConditionId == widget.physicalConditionId
-                                    ? ''
+                                    ? ' '
                                     : status!.physicalConditionId,
                                   status!.chronicConditionId,
                                   status!.patientId,
@@ -635,7 +635,7 @@ class _viewPhysicalConditionState extends State<viewPhysicalCondition> {
                                   status!.healthStatusId,
                                   status!.healthConditionId,
                                   status?.physicalConditionId == widget.physicalConditionId
-                                    ? ''
+                                    ? ' '
                                     : status!.physicalConditionId,
                                   status!.chronicConditionId,
                                   status!.patientId,
