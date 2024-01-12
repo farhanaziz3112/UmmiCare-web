@@ -114,7 +114,7 @@ class _viewPhysicalConditionState extends State<viewPhysicalCondition> {
                     ),
                     const SizedBox(height: 30),
                     StreamBuilder<PhysicalConditionModel>(
-                      stream: healthDatabaseService().physicalConditionData(widget.physicalConditionId),
+                      stream: HealthDatabaseService().physicalConditionData(widget.physicalConditionId),
                       builder: ((context, snapshot) {
                         if(snapshot.hasData){
                           PhysicalConditionModel? physical = snapshot.data;
@@ -249,7 +249,7 @@ class _viewPhysicalConditionState extends State<viewPhysicalCondition> {
                     ),
                     const SizedBox(height: 30),
                     StreamBuilder<HealthStatusModel>(
-                      stream: healthDatabaseService().healthStatusData(patient.healthStatusId),
+                      stream: HealthDatabaseService().healthStatusData(patient.healthStatusId),
                       builder: (context, snapshot) {
                         if(snapshot.hasData){
                           status = snapshot.data;
@@ -312,7 +312,7 @@ class _viewPhysicalConditionState extends State<viewPhysicalCondition> {
 
                                 await documentReference.delete();
                                 
-                                await healthDatabaseService().updateHealthStatusData(
+                                await HealthDatabaseService().updateHealthStatusData(
                                   status!.healthStatusId,
                                   status!.healthConditionId,
                                   status?.physicalConditionId == widget.physicalConditionId
@@ -433,7 +433,7 @@ class _viewPhysicalConditionState extends State<viewPhysicalCondition> {
                     ),
                     const SizedBox(height: 30),
                     StreamBuilder<PhysicalConditionModel>(
-                      stream: healthDatabaseService().physicalConditionData(widget.physicalConditionId),
+                      stream: HealthDatabaseService().physicalConditionData(widget.physicalConditionId),
                       builder: ((context, snapshot) {
                         if(snapshot.hasData){
                           PhysicalConditionModel? physical = snapshot.data;
@@ -568,7 +568,7 @@ class _viewPhysicalConditionState extends State<viewPhysicalCondition> {
                     ),
                     const SizedBox(height: 30),
                     StreamBuilder<HealthStatusModel>(
-                      stream: healthDatabaseService().healthStatusData(patient.healthStatusId),
+                      stream: HealthDatabaseService().healthStatusData(patient.healthStatusId),
                       builder: (context, snapshot) {
                         if(snapshot.hasData){
                           status = snapshot.data;
@@ -631,7 +631,7 @@ class _viewPhysicalConditionState extends State<viewPhysicalCondition> {
 
                                 await documentReference.delete();
 
-                                await healthDatabaseService().updateHealthStatusData(
+                                await HealthDatabaseService().updateHealthStatusData(
                                   status!.healthStatusId,
                                   status!.healthConditionId,
                                   status?.physicalConditionId == widget.physicalConditionId

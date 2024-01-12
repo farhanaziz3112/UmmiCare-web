@@ -103,12 +103,12 @@ class _physicalConditionMainState extends State<physicalConditionMain> {
                     ),
                     const SizedBox(height: 30),
                     StreamBuilder<HealthStatusModel>(
-                      stream: healthDatabaseService().healthStatusData(patient.healthStatusId),
+                      stream: HealthDatabaseService().healthStatusData(patient.healthStatusId),
                       builder:(context, snapshot) {
                         HealthStatusModel? health = snapshot.data;
                         if(snapshot.hasData && health!.physicalConditionId.isNotEmpty){
                           return StreamBuilder<PhysicalConditionModel>(
-                            stream: healthDatabaseService().physicalConditionData(health.physicalConditionId),
+                            stream: HealthDatabaseService().physicalConditionData(health.physicalConditionId),
                             builder: ((context, snapshot) {
                               if(snapshot.hasData){
                                 PhysicalConditionModel? physical = snapshot.data;
@@ -410,7 +410,7 @@ class _physicalConditionMainState extends State<physicalConditionMain> {
                     ),
                     const SizedBox(height: 20),
                     StreamBuilder<List<PhysicalConditionModel>>(
-                      stream: healthDatabaseService().allPhysicalConditionData(widget.patientId),
+                      stream: HealthDatabaseService().allPhysicalConditionData(widget.patientId),
                       builder: (context, snapshot) {
                         if(snapshot.hasData){
                           List<PhysicalConditionModel>? physical = snapshot.data;
@@ -592,12 +592,12 @@ class _physicalConditionMainState extends State<physicalConditionMain> {
                     ),
                     const SizedBox(height: 30),
                     StreamBuilder<HealthStatusModel>(
-                      stream: healthDatabaseService().healthStatusData(patient.healthStatusId),
+                      stream: HealthDatabaseService().healthStatusData(patient.healthStatusId),
                       builder:(context, snapshot) {
                         HealthStatusModel? status = snapshot.data;
                         if(snapshot.hasData && status!.physicalConditionId.isNotEmpty){
                           return StreamBuilder<PhysicalConditionModel>(
-                            stream: healthDatabaseService().physicalConditionData(status.physicalConditionId),
+                            stream: HealthDatabaseService().physicalConditionData(status.physicalConditionId),
                             builder: (context, snapshot) {
                               if(snapshot.hasData){
                                 PhysicalConditionModel? physical = snapshot.data;
@@ -899,7 +899,7 @@ class _physicalConditionMainState extends State<physicalConditionMain> {
                     ),
                     const SizedBox(height: 20),
                     StreamBuilder<List<PhysicalConditionModel>>(
-                      stream: healthDatabaseService().allPhysicalConditionData(widget.patientId),
+                      stream: HealthDatabaseService().allPhysicalConditionData(widget.patientId),
                       builder: (context, snapshot) {
                         if(snapshot.hasData){
                           List<PhysicalConditionModel>? physical = snapshot.data;

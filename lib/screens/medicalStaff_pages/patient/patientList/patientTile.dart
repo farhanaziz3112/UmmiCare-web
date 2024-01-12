@@ -76,7 +76,7 @@ class _patientTileState extends State<patientTile> {
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         StreamBuilder<List<BmiHealthModel>>(
-                          stream: healthDatabaseService().allBmiHealthData(patient.healthId),
+                          stream: HealthDatabaseService().allBmiHealthData(patient.healthId),
                           builder: (context, snapshot) {
                             if(snapshot.hasData){
                               List<BmiHealthModel>? bmi = snapshot.data;
@@ -163,7 +163,7 @@ class _patientTileState extends State<patientTile> {
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         StreamBuilder<List<BmiHealthModel>>(
-                          stream: healthDatabaseService().allBmiHealthData(patient.healthId),
+                          stream: HealthDatabaseService().allBmiHealthData(patient.healthId),
                           builder: (context, snapshot) {
                             if(snapshot.hasData){
                               List<BmiHealthModel>? bmi = snapshot.data;
@@ -250,7 +250,7 @@ class _patientTileState extends State<patientTile> {
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         StreamBuilder<List<BmiHealthModel>>(
-                          stream: healthDatabaseService().allBmiHealthData(patient.healthId),
+                          stream: HealthDatabaseService().allBmiHealthData(patient.healthId),
                           builder: (context, snapshot) {
                             if(snapshot.hasData){
                               List<BmiHealthModel>? bmi = snapshot.data;

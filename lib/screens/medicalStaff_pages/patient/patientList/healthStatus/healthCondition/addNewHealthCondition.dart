@@ -119,7 +119,7 @@ class _addNewHealthConditionState extends State<addNewHealthCondition> {
                     ),
                     const SizedBox(height: 20),
                     StreamBuilder<HealthStatusModel>(
-                      stream: healthDatabaseService().healthStatusData(patient.healthStatusId),
+                      stream: HealthDatabaseService().healthStatusData(patient.healthStatusId),
                       builder: (context, snapshot) {
                         if(snapshot.hasData){
                           HealthStatusModel? status = snapshot.data;
@@ -277,7 +277,7 @@ class _addNewHealthConditionState extends State<addNewHealthCondition> {
                                       final healthConditionDocument = FirebaseFirestore.instance
                                                           .collection('Health Condition')
                                                           .doc();
-                                      await healthDatabaseService()
+                                      await HealthDatabaseService()
                                           .createHealthConditionData(
                                             healthConditionDocument.id,
                                             currentTemperature,
@@ -288,7 +288,7 @@ class _addNewHealthConditionState extends State<addNewHealthCondition> {
                                             widget.patientId,
                                           );   
 
-                                      await healthDatabaseService()
+                                      await HealthDatabaseService()
                                           .updateHealthStatusData(
                                             patient.healthStatusId,
                                             healthConditionDocument.id,
@@ -409,7 +409,7 @@ class _addNewHealthConditionState extends State<addNewHealthCondition> {
                     ),
                     const SizedBox(height: 20),
                     StreamBuilder<HealthStatusModel>(
-                      stream: healthDatabaseService().healthStatusData(patient.healthStatusId),
+                      stream: HealthDatabaseService().healthStatusData(patient.healthStatusId),
                       builder: (context, snapshot) {
                         if(snapshot.hasData){
                           HealthStatusModel? status = snapshot.data;
@@ -567,7 +567,7 @@ class _addNewHealthConditionState extends State<addNewHealthCondition> {
                                       final healthConditionDocument = FirebaseFirestore.instance
                                                           .collection('Health Condition')
                                                           .doc();
-                                      await healthDatabaseService()
+                                      await HealthDatabaseService()
                                           .createHealthConditionData(
                                             healthConditionDocument.id,
                                             currentTemperature,
@@ -578,7 +578,7 @@ class _addNewHealthConditionState extends State<addNewHealthCondition> {
                                             widget.patientId,
                                           );   
 
-                                      await healthDatabaseService()
+                                      await HealthDatabaseService()
                                           .updateHealthStatusData(
                                             patient.healthStatusId,
                                             healthConditionDocument.id,

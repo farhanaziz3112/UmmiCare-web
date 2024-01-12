@@ -239,7 +239,7 @@ class _patientProfileState extends State<patientProfile> {
                                     ),
                                     const SizedBox(height: 20),
                                     StreamBuilder<List<BmiHealthModel>>(
-                                      stream: healthDatabaseService()
+                                      stream: HealthDatabaseService()
                                           .allBmiHealthData(patient.healthId),
                                       builder: (context, snapshot) {
                                         if (snapshot.hasData) {
@@ -744,7 +744,7 @@ class _patientProfileState extends State<patientProfile> {
                                           ),
                                           const SizedBox(height: 20),
                                           StreamBuilder<List<BmiHealthModel>>(
-                                            stream: healthDatabaseService()
+                                            stream: HealthDatabaseService()
                                                 .allBmiHealthData(
                                                     patient.healthId),
                                             builder: (context, snapshot) {

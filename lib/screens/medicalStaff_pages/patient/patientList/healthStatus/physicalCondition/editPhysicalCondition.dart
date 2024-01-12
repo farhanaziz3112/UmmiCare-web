@@ -132,7 +132,7 @@ class _editPhysicalConditionState extends State<editPhysicalCondition> {
                     ),
                     const SizedBox(height: 20),
                     StreamBuilder<PhysicalConditionModel>(
-                      stream: healthDatabaseService().physicalConditionData(widget.physicalConditionId),
+                      stream: HealthDatabaseService().physicalConditionData(widget.physicalConditionId),
                       builder: (context, snapshot) {
                         if(snapshot.hasData){
                           PhysicalConditionModel? physical = snapshot.data;
@@ -210,7 +210,7 @@ class _editPhysicalConditionState extends State<editPhysicalCondition> {
                                   ),
                                   onPressed: () async {
                                     if (_formKey.currentState!.validate()) {
-                                      await healthDatabaseService()
+                                      await HealthDatabaseService()
                                           .updatePhysicalConditionData(
                                             physical!.physicalConditionId,
                                             currentInjury == ''
@@ -349,7 +349,7 @@ class _editPhysicalConditionState extends State<editPhysicalCondition> {
                     ),
                     const SizedBox(height: 20),
                     StreamBuilder<PhysicalConditionModel>(
-                      stream: healthDatabaseService().physicalConditionData(widget.physicalConditionId),
+                      stream: HealthDatabaseService().physicalConditionData(widget.physicalConditionId),
                       builder: (context, snapshot) {
                         if(snapshot.hasData){
                           PhysicalConditionModel? physical = snapshot.data;
@@ -427,7 +427,7 @@ class _editPhysicalConditionState extends State<editPhysicalCondition> {
                                   ),
                                   onPressed: () async {
                                     if (_formKey.currentState!.validate()) {
-                                      await healthDatabaseService()
+                                      await HealthDatabaseService()
                                           .updatePhysicalConditionData(
                                             physical!.physicalConditionId,
                                             currentInjury == ''

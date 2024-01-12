@@ -132,7 +132,7 @@ class _editChronicConditionState extends State<editChronicCondition> {
                     ),
                     const SizedBox(height: 20),
                     StreamBuilder<ChronicConditionModel>(
-                      stream: healthDatabaseService().chronicConditionData(widget.chronicConditionId),
+                      stream: HealthDatabaseService().chronicConditionData(widget.chronicConditionId),
                       builder: (context, snapshot) {
                         if(snapshot.hasData){
                           ChronicConditionModel? chronic = snapshot.data;
@@ -210,7 +210,7 @@ class _editChronicConditionState extends State<editChronicCondition> {
                                   ),
                                   onPressed: () async {
                                     if (_formKey.currentState!.validate()) {
-                                      await healthDatabaseService()
+                                      await HealthDatabaseService()
                                           .updateChronicConditionData(
                                             chronic!.chronicConditionId,
                                             childAllergies == ''
@@ -349,7 +349,7 @@ class _editChronicConditionState extends State<editChronicCondition> {
                     ),
                     const SizedBox(height: 20),
                     StreamBuilder<ChronicConditionModel>(
-                      stream: healthDatabaseService().chronicConditionData(widget.chronicConditionId),
+                      stream: HealthDatabaseService().chronicConditionData(widget.chronicConditionId),
                       builder: (context, snapshot) {
                         if(snapshot.hasData){
                           ChronicConditionModel? chronic = snapshot.data;
@@ -427,7 +427,7 @@ class _editChronicConditionState extends State<editChronicCondition> {
                                   ),
                                   onPressed: () async {
                                     if (_formKey.currentState!.validate()) {
-                                      await healthDatabaseService()
+                                      await HealthDatabaseService()
                                           .updateChronicConditionData(
                                             chronic!.chronicConditionId,
                                             childAllergies == ''

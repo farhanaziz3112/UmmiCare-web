@@ -1,12 +1,14 @@
-class healthModel {
+class HealthModel {
   final String healthId;
   late final String childId;
   late final String healthStatusId;
+  late final String patientId;
 
-  healthModel({
+  HealthModel({
     required this.healthId,
     required this.childId,
     required this.healthStatusId,
+    required this.patientId,
   });
 }
 

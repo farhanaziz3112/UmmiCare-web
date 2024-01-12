@@ -3207,7 +3207,7 @@ class _childProfileState extends State<childProfile> {
                                                           StreamBuilder<
                                                               List<
                                                                   BmiHealthModel>>(
-                                                            stream: healthDatabaseService()
+                                                            stream: HealthDatabaseService()
                                                                 .allBmiHealthData(
                                                                     patient
                                                                         .healthId),

@@ -114,7 +114,7 @@ class _viewChronicConditionState extends State<viewChronicCondition> {
                     ),
                     const SizedBox(height: 30),
                     StreamBuilder<ChronicConditionModel>(
-                      stream: healthDatabaseService().chronicConditionData(widget.chronicConditionId),
+                      stream: HealthDatabaseService().chronicConditionData(widget.chronicConditionId),
                       builder: ((context, snapshot) {
                         if (snapshot.hasData) {
                           ChronicConditionModel? chronic = snapshot.data;
@@ -258,7 +258,7 @@ class _viewChronicConditionState extends State<viewChronicCondition> {
                     ),
                     const SizedBox(height: 30),
                     StreamBuilder<HealthStatusModel>(
-                      stream: healthDatabaseService().healthStatusData(patient.healthStatusId),
+                      stream: HealthDatabaseService().healthStatusData(patient.healthStatusId),
                       builder: (context, snapshot) {
                         if(snapshot.hasData){
                           status = snapshot.data;
@@ -321,7 +321,7 @@ class _viewChronicConditionState extends State<viewChronicCondition> {
 
                                 await documentReference.delete();
                                 
-                                await healthDatabaseService().updateHealthStatusData(
+                                await HealthDatabaseService().updateHealthStatusData(
                                   status!.healthStatusId,
                                   status!.healthConditionId,
                                   status!.physicalConditionId,
@@ -442,7 +442,7 @@ class _viewChronicConditionState extends State<viewChronicCondition> {
                     ),
                     const SizedBox(height: 30),
                     StreamBuilder<ChronicConditionModel>(
-                      stream: healthDatabaseService().chronicConditionData(widget.chronicConditionId),
+                      stream: HealthDatabaseService().chronicConditionData(widget.chronicConditionId),
                       builder: ((context, snapshot) {
                         if (snapshot.hasData) {
                           ChronicConditionModel? chronic = snapshot.data;
@@ -586,7 +586,7 @@ class _viewChronicConditionState extends State<viewChronicCondition> {
                     ),
                     const SizedBox(height: 30),
                     StreamBuilder<HealthStatusModel>(
-                      stream: healthDatabaseService().healthStatusData(patient.healthStatusId),
+                      stream: HealthDatabaseService().healthStatusData(patient.healthStatusId),
                       builder: (context, snapshot) {
                         if(snapshot.hasData){
                           status = snapshot.data;
@@ -649,7 +649,7 @@ class _viewChronicConditionState extends State<viewChronicCondition> {
 
                                 await documentReference.delete();
                                 
-                                await healthDatabaseService().updateHealthStatusData(
+                                await HealthDatabaseService().updateHealthStatusData(
                                   status!.healthStatusId,
                                   status!.healthConditionId,
                                   status!.physicalConditionId,

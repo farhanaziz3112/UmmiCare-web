@@ -23,7 +23,7 @@ class _childBmiState extends State<childBmi> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<BmiModel>>(
-      stream: healthDatabaseService().allBmiDataWithSameHealthId(widget.healthId),
+      stream: HealthDatabaseService().allBmiDataWithSameHealthId(widget.healthId),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<BmiModel>? bmiData = snapshot.data;

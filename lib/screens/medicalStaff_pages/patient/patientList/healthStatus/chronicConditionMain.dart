@@ -100,12 +100,12 @@ class _chronicConditionMainState extends State<chronicConditionMain> {
                     ),
                     const SizedBox(height: 30),
                     StreamBuilder<HealthStatusModel>(
-                      stream: healthDatabaseService().healthStatusData(patient.healthStatusId),
+                      stream: HealthDatabaseService().healthStatusData(patient.healthStatusId),
                       builder:(context, snapshot) {
                         HealthStatusModel? health = snapshot.data;
                         if(snapshot.hasData && health!.chronicConditionId.isNotEmpty){
                           return StreamBuilder<ChronicConditionModel>(
-                            stream: healthDatabaseService().chronicConditionData(health.chronicConditionId),
+                            stream: HealthDatabaseService().chronicConditionData(health.chronicConditionId),
                             builder: ((context, snapshot) {
                               if(snapshot.hasData){
                                 ChronicConditionModel? chronic = snapshot.data;
@@ -409,7 +409,7 @@ class _chronicConditionMainState extends State<chronicConditionMain> {
                     ),
                     const SizedBox(height: 20),
                     StreamBuilder<List<ChronicConditionModel>>(
-                      stream: healthDatabaseService().allChronicConditionData(widget.patientId),
+                      stream: HealthDatabaseService().allChronicConditionData(widget.patientId),
                       builder: (context, snapshot) {
                         if(snapshot.hasData){
                           List<ChronicConditionModel>? chronic = snapshot.data;
@@ -589,12 +589,12 @@ class _chronicConditionMainState extends State<chronicConditionMain> {
                     ),
                     const SizedBox(height: 30),
                     StreamBuilder<HealthStatusModel>(
-                      stream: healthDatabaseService().healthStatusData(patient.healthStatusId),
+                      stream: HealthDatabaseService().healthStatusData(patient.healthStatusId),
                       builder:(context, snapshot) {
                         HealthStatusModel? health = snapshot.data;
                         if(snapshot.hasData && health!.chronicConditionId.isNotEmpty){
                           return StreamBuilder<ChronicConditionModel>(
-                            stream: healthDatabaseService().chronicConditionData(health.chronicConditionId),
+                            stream: HealthDatabaseService().chronicConditionData(health.chronicConditionId),
                             builder: ((context, snapshot) {
                               if(snapshot.hasData){
                                 ChronicConditionModel? chronic = snapshot.data;
@@ -898,7 +898,7 @@ class _chronicConditionMainState extends State<chronicConditionMain> {
                     ),
                     const SizedBox(height: 20),
                     StreamBuilder<List<ChronicConditionModel>>(
-                      stream: healthDatabaseService().allChronicConditionData(widget.patientId),
+                      stream: HealthDatabaseService().allChronicConditionData(widget.patientId),
                       builder: (context, snapshot) {
                         if(snapshot.hasData){
                           List<ChronicConditionModel>? chronic = snapshot.data;

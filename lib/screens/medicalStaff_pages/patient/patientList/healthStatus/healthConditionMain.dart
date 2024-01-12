@@ -100,13 +100,13 @@ class _healthConditionMainState extends State<healthConditionMain> {
                     ),
                     const SizedBox(height: 30),
                     StreamBuilder<HealthStatusModel>(
-                      stream: healthDatabaseService()
+                      stream: HealthDatabaseService()
                           .healthStatusData(patient.healthStatusId),
                       builder: (context, snapshot) {
                         HealthStatusModel? status = snapshot.data;
                         if (snapshot.hasData && status!.healthConditionId.isNotEmpty) {
                           return StreamBuilder<HealthConditionModel>(
-                            stream: healthDatabaseService().healthConditionData(status.healthConditionId),
+                            stream: HealthDatabaseService().healthConditionData(status.healthConditionId),
                             builder: ((context, snapshot) {
                               if (snapshot.hasData) {
                                 HealthConditionModel? condition = snapshot.data;
@@ -713,7 +713,7 @@ class _healthConditionMainState extends State<healthConditionMain> {
                     ),
                     const SizedBox(height: 20),
                     StreamBuilder<List<HealthConditionModel>>(
-                      stream: healthDatabaseService()
+                      stream: HealthDatabaseService()
                           .allHealthConditionData(widget.patientId),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
@@ -924,13 +924,13 @@ class _healthConditionMainState extends State<healthConditionMain> {
                     ),
                     const SizedBox(height: 30),
                     StreamBuilder<HealthStatusModel>(
-                      stream: healthDatabaseService()
+                      stream: HealthDatabaseService()
                           .healthStatusData(patient.healthStatusId),
                       builder: (context, snapshot) {
                         HealthStatusModel? status = snapshot.data;
                         if (snapshot.hasData && status!.healthConditionId.isNotEmpty) {
                           return StreamBuilder<HealthConditionModel>(
-                            stream: healthDatabaseService().healthConditionData(status.healthConditionId),
+                            stream: HealthDatabaseService().healthConditionData(status.healthConditionId),
                             builder: ((context, snapshot) {
                               if (snapshot.hasData) {
                                 HealthConditionModel? condition = snapshot.data;
@@ -1537,7 +1537,7 @@ class _healthConditionMainState extends State<healthConditionMain> {
                     ),
                     const SizedBox(height: 20),
                     StreamBuilder<List<HealthConditionModel>>(
-                      stream: healthDatabaseService()
+                      stream: HealthDatabaseService()
                           .allHealthConditionData(widget.patientId),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {

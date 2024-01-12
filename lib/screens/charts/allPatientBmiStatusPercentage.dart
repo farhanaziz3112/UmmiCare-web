@@ -32,7 +32,7 @@ class _allPatientBmiStatusPercentageState
         if(snapshot.hasData){
           List<patientModel>? patient = snapshot.data;
           return StreamBuilder<List<BmiModel>>(
-            stream: healthDatabaseService().allBmiData(),
+            stream: HealthDatabaseService().allBmiData(),
             builder: (context, snapshot) {
               if(snapshot.hasData){
                 List<BmiModel>? bmi = snapshot.data;

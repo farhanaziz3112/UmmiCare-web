@@ -135,7 +135,7 @@ class _editHealthConditionState extends State<editHealthCondition> {
                     ),
                     const SizedBox(height: 20),
                     StreamBuilder<HealthConditionModel>(
-                      stream: healthDatabaseService().healthConditionData(widget.healthConditionId),
+                      stream: HealthDatabaseService().healthConditionData(widget.healthConditionId),
                       builder: (context, snapshot) {
                         if(snapshot.hasData){
                           HealthConditionModel? condition = snapshot.data;
@@ -300,7 +300,7 @@ class _editHealthConditionState extends State<editHealthCondition> {
                                   ),
                                   onPressed: () async {
                                     if (_formKey.currentState!.validate()) {
-                                      await healthDatabaseService()
+                                      await HealthDatabaseService()
                                           .updateHealthConditionData(
                                             condition!.healthConditionId,
                                             currentTemperature == ''
@@ -448,7 +448,7 @@ class _editHealthConditionState extends State<editHealthCondition> {
                     ),
                     const SizedBox(height: 20),
                     StreamBuilder<HealthConditionModel>(
-                      stream: healthDatabaseService().healthConditionData(widget.healthConditionId),
+                      stream: HealthDatabaseService().healthConditionData(widget.healthConditionId),
                       builder: (context, snapshot) {
                         if(snapshot.hasData){
                           HealthConditionModel? condition = snapshot.data;
@@ -613,7 +613,7 @@ class _editHealthConditionState extends State<editHealthCondition> {
                                   ),
                                   onPressed: () async {
                                     if (_formKey.currentState!.validate()) {
-                                      await healthDatabaseService()
+                                      await HealthDatabaseService()
                                           .updateHealthConditionData(
                                             condition!.healthConditionId,
                                             currentTemperature == ''

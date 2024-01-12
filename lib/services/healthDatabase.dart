@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ummicare/models/healthmodel.dart';
 import 'package:ummicare/models/healthStatusModel.dart';
 
-class healthDatabaseService {
+class HealthDatabaseService {
 //------------------------------Health----------------------------------
 
   //collection reference
@@ -11,35 +11,37 @@ class healthDatabaseService {
 
 
   //get Health stream
-  Stream<healthModel> healthData (String healthId) {
+  Stream<HealthModel> healthData (String healthId) {
     return healthCollection
         .doc(healthId)
         .snapshots()
         .map(_createHealthModelObject);
   }
 
-  Stream <List<healthModel>> get allHealthData{
+  Stream <List<HealthModel>> get allHealthData{
     return healthCollection
           .snapshots()
           .map(_createHealthModelList);
   }
 
   //create a Health model object
-  healthModel _createHealthModelObject(DocumentSnapshot snapshot) {
-    return healthModel(
+  HealthModel _createHealthModelObject(DocumentSnapshot snapshot) {
+    return HealthModel(
       healthId: snapshot.id,
       childId: snapshot['childId'],
       healthStatusId: snapshot['healthStatusId'],
+      patientId: snapshot['patientId'],
     );
   }
 
   //create a list of Health model object
-  List<healthModel> _createHealthModelList(QuerySnapshot snapshot) {
-    return snapshot.docs.map<healthModel>((doc) {
-      return healthModel(
+  List<HealthModel> _createHealthModelList(QuerySnapshot snapshot) {
+    return snapshot.docs.map<HealthModel>((doc) {
+      return HealthModel(
         healthId: doc.id,
         childId: doc.get('childId'),
         healthStatusId: doc.get('healthStatusId'),
+        patientId: doc.get('patientId')
       );
     }).toList();
   }
@@ -47,24 +49,27 @@ class healthDatabaseService {
 
   //create Health data
   Future<void> createHealthData(
+      String healthId,
       String childId, 
-      String healthStatusId, 
+      String healthStatusId,
+      String patientId,
     ) async {
-    final doc = healthCollection.doc();
-    return await healthCollection.doc(doc.id).set({
+    return await healthCollection.doc(healthId).set({
       'childId': childId,
       'healthStatusId': healthStatusId,
+      'patientId': patientId,
     });
   }
 
   Future<void> addBmi(
-      String healthId, String bmiId) async {
+      String healthId, String bmiId, double bmiData) async {
     return await healthCollection
         .doc(healthId)
         .collection('Bmi')
         .doc(bmiId)
         .set({
       'bmiId': bmiId,
+      'bmiData': bmiData,
     });
   }
 
@@ -185,14 +190,14 @@ class healthDatabaseService {
 
   //create health status data
   Future<void> createBmiData(
+    String bmiId,
     String healthId,
     double currentHeight,
     double currentWeight,
     double bmiData
     ) async {
-    final doc = bmiCollection.doc();
     DateTime now = DateTime.now();
-    return await bmiCollection.doc(doc.id).set({
+    return await bmiCollection.doc(bmiId).set({
       'healthId' : healthId,
       'currentHeight': currentHeight,
       'currentWeight': currentWeight,
@@ -246,12 +251,12 @@ class healthDatabaseService {
 
   //create health status data
   Future<void> createHealthStatusData(
+    String healthStatusId,
     String healthConditionId,
     String physicalConditionId,
     String chronicConditionId,
     String patientId) async {
-    final doc = healthStatusCollection.doc();
-    return await healthStatusCollection.doc(doc.id).set({
+    return await healthStatusCollection.doc(healthStatusId).set({
       'healthConditionId': healthConditionId,
       'physicalConditionId': physicalConditionId,
       'chronicConditionId' : chronicConditionId,

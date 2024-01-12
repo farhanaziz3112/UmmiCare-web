@@ -15,7 +15,7 @@ class _healthConditionTileState extends State<healthConditionTile> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<HealthConditionModel>(
-      stream: healthDatabaseService().healthConditionData(widget.healthCondition.healthConditionId),
+      stream: HealthDatabaseService().healthConditionData(widget.healthCondition.healthConditionId),
       builder: ((context, snapshot) {
         if (snapshot.hasData) {
           HealthConditionModel? condition = snapshot.data;

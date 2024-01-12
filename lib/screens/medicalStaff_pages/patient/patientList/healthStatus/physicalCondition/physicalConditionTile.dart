@@ -15,7 +15,7 @@ class _physicalConditionTileState extends State<physicalConditionTile> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<PhysicalConditionModel>(
-      stream: healthDatabaseService().physicalConditionData(widget.physicalCondition.physicalConditionId),
+      stream: HealthDatabaseService().physicalConditionData(widget.physicalCondition.physicalConditionId),
       builder: ((context, snapshot) {
         if (snapshot.hasData) {
           PhysicalConditionModel? physical = snapshot.data;
