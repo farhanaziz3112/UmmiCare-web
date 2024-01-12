@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ummicare/models/academicCalendarModel.dart';
 import 'package:ummicare/models/schoolModel.dart';
+import 'package:ummicare/models/subjectModel.dart';
 import 'package:ummicare/models/teacherModel.dart';
 import 'package:ummicare/services/academicCalendarDatabase.dart';
 import 'package:ummicare/services/schoolDatabase.dart';
@@ -363,7 +364,7 @@ class _classProfileState extends State<classProfile> {
                                         width: double.maxFinite,
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
-                                          color: const Color(0xff8290F0),
+                                          color: const Color(0xfff29180),
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(10)),
                                           boxShadow: [
@@ -468,7 +469,7 @@ class _classProfileState extends State<classProfile> {
                                         width: double.maxFinite,
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
-                                          color: const Color(0xfff29180),
+                                          color: const Color(0xff71CBCA),
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(10)),
                                           boxShadow: [
@@ -496,6 +497,111 @@ class _classProfileState extends State<classProfile> {
                                             ),
                                             Text(
                                               'Manage students daily attendance.',
+                                              style: TextStyle(
+                                                  color: Colors.grey[800],
+                                                  fontSize: 15),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            SizedBox(
+                              height: 150,
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: InkWell(
+                                      onTap: () {
+                                        context.go(
+                                            '/teacher/class/${academicCalendar.academicCalendarId}/announcement');
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.all(10),
+                                        width: double.maxFinite,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xfff29180),
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(10)),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.5),
+                                              spreadRadius: 1,
+                                              blurRadius: 5,
+                                              offset: const Offset(0,
+                                                  3), // changes position of shadow
+                                            ),
+                                          ],
+                                        ),
+                                        child: Column(
+                                          children: <Widget>[
+                                            const Icon(
+                                              Icons.campaign,
+                                              size: 60,
+                                            ),
+                                            const Text(
+                                              'Announcement',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 20),
+                                            ),
+                                            Text(
+                                              'Manage class announcement.',
+                                              style: TextStyle(
+                                                  color: Colors.grey[800],
+                                                  fontSize: 15),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Expanded(
+                                    child: InkWell(
+                                      onTap: () {
+                                        context.go(
+                                            '/teacher/class/${academicCalendar.academicCalendarId}/event');
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.all(10),
+                                        width: double.maxFinite,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xff8290F0),
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(10)),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.5),
+                                              spreadRadius: 1,
+                                              blurRadius: 5,
+                                              offset: const Offset(0,
+                                                  3), // changes position of shadow
+                                            ),
+                                          ],
+                                        ),
+                                        child: Column(
+                                          children: <Widget>[
+                                            const Icon(
+                                              Icons.event,
+                                              size: 60,
+                                            ),
+                                            const Text(
+                                              'Event',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 20),
+                                            ),
+                                            Text(
+                                              'Manage class events.',
                                               style: TextStyle(
                                                   color: Colors.grey[800],
                                                   fontSize: 15),
@@ -599,7 +705,7 @@ class _classProfileState extends State<classProfile> {
                             ),
                             const SizedBox(height: 50),
                             SizedBox(
-                              height: 300,
+                              height: 450,
                               width: double.maxFinite,
                               child: Row(
                                 children: <Widget>[
@@ -708,6 +814,14 @@ class _classProfileState extends State<classProfile> {
                                                               FontWeight.bold,
                                                           fontSize: 15),
                                                     ),
+                                                    SizedBox(height: 10),
+                                                    Text(
+                                                      'Total Subjects',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 15),
+                                                    ),
                                                   ],
                                                 ),
                                               ),
@@ -784,6 +898,26 @@ class _classProfileState extends State<classProfile> {
                                                       style: const TextStyle(
                                                           fontSize: 15),
                                                     ),
+                                                    const SizedBox(height: 10),
+                                                    StreamBuilder<
+                                                            List<subjectModel>>(
+                                                        stream: academicCalendarDatabase()
+                                                            .allSubjectData(
+                                                                academicCalendar
+                                                                    .academicCalendarId),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          if (snapshot
+                                                              .hasData) {
+                                                            List<subjectModel>?
+                                                                subjects =
+                                                                snapshot.data;
+                                                            return Text(
+                                                                ': ${subjects!.length.toString()}');
+                                                          } else {
+                                                            return Container();
+                                                          }
+                                                        })
                                                   ],
                                                 ),
                                               )
@@ -861,7 +995,7 @@ class _classProfileState extends State<classProfile> {
                                               width: double.maxFinite,
                                               alignment: Alignment.center,
                                               decoration: BoxDecoration(
-                                                color: const Color(0xff8290F0),
+                                                color: const Color(0xfff29180),
                                                 borderRadius:
                                                     const BorderRadius.all(
                                                         Radius.circular(10)),
@@ -890,6 +1024,56 @@ class _classProfileState extends State<classProfile> {
                                                   ),
                                                   Text(
                                                     'Manage students fee payment.',
+                                                    style: TextStyle(
+                                                        color: Colors.grey[800],
+                                                        fontSize: 15),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Expanded(
+                                          child: InkWell(
+                                            onTap: () {
+                                              context.go(
+                                                  '/teacher/class/${academicCalendar.academicCalendarId}/announcement');
+                                            },
+                                            child: Container(
+                                              padding: const EdgeInsets.all(10),
+                                              width: double.maxFinite,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                color: const Color(0xff8290F0),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(10)),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.grey
+                                                        .withOpacity(0.5),
+                                                    spreadRadius: 1,
+                                                    blurRadius: 5,
+                                                    offset: const Offset(0,
+                                                        3), // changes position of shadow
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Column(
+                                                children: <Widget>[
+                                                  const Icon(
+                                                    Icons.campaign,
+                                                    size: 60,
+                                                  ),
+                                                  const Text(
+                                                    'Announcement',
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 20),
+                                                  ),
+                                                  Text(
+                                                    'Manage class announcement.',
                                                     style: TextStyle(
                                                         color: Colors.grey[800],
                                                         fontSize: 15),
@@ -970,7 +1154,7 @@ class _classProfileState extends State<classProfile> {
                                               width: double.maxFinite,
                                               alignment: Alignment.center,
                                               decoration: BoxDecoration(
-                                                color: const Color(0xfff29180),
+                                                color: const Color(0xff71CBCA),
                                                 borderRadius:
                                                     const BorderRadius.all(
                                                         Radius.circular(10)),
@@ -999,6 +1183,56 @@ class _classProfileState extends State<classProfile> {
                                                   ),
                                                   Text(
                                                     'Manage students daily attendance.',
+                                                    style: TextStyle(
+                                                        color: Colors.grey[800],
+                                                        fontSize: 15),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Expanded(
+                                          child: InkWell(
+                                            onTap: () {
+                                              context.go(
+                                                  '/teacher/class/${academicCalendar.academicCalendarId}/event');
+                                            },
+                                            child: Container(
+                                              padding: const EdgeInsets.all(10),
+                                              width: double.maxFinite,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                color: const Color(0xfff29180),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(10)),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.grey
+                                                        .withOpacity(0.5),
+                                                    spreadRadius: 1,
+                                                    blurRadius: 5,
+                                                    offset: const Offset(0,
+                                                        3), // changes position of shadow
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Column(
+                                                children: <Widget>[
+                                                  const Icon(
+                                                    Icons.event,
+                                                    size: 60,
+                                                  ),
+                                                  const Text(
+                                                    'Event',
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 20),
+                                                  ),
+                                                  Text(
+                                                    'Manage class events.',
                                                     style: TextStyle(
                                                         color: Colors.grey[800],
                                                         fontSize: 15),

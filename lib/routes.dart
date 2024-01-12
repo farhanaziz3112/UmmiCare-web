@@ -703,12 +703,42 @@ final GoRouter routes = GoRouter(
                                                 feeId: '',
                                                 examId: state
                                                     .pathParameters['examId']!,
-                                                subjectId: state
-                                                    .pathParameters['subjectId']!,
+                                                subjectId: state.pathParameters[
+                                                    'subjectId']!,
                                               )),
                                     ),
                                   ]),
                             ]),
+                        GoRoute(
+                          path: 'announcement',
+                          pageBuilder: (context, state) =>
+                              NoTransitionPage<void>(
+                                  key: state.pageKey,
+                                  child: classPages(
+                                    currentPage: 12,
+                                    academicCalendarId:
+                                        state.pathParameters['id']!,
+                                    studentId: '',
+                                    feeId: '',
+                                    examId: '',
+                                    subjectId: '',
+                                  )),
+                        ),
+                        GoRoute(
+                          path: 'event',
+                          pageBuilder: (context, state) =>
+                              NoTransitionPage<void>(
+                                  key: state.pageKey,
+                                  child: classPages(
+                                    currentPage: 13,
+                                    academicCalendarId:
+                                        state.pathParameters['id']!,
+                                    studentId: '',
+                                    feeId: '',
+                                    examId: '',
+                                    subjectId: '',
+                                  )),
+                        ),
                       ]),
                 ]),
             GoRoute(
@@ -771,7 +801,7 @@ final GoRouter routes = GoRouter(
                   ),
                 ]),
           ]),
-        GoRoute(
+      GoRoute(
           path: '/medicalstaff',
           builder: (BuildContext context, GoRouterState state) {
             return const medicalStaffHome(currentPage: 0);
@@ -789,174 +819,181 @@ final GoRouter routes = GoRouter(
                       key: state.pageKey,
                       child: const medicalStaffHome(currentPage: 1),
                     ),
-                    routes: [
-                      GoRoute(
-                        path: ':patientId',
-                        pageBuilder: (context, state) => 
-                        NoTransitionPage<void>(
-                          key: state.pageKey,
-                          child: patientPages(
-                            currentPage: 0,
-                            patientId: state.pathParameters['patientId']!,
-                          ),
-                        ),
-                        routes: [
-                          GoRoute(
-                            path: 'healthcondition',
-                            pageBuilder: (context, state) => 
-                            NoTransitionPage<void>(
-                              key: state.pageKey,
-                              child: healthStatusPages(
-                                currentPage: 0,
-                                patientId: state.pathParameters['patientId']!,
-                              ),
+                routes: [
+                  GoRoute(
+                      path: ':patientId',
+                      pageBuilder: (context, state) => NoTransitionPage<void>(
+                            key: state.pageKey,
+                            child: patientPages(
+                              currentPage: 0,
+                              patientId: state.pathParameters['patientId']!,
                             ),
+                          ),
+                      routes: [
+                        GoRoute(
+                            path: 'healthcondition',
+                            pageBuilder: (context, state) =>
+                                NoTransitionPage<void>(
+                                  key: state.pageKey,
+                                  child: healthStatusPages(
+                                    currentPage: 0,
+                                    patientId:
+                                        state.pathParameters['patientId']!,
+                                  ),
+                                ),
                             routes: [
                               GoRoute(
                                 path: 'addnewhealthcondition',
-                                pageBuilder: (context, state) => 
-                                NoTransitionPage<void>(
-                                  key: state.pageKey,
-                                  child: healthConditionPages(
-                                    currentPage: 0,
-                                    patientId: state.pathParameters['patientId']!,
-                                    healthConditionId: '',
-                                  )
-                                ),
+                                pageBuilder: (context, state) =>
+                                    NoTransitionPage<void>(
+                                        key: state.pageKey,
+                                        child: healthConditionPages(
+                                          currentPage: 0,
+                                          patientId: state
+                                              .pathParameters['patientId']!,
+                                          healthConditionId: '',
+                                        )),
                               ),
                               GoRoute(
-                                path: ':healthConditionId',
-                                pageBuilder: (context, state) => 
+                                  path: ':healthConditionId',
+                                  pageBuilder: (context, state) =>
+                                      NoTransitionPage<void>(
+                                          key: state.pageKey,
+                                          child: healthConditionPages(
+                                            currentPage: 1,
+                                            patientId: state
+                                                .pathParameters['patientId']!,
+                                            healthConditionId:
+                                                state.pathParameters[
+                                                    'healthConditionId']!,
+                                          )),
+                                  routes: [
+                                    GoRoute(
+                                      path: 'edithealthcondition',
+                                      pageBuilder: (context, state) =>
+                                          NoTransitionPage<void>(
+                                              key: state.pageKey,
+                                              child: healthConditionPages(
+                                                currentPage: 2,
+                                                patientId: state.pathParameters[
+                                                    'patientId']!,
+                                                healthConditionId:
+                                                    state.pathParameters[
+                                                        'healthConditionId']!,
+                                              )),
+                                    )
+                                  ])
+                            ]),
+                        GoRoute(
+                            path: 'physicalcondition',
+                            pageBuilder: (context, state) =>
                                 NoTransitionPage<void>(
                                   key: state.pageKey,
-                                  child: healthConditionPages(
+                                  child: healthStatusPages(
                                     currentPage: 1,
-                                    patientId: state.pathParameters['patientId']!,
-                                    healthConditionId: state.pathParameters['healthConditionId']!,
-                                  )
+                                    patientId:
+                                        state.pathParameters['patientId']!,
+                                  ),
                                 ),
-                                routes: [
-                                  GoRoute(
-                                    path: 'edithealthcondition',
-                                    pageBuilder: (context, state) => 
-                                    NoTransitionPage<void>(
-                                      key: state.pageKey,
-                                      child: healthConditionPages(
-                                        currentPage: 2,
-                                        patientId: state.pathParameters['patientId']!,
-                                        healthConditionId: state.pathParameters['healthConditionId']!,
-                                      )
-                                    ),
-                                  )
-                                ]
-                              )
-                            ]
-                          ),
-                          GoRoute(
-                            path: 'physicalcondition',
-                            pageBuilder: (context, state) => 
-                            NoTransitionPage<void>(
-                              key: state.pageKey,
-                              child: healthStatusPages(
-                                currentPage: 1,
-                                patientId: state.pathParameters['patientId']!,
-                              ),
-                            ),
                             routes: [
                               GoRoute(
                                 path: 'addnewphysicalcondition',
-                                pageBuilder: (context, state) => 
-                                NoTransitionPage<void>(
-                                  key: state.pageKey,
-                                  child: physicalConditionPages(
-                                    currentPage: 0,
-                                    patientId: state.pathParameters['patientId']!,
-                                    physicalConditionId: '',
-                                  )
-                                ),
+                                pageBuilder: (context, state) =>
+                                    NoTransitionPage<void>(
+                                        key: state.pageKey,
+                                        child: physicalConditionPages(
+                                          currentPage: 0,
+                                          patientId: state
+                                              .pathParameters['patientId']!,
+                                          physicalConditionId: '',
+                                        )),
                               ),
                               GoRoute(
-                                path: ':physicalConditionId',
-                                pageBuilder: (context, state) => 
+                                  path: ':physicalConditionId',
+                                  pageBuilder: (context, state) =>
+                                      NoTransitionPage<void>(
+                                          key: state.pageKey,
+                                          child: physicalConditionPages(
+                                            currentPage: 1,
+                                            patientId: state
+                                                .pathParameters['patientId']!,
+                                            physicalConditionId:
+                                                state.pathParameters[
+                                                    'physicalConditionId']!,
+                                          )),
+                                  routes: [
+                                    GoRoute(
+                                      path: 'editphysicalcondition',
+                                      pageBuilder: (context, state) =>
+                                          NoTransitionPage<void>(
+                                              key: state.pageKey,
+                                              child: physicalConditionPages(
+                                                currentPage: 2,
+                                                patientId: state.pathParameters[
+                                                    'patientId']!,
+                                                physicalConditionId:
+                                                    state.pathParameters[
+                                                        'physicalConditionId']!,
+                                              )),
+                                    )
+                                  ])
+                            ]),
+                        GoRoute(
+                            path: 'chroniccondition',
+                            pageBuilder: (context, state) =>
                                 NoTransitionPage<void>(
                                   key: state.pageKey,
-                                  child: physicalConditionPages(
-                                    currentPage: 1,
-                                    patientId: state.pathParameters['patientId']!,
-                                    physicalConditionId: state.pathParameters['physicalConditionId']!,
-                                  )
+                                  child: healthStatusPages(
+                                    currentPage: 2,
+                                    patientId:
+                                        state.pathParameters['patientId']!,
+                                  ),
                                 ),
-                                routes: [
-                                  GoRoute(
-                                    path: 'editphysicalcondition',
-                                    pageBuilder: (context, state) => 
-                                    NoTransitionPage<void>(
-                                      key: state.pageKey,
-                                      child: physicalConditionPages(
-                                        currentPage: 2,
-                                        patientId: state.pathParameters['patientId']!,
-                                        physicalConditionId: state.pathParameters['physicalConditionId']!,
-                                      )
-                                    ),
-                                  )
-                                ]
-                              )
-                            ]
-                          ),
-                          GoRoute(
-                            path: 'chroniccondition',
-                            pageBuilder: (context, state) => 
-                            NoTransitionPage<void>(
-                              key: state.pageKey,
-                              child: healthStatusPages(
-                                currentPage: 2,
-                                patientId: state.pathParameters['patientId']!,
-                              ),
-                            ),
                             routes: [
                               GoRoute(
                                 path: 'addnewchroniccondition',
-                                pageBuilder: (context, state) => 
-                                NoTransitionPage<void>(
-                                  key: state.pageKey,
-                                  child: chronicConditionPages(
-                                    currentPage: 0,
-                                    patientId: state.pathParameters['patientId']!,
-                                    chronicConditionId: '',
-                                  )
-                                ),
+                                pageBuilder: (context, state) =>
+                                    NoTransitionPage<void>(
+                                        key: state.pageKey,
+                                        child: chronicConditionPages(
+                                          currentPage: 0,
+                                          patientId: state
+                                              .pathParameters['patientId']!,
+                                          chronicConditionId: '',
+                                        )),
                               ),
                               GoRoute(
-                                path: ':chronicConditionId',
-                                pageBuilder: (context, state) => 
-                                NoTransitionPage<void>(
-                                  key: state.pageKey,
-                                  child: chronicConditionPages(
-                                    currentPage: 1,
-                                    patientId: state.pathParameters['patientId']!,
-                                    chronicConditionId: state.pathParameters['chronicConditionId']!,
-                                  )
-                                ),
-                                routes: [
-                                  GoRoute(
-                                    path: 'editchroniccondition',
-                                    pageBuilder: (context, state) => 
-                                    NoTransitionPage<void>(
-                                      key: state.pageKey,
-                                      child: chronicConditionPages(
-                                        currentPage: 2,
-                                        patientId: state.pathParameters['patientId']!,
-                                        chronicConditionId: state.pathParameters['chronicConditionId']!,
-                                      )
-                                    ),
-                                  )
-                                ]
-                              )
-                            ]
-                          )
-                        ]
-                      )
-                    ]),
+                                  path: ':chronicConditionId',
+                                  pageBuilder: (context, state) =>
+                                      NoTransitionPage<void>(
+                                          key: state.pageKey,
+                                          child: chronicConditionPages(
+                                            currentPage: 1,
+                                            patientId: state
+                                                .pathParameters['patientId']!,
+                                            chronicConditionId:
+                                                state.pathParameters[
+                                                    'chronicConditionId']!,
+                                          )),
+                                  routes: [
+                                    GoRoute(
+                                      path: 'editchroniccondition',
+                                      pageBuilder: (context, state) =>
+                                          NoTransitionPage<void>(
+                                              key: state.pageKey,
+                                              child: chronicConditionPages(
+                                                currentPage: 2,
+                                                patientId: state.pathParameters[
+                                                    'patientId']!,
+                                                chronicConditionId:
+                                                    state.pathParameters[
+                                                        'chronicConditionId']!,
+                                              )),
+                                    )
+                                  ])
+                            ])
+                      ])
+                ]),
             GoRoute(
                 path: 'settings',
                 pageBuilder: (context, state) => NoTransitionPage<void>(
@@ -974,24 +1011,26 @@ final GoRouter routes = GoRouter(
                       path: 'clinicregistration',
                       pageBuilder: (context, state) => NoTransitionPage<void>(
                           key: state.pageKey,
-                          child: const medicalStaffSettingsPages(currentPage: 1)),
+                          child:
+                              const medicalStaffSettingsPages(currentPage: 1)),
                       routes: [
                         GoRoute(
-                          path: 'registernewclinic',
-                          pageBuilder: (context, state) =>
-                              NoTransitionPage<void>(
-                                  key: state.pageKey,
-                                  child: const medicalStaffSettingsPages(currentPage: 6)),
-                          routes: [
-                            GoRoute(
-                              path: 'addnewclinic',
-                              pageBuilder: (context, state) =>
-                                  NoTransitionPage<void>(
-                                      key: state.pageKey,
-                                      child: const medicalStaffSettingsPages(currentPage: 7)),
-                            )
-                          ]
-                        ),
+                            path: 'registernewclinic',
+                            pageBuilder: (context, state) =>
+                                NoTransitionPage<void>(
+                                    key: state.pageKey,
+                                    child: const medicalStaffSettingsPages(
+                                        currentPage: 6)),
+                            routes: [
+                              GoRoute(
+                                path: 'addnewclinic',
+                                pageBuilder: (context, state) =>
+                                    NoTransitionPage<void>(
+                                        key: state.pageKey,
+                                        child: const medicalStaffSettingsPages(
+                                            currentPage: 7)),
+                              )
+                            ]),
                       ]),
                   GoRoute(
                     path: 'version',
