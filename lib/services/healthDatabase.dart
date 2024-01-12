@@ -162,6 +162,27 @@ class healthDatabaseService {
     }).toList();
   }
 
+  Stream<List<BmiModel>> allBmiData(){
+    return bmiCollection
+        .snapshots()
+        .map(_createBmiModelList2);
+  }
+
+  List<BmiModel> _createBmiModelList2(QuerySnapshot snapshot) {
+    return snapshot.docs.map<BmiModel>((doc) {
+      Timestamp createdAt = doc.get('createdAt');
+      DateTime creationTime = createdAt.toDate();
+      return BmiModel(
+        bmiId: doc.id,
+        healthId: doc.get('healthId'),
+        currentHeight: doc.get('currentHeight') ?? '',
+        currentWeight: doc.get('currentWeight') ?? '',
+        bmiData: doc.get('bmiData') ?? '',
+        createdAt: creationTime,
+      );
+    }).toList();
+  }
+
   //create health status data
   Future<void> createBmiData(
     String healthId,

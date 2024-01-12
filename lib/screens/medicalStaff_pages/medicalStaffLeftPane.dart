@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ummicare/screens/medicalStaff_pages/medicalStaffMenu.dart';
-import 'package:ummicare/screens/nav/mainNavItem.dart';
 import 'package:ummicare/screens/medicalStaff_pages/medicalStaffHomeProfile.dart';
 
 class medicalStaffLeftPane extends StatelessWidget {

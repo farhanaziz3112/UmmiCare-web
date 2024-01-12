@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ummicare/models/medicalStaffModel.dart';
 import 'package:ummicare/models/userModel.dart';
+import 'package:ummicare/screens/charts/allPatientBmiStatusPercentage.dart';
 import 'package:ummicare/services/auth.dart';
 import 'package:ummicare/services/medicalStaffDatabase.dart';
 
@@ -71,6 +72,20 @@ class _medicalStaffDashboardState extends State<medicalStaffDashboard> {
                     ),
                   ),
                   const SizedBox(height: 50),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          children: <Widget>[
+                            SizedBox(
+                              child: allPatientBmiStatusPercentage(clinicId: doc.clinicId),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
               ],
             ),
           );
