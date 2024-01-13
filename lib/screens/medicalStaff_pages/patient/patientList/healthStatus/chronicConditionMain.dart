@@ -103,7 +103,7 @@ class _chronicConditionMainState extends State<chronicConditionMain> {
                       stream: HealthDatabaseService().healthStatusData(patient.healthStatusId),
                       builder:(context, snapshot) {
                         HealthStatusModel? health = snapshot.data;
-                        if(snapshot.hasData && health!.chronicConditionId.isNotEmpty){
+                        if(snapshot.hasData && health!.chronicConditionId != " "){
                           return StreamBuilder<ChronicConditionModel>(
                             stream: HealthDatabaseService().chronicConditionData(health.chronicConditionId),
                             builder: ((context, snapshot) {
@@ -136,95 +136,98 @@ class _chronicConditionMainState extends State<chronicConditionMain> {
                                           child: Column(
                                             children: [
                                               Container(
-                                                alignment: Alignment.topCenter,
-                                                child: const Text(
-                                                  'Latest Chronic Condition',
-                                                  textAlign: TextAlign.start,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 20.0,
-                                                      fontFamily: 'Comfortaa',
-                                                      fontWeight: FontWeight.bold),
+                                                alignment: Alignment
+                                                    .topCenter,
+                                                child: const Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.emergency,
+                                                      size: 35,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Text(
+                                                      'Latest Chronic Condition',
+                                                      textAlign:
+                                                          TextAlign
+                                                              .start,
+                                                      style: TextStyle(
+                                                          color: Colors
+                                                              .black,
+                                                          fontSize:
+                                                              20.0,
+                                                          fontFamily:
+                                                              'Comfortaa',
+                                                          fontWeight:
+                                                              FontWeight
+                                                                  .bold),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
                                               const SizedBox(height: 30),
-                                              Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                mainAxisAlignment: MainAxisAlignment.center,
+                                              Row(
                                                 children: <Widget>[
-                                                  Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: <Widget>[
-                                                      Container(
-                                                        alignment: Alignment.centerLeft,
-                                                        padding:
-                                                          const EdgeInsets.only(
-                                                              left: 20),
-                                                        child: const Text(
+                                                  const Expanded(
+                                                    flex: 1,
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        Text(
                                                           'Allergies',
-                                                          textAlign: TextAlign.left,
                                                           style: TextStyle(
-                                                            fontSize: 15,
-                                                            fontWeight:FontWeight.bold,
-                                                            color: Colors.black),
+                                                              fontWeight: FontWeight
+                                                                  .bold,
+                                                              fontSize:
+                                                                  15),
                                                         ),
-                                                      ),
-                                                      const SizedBox(height: 5),
-                                                      Container(
-                                                        alignment:
-                                                            Alignment.centerLeft,
-                                                        padding:
-                                                            const EdgeInsets.only(
-                                                                left: 20),
-                                                        child: Text(
-                                                          chronic!.childAllergies,
-                                                          textAlign: TextAlign.left,
-                                                          style: const TextStyle(
-                                                              fontSize: 15,
-                                                              fontWeight:
-                                                                  FontWeight.normal,
-                                                              color: Colors.black),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  const SizedBox(height: 10),
-                                                  Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: <Widget>[
-                                                      Container(
-                                                        alignment: Alignment.centerLeft,
-                                                        padding:
-                                                          const EdgeInsets.only(
-                                                              left: 20),
-                                                        child: const Text(
+                                                        SizedBox(
+                                                            height:
+                                                                10),
+                                                        Text(
                                                           'Details',
-                                                          textAlign: TextAlign.left,
                                                           style: TextStyle(
-                                                            fontSize: 15,
-                                                            fontWeight:FontWeight.bold,
-                                                            color: Colors.black),
+                                                              fontWeight: FontWeight
+                                                                  .bold,
+                                                              fontSize:
+                                                                  15),
                                                         ),
-                                                      ),
-                                                      const SizedBox(height: 5),
-                                                      Container(
-                                                        alignment:
-                                                            Alignment.centerLeft,
-                                                        padding:
-                                                            const EdgeInsets.only(
-                                                                left: 20),
-                                                        child: Text(
-                                                          chronic.childChronic,
-                                                          textAlign: TextAlign.left,
-                                                          style: const TextStyle(
-                                                              fontSize: 15,
-                                                              fontWeight:
-                                                                  FontWeight.normal,
-                                                              color: Colors.black),
-                                                        ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
+                                                  const SizedBox(
+                                                      width: 20),
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        Text(
+                                                          ': ${chronic!.childAllergies}',
+                                                          style: const TextStyle(
+                                                              fontSize:
+                                                                  15),
+                                                        ),
+                                                        const SizedBox(
+                                                            height:
+                                                                10),
+                                                        Text(
+                                                          ': ${chronic.childChronic}',
+                                                          style: const TextStyle(
+                                                              fontSize:
+                                                                  15),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
                                                 ],
                                               )
                                             ],
@@ -592,7 +595,7 @@ class _chronicConditionMainState extends State<chronicConditionMain> {
                       stream: HealthDatabaseService().healthStatusData(patient.healthStatusId),
                       builder:(context, snapshot) {
                         HealthStatusModel? health = snapshot.data;
-                        if(snapshot.hasData && health!.chronicConditionId.isNotEmpty){
+                        if(snapshot.hasData && health!.chronicConditionId != " "){
                           return StreamBuilder<ChronicConditionModel>(
                             stream: HealthDatabaseService().chronicConditionData(health.chronicConditionId),
                             builder: ((context, snapshot) {
@@ -625,95 +628,98 @@ class _chronicConditionMainState extends State<chronicConditionMain> {
                                           child: Column(
                                             children: [
                                               Container(
-                                                alignment: Alignment.topCenter,
-                                                child: const Text(
-                                                  'Latest Chronic Condition',
-                                                  textAlign: TextAlign.start,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 20.0,
-                                                      fontFamily: 'Comfortaa',
-                                                      fontWeight: FontWeight.bold),
+                                                alignment: Alignment
+                                                    .topCenter,
+                                                child: const Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.emergency,
+                                                      size: 35,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Text(
+                                                      'Latest Chronic Condition',
+                                                      textAlign:
+                                                          TextAlign
+                                                              .start,
+                                                      style: TextStyle(
+                                                          color: Colors
+                                                              .black,
+                                                          fontSize:
+                                                              20.0,
+                                                          fontFamily:
+                                                              'Comfortaa',
+                                                          fontWeight:
+                                                              FontWeight
+                                                                  .bold),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
                                               const SizedBox(height: 30),
-                                              Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                mainAxisAlignment: MainAxisAlignment.center,
+                                              Row(
                                                 children: <Widget>[
-                                                  Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: <Widget>[
-                                                      Container(
-                                                        alignment: Alignment.centerLeft,
-                                                        padding:
-                                                          const EdgeInsets.only(
-                                                              left: 20),
-                                                        child: const Text(
+                                                  const Expanded(
+                                                    flex: 1,
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        Text(
                                                           'Allergies',
-                                                          textAlign: TextAlign.left,
                                                           style: TextStyle(
-                                                            fontSize: 15,
-                                                            fontWeight:FontWeight.bold,
-                                                            color: Colors.black),
+                                                              fontWeight: FontWeight
+                                                                  .bold,
+                                                              fontSize:
+                                                                  15),
                                                         ),
-                                                      ),
-                                                      const SizedBox(height: 5),
-                                                      Container(
-                                                        alignment:
-                                                            Alignment.centerLeft,
-                                                        padding:
-                                                            const EdgeInsets.only(
-                                                                left: 20),
-                                                        child: Text(
-                                                          chronic!.childAllergies,
-                                                          textAlign: TextAlign.left,
-                                                          style: const TextStyle(
-                                                              fontSize: 15,
-                                                              fontWeight:
-                                                                  FontWeight.normal,
-                                                              color: Colors.black),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  const SizedBox(height: 10),
-                                                  Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: <Widget>[
-                                                      Container(
-                                                        alignment: Alignment.centerLeft,
-                                                        padding:
-                                                          const EdgeInsets.only(
-                                                              left: 20),
-                                                        child: const Text(
+                                                        SizedBox(
+                                                            height:
+                                                                10),
+                                                        Text(
                                                           'Details',
-                                                          textAlign: TextAlign.left,
                                                           style: TextStyle(
-                                                            fontSize: 15,
-                                                            fontWeight:FontWeight.bold,
-                                                            color: Colors.black),
+                                                              fontWeight: FontWeight
+                                                                  .bold,
+                                                              fontSize:
+                                                                  15),
                                                         ),
-                                                      ),
-                                                      const SizedBox(height: 5),
-                                                      Container(
-                                                        alignment:
-                                                            Alignment.centerLeft,
-                                                        padding:
-                                                            const EdgeInsets.only(
-                                                                left: 20),
-                                                        child: Text(
-                                                          chronic.childChronic,
-                                                          textAlign: TextAlign.left,
-                                                          style: const TextStyle(
-                                                              fontSize: 15,
-                                                              fontWeight:
-                                                                  FontWeight.normal,
-                                                              color: Colors.black),
-                                                        ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
+                                                  const SizedBox(
+                                                      width: 20),
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        Text(
+                                                          ': ${chronic!.childAllergies}',
+                                                          style: const TextStyle(
+                                                              fontSize:
+                                                                  15),
+                                                        ),
+                                                        const SizedBox(
+                                                            height:
+                                                                10),
+                                                        Text(
+                                                          ': ${chronic.childChronic}',
+                                                          style: const TextStyle(
+                                                              fontSize:
+                                                                  15),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
                                                 ],
                                               )
                                             ],

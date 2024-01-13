@@ -28,7 +28,7 @@ class _medicalStaffMainPaneState extends State<medicalStaffMainPane> {
   Widget build(BuildContext context) {
     userModel? user = Provider.of<userModel>(context);
     return StreamProvider<medicalStaffModel?>.value(
-      value: medicalStaffDatabase(medicalStaffId: user.userId).medicalStaffData,
+      value: medicalStaffDatabase().medicalStaffData(user.userId),
       initialData: null,
       catchError: (_, __) {
         return null;

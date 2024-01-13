@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ummicare/models/academicCalendarModel.dart';
 import 'package:ummicare/models/childModel.dart';
+import 'package:ummicare/models/healthmodel.dart';
+import 'package:ummicare/models/patientModel.dart';
 import 'package:ummicare/models/studentAttendanceModel.dart';
 import 'package:ummicare/models/studentModel.dart';
-import 'package:ummicare/screens/teacherPages/class/student/studentNameList/studentList.dart';
 
 String convertTimeToDateString(String timeInMilliseconds) {
   int temp = int.parse(timeInMilliseconds);
@@ -254,5 +255,75 @@ String getGradeStatus(String grade) {
     return 'pass';
   } else {
     return 'fail';
+  }
+}
+
+int getNumberOfPatientBasedOnBmiStatus(List<patientModel> patient, List<BmiModel> bmi, String status){
+  List<double> bmiData = [];
+  for (int i = 0; i < patient.length; i++) {
+    DateTime? date;
+    double bmi2 = 0;
+    for (int j = 0; j < bmi.length; j++) {
+      if (patient[i].healthId == bmi[j].healthId) {
+        if (date == null || date.isBefore(bmi[j].createdAt)) {
+          date = bmi[j].createdAt;
+          bmi2 = bmi[j].bmiData;
+        }
+      }
+    }
+    bmiData.add(bmi2);
+  }
+
+  int total1 = 0;
+  int total2 = 0;
+  int total3 = 0;
+  int total4 = 0;
+  int total5 = 0;
+  int total6 = 0;
+  int total7 = 0;
+  int total8 = 0;
+  int total9 = 0;
+  for (int i = 0; i < bmiData.length; i++) {
+    if (bmiData[i] < 16) {
+      total1 = total1 + 1;
+    } else if (bmiData[i] < 17) {
+      total2 = total2 + 1;
+    } else if (bmiData[i] < 18.5) {
+      total3 = total3 + 1;
+    } else if (bmiData[i] < 25) {
+      total4 = total4 + 1;
+    } else if (bmiData[i] < 30) {
+      total5 = total5 + 1;
+    } else if (bmiData[i] < 35) {
+      total6 = total6 + 1;
+    } else if (bmiData[i] < 40) {
+      total7 = total7 + 1;
+    } else if (bmiData[i] >= 40) {
+      total8 = total8 + 1;
+    } else {
+      total9 = total9 + 1;
+    }
+  }
+
+  if (status == 'Severe Thinness'){
+    return total1;
+  }else if (status == 'Moderate Thinness'){
+    return total2;
+  }else if (status == 'Mild Thinness'){
+    return total3;
+  }else if (status == 'Normal'){
+    return total4;
+  }else if (status == 'Overweight'){
+    return total5;
+  }else if (status == 'Obese Class I'){
+    return total6;
+  }else if (status == 'Obese Class II'){
+    return total7;
+  }else if (status == 'Obese Class III'){
+    return total8;
+  }else if (status == 'No Status'){
+    return total9;
+  }else{
+    return 0;
   }
 }

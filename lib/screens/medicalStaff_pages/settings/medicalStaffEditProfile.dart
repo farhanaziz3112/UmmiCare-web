@@ -33,7 +33,7 @@ class _medicalStaffEditProfileState extends State<medicalStaffEditProfile> {
       return const Loading();
     } else {
       return StreamBuilder<medicalStaffModel>(
-          stream: medicalStaffDatabase(medicalStaffId: user.userId).medicalStaffData,
+          stream: medicalStaffDatabase().medicalStaffData(user.userId),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               medicalStaffModel? medicalStaff = snapshot.data;
@@ -296,8 +296,7 @@ class _medicalStaffEditProfileState extends State<medicalStaffEditProfile> {
                                       ),
                                       onPressed: () async {
                                         if (_formKey.currentState!.validate()) {
-                                          await medicalStaffDatabase(
-                                                  medicalStaffId: medicalStaff.medicalStaffId)
+                                          await medicalStaffDatabase()
                                               .updateMedicalStaffData(
                                                   medicalStaff.medicalStaffId,
                                                   medicalStaff.medicalStaffCreatedDate,

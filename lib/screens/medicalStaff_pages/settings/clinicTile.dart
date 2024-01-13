@@ -21,7 +21,7 @@ class _clinicTileState extends State<clinicTile> {
     userModel? user = Provider.of<userModel?>(context);
 
     return StreamBuilder<ClinicModel>(
-      stream: medicalStaffDatabase(medicalStaffId: user!.userId).clinicData(widget.clinicDetails.clinicId),
+      stream: medicalStaffDatabase().clinicData(widget.clinicDetails.clinicId),
       builder: ((context, snapshot) {
         if (snapshot.hasData) {
           ClinicModel? clinic = snapshot.data;
@@ -186,8 +186,8 @@ class _clinicTileState extends State<clinicTile> {
                               style: TextStyle(color: Colors.white)),
                         ),
                         StreamBuilder<medicalStaffModel>(
-                            stream: medicalStaffDatabase(medicalStaffId: user.userId)
-                                .medicalStaffData,
+                            stream: medicalStaffDatabase()
+                                .medicalStaffData(user!.userId),
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 medicalStaffModel? medicalStaff = snapshot.data;
@@ -250,11 +250,9 @@ class _clinicTileState extends State<clinicTile> {
                                                               5)),
                                                 ),
                                                 onPressed: () {
-                                                  medicalStaffDatabase(
-                                                          medicalStaffId: medicalStaff!
-                                                              .medicalStaffId)
+                                                  medicalStaffDatabase()
                                                       .updateMedicalStaffData(
-                                                          medicalStaff.medicalStaffId,
+                                                          medicalStaff!.medicalStaffId,
                                                           medicalStaff
                                                               .medicalStaffCreatedDate,
                                                           medicalStaff

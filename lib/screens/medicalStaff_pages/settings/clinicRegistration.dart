@@ -19,7 +19,7 @@ class _clinicRegistrationState extends State<clinicRegistration> {
     userModel? user = Provider.of<userModel?>(context);
 
     return StreamBuilder<medicalStaffModel>(
-      stream: medicalStaffDatabase(medicalStaffId: user!.userId).medicalStaffData,
+      stream: medicalStaffDatabase().medicalStaffData(user!.userId),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           medicalStaffModel? medicalStaff = snapshot.data;
@@ -132,7 +132,7 @@ class _clinicRegistrationState extends State<clinicRegistration> {
                       ? Row(
                           children: <Widget>[
                             StreamBuilder<ClinicModel>(
-                                stream: medicalStaffDatabase(medicalStaffId: medicalStaff.medicalStaffId)
+                                stream: medicalStaffDatabase()
                                     .clinicData(medicalStaff.clinicId),
                                 builder: (context, snapshot) {
                                   if (snapshot.hasData) {

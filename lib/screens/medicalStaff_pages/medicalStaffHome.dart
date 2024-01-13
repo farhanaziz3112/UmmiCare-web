@@ -54,7 +54,7 @@ class _medicalStaffHomeState extends State<medicalStaffHome> {
               ),
               SizedBox(width: 10),
               StreamBuilder<medicalStaffModel>(
-                  stream: medicalStaffDatabase(medicalStaffId: user!.userId).medicalStaffData,
+                  stream: medicalStaffDatabase().medicalStaffData(user!.userId),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       medicalStaffModel? medical = snapshot.data;

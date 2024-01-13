@@ -27,7 +27,7 @@ class _addNewClinicState extends State<addNewClinic> {
     userModel? user = Provider.of<userModel?>(context);
 
     return StreamProvider<medicalStaffModel?>.value(
-      value: medicalStaffDatabase(medicalStaffId: user!.userId).medicalStaffData,
+      value: medicalStaffDatabase().medicalStaffData(user!.userId),
       initialData: null,
       catchError: (_, __) {
         return null;
@@ -249,8 +249,8 @@ class _addNewClinicState extends State<addNewClinic> {
                       ),
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          await medicalStaffDatabase(medicalStaffId: user.userId)
-                              .createClinicData(name,address,num);   
+                          await medicalStaffDatabase()
+                              .createClinicData(name,address,num, email);   
                           }
 
                           Navigator.pop(context);

@@ -144,95 +144,98 @@ class _viewPhysicalConditionState extends State<viewPhysicalCondition> {
                                     child: Column(
                                       children: [
                                         Container(
-                                          alignment: Alignment.topCenter,
-                                          child: const Text(
-                                            'Physical Condition',
-                                            textAlign: TextAlign.start,
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 20.0,
-                                                fontFamily: 'Comfortaa',
-                                                fontWeight: FontWeight.bold),
+                                          alignment: Alignment
+                                              .topCenter,
+                                          child: const Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .center,
+                                            children: [
+                                              Icon(
+                                                Icons.personal_injury,
+                                                size: 35,
+                                              ),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                'Physical Condition',
+                                                textAlign:
+                                                    TextAlign
+                                                        .start,
+                                                style: TextStyle(
+                                                    color: Colors
+                                                        .black,
+                                                    fontSize:
+                                                        20.0,
+                                                    fontFamily:
+                                                        'Comfortaa',
+                                                    fontWeight:
+                                                        FontWeight
+                                                            .bold),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                         const SizedBox(height: 30),
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                        Row(
                                           children: <Widget>[
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Container(
-                                                  alignment: Alignment.centerLeft,
-                                                  padding:
-                                                    const EdgeInsets.only(
-                                                        left: 20),
-                                                  child: const Text(
+                                            const Expanded(
+                                              flex: 1,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment
+                                                        .start,
+                                                children: <Widget>[
+                                                  Text(
                                                     'Injury',
-                                                    textAlign: TextAlign.left,
                                                     style: TextStyle(
-                                                      fontSize: 15,
-                                                      fontWeight:FontWeight.bold,
-                                                      color: Colors.black),
+                                                        fontWeight: FontWeight
+                                                            .bold,
+                                                        fontSize:
+                                                            15),
                                                   ),
-                                                ),
-                                                const SizedBox(height: 5),
-                                                Container(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 20),
-                                                  child: Text(
-                                                    physical!.currentInjury,
-                                                    textAlign: TextAlign.left,
-                                                    style: const TextStyle(
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        color: Colors.black),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 10),
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Container(
-                                                  alignment: Alignment.centerLeft,
-                                                  padding:
-                                                    const EdgeInsets.only(
-                                                        left: 20),
-                                                  child: const Text(
+                                                  SizedBox(
+                                                      height:
+                                                          10),
+                                                  Text(
                                                     'Details',
-                                                    textAlign: TextAlign.left,
                                                     style: TextStyle(
-                                                      fontSize: 15,
-                                                      fontWeight:FontWeight.bold,
-                                                      color: Colors.black),
+                                                        fontWeight: FontWeight
+                                                            .bold,
+                                                        fontSize:
+                                                            15),
                                                   ),
-                                                ),
-                                                const SizedBox(height: 5),
-                                                Container(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 20),
-                                                  child: Text(
-                                                    physical.details,
-                                                    textAlign: TextAlign.left,
-                                                    style: const TextStyle(
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        color: Colors.black),
-                                                  ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
+                                            const SizedBox(
+                                                width: 20),
+                                            Expanded(
+                                              flex: 2,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment
+                                                        .start,
+                                                children: <Widget>[
+                                                  Text(
+                                                    ': ${physical?.currentInjury}',
+                                                    style: const TextStyle(
+                                                        fontSize:
+                                                            15),
+                                                  ),
+                                                  const SizedBox(
+                                                      height:
+                                                          10),
+                                                  Text(
+                                                    ': ${physical?.details}',
+                                                    style: const TextStyle(
+                                                        fontSize:
+                                                            15),
+                                                  ),
+                                                ],
+                                              ),
+                                            )
                                           ],
                                         )
                                       ],
@@ -463,95 +466,98 @@ class _viewPhysicalConditionState extends State<viewPhysicalCondition> {
                                     child: Column(
                                       children: [
                                         Container(
-                                          alignment: Alignment.topCenter,
-                                          child: const Text(
-                                            'Physical Condition',
-                                            textAlign: TextAlign.start,
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 20.0,
-                                                fontFamily: 'Comfortaa',
-                                                fontWeight: FontWeight.bold),
+                                          alignment: Alignment
+                                              .topCenter,
+                                          child: const Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .center,
+                                            children: [
+                                              Icon(
+                                                Icons.personal_injury,
+                                                size: 35,
+                                              ),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                'Physical Condition',
+                                                textAlign:
+                                                    TextAlign
+                                                        .start,
+                                                style: TextStyle(
+                                                    color: Colors
+                                                        .black,
+                                                    fontSize:
+                                                        20.0,
+                                                    fontFamily:
+                                                        'Comfortaa',
+                                                    fontWeight:
+                                                        FontWeight
+                                                            .bold),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                         const SizedBox(height: 30),
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                        Row(
                                           children: <Widget>[
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Container(
-                                                  alignment: Alignment.centerLeft,
-                                                  padding:
-                                                    const EdgeInsets.only(
-                                                        left: 20),
-                                                  child: const Text(
+                                            const Expanded(
+                                              flex: 1,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment
+                                                        .start,
+                                                children: <Widget>[
+                                                  Text(
                                                     'Injury',
-                                                    textAlign: TextAlign.left,
                                                     style: TextStyle(
-                                                      fontSize: 15,
-                                                      fontWeight:FontWeight.bold,
-                                                      color: Colors.black),
+                                                        fontWeight: FontWeight
+                                                            .bold,
+                                                        fontSize:
+                                                            15),
                                                   ),
-                                                ),
-                                                const SizedBox(height: 5),
-                                                Container(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 20),
-                                                  child: Text(
-                                                    physical!.currentInjury,
-                                                    textAlign: TextAlign.left,
-                                                    style: const TextStyle(
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        color: Colors.black),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 10),
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Container(
-                                                  alignment: Alignment.centerLeft,
-                                                  padding:
-                                                    const EdgeInsets.only(
-                                                        left: 20),
-                                                  child: const Text(
+                                                  SizedBox(
+                                                      height:
+                                                          10),
+                                                  Text(
                                                     'Details',
-                                                    textAlign: TextAlign.left,
                                                     style: TextStyle(
-                                                      fontSize: 15,
-                                                      fontWeight:FontWeight.bold,
-                                                      color: Colors.black),
+                                                        fontWeight: FontWeight
+                                                            .bold,
+                                                        fontSize:
+                                                            15),
                                                   ),
-                                                ),
-                                                const SizedBox(height: 5),
-                                                Container(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 20),
-                                                  child: Text(
-                                                    physical.details,
-                                                    textAlign: TextAlign.left,
-                                                    style: const TextStyle(
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        color: Colors.black),
-                                                  ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
+                                            const SizedBox(
+                                                width: 20),
+                                            Expanded(
+                                              flex: 2,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment
+                                                        .start,
+                                                children: <Widget>[
+                                                  Text(
+                                                    ': ${physical?.currentInjury}',
+                                                    style: const TextStyle(
+                                                        fontSize:
+                                                            15),
+                                                  ),
+                                                  const SizedBox(
+                                                      height:
+                                                          10),
+                                                  Text(
+                                                    ': ${physical?.details}',
+                                                    style: const TextStyle(
+                                                        fontSize:
+                                                            15),
+                                                  ),
+                                                ],
+                                              ),
+                                            )
                                           ],
                                         )
                                       ],

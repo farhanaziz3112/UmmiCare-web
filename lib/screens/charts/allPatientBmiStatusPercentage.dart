@@ -37,25 +37,21 @@ class _allPatientBmiStatusPercentageState
               if(snapshot.hasData){
                 List<BmiModel>? bmi = snapshot.data;
                 return SfCircularChart(
-                  title: ChartTitle(
-                    text: 'Patients BMI Status Percentage',
-                    textStyle: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 20)),
-                    tooltipBehavior: _tooltipBehavior,
-                    series: <CircularSeries>[
-                      PieSeries<BmiData, String>(
-                        dataSource: getBmiData(patient!, bmi!),
-                        radius: '100%',
-                        pointColorMapper: (BmiData data, _) =>
-                            data.color,
-                        xValueMapper: (BmiData data, _) => data.status,
-                        yValueMapper: (BmiData data, _) => data.data,
-                        dataLabelSettings: const DataLabelSettings(
-                            // Renders the data label
-                            isVisible: true,
-                            textStyle:
-                                TextStyle(fontSize: 20, color: Colors.white)))
-                    ],
+                  tooltipBehavior: _tooltipBehavior,
+                  series: <CircularSeries>[
+                    PieSeries<BmiData, String>(
+                      dataSource: getBmiData(patient!, bmi!),
+                      radius: '100%',
+                      pointColorMapper: (BmiData data, _) =>
+                          data.color,
+                      xValueMapper: (BmiData data, _) => data.status,
+                      yValueMapper: (BmiData data, _) => data.data,
+                      dataLabelSettings: const DataLabelSettings(
+                          // Renders the data label
+                          isVisible: true,
+                          textStyle:
+                              TextStyle(fontSize: 20, color: Colors.white)))
+                  ],
                 );
               } else {
                 return Container();

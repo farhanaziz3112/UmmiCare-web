@@ -41,7 +41,7 @@ class _staffVerificationState extends State<staffVerification> {
                   child: const teacherHome(currentPage: 0));
             } else if (staff.staffUserType == 'medicalstaff') {
               return StreamProvider<medicalStaffModel?>.value(
-                  value: medicalStaffDatabase(medicalStaffId: staff.staffId).medicalStaffData,
+                  value: medicalStaffDatabase().medicalStaffData(staff.staffId),
                   initialData: null,
                   catchError: (_, __) {
                     return null;

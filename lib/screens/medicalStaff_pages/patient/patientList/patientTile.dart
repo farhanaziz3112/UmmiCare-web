@@ -24,6 +24,11 @@ class _patientTileState extends State<patientTile> {
           .patientData(widget.patientDetail.patientId),
       builder: ((context, snapshot) {
         if (snapshot.hasData) {
+          if (snapshot.hasError) {
+  return Container(
+    child: Text('Error: ${snapshot.error}'),
+  );
+}
           patientModel? patient = snapshot.data;
           if (widget.patientColorIndex == 0) {
             return InkWell(

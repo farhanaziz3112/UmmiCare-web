@@ -18,7 +18,7 @@ class _medicalStaffHomeProfileState extends State<medicalStaffHomeProfile> {
     userModel? user = Provider.of<userModel?>(context);
 
     return StreamBuilder(
-        stream: medicalStaffDatabase(medicalStaffId: user!.userId).medicalStaffData,
+        stream: medicalStaffDatabase().medicalStaffData(user!.userId),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             medicalStaffModel? doc = snapshot.data;

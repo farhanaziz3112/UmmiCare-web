@@ -860,7 +860,7 @@ class _patientProfileState extends State<patientProfile> {
                               child: Center(
                                 child: ElevatedButton.icon(
                                   icon: const Icon(
-                                    Icons.health_and_safety,
+                                    Icons.medical_information,
                                     size: 50.0,
                                     color: Colors.white,
                                   ),

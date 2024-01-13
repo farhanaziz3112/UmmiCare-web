@@ -26,7 +26,7 @@ class _registerNewClinicState extends State<registerNewClinic> {
     userModel? user = Provider.of<userModel?>(context);
 
     return StreamProvider<medicalStaffModel?>.value(
-      value: medicalStaffDatabase(medicalStaffId: user!.userId).medicalStaffData,
+      value: medicalStaffDatabase().medicalStaffData(user!.userId),
       initialData: null,
       catchError: (_, __) {
         return null;
@@ -135,7 +135,7 @@ class _registerNewClinicState extends State<registerNewClinic> {
               ),
               const SizedBox(height: 20),
               StreamBuilder<List<ClinicModel>>(
-                stream: medicalStaffDatabase(medicalStaffId: user.userId).allClinicData,
+                stream: medicalStaffDatabase().allClinicData,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     List<ClinicModel>? clinics = snapshot.data;

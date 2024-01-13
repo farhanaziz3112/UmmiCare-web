@@ -2,15 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ummicare/models/medicalStaffModel.dart';
 
 class medicalStaffDatabase {
-
-  final String medicalStaffId;
-  medicalStaffDatabase({required this.medicalStaffId});
-
   final CollectionReference medicalStaffCollection =
       FirebaseFirestore.instance.collection('Medical Staff');
 
   //get specific medicalStaff document stream
-  Stream<medicalStaffModel> get medicalStaffData {
+  Stream<medicalStaffModel> medicalStaffData(String medicalStaffId) {
     return medicalStaffCollection.doc(medicalStaffId).snapshots().map(_createMedicalStaffModelObject);
   }
 
@@ -168,11 +164,13 @@ class medicalStaffDatabase {
     String clinicId,
     String clinicName,
     String clinicAddress,
-    String clinicPhoneNumber) async {
+    String clinicPhoneNumber,
+    String clinicEmail) async {
     return await clinicCollection.doc(clinicId).set({
       'clinicName': clinicName,
       'clinicAddress': clinicAddress,
       'clinicPhoneNumber': clinicPhoneNumber,
+      'clinicEmail': clinicEmail,
     });
   }
 
@@ -180,13 +178,15 @@ class medicalStaffDatabase {
   Future<void> createClinicData(
     String clinicName,
     String clinicAddress,
-    String clinicPhoneNumber) async {
+    String clinicPhoneNumber,
+    String clinicEmail) async {
     final document = clinicCollection.doc();
     return await clinicCollection.doc(document.id).set({
       'clinicId': document.id,
       'clinicName': clinicName,
       'clinicAddress': clinicAddress,
       'clinicPhoneNumber': clinicPhoneNumber,
+      'clinicEmail': clinicEmail,
     });
   }
 

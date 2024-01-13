@@ -458,7 +458,7 @@ class _pendingStaffProfilePageState extends State<pendingStaffProfilePage> {
                                                 staff.staffProfileImg,
                                                 '');
                                       } else {
-                                        medicalStaffDatabase(medicalStaffId: '')
+                                        medicalStaffDatabase()
                                             .updateMedicalStaffData(
                                                 staff.staffId,
                                                 staff.staffCreatedDate,

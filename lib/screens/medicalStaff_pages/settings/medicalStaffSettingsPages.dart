@@ -73,7 +73,7 @@ class _medicalStaffSettingsPagesState extends State<medicalStaffSettingsPages> {
               ),
               SizedBox(width: 10),
               StreamBuilder<medicalStaffModel>(
-                  stream: medicalStaffDatabase(medicalStaffId: user!.userId).medicalStaffData,
+                  stream: medicalStaffDatabase().medicalStaffData(user!.userId),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       medicalStaffModel? medicalStaff = snapshot.data;
@@ -119,7 +119,7 @@ class _medicalStaffSettingsPagesState extends State<medicalStaffSettingsPages> {
             Container(
                 width: 300,
                 color: const Color(0xff71CBCA),
-                child: medicalStaffLeftPane(selected: page)),
+                child: medicalStaffLeftPane(selected: 2)),
             Expanded(
               child: Container(
                   padding:
