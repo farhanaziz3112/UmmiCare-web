@@ -68,7 +68,7 @@ class _medicalStaffDashboardState extends State<medicalStaffDashboard> {
                   Container(
                     alignment: Alignment.centerLeft,
                     child: const Text(
-                      'User Statistics',
+                      'Clinic Statistics',
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 40.0,
