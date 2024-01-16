@@ -2,9 +2,16 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ummicare/models/academicCalendarModel.dart';
+import 'package:ummicare/models/childModel.dart';
+import 'package:ummicare/models/parentModel.dart';
 import 'package:ummicare/models/schoolModel.dart';
+import 'package:ummicare/models/studentModel.dart';
 import 'package:ummicare/services/academicCalendarDatabase.dart';
+import 'package:ummicare/services/childDatabase.dart';
+import 'package:ummicare/services/notificationDatabase.dart';
+import 'package:ummicare/services/parentDatabase.dart';
 import 'package:ummicare/services/schoolDatabase.dart';
+import 'package:ummicare/services/studentDatabase.dart';
 import 'package:ummicare/shared/constant.dart';
 import 'package:ummicare/shared/function.dart';
 import 'package:ummicare/shared/loading.dart';
@@ -114,217 +121,256 @@ class _announcementMainState extends State<announcementMain> {
                               ),
                             ),
                             const SizedBox(height: 30),
-                            Container(
-                              alignment: Alignment.topLeft,
-                              child: ElevatedButton.icon(
-                                icon: const Icon(
-                                  Icons.campaign,
-                                  size: 24.0,
-                                  color: Colors.white,
-                                ),
-                                style: OutlinedButton.styleFrom(
-                                  backgroundColor: const Color(0xffF29180),
-                                  fixedSize: const Size(250, 50),
-                                  alignment: Alignment.center,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5),
-                                      side: BorderSide.none),
-                                ),
-                                onPressed: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        final _formKey = GlobalKey<FormState>();
-
-                                        String title = '';
-                                        String description = '';
-
-                                        return Form(
-                                          key: _formKey,
-                                          child: StatefulBuilder(
-                                            builder: (stfContext, stfSetState) {
-                                              return AlertDialog(
-                                                scrollable: true,
-                                                title: const Padding(
-                                                  padding: EdgeInsets.all(10.0),
-                                                  child:
-                                                      Text('Add Announcement'),
-                                                ),
-                                                content: SizedBox(
-                                                  width: 500,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            10.0),
-                                                    child: Column(
-                                                      children: <Widget>[
-                                                        Container(
-                                                          alignment: Alignment
-                                                              .centerLeft,
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  left: 20.0),
-                                                          child: const Text(
-                                                            'Title',
-                                                            textAlign:
-                                                                TextAlign.left,
-                                                            style: TextStyle(
-                                                              fontSize: 15.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.black,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 5.0,
-                                                        ),
-                                                        TextFormField(
-                                                          initialValue: title,
-                                                          decoration:
-                                                              textInputDecoration
-                                                                  .copyWith(
-                                                                      hintText:
-                                                                          'Title'),
-                                                          validator: (value) =>
-                                                              value == ''
-                                                                  ? 'Please enter title'
-                                                                  : null,
-                                                          onChanged: (value) =>
-                                                              setState(() =>
-                                                                  title =
-                                                                      value),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 20.0,
-                                                        ),
-                                                        Container(
-                                                          alignment: Alignment
-                                                              .centerLeft,
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  left: 20.0),
-                                                          child: const Text(
-                                                            'Description',
-                                                            textAlign:
-                                                                TextAlign.left,
-                                                            style: TextStyle(
-                                                              fontSize: 15.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.black,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 5.0,
-                                                        ),
-                                                        TextFormField(
-                                                          initialValue:
-                                                              description,
-                                                          maxLines: 5,
-                                                          minLines: 1,
-                                                          maxLength: 200,
-                                                          decoration:
-                                                              textInputDecoration
-                                                                  .copyWith(
-                                                                      hintText:
-                                                                          'Description'),
-                                                          validator: (value) =>
-                                                              value == ''
-                                                                  ? 'Please enter description'
-                                                                  : null,
-                                                          onChanged: (value) =>
-                                                              setState(() =>
-                                                                  description =
-                                                                      value),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 20.0,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                                actions: [
-                                                  ElevatedButton(
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      backgroundColor:
-                                                          const Color(
-                                                              0xffF29180),
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5)),
-                                                    ),
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                    child: const Text("Cancel",
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white)),
-                                                  ),
-                                                  ElevatedButton(
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      backgroundColor:
-                                                          const Color(
-                                                              0xff8290F0),
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5)),
-                                                    ),
-                                                    onPressed: () {
-                                                      if (_formKey.currentState!
-                                                          .validate()) {
-                                                        DateTime createdAt =
-                                                            DateTime.now();
-                                                        academicCalendarDatabase()
-                                                            .createClassAnnouncementData(
-                                                                academicCalendar
-                                                                    .academicCalendarId,
-                                                                title,
-                                                                description,
-                                                                createdAt
-                                                                    .millisecondsSinceEpoch
-                                                                    .toString());
-                                                        Navigator.of(context)
-                                                            .pop();
+                            StreamBuilder<List<studentModel>>(
+                                stream: studentDatabase()
+                                    .allStudentWithAcademicCalendarAndStatus(
+                                        academicCalendar.academicCalendarId,
+                                        'active'),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    List<studentModel>? students =
+                                        snapshot.data;
+                                    return StreamBuilder<List<childModel>>(
+                                        stream:
+                                            childDatabase(childId: '').allChild,
+                                        builder: (context, snapshot) {
+                                          if (snapshot.hasData) {
+                                            List<childModel>? childs =
+                                                snapshot.data;
+                                            return StreamBuilder<
+                                                    List<parentModel>>(
+                                                stream:
+                                                    parentDatabase(parentId: '')
+                                                        .allParentData,
+                                                builder: (context, snapshot) {
+                                                  if (snapshot.hasData) {
+                                                    List<parentModel>? parents =
+                                                        snapshot.data;
+                                                    List<parentModel>
+                                                        finalListParent = [];
+                                                    List<childModel>
+                                                        finalListChild = [];
+                                                    for (int i = 0;
+                                                        i < students!.length;
+                                                        i++) {
+                                                      for (int j = 0;
+                                                          j < childs!.length;
+                                                          j++) {
+                                                        if (childs[j].childId ==
+                                                            students[i]
+                                                                .childId) {
+                                                          for (int k = 0;
+                                                              k <
+                                                                  parents!
+                                                                      .length;
+                                                              k++) {
+                                                            if (parents[k]
+                                                                    .parentId ==
+                                                                childs[j]
+                                                                    .parentId) {
+                                                              finalListParent
+                                                                  .add(parents[
+                                                                      k]);
+                                                              finalListChild
+                                                                  .add(childs[
+                                                                      j]);
+                                                            }
+                                                          }
+                                                        }
                                                       }
-                                                    },
-                                                    child: const Text("Confirm",
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white)),
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          ),
-                                        );
-                                      });
-                                },
-                                label: const Text(
-                                  'Add New Announcement',
-                                  style: TextStyle(
-                                      fontSize: 15.0, color: Colors.white),
-                                ),
-                              ),
-                            ),
+                                                    }
+                                                    return Container(
+                                                      alignment:
+                                                          Alignment.topLeft,
+                                                      child:
+                                                          ElevatedButton.icon(
+                                                        icon: const Icon(
+                                                          Icons.campaign,
+                                                          size: 24.0,
+                                                          color: Colors.white,
+                                                        ),
+                                                        style: OutlinedButton
+                                                            .styleFrom(
+                                                          backgroundColor:
+                                                              const Color(
+                                                                  0xffF29180),
+                                                          fixedSize: const Size(
+                                                              250, 50),
+                                                          alignment:
+                                                              Alignment.center,
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          5),
+                                                              side: BorderSide
+                                                                  .none),
+                                                        ),
+                                                        onPressed: () {
+                                                          showDialog(
+                                                              context: context,
+                                                              builder:
+                                                                  (BuildContext
+                                                                      context) {
+                                                                final _formKey =
+                                                                    GlobalKey<
+                                                                        FormState>();
+
+                                                                String title =
+                                                                    '';
+                                                                String
+                                                                    description =
+                                                                    '';
+
+                                                                return Form(
+                                                                  key: _formKey,
+                                                                  child:
+                                                                      StatefulBuilder(
+                                                                    builder:
+                                                                        (stfContext,
+                                                                            stfSetState) {
+                                                                      return AlertDialog(
+                                                                        scrollable:
+                                                                            true,
+                                                                        title:
+                                                                            const Padding(
+                                                                          padding:
+                                                                              EdgeInsets.all(10.0),
+                                                                          child:
+                                                                              Text('Add Announcement'),
+                                                                        ),
+                                                                        content:
+                                                                            SizedBox(
+                                                                          width:
+                                                                              500,
+                                                                          child:
+                                                                              Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.all(10.0),
+                                                                            child:
+                                                                                Column(
+                                                                              children: <Widget>[
+                                                                                Container(
+                                                                                  alignment: Alignment.centerLeft,
+                                                                                  padding: const EdgeInsets.only(left: 20.0),
+                                                                                  child: const Text(
+                                                                                    'Title',
+                                                                                    textAlign: TextAlign.left,
+                                                                                    style: TextStyle(
+                                                                                      fontSize: 15.0,
+                                                                                      fontWeight: FontWeight.bold,
+                                                                                      color: Colors.black,
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                                const SizedBox(
+                                                                                  height: 5.0,
+                                                                                ),
+                                                                                TextFormField(
+                                                                                  initialValue: title,
+                                                                                  decoration: textInputDecoration.copyWith(hintText: 'Title'),
+                                                                                  validator: (value) => value == '' ? 'Please enter title' : null,
+                                                                                  onChanged: (value) => setState(() => title = value),
+                                                                                ),
+                                                                                const SizedBox(
+                                                                                  height: 20.0,
+                                                                                ),
+                                                                                Container(
+                                                                                  alignment: Alignment.centerLeft,
+                                                                                  padding: const EdgeInsets.only(left: 20.0),
+                                                                                  child: const Text(
+                                                                                    'Description',
+                                                                                    textAlign: TextAlign.left,
+                                                                                    style: TextStyle(
+                                                                                      fontSize: 15.0,
+                                                                                      fontWeight: FontWeight.bold,
+                                                                                      color: Colors.black,
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                                const SizedBox(
+                                                                                  height: 5.0,
+                                                                                ),
+                                                                                TextFormField(
+                                                                                  initialValue: description,
+                                                                                  maxLines: 5,
+                                                                                  minLines: 1,
+                                                                                  maxLength: 200,
+                                                                                  decoration: textInputDecoration.copyWith(hintText: 'Description'),
+                                                                                  validator: (value) => value == '' ? 'Please enter description' : null,
+                                                                                  onChanged: (value) => setState(() => description = value),
+                                                                                ),
+                                                                                const SizedBox(
+                                                                                  height: 20.0,
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        actions: [
+                                                                          ElevatedButton(
+                                                                            style:
+                                                                                ElevatedButton.styleFrom(
+                                                                              backgroundColor: const Color(0xffF29180),
+                                                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                                                            ),
+                                                                            onPressed:
+                                                                                () {
+                                                                              Navigator.of(context).pop();
+                                                                            },
+                                                                            child:
+                                                                                const Text("Cancel", style: TextStyle(color: Colors.white)),
+                                                                          ),
+                                                                          ElevatedButton(
+                                                                            style:
+                                                                                ElevatedButton.styleFrom(
+                                                                              backgroundColor: const Color(0xff8290F0),
+                                                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                                                            ),
+                                                                            onPressed:
+                                                                                () {
+                                                                              if (_formKey.currentState!.validate()) {
+                                                                                DateTime createdAt = DateTime.now();
+                                                                                academicCalendarDatabase().createClassAnnouncementData(academicCalendar.academicCalendarId, title, description, createdAt.millisecondsSinceEpoch.toString());
+
+                                                                                for (int i = 0; i < finalListParent.length; i++) {
+                                                                                  notificationDatabase().createNotificationData(finalListParent[i].parentId, finalListChild[i].childId, 'education', 'Announcement (${classDetail.className} ${classDetail.classYear}): ${title}', description, 'unseen', DateTime.now().millisecondsSinceEpoch.toString());
+                                                                                }
+
+                                                                                Navigator.of(context).pop();
+                                                                              }
+                                                                            },
+                                                                            child:
+                                                                                const Text("Confirm", style: TextStyle(color: Colors.white)),
+                                                                          ),
+                                                                        ],
+                                                                      );
+                                                                    },
+                                                                  ),
+                                                                );
+                                                              });
+                                                        },
+                                                        label: const Text(
+                                                          'Add New Announcement',
+                                                          style: TextStyle(
+                                                              fontSize: 15.0,
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  } else {
+                                                    return Container();
+                                                  }
+                                                });
+                                          } else {
+                                            return Container();
+                                          }
+                                        });
+                                  } else {
+                                    return Container();
+                                  }
+                                }),
                             const SizedBox(
                               height: 50.0,
                             ),
@@ -658,7 +704,10 @@ class _announcementMainState extends State<announcementMain> {
                                           }),
                                         );
                                       } else {
-                                        return const Text('The list is empty');
+                                        return Center(
+                                          child:
+                                              noData('Oops! Nothing here...'),
+                                        );
                                       }
                                     },
                                   ),
@@ -771,217 +820,254 @@ class _announcementMainState extends State<announcementMain> {
                               ),
                             ),
                             const SizedBox(height: 30),
-                            Container(
-                              alignment: Alignment.topLeft,
-                              child: ElevatedButton.icon(
-                                icon: const Icon(
-                                  Icons.campaign,
-                                  size: 24.0,
-                                  color: Colors.white,
-                                ),
-                                style: OutlinedButton.styleFrom(
-                                  backgroundColor: const Color(0xffF29180),
-                                  fixedSize: const Size(250, 50),
-                                  alignment: Alignment.center,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5),
-                                      side: BorderSide.none),
-                                ),
-                                onPressed: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        final _formKey = GlobalKey<FormState>();
-
-                                        String title = '';
-                                        String description = '';
-
-                                        return Form(
-                                          key: _formKey,
-                                          child: StatefulBuilder(
-                                            builder: (stfContext, stfSetState) {
-                                              return AlertDialog(
-                                                scrollable: true,
-                                                title: const Padding(
-                                                  padding: EdgeInsets.all(10.0),
-                                                  child:
-                                                      Text('Add Announcement'),
-                                                ),
-                                                content: SizedBox(
-                                                  width: 500,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            10.0),
-                                                    child: Column(
-                                                      children: <Widget>[
-                                                        Container(
-                                                          alignment: Alignment
-                                                              .centerLeft,
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  left: 20.0),
-                                                          child: const Text(
-                                                            'Title',
-                                                            textAlign:
-                                                                TextAlign.left,
-                                                            style: TextStyle(
-                                                              fontSize: 15.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.black,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 5.0,
-                                                        ),
-                                                        TextFormField(
-                                                          initialValue: title,
-                                                          decoration:
-                                                              textInputDecoration
-                                                                  .copyWith(
-                                                                      hintText:
-                                                                          'Title'),
-                                                          validator: (value) =>
-                                                              value == ''
-                                                                  ? 'Please enter title'
-                                                                  : null,
-                                                          onChanged: (value) =>
-                                                              setState(() =>
-                                                                  title =
-                                                                      value),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 20.0,
-                                                        ),
-                                                        Container(
-                                                          alignment: Alignment
-                                                              .centerLeft,
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  left: 20.0),
-                                                          child: const Text(
-                                                            'Description',
-                                                            textAlign:
-                                                                TextAlign.left,
-                                                            style: TextStyle(
-                                                              fontSize: 15.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.black,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 5.0,
-                                                        ),
-                                                        TextFormField(
-                                                          initialValue:
-                                                              description,
-                                                          maxLines: 5,
-                                                          minLines: 1,
-                                                          maxLength: 200,
-                                                          decoration:
-                                                              textInputDecoration
-                                                                  .copyWith(
-                                                                      hintText:
-                                                                          'Description'),
-                                                          validator: (value) =>
-                                                              value == ''
-                                                                  ? 'Please enter description'
-                                                                  : null,
-                                                          onChanged: (value) =>
-                                                              setState(() =>
-                                                                  description =
-                                                                      value),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 20.0,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                                actions: [
-                                                  ElevatedButton(
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      backgroundColor:
-                                                          const Color(
-                                                              0xffF29180),
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5)),
-                                                    ),
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                    child: const Text("Cancel",
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white)),
-                                                  ),
-                                                  ElevatedButton(
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      backgroundColor:
-                                                          const Color(
-                                                              0xff8290F0),
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5)),
-                                                    ),
-                                                    onPressed: () {
-                                                      if (_formKey.currentState!
-                                                          .validate()) {
-                                                        DateTime createdAt =
-                                                            DateTime.now();
-                                                        academicCalendarDatabase()
-                                                            .createClassAnnouncementData(
-                                                                academicCalendar
-                                                                    .academicCalendarId,
-                                                                title,
-                                                                description,
-                                                                createdAt
-                                                                    .millisecondsSinceEpoch
-                                                                    .toString());
-                                                        Navigator.of(context)
-                                                            .pop();
+                            StreamBuilder<List<studentModel>>(
+                                stream: studentDatabase()
+                                    .allStudentWithAcademicCalendarAndStatus(
+                                        academicCalendar.academicCalendarId,
+                                        'active'),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    List<studentModel>? students =
+                                        snapshot.data;
+                                    return StreamBuilder<List<childModel>>(
+                                        stream:
+                                            childDatabase(childId: '').allChild,
+                                        builder: (context, snapshot) {
+                                          if (snapshot.hasData) {
+                                            List<childModel>? childs =
+                                                snapshot.data;
+                                            return StreamBuilder<
+                                                    List<parentModel>>(
+                                                stream:
+                                                    parentDatabase(parentId: '')
+                                                        .allParentData,
+                                                builder: (context, snapshot) {
+                                                  if (snapshot.hasData) {
+                                                    List<parentModel>? parents =
+                                                        snapshot.data;
+                                                    List<parentModel>
+                                                        finalListParent = [];
+                                                    List<childModel>
+                                                        finalListChild = [];
+                                                    for (int i = 0;
+                                                        i < students!.length;
+                                                        i++) {
+                                                      for (int j = 0;
+                                                          j < childs!.length;
+                                                          j++) {
+                                                        if (childs[j].childId ==
+                                                            students[i]
+                                                                .childId) {
+                                                          for (int k = 0;
+                                                              k <
+                                                                  parents!
+                                                                      .length;
+                                                              k++) {
+                                                            if (parents[k]
+                                                                    .parentId ==
+                                                                childs[j]
+                                                                    .parentId) {
+                                                              finalListParent
+                                                                  .add(parents[
+                                                                      k]);
+                                                              finalListChild
+                                                                  .add(childs[
+                                                                      j]);
+                                                            }
+                                                          }
+                                                        }
                                                       }
-                                                    },
-                                                    child: const Text("Confirm",
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white)),
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          ),
-                                        );
-                                      });
-                                },
-                                label: const Text(
-                                  'Add New Announcement',
-                                  style: TextStyle(
-                                      fontSize: 15.0, color: Colors.white),
-                                ),
-                              ),
-                            ),
+                                                    }
+                                                    return Container(
+                                                      alignment:
+                                                          Alignment.topLeft,
+                                                      child:
+                                                          ElevatedButton.icon(
+                                                        icon: const Icon(
+                                                          Icons.campaign,
+                                                          size: 24.0,
+                                                          color: Colors.white,
+                                                        ),
+                                                        style: OutlinedButton
+                                                            .styleFrom(
+                                                          backgroundColor:
+                                                              const Color(
+                                                                  0xffF29180),
+                                                          fixedSize: const Size(
+                                                              250, 50),
+                                                          alignment:
+                                                              Alignment.center,
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          5),
+                                                              side: BorderSide
+                                                                  .none),
+                                                        ),
+                                                        onPressed: () {
+                                                          showDialog(
+                                                              context: context,
+                                                              builder:
+                                                                  (BuildContext
+                                                                      context) {
+                                                                final _formKey =
+                                                                    GlobalKey<
+                                                                        FormState>();
+
+                                                                String title =
+                                                                    '';
+                                                                String
+                                                                    description =
+                                                                    '';
+
+                                                                return Form(
+                                                                  key: _formKey,
+                                                                  child:
+                                                                      StatefulBuilder(
+                                                                    builder:
+                                                                        (stfContext,
+                                                                            stfSetState) {
+                                                                      return AlertDialog(
+                                                                        scrollable:
+                                                                            true,
+                                                                        title:
+                                                                            const Padding(
+                                                                          padding:
+                                                                              EdgeInsets.all(10.0),
+                                                                          child:
+                                                                              Text('Add Announcement'),
+                                                                        ),
+                                                                        content:
+                                                                            SizedBox(
+                                                                          width:
+                                                                              500,
+                                                                          child:
+                                                                              Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.all(10.0),
+                                                                            child:
+                                                                                Column(
+                                                                              children: <Widget>[
+                                                                                Container(
+                                                                                  alignment: Alignment.centerLeft,
+                                                                                  padding: const EdgeInsets.only(left: 20.0),
+                                                                                  child: const Text(
+                                                                                    'Title',
+                                                                                    textAlign: TextAlign.left,
+                                                                                    style: TextStyle(
+                                                                                      fontSize: 15.0,
+                                                                                      fontWeight: FontWeight.bold,
+                                                                                      color: Colors.black,
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                                const SizedBox(
+                                                                                  height: 5.0,
+                                                                                ),
+                                                                                TextFormField(
+                                                                                  initialValue: title,
+                                                                                  decoration: textInputDecoration.copyWith(hintText: 'Title'),
+                                                                                  validator: (value) => value == '' ? 'Please enter title' : null,
+                                                                                  onChanged: (value) => setState(() => title = value),
+                                                                                ),
+                                                                                const SizedBox(
+                                                                                  height: 20.0,
+                                                                                ),
+                                                                                Container(
+                                                                                  alignment: Alignment.centerLeft,
+                                                                                  padding: const EdgeInsets.only(left: 20.0),
+                                                                                  child: const Text(
+                                                                                    'Description',
+                                                                                    textAlign: TextAlign.left,
+                                                                                    style: TextStyle(
+                                                                                      fontSize: 15.0,
+                                                                                      fontWeight: FontWeight.bold,
+                                                                                      color: Colors.black,
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                                const SizedBox(
+                                                                                  height: 5.0,
+                                                                                ),
+                                                                                TextFormField(
+                                                                                  initialValue: description,
+                                                                                  maxLines: 5,
+                                                                                  minLines: 1,
+                                                                                  maxLength: 200,
+                                                                                  decoration: textInputDecoration.copyWith(hintText: 'Description'),
+                                                                                  validator: (value) => value == '' ? 'Please enter description' : null,
+                                                                                  onChanged: (value) => setState(() => description = value),
+                                                                                ),
+                                                                                const SizedBox(
+                                                                                  height: 20.0,
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        actions: [
+                                                                          ElevatedButton(
+                                                                            style:
+                                                                                ElevatedButton.styleFrom(
+                                                                              backgroundColor: const Color(0xffF29180),
+                                                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                                                            ),
+                                                                            onPressed:
+                                                                                () {
+                                                                              Navigator.of(context).pop();
+                                                                            },
+                                                                            child:
+                                                                                const Text("Cancel", style: TextStyle(color: Colors.white)),
+                                                                          ),
+                                                                          ElevatedButton(
+                                                                            style:
+                                                                                ElevatedButton.styleFrom(
+                                                                              backgroundColor: const Color(0xff8290F0),
+                                                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                                                            ),
+                                                                            onPressed:
+                                                                                () {
+                                                                              if (_formKey.currentState!.validate()) {
+                                                                                DateTime createdAt = DateTime.now();
+                                                                                academicCalendarDatabase().createClassAnnouncementData(academicCalendar.academicCalendarId, title, description, createdAt.millisecondsSinceEpoch.toString());
+                                                                                for (int i = 0; i < finalListParent.length; i++) {
+                                                                                  notificationDatabase().createNotificationData(finalListParent[i].parentId, finalListChild[i].childId, 'education', 'Announcement (${classDetail.className} ${classDetail.classYear}): ${title}', description, 'unseen', DateTime.now().millisecondsSinceEpoch.toString());
+                                                                                }
+                                                                                Navigator.of(context).pop();
+                                                                              }
+                                                                            },
+                                                                            child:
+                                                                                const Text("Confirm", style: TextStyle(color: Colors.white)),
+                                                                          ),
+                                                                        ],
+                                                                      );
+                                                                    },
+                                                                  ),
+                                                                );
+                                                              });
+                                                        },
+                                                        label: const Text(
+                                                          'Add New Announcement',
+                                                          style: TextStyle(
+                                                              fontSize: 15.0,
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  } else {
+                                                    return Container();
+                                                  }
+                                                });
+                                          } else {
+                                            return Container();
+                                          }
+                                        });
+                                  } else {
+                                    return Container();
+                                  }
+                                }),
                             const SizedBox(
                               height: 50.0,
                             ),
@@ -1312,7 +1398,10 @@ class _announcementMainState extends State<announcementMain> {
                                           }),
                                         );
                                       } else {
-                                        return const Text('The list is empty');
+                                        return Center(
+                                          child:
+                                              noData('Oops! Nothing here...'),
+                                        );
                                       }
                                     },
                                   ),

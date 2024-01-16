@@ -74,7 +74,7 @@ class _classProfileState extends State<classProfile> {
                                 '${classDetail.classYear} : ${classDetail.className}',
                                 style: const TextStyle(
                                     color: Colors.black,
-                                    fontSize: 45.0,
+                                    fontSize: 35.0,
                                     fontFamily: 'Comfortaa',
                                     fontWeight: FontWeight.w500),
                               ),

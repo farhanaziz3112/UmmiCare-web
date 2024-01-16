@@ -22,13 +22,13 @@ class _feeTileState extends State<feeTile> {
           feeModel? fee = snapshot.data;
           return InkWell(
             onTap: () {
-              context.go('/teacher/class/${fee.academicCalendarId}/fee/${fee.feeId}');
+              context.go(
+                  '/teacher/class/${fee.academicCalendarId}/fee/${fee.feeId}');
             },
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(5.0),
               child: Container(
                 alignment: Alignment.centerLeft,
-                height: double.maxFinite,
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -43,41 +43,38 @@ class _feeTileState extends State<feeTile> {
                     ),
                   ],
                 ),
-                child: Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Center(
-                        child: Text(
-                          fee!.feeTitle,
-                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      const Text(
-                        'Fee Amount',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 5),
-                      Text('RM ${fee.feeAmount}'),
-                      const SizedBox(height: 10),
-                      const Text(
-                        'Fee Description',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 5),
-                      Text(fee.feeDescription),
-                      const SizedBox(height: 10),
-                      const Text(
-                        'Fee Deadline',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 5),
-                      Text(convertTimeToDateString(fee.feeDeadline)),
-                    ],
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      fee!.feeTitle,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 20),
+                      textAlign: TextAlign.start,
+                    ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Fee Amount',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 5),
+                    Text('RM ${fee.feeAmount}'),
+                    const SizedBox(height: 10),
+                    const Text(
+                      'Fee Description',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(fee.feeDescription),
+                    const SizedBox(height: 10),
+                    const Text(
+                      'Fee Deadline',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(convertTimeToDateString(fee.feeDeadline)),
+                  ],
                 ),
               ),
             ),

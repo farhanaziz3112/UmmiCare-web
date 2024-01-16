@@ -40,8 +40,7 @@ class _noOfStudentsBasedOnClassYearState
                   return SfCartesianChart(
                       title: ChartTitle(
                           text: 'Number of Students Per Class',
-                          textStyle: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20)),
+                          textStyle: const TextStyle(fontSize: 15)),
                       primaryXAxis: CategoryAxis(),
                       primaryYAxis:
                           NumericAxis(minimum: 0, maximum: 30, interval: 5),

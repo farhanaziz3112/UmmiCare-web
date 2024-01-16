@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:ummicare/models/schoolModel.dart';
 import 'package:ummicare/screens/adminPages/teacher/school/class/classTile.dart';
 import 'package:ummicare/services/schoolDatabase.dart';
+import 'package:ummicare/shared/constant.dart';
 
 class classList extends StatefulWidget {
   const classList({super.key, required this.schoolId});
@@ -20,7 +21,8 @@ class _classListState extends State<classList> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<classModel>? classList = snapshot.data;
-          if (classList!.isNotEmpty) {
+          classList!.sort((a, b) => b.classYear.compareTo(a.classYear));
+          if (classList.isNotEmpty) {
             return ListView.builder(
               shrinkWrap: true,
               itemCount: classList.length,
@@ -33,21 +35,13 @@ class _classListState extends State<classList> {
           } else {
             return Container(
               padding: const EdgeInsets.only(top: 50),
-              child: const Center(
-                child: Text(
-                  'The list is empty.',
-                ),
-              ),
+              child: Center(child: noData('Oops! Nothing here...')),
             );
           }
         } else {
           return Container(
             padding: const EdgeInsets.only(top: 50),
-            child: const Center(
-              child: Text(
-                'The list is empty.',
-              ),
-            ),
+            child: Center(child: noData('Oops! Nothing here...')),
           );
         }
       },

@@ -34,307 +34,55 @@ class _classTileState extends State<classTile> {
             builder: ((context, snapshot) {
               if (snapshot.hasData) {
                 classModel? classDetail = snapshot.data;
-                if (widget.colorIndex == 0) {
-                  return InkWell(
-                    onTap: () {
-                      context.go('/teacher/class/${academicCalendarDetail.academicCalendarId}');
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: double.maxFinite,
-                        padding: const EdgeInsets.fromLTRB(20, 30, 20, 50),
-                        decoration: BoxDecoration(
-                          color: const Color(0xff8290F0),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 5,
-                              offset: const Offset(
-                                  0, 3), // changes position of shadow
-                            ),
-                          ],
-                        ),
-                        child: Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                '${classDetail!.classYear}: ${classDetail.className}',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 20),
-                                textAlign: TextAlign.center,
-                              ),
-                              const SizedBox(height: 20),
-                              const Text(
-                                'Academic Calendar ID',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(academicCalendarDetail.academicCalendarId),
-                              const SizedBox(height: 10),
-                              const Text(
-                                'Class ID',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(classDetail.classId),
-                              const SizedBox(height: 10),
-                              const Text(
-                                'Number of Students',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(academicCalendarDetail.noOfStudent),
-                              const SizedBox(height: 10),
-                              const Text(
-                                'Starting Date',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(convertTimeToDateString(
-                                  academicCalendarDetail
-                                      .academicCalendarStartDate)),
-                              const SizedBox(height: 10),
-                              const Text(
-                                'Ending Date',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(convertTimeToDateString(
-                                  academicCalendarDetail
-                                      .academicCalendarEndDate)),
-                              const SizedBox(height: 10),
-                              const Text(
-                                'Subjects',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 10),
-                              Expanded(
-                                child: StreamBuilder<List<subjectModel>>(
-                                  stream: academicCalendarDatabase()
-                                      .allSubjectData(academicCalendarDetail
-                                          .academicCalendarId),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      return buildSubjectList(snapshot.data);
-                                    } else {
-                                      return const Loading();
-                                    }
-                                  },
-                                ),
-                              )
-                            ],
+                return InkWell(
+                  onTap: () {
+                    context.go(
+                        '/teacher/class/${academicCalendarDetail.academicCalendarId}');
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                      decoration: BoxDecoration(
+                        color: widget.colorIndex == 0
+                            ? const Color(0xff8290F0)
+                            : widget.colorIndex == 1
+                                ? const Color(0xff71CBCA)
+                                : const Color(0xffF29180),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            offset: const Offset(
+                                0, 3), // changes position of shadow
                           ),
-                        ),
+                        ],
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Icon(Icons.class_),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            '${classDetail!.classYear}: ',
+                            style: TextStyle(fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            classDetail.className,
+                            style: TextStyle(fontWeight: FontWeight.w900),
+                          ),
+                        ],
                       ),
                     ),
-                  );
-                } else if (widget.colorIndex == 1) {
-                  return InkWell(
-                    onTap: () {
-                      context.go('/teacher/class/${academicCalendarDetail.academicCalendarId}');
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: double.maxFinite,
-                        padding: const EdgeInsets.fromLTRB(20, 30, 20, 50),
-                        decoration: BoxDecoration(
-                          color: const Color(0xff71CBCA),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 5,
-                              offset: const Offset(
-                                  0, 3), // changes position of shadow
-                            ),
-                          ],
-                        ),
-                        child: Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                '${classDetail!.classYear}: ${classDetail.className}',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 20),
-                                textAlign: TextAlign.center,
-                              ),
-                              const SizedBox(height: 20),
-                              const Text(
-                                'Academic Calendar ID',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(academicCalendarDetail.academicCalendarId),
-                              const SizedBox(height: 10),
-                              const Text(
-                                'Class ID',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(classDetail.classId),
-                              const SizedBox(height: 10),
-                              const Text(
-                                'Number of Students',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(academicCalendarDetail.noOfStudent),
-                              const SizedBox(height: 10),
-                              const Text(
-                                'Starting Date',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(convertTimeToDateString(
-                                  academicCalendarDetail
-                                      .academicCalendarStartDate)),
-                              const SizedBox(height: 10),
-                              const Text(
-                                'Ending Date',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(convertTimeToDateString(
-                                  academicCalendarDetail
-                                      .academicCalendarEndDate)),
-                              const SizedBox(height: 10),
-                              const Text(
-                                'Subjects',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 10),
-                              Expanded(
-                                child: StreamBuilder<List<subjectModel>>(
-                                  stream: academicCalendarDatabase()
-                                      .allSubjectData(academicCalendarDetail
-                                          .academicCalendarId),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      return buildSubjectList(snapshot.data);
-                                    } else {
-                                      return const Loading();
-                                    }
-                                  },
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                } else {
-                  return InkWell(
-                    onTap: () {
-                      context.go('/teacher/class/${academicCalendarDetail.academicCalendarId}');
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: double.maxFinite,
-                        padding: const EdgeInsets.fromLTRB(20, 30, 20, 50),
-                        decoration: BoxDecoration(
-                          color: const Color(0xffF29180),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 5,
-                              offset: const Offset(
-                                  0, 3), // changes position of shadow
-                            ),
-                          ],
-                        ),
-                        child: Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                '${classDetail!.classYear}: ${classDetail.className}',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 20),
-                                textAlign: TextAlign.center,
-                              ),
-                              const SizedBox(height: 20),
-                              const Text(
-                                'Academic Calendar ID',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(academicCalendarDetail.academicCalendarId),
-                              const SizedBox(height: 10),
-                              const Text(
-                                'Class ID',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(classDetail.classId),
-                              const SizedBox(height: 10),
-                              const Text(
-                                'Number of Students',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(academicCalendarDetail.noOfStudent),
-                              const SizedBox(height: 10),
-                              const Text(
-                                'Starting Date',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(convertTimeToDateString(
-                                  academicCalendarDetail
-                                      .academicCalendarStartDate)),
-                              const SizedBox(height: 10),
-                              const Text(
-                                'Ending Date',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(convertTimeToDateString(
-                                  academicCalendarDetail
-                                      .academicCalendarEndDate)),
-                              const SizedBox(height: 10),
-                              const Text(
-                                'Subjects',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 10),
-                              Expanded(
-                                child: StreamBuilder<List<subjectModel>>(
-                                  stream: academicCalendarDatabase()
-                                      .allSubjectData(academicCalendarDetail
-                                          .academicCalendarId),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      return buildSubjectList(snapshot.data);
-                                    } else {
-                                      return const Loading();
-                                    }
-                                  },
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                }
+                  ),
+                );
               } else {
                 return Container(
                   child: const Text('no data'),

@@ -6,8 +6,6 @@ import 'package:ummicare/models/userModel.dart';
 import 'package:ummicare/screens/adminPages/adminLeftPane.dart';
 import 'package:ummicare/screens/adminPages/adminMainPane.dart';
 import 'package:ummicare/screens/adminPages/adminMenu.dart';
-import 'package:ummicare/screens/adminPages/advisor/announcement/advisorAnnouncement.dart';
-import 'package:ummicare/screens/adminPages/advisor/report/advisorReport.dart';
 import 'package:ummicare/screens/adminPages/advisor/staffPages/pendingAdvisor.dart';
 import 'package:ummicare/screens/adminPages/advisor/staffPages/rejectedAdvisor.dart';
 import 'package:ummicare/screens/adminPages/advisor/staffPages/verifiedAdvisor.dart';
@@ -26,8 +24,6 @@ class _adminAdvisorState extends State<adminAdvisor> {
     const pendingAdvisor(),
     const rejectedAdvisor(),
     const verifiedAdvisor(),
-    const advisorReport(),
-    const advisorAnnouncement(),
   ];
 
   bool viewMenu = false;

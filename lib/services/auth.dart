@@ -73,7 +73,7 @@ class AuthService {
           email,
           staffPhoneNumber,
           staffSupportingDocumentLink,
-          '',
+          staffProfileImg,
           isVerified);
       //return _userAuthObjectFromFirebase(user);
     } catch (e) {

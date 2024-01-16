@@ -26,6 +26,7 @@ import 'package:ummicare/services/schoolDatabase.dart';
 import 'package:ummicare/services/studentAttendanceDatabase.dart';
 import 'package:ummicare/services/studentDatabase.dart';
 import 'package:ummicare/services/teacherDatabase.dart';
+import 'package:ummicare/shared/constant.dart';
 import 'package:ummicare/shared/function.dart';
 
 class childProfile extends StatefulWidget {
@@ -1362,798 +1363,85 @@ class _childProfileState extends State<childProfile> {
                                                       height: 30,
                                                     ),
                                                     StreamBuilder<studentModel>(
-                                                      stream:
-                                                          studentDatabase().studentData(child.educationId),
-                                                      builder: (context, snapshot) {
-                                                        if (snapshot.hasData) {
-                                                          if (snapshot.data!.activationStatus == 'inactive') {
-                                                            return Container();
-                                                          } else {
-                                                            return Column(
-                                                              children: <Widget>[
-                                                                Container(
-                                                                  alignment: Alignment.topCenter,
-                                                                  child: const Row(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment.center,
-                                                                    children: [
-                                                                      Icon(
-                                                                        Icons.edit_note,
-                                                                        size: 35,
-                                                                      ),
-                                                                      SizedBox(
-                                                                        width: 10,
-                                                                      ),
-                                                                      Text(
-                                                                        'Examination Progress',
-                                                                        textAlign: TextAlign.start,
-                                                                        style: TextStyle(
-                                                                            color: Colors.black,
-                                                                            fontSize: 20.0,
-                                                                            fontFamily: 'Comfortaa',
-                                                                            fontWeight: FontWeight.bold),
-                                                                      ),
-                                                                    ],
+                                                        stream: studentDatabase()
+                                                            .studentData(child
+                                                                .educationId),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          if (snapshot
+                                                              .hasData) {
+                                                            if (snapshot.data!
+                                                                    .activationStatus ==
+                                                                'inactive') {
+                                                              return Container();
+                                                            } else {
+                                                              return Column(
+                                                                children: <Widget>[
+                                                                  Container(
+                                                                    alignment:
+                                                                        Alignment
+                                                                            .topCenter,
+                                                                    child:
+                                                                        const Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        Icon(
+                                                                          Icons
+                                                                              .edit_note,
+                                                                          size:
+                                                                              35,
+                                                                        ),
+                                                                        SizedBox(
+                                                                          width:
+                                                                              10,
+                                                                        ),
+                                                                        Text(
+                                                                          'Examination Progress',
+                                                                          textAlign:
+                                                                              TextAlign.start,
+                                                                          style: TextStyle(
+                                                                              color: Colors.black,
+                                                                              fontSize: 20.0,
+                                                                              fontFamily: 'Comfortaa',
+                                                                              fontWeight: FontWeight.bold),
+                                                                        ),
+                                                                      ],
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                                const SizedBox(
-                                                                  height: 50,
-                                                                ),
-                                                                SizedBox(
-                                                                  height: 500,
-                                                                  child: StreamBuilder<studentModel>(
-                                                                      stream: studentDatabase()
-                                                                          .studentData(child.educationId),
-                                                                      builder: (context, snapshot) {
-                                                                        if (snapshot.hasData) {
-                                                                          studentModel? student =
-                                                                              snapshot.data;
-                                                                          return childExaminationProgress(
-                                                                              studentId: child.educationId,
-                                                                              academicCalendarId: student!
-                                                                                  .academicCalendarId);
-                                                                        } else {
-                                                                          return Container();
-                                                                        }
-                                                                      }),
-                                                                ),
-                                                              ],
-                                                            );
-                                                          }
-                                                        } else {
-                                                          return Container();
-                                                        }
-                                                      }
-                                                    ),
-                                                    const SizedBox(height: 80),
-                                                    Container(
-                                                      alignment: Alignment.centerLeft,
-                                                      child: Text(
-                                                        '${child.childFirstname}\'s Health Module',
-                                                        style: const TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 30.0,
-                                                            fontFamily: 'Comfortaa',
-                                                            fontWeight: FontWeight.w500),
-                                                      ),
-                                                    ),
-                                                    const SizedBox(height: 30),
-                                                    child.healthId == ' '
-                                                    ? const Center(
-                                                        child: Text('No Data'),
-                                                      )
-                                                    : StreamBuilder<HealthModel>(
-                                                      stream: HealthDatabaseService().healthData(child.healthId),
-                                                      builder: (context, snapshot) {
-                                                        if(snapshot.hasData){
-                                                          HealthModel? health = snapshot.data;
-                                                          return StreamBuilder<patientModel>(
-                                                            stream: PatientDatabaseService()
-                                                                .patientData(health!.patientId),
-                                                            builder: (context, snapshot) {
-                                                              if (snapshot.hasData) {
-                                                                patientModel? patient = snapshot.data;
-                                                                return Column(
-                                                                  children: <Widget>[
-                                                                    Container(
-                                                                      alignment:
-                                                                          Alignment.center,
-                                                                      padding: const EdgeInsets
-                                                                          .fromLTRB(
-                                                                          20, 30, 20, 30),
-                                                                      decoration: BoxDecoration(
-                                                                        color: Colors.white,
-                                                                        border: Border.all(),
-                                                                        borderRadius:
-                                                                            const BorderRadius
-                                                                                .all(
-                                                                                Radius.circular(
-                                                                                    10)),
-                                                                        boxShadow: [
-                                                                          BoxShadow(
-                                                                            color: Colors.grey
-                                                                                .withOpacity(
-                                                                                    0.5),
-                                                                            spreadRadius: 1,
-                                                                            blurRadius: 5,
-                                                                            offset: const Offset(
-                                                                                0,
-                                                                                3), // changes position of shadow
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                      child: Column(
-                                                                        children: <Widget>[
-                                                                          Container(
-                                                                            alignment: Alignment
-                                                                                .topCenter,
-                                                                            child: const Row(
-                                                                              mainAxisAlignment:
-                                                                                  MainAxisAlignment
-                                                                                      .center,
-                                                                              children: [
-                                                                                Icon(
-                                                                                  Icons.health_and_safety,
-                                                                                  size: 35,
-                                                                                ),
-                                                                                SizedBox(
-                                                                                  width: 10,
-                                                                                ),
-                                                                                Text(
-                                                                                  'Health Details',
-                                                                                  textAlign:
-                                                                                      TextAlign
-                                                                                          .start,
-                                                                                  style: TextStyle(
-                                                                                      color: Colors
-                                                                                          .black,
-                                                                                      fontSize:
-                                                                                          20.0,
-                                                                                      fontFamily:
-                                                                                          'Comfortaa',
-                                                                                      fontWeight:
-                                                                                          FontWeight
-                                                                                              .bold),
-                                                                                ),
-                                                                              ],
-                                                                            ),
-                                                                          ),
-                                                                          const SizedBox(
-                                                                              height: 20),
-                                                                          Row(
-                                                                            children: <Widget>[
-                                                                              const Expanded(
-                                                                                flex: 1,
-                                                                                child: Column(
-                                                                                  crossAxisAlignment:
-                                                                                      CrossAxisAlignment
-                                                                                          .start,
-                                                                                  children: <Widget>[
-                                                                                    Text(
-                                                                                      'Clinic Name',
-                                                                                      style: TextStyle(
-                                                                                          fontWeight: FontWeight
-                                                                                              .bold,
-                                                                                          fontSize:
-                                                                                              15),
-                                                                                    ),
-                                                                                    SizedBox(
-                                                                                        height:
-                                                                                            10),
-                                                                                    Text(
-                                                                                      'BMI Status',
-                                                                                      style: TextStyle(
-                                                                                          fontWeight: FontWeight
-                                                                                              .bold,
-                                                                                          fontSize:
-                                                                                              15),
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              ),
-                                                                              const SizedBox(
-                                                                                  width: 20),
-                                                                              Expanded(
-                                                                                flex: 2,
-                                                                                child: Column(
-                                                                                  crossAxisAlignment:
-                                                                                      CrossAxisAlignment
-                                                                                          .start,
-                                                                                  children: <Widget>[
-                                                                                    StreamBuilder<ClinicModel>(
-                                                                                      stream: medicalStaffDatabase().clinicData(patient!.clinicId),
-                                                                                      builder: (context, snapshot) {
-                                                                                        if(snapshot.hasData){
-                                                                                          return Text(
-                                                                                            ': ${snapshot.data?.clinicName}',
-                                                                                            style: const TextStyle(
-                                                                                                fontSize:
-                                                                                                    15),
-                                                                                          );
-                                                                                        }else{
-                                                                                          return Container();
-                                                                                        }
-                                                                                      },
-                                                                                    ),
-                                                                                    const SizedBox(height:10),
-                                                                                    StreamBuilder<List<BmiHealthModel>>(
-                                                                                      stream: HealthDatabaseService().allBmiHealthData(patient.healthId),
-                                                                                      builder: (context, snapshot) {
-                                                                                        if(snapshot.hasData){
-                                                                                          List<BmiHealthModel>? bmi =
-                                                                                              snapshot.data;
-                                                                                          String bmiStatus = ' ';
-                                                                                          double lastBmiData =
-                                                                                              bmi![0].bmiData;
-                                                                                          if (lastBmiData < 16) {
-                                                                                            bmiStatus = "Severe Thinness";
-                                                                                          } else if (lastBmiData < 17) {
-                                                                                            bmiStatus =
-                                                                                                "Moderate Thinness";
-                                                                                          } else if (lastBmiData < 18.5) {
-                                                                                            bmiStatus = "Mild Thinness";
-                                                                                          } else if (lastBmiData < 25) {
-                                                                                            bmiStatus = "Normal";
-                                                                                          } else if (lastBmiData < 30) {
-                                                                                            bmiStatus = "Overweight";
-                                                                                          } else if (lastBmiData < 35) {
-                                                                                            bmiStatus = "Obese Class I";
-                                                                                          } else if (lastBmiData < 40) {
-                                                                                            bmiStatus = "Obese Class II";
-                                                                                          } else if (lastBmiData >= 40) {
-                                                                                            bmiStatus = "Obese Class III";
-                                                                                          } else {
-                                                                                            bmiStatus = "No Status";
-                                                                                          }
-                                                                                          return Text(
-                                                                                            ': ${bmiStatus}',
-                                                                                            style: const TextStyle(
-                                                                                                fontSize:
-                                                                                                    15),
-                                                                                          );
-                                                                                        }else{
-                                                                                          return Container();
-                                                                                        }
-                                                                                      },
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              )
-                                                                            ],
-                                                                          )
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    const SizedBox(
-                                                                      height: 20,
-                                                                    ),
-                                                                    Container(
-                                                                      alignment: Alignment.center,
-                                                                      decoration: BoxDecoration(
-                                                                        color: Colors.white,
-                                                                        border: Border.all(),
-                                                                        borderRadius:
-                                                                            const BorderRadius.all(
-                                                                                Radius.circular(10)),
-                                                                        boxShadow: [
-                                                                          BoxShadow(
-                                                                            color: Colors.grey
-                                                                                .withOpacity(0.5),
-                                                                            spreadRadius: 1,
-                                                                            blurRadius: 5,
-                                                                            offset: const Offset(0,
-                                                                                3), // changes position of shadow
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                      child: Column(
-                                                                        children: <Widget>[
-                                                                          SizedBox(
-                                                                              height: 200,
-                                                                              child: childBmi(
-                                                                                  healthId: patient
-                                                                                      .healthId)),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    const SizedBox(
-                                                                      height: 20,
-                                                                    ),
-                                                                    StreamBuilder<HealthStatusModel>(
-                                                                      stream: HealthDatabaseService().healthStatusData(patient.healthStatusId),
-                                                                      builder: (context, snapshot) {
-                                                                        if(snapshot.hasData){
-                                                                          HealthStatusModel? status = snapshot.data;
-                                                                          if(status?.healthConditionId != " "){
-                                                                            return StreamBuilder<HealthConditionModel>(
-                                                                              stream: HealthDatabaseService().healthConditionData(status!.healthConditionId),
-                                                                              builder: (context, snapshot) {
-                                                                                HealthConditionModel? condition = snapshot.data;
-                                                                                return Container(
-                                                                                  alignment: Alignment.center,
-                                                                                  padding: const EdgeInsets.fromLTRB(
-                                                                                      30, 30, 30, 30),
-                                                                                  decoration: BoxDecoration(
-                                                                                    color: Colors.white,
-                                                                                    border: Border.all(),
-                                                                                    borderRadius:
-                                                                                        const BorderRadius.all(
-                                                                                            Radius.circular(10)),
-                                                                                    boxShadow: [
-                                                                                      BoxShadow(
-                                                                                        color: Colors.grey
-                                                                                            .withOpacity(0.5),
-                                                                                        spreadRadius: 1,
-                                                                                        blurRadius: 5,
-                                                                                        offset: const Offset(0,
-                                                                                            3), // changes position of shadow
-                                                                                      ),
-                                                                                    ],
-                                                                                  ),
-                                                                                  child: Column(
-                                                                                    children: [
-                                                                                      Container(
-                                                                                        alignment: Alignment
-                                                                                            .topCenter,
-                                                                                        child: const Row(
-                                                                                          mainAxisAlignment:
-                                                                                              MainAxisAlignment
-                                                                                                  .center,
-                                                                                          children: [
-                                                                                            Icon(
-                                                                                              Icons.medical_information,
-                                                                                              size: 35,
-                                                                                            ),
-                                                                                            SizedBox(
-                                                                                              width: 10,
-                                                                                            ),
-                                                                                            Text(
-                                                                                              'Health Condition',
-                                                                                              textAlign:
-                                                                                                  TextAlign
-                                                                                                      .start,
-                                                                                              style: TextStyle(
-                                                                                                  color: Colors
-                                                                                                      .black,
-                                                                                                  fontSize:
-                                                                                                      20.0,
-                                                                                                  fontFamily:
-                                                                                                      'Comfortaa',
-                                                                                                  fontWeight:
-                                                                                                      FontWeight
-                                                                                                          .bold),
-                                                                                            ),
-                                                                                          ],
-                                                                                        ),
-                                                                                      ),
-                                                                                      const SizedBox(height: 30),
-                                                                                      Row(
-                                                                                        children: <Widget>[
-                                                                                          const Expanded(
-                                                                                            flex: 1,
-                                                                                            child: Column(
-                                                                                              crossAxisAlignment:
-                                                                                                  CrossAxisAlignment
-                                                                                                      .start,
-                                                                                              children: <Widget>[
-                                                                                                Text(
-                                                                                                  'Temperature',
-                                                                                                  style: TextStyle(
-                                                                                                      fontWeight: FontWeight
-                                                                                                          .bold,
-                                                                                                      fontSize:
-                                                                                                          15),
-                                                                                                ),
-                                                                                                SizedBox(
-                                                                                                    height:
-                                                                                                        10),
-                                                                                                Text(
-                                                                                                  'Heart Rate',
-                                                                                                  style: TextStyle(
-                                                                                                      fontWeight: FontWeight
-                                                                                                          .bold,
-                                                                                                      fontSize:
-                                                                                                          15),
-                                                                                                ),
-                                                                                                SizedBox(
-                                                                                                    height:
-                                                                                                        10),
-                                                                                                Text(
-                                                                                                  'Symptom',
-                                                                                                  style: TextStyle(
-                                                                                                      fontWeight: FontWeight
-                                                                                                          .bold,
-                                                                                                      fontSize:
-                                                                                                          15),
-                                                                                                ),
-                                                                                                SizedBox(
-                                                                                                    height:
-                                                                                                        10),
-                                                                                                Text(
-                                                                                                  'Illness',
-                                                                                                  style: TextStyle(
-                                                                                                      fontWeight: FontWeight
-                                                                                                          .bold,
-                                                                                                      fontSize:
-                                                                                                          15),
-                                                                                                ),
-                                                                                                SizedBox(
-                                                                                                    height:
-                                                                                                        10),
-                                                                                                Text(
-                                                                                                  'Notes',
-                                                                                                  style: TextStyle(
-                                                                                                      fontWeight: FontWeight
-                                                                                                          .bold,
-                                                                                                      fontSize:
-                                                                                                          15),
-                                                                                                ),
-                                                                                              ],
-                                                                                            ),
-                                                                                          ),
-                                                                                          const SizedBox(
-                                                                                              width: 20),
-                                                                                          Expanded(
-                                                                                            flex: 2,
-                                                                                            child: Column(
-                                                                                              crossAxisAlignment:
-                                                                                                  CrossAxisAlignment
-                                                                                                      .start,
-                                                                                              children: <Widget>[
-                                                                                                Text(
-                                                                                                  ': ${condition!.currentTemperature}',
-                                                                                                  style: const TextStyle(
-                                                                                                      fontSize:
-                                                                                                          15),
-                                                                                                ),
-                                                                                                const SizedBox(
-                                                                                                    height:
-                                                                                                        10),
-                                                                                                Text(
-                                                                                                  ': ${condition.currentHeartRate}',
-                                                                                                  style: const TextStyle(
-                                                                                                      fontSize:
-                                                                                                          15),
-                                                                                                ),
-                                                                                                const SizedBox(
-                                                                                                    height:
-                                                                                                        10),
-                                                                                                Text(
-                                                                                                  ': ${condition.currentSymptom}',
-                                                                                                  style: const TextStyle(
-                                                                                                      fontSize:
-                                                                                                          15),
-                                                                                                ),
-                                                                                                const SizedBox(
-                                                                                                    height:
-                                                                                                        10),
-                                                                                                Text(
-                                                                                                  ': ${condition.currentIllness}',
-                                                                                                  style: const TextStyle(
-                                                                                                      fontSize:
-                                                                                                          15),
-                                                                                                ),
-                                                                                                const SizedBox(
-                                                                                                    height:
-                                                                                                        10),
-                                                                                                Text(
-                                                                                                  ': ${condition.notes}',
-                                                                                                  style: const TextStyle(
-                                                                                                      fontSize:
-                                                                                                          15),
-                                                                                                ),
-                                                                                              ],
-                                                                                            ),
-                                                                                          )
-                                                                                        ],
-                                                                                      )
-                                                                                    ],
-                                                                                  ),
-                                                                                );
-                                                                              }
-                                                                            );
-                                                                          }else{
+                                                                  const SizedBox(
+                                                                    height: 50,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    height: 500,
+                                                                    child: StreamBuilder<
+                                                                            studentModel>(
+                                                                        stream: studentDatabase().studentData(child
+                                                                            .educationId),
+                                                                        builder:
+                                                                            (context,
+                                                                                snapshot) {
+                                                                          if (snapshot
+                                                                              .hasData) {
+                                                                            studentModel?
+                                                                                student =
+                                                                                snapshot.data;
+                                                                            return childExaminationProgress(
+                                                                                studentId: child.educationId,
+                                                                                academicCalendarId: student!.academicCalendarId);
+                                                                          } else {
                                                                             return Container();
                                                                           }
-                                                                        }else{
-                                                                          return Container();
-                                                                        }
-                                                                      },
-                                                                    ),
-                                                                    const SizedBox(
-                                                                      height: 20,
-                                                                    ),
-                                                                    StreamBuilder<HealthStatusModel>(
-                                                                      stream: HealthDatabaseService().healthStatusData(patient.healthStatusId),
-                                                                      builder: (context, snapshot) {
-                                                                        if(snapshot.hasData){
-                                                                          HealthStatusModel? status = snapshot.data;
-                                                                          if(status?.physicalConditionId != " "){
-                                                                            return StreamBuilder<PhysicalConditionModel>(
-                                                                              stream: HealthDatabaseService().physicalConditionData(status!.physicalConditionId),
-                                                                              builder: (context, snapshot) {
-                                                                                PhysicalConditionModel? physical = snapshot.data;
-                                                                                return Container(
-                                                                                  alignment: Alignment.center,
-                                                                                  padding: const EdgeInsets.fromLTRB(30, 30, 30, 30),
-                                                                                  decoration: BoxDecoration(
-                                                                                    color: Colors.white,
-                                                                                    border: Border.all(),
-                                                                                    borderRadius:
-                                                                                        const BorderRadius.all(Radius.circular(10)),
-                                                                                    boxShadow: [
-                                                                                      BoxShadow(
-                                                                                        color: Colors.grey.withOpacity(0.5),
-                                                                                        spreadRadius: 1,
-                                                                                        blurRadius: 5,
-                                                                                        offset: const Offset(
-                                                                                            0, 3), // changes position of shadow
-                                                                                      ),
-                                                                                    ],
-                                                                                  ),
-                                                                                  child: Column(
-                                                                                    children: [
-                                                                                      Container(
-                                                                                        alignment: Alignment
-                                                                                            .topCenter,
-                                                                                        child: const Row(
-                                                                                          mainAxisAlignment:
-                                                                                              MainAxisAlignment
-                                                                                                  .center,
-                                                                                          children: [
-                                                                                            Icon(
-                                                                                              Icons.personal_injury,
-                                                                                              size: 35,
-                                                                                            ),
-                                                                                            SizedBox(
-                                                                                              width: 10,
-                                                                                            ),
-                                                                                            Text(
-                                                                                              'Physical Condition',
-                                                                                              textAlign:
-                                                                                                  TextAlign
-                                                                                                      .start,
-                                                                                              style: TextStyle(
-                                                                                                  color: Colors
-                                                                                                      .black,
-                                                                                                  fontSize:
-                                                                                                      20.0,
-                                                                                                  fontFamily:
-                                                                                                      'Comfortaa',
-                                                                                                  fontWeight:
-                                                                                                      FontWeight
-                                                                                                          .bold),
-                                                                                            ),
-                                                                                          ],
-                                                                                        ),
-                                                                                      ),
-                                                                                      const SizedBox(height: 30),
-                                                                                      Row(
-                                                                                        children: <Widget>[
-                                                                                          const Expanded(
-                                                                                            flex: 1,
-                                                                                            child: Column(
-                                                                                              crossAxisAlignment:
-                                                                                                  CrossAxisAlignment
-                                                                                                      .start,
-                                                                                              children: <Widget>[
-                                                                                                Text(
-                                                                                                  'Injury',
-                                                                                                  style: TextStyle(
-                                                                                                      fontWeight: FontWeight
-                                                                                                          .bold,
-                                                                                                      fontSize:
-                                                                                                          15),
-                                                                                                ),
-                                                                                                SizedBox(
-                                                                                                    height:
-                                                                                                        10),
-                                                                                                Text(
-                                                                                                  'Details',
-                                                                                                  style: TextStyle(
-                                                                                                      fontWeight: FontWeight
-                                                                                                          .bold,
-                                                                                                      fontSize:
-                                                                                                          15),
-                                                                                                ),
-                                                                                              ],
-                                                                                            ),
-                                                                                          ),
-                                                                                          const SizedBox(
-                                                                                              width: 20),
-                                                                                          Expanded(
-                                                                                            flex: 2,
-                                                                                            child: Column(
-                                                                                              crossAxisAlignment:
-                                                                                                  CrossAxisAlignment
-                                                                                                      .start,
-                                                                                              children: <Widget>[
-                                                                                                Text(
-                                                                                                  ': ${physical?.currentInjury}',
-                                                                                                  style: const TextStyle(
-                                                                                                      fontSize:
-                                                                                                          15),
-                                                                                                ),
-                                                                                                const SizedBox(
-                                                                                                    height:
-                                                                                                        10),
-                                                                                                Text(
-                                                                                                  ': ${physical?.details}',
-                                                                                                  style: const TextStyle(
-                                                                                                      fontSize:
-                                                                                                          15),
-                                                                                                ),
-                                                                                              ],
-                                                                                            ),
-                                                                                          )
-                                                                                        ],
-                                                                                      )
-                                                                                    ],
-                                                                                  ),
-                                                                                );
-                                                                              }
-                                                                            );
-                                                                          }else{
-                                                                            return Container();
-                                                                          }
-                                                                        }else{
-                                                                          return Container();
-                                                                        }
-                                                                      },
-                                                                    ),
-                                                                    const SizedBox(
-                                                                      height: 20,
-                                                                    ),
-                                                                    StreamBuilder<HealthStatusModel>(
-                                                                      stream: HealthDatabaseService().healthStatusData(patient.healthStatusId),
-                                                                      builder: (context, snapshot) {
-                                                                        if(snapshot.hasData){
-                                                                          HealthStatusModel? status = snapshot.data;
-                                                                          if(status?.chronicConditionId != " "){
-                                                                            return StreamBuilder<ChronicConditionModel>(
-                                                                              stream: HealthDatabaseService().chronicConditionData(status!.chronicConditionId),
-                                                                              builder: (context, snapshot) {
-                                                                                ChronicConditionModel? chronic = snapshot.data;
-                                                                                return Container(
-                                                                                  alignment: Alignment.center,
-                                                                                  padding: const EdgeInsets.fromLTRB(30, 30, 30, 30),
-                                                                                  decoration: BoxDecoration(
-                                                                                    color: Colors.white,
-                                                                                    border: Border.all(),
-                                                                                    borderRadius:
-                                                                                        const BorderRadius.all(Radius.circular(10)),
-                                                                                    boxShadow: [
-                                                                                      BoxShadow(
-                                                                                        color: Colors.grey.withOpacity(0.5),
-                                                                                        spreadRadius: 1,
-                                                                                        blurRadius: 5,
-                                                                                        offset: const Offset(
-                                                                                            0, 3), // changes position of shadow
-                                                                                      ),
-                                                                                    ],
-                                                                                  ),
-                                                                                  child: Column(
-                                                                                    children: [
-                                                                                      Container(
-                                                                                        alignment: Alignment
-                                                                                            .topCenter,
-                                                                                        child: const Row(
-                                                                                          mainAxisAlignment:
-                                                                                              MainAxisAlignment
-                                                                                                  .center,
-                                                                                          children: [
-                                                                                            Icon(
-                                                                                              Icons.emergency,
-                                                                                              size: 35,
-                                                                                            ),
-                                                                                            SizedBox(
-                                                                                              width: 10,
-                                                                                            ),
-                                                                                            Text(
-                                                                                              'Chronic Condition',
-                                                                                              textAlign:
-                                                                                                  TextAlign
-                                                                                                      .start,
-                                                                                              style: TextStyle(
-                                                                                                  color: Colors
-                                                                                                      .black,
-                                                                                                  fontSize:
-                                                                                                      20.0,
-                                                                                                  fontFamily:
-                                                                                                      'Comfortaa',
-                                                                                                  fontWeight:
-                                                                                                      FontWeight
-                                                                                                          .bold),
-                                                                                            ),
-                                                                                          ],
-                                                                                        ),
-                                                                                      ),
-                                                                                      const SizedBox(height: 30),
-                                                                                      Row(
-                                                                                        children: <Widget>[
-                                                                                          const Expanded(
-                                                                                            flex: 1,
-                                                                                            child: Column(
-                                                                                              crossAxisAlignment:
-                                                                                                  CrossAxisAlignment
-                                                                                                      .start,
-                                                                                              children: <Widget>[
-                                                                                                Text(
-                                                                                                  'Allergies',
-                                                                                                  style: TextStyle(
-                                                                                                      fontWeight: FontWeight
-                                                                                                          .bold,
-                                                                                                      fontSize:
-                                                                                                          15),
-                                                                                                ),
-                                                                                                SizedBox(
-                                                                                                    height:
-                                                                                                        10),
-                                                                                                Text(
-                                                                                                  'Details',
-                                                                                                  style: TextStyle(
-                                                                                                      fontWeight: FontWeight
-                                                                                                          .bold,
-                                                                                                      fontSize:
-                                                                                                          15),
-                                                                                                ),
-                                                                                              ],
-                                                                                            ),
-                                                                                          ),
-                                                                                          const SizedBox(
-                                                                                              width: 20),
-                                                                                          Expanded(
-                                                                                            flex: 2,
-                                                                                            child: Column(
-                                                                                              crossAxisAlignment:
-                                                                                                  CrossAxisAlignment
-                                                                                                      .start,
-                                                                                              children: <Widget>[
-                                                                                                Text(
-                                                                                                  ': ${chronic!.childAllergies}',
-                                                                                                  style: const TextStyle(
-                                                                                                      fontSize:
-                                                                                                          15),
-                                                                                                ),
-                                                                                                const SizedBox(
-                                                                                                    height:
-                                                                                                        10),
-                                                                                                Text(
-                                                                                                  ': ${chronic.childChronic}',
-                                                                                                  style: const TextStyle(
-                                                                                                      fontSize:
-                                                                                                          15),
-                                                                                                ),
-                                                                                              ],
-                                                                                            ),
-                                                                                          )
-                                                                                        ],
-                                                                                      )
-                                                                                    ],
-                                                                                  ),
-                                                                                );
-                                                                              }
-                                                                            );
-                                                                          }else{
-                                                                            return Container();
-                                                                          }
-                                                                        }else{
-                                                                          return Container();
-                                                                        }
-                                                                      },
-                                                                    )
-                                                                  ],
-                                                                );
-                                                              } else {
-                                                                return Container();
-                                                              }
+                                                                        }),
+                                                                  ),
+                                                                ],
+                                                              );
                                                             }
-                                                          );
-                                                        }else {
-                                                          return Container();
-                                                        }
-                                                      },
-                                                    ),
+                                                          } else {
+                                                            return Container();
+                                                          }
+                                                        }),
                                                   ],
                                                 );
                                               } else {
@@ -2168,11 +1456,822 @@ class _childProfileState extends State<childProfile> {
                                 return Container();
                               }
                             })
-                        : Container(),
-                    SizedBox(
-                      height: 300,
-                      child: Container(),
-                    )
+                        : SizedBox(
+                            height: 300,
+                            child: Center(
+                              child: noData('Oops! Nothing here...'),
+                            ),
+                          ),
+                    const SizedBox(height: 80),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        '${child.childFirstname}\'s Health Module',
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 30.0,
+                            fontFamily: 'Comfortaa',
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    child.healthId == ''
+                        ? SizedBox(
+                            height: 300,
+                            child: Center(
+                              child: noData('Oops! Nothing here...'),
+                            ),
+                          )
+                        : StreamBuilder<HealthModel>(
+                            stream: HealthDatabaseService()
+                                .healthData(child.healthId),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                HealthModel? health = snapshot.data;
+                                return StreamBuilder<patientModel>(
+                                    stream: PatientDatabaseService()
+                                        .patientData(health!.patientId),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        patientModel? patient = snapshot.data;
+                                        return Column(
+                                          children: <Widget>[
+                                            Container(
+                                              alignment: Alignment.center,
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      20, 30, 20, 30),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                border: Border.all(),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(10)),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.grey
+                                                        .withOpacity(0.5),
+                                                    spreadRadius: 1,
+                                                    blurRadius: 5,
+                                                    offset: const Offset(0,
+                                                        3), // changes position of shadow
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Column(
+                                                children: <Widget>[
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.topCenter,
+                                                    child: const Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Icon(
+                                                          Icons
+                                                              .health_and_safety,
+                                                          size: 35,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        Text(
+                                                          'Health Details',
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 20.0,
+                                                              fontFamily:
+                                                                  'Comfortaa',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 20),
+                                                  Row(
+                                                    children: <Widget>[
+                                                      const Expanded(
+                                                        flex: 1,
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: <Widget>[
+                                                            Text(
+                                                              'Clinic Name',
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 15),
+                                                            ),
+                                                            SizedBox(
+                                                                height: 10),
+                                                            Text(
+                                                              'BMI Status',
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 15),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      const SizedBox(width: 20),
+                                                      Expanded(
+                                                        flex: 2,
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: <Widget>[
+                                                            StreamBuilder<
+                                                                ClinicModel>(
+                                                              stream: medicalStaffDatabase()
+                                                                  .clinicData(
+                                                                      patient!
+                                                                          .clinicId),
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                if (snapshot
+                                                                    .hasData) {
+                                                                  return Text(
+                                                                    ': ${snapshot.data?.clinicName}',
+                                                                    style: const TextStyle(
+                                                                        fontSize:
+                                                                            15),
+                                                                  );
+                                                                } else {
+                                                                  return Container();
+                                                                }
+                                                              },
+                                                            ),
+                                                            const SizedBox(
+                                                                height: 10),
+                                                            StreamBuilder<
+                                                                List<
+                                                                    BmiHealthModel>>(
+                                                              stream: HealthDatabaseService()
+                                                                  .allBmiHealthData(
+                                                                      patient
+                                                                          .healthId),
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                if (snapshot
+                                                                    .hasData) {
+                                                                  List<BmiHealthModel>?
+                                                                      bmi =
+                                                                      snapshot
+                                                                          .data;
+                                                                  String
+                                                                      bmiStatus =
+                                                                      ' ';
+                                                                  double
+                                                                      lastBmiData =
+                                                                      bmi![0]
+                                                                          .bmiData;
+                                                                  if (lastBmiData <
+                                                                      16) {
+                                                                    bmiStatus =
+                                                                        "Severe Thinness";
+                                                                  } else if (lastBmiData <
+                                                                      17) {
+                                                                    bmiStatus =
+                                                                        "Moderate Thinness";
+                                                                  } else if (lastBmiData <
+                                                                      18.5) {
+                                                                    bmiStatus =
+                                                                        "Mild Thinness";
+                                                                  } else if (lastBmiData <
+                                                                      25) {
+                                                                    bmiStatus =
+                                                                        "Normal";
+                                                                  } else if (lastBmiData <
+                                                                      30) {
+                                                                    bmiStatus =
+                                                                        "Overweight";
+                                                                  } else if (lastBmiData <
+                                                                      35) {
+                                                                    bmiStatus =
+                                                                        "Obese Class I";
+                                                                  } else if (lastBmiData <
+                                                                      40) {
+                                                                    bmiStatus =
+                                                                        "Obese Class II";
+                                                                  } else if (lastBmiData >=
+                                                                      40) {
+                                                                    bmiStatus =
+                                                                        "Obese Class III";
+                                                                  } else {
+                                                                    bmiStatus =
+                                                                        "No Status";
+                                                                  }
+                                                                  return Text(
+                                                                    ': ${bmiStatus}',
+                                                                    style: const TextStyle(
+                                                                        fontSize:
+                                                                            15),
+                                                                  );
+                                                                } else {
+                                                                  return Container();
+                                                                }
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            Container(
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                border: Border.all(),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(10)),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.grey
+                                                        .withOpacity(0.5),
+                                                    spreadRadius: 1,
+                                                    blurRadius: 5,
+                                                    offset: const Offset(0,
+                                                        3), // changes position of shadow
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Column(
+                                                children: <Widget>[
+                                                  SizedBox(
+                                                      height: 200,
+                                                      child: childBmi(
+                                                          healthId: patient
+                                                              .healthId)),
+                                                ],
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            StreamBuilder<HealthStatusModel>(
+                                              stream: HealthDatabaseService()
+                                                  .healthStatusData(
+                                                      patient.healthStatusId),
+                                              builder: (context, snapshot) {
+                                                if (snapshot.hasData) {
+                                                  HealthStatusModel? status =
+                                                      snapshot.data;
+                                                  if (status
+                                                          ?.healthConditionId !=
+                                                      " ") {
+                                                    return StreamBuilder<
+                                                            HealthConditionModel>(
+                                                        stream: HealthDatabaseService()
+                                                            .healthConditionData(
+                                                                status!
+                                                                    .healthConditionId),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          HealthConditionModel?
+                                                              condition =
+                                                              snapshot.data;
+                                                          return Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .fromLTRB(
+                                                                    30,
+                                                                    30,
+                                                                    30,
+                                                                    30),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color:
+                                                                  Colors.white,
+                                                              border:
+                                                                  Border.all(),
+                                                              borderRadius:
+                                                                  const BorderRadius
+                                                                      .all(
+                                                                      Radius.circular(
+                                                                          10)),
+                                                              boxShadow: [
+                                                                BoxShadow(
+                                                                  color: Colors
+                                                                      .grey
+                                                                      .withOpacity(
+                                                                          0.5),
+                                                                  spreadRadius:
+                                                                      1,
+                                                                  blurRadius: 5,
+                                                                  offset: const Offset(
+                                                                      0,
+                                                                      3), // changes position of shadow
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            child: Column(
+                                                              children: [
+                                                                Container(
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .topCenter,
+                                                                  child:
+                                                                      const Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Icon(
+                                                                        Icons
+                                                                            .medical_information,
+                                                                        size:
+                                                                            35,
+                                                                      ),
+                                                                      SizedBox(
+                                                                        width:
+                                                                            10,
+                                                                      ),
+                                                                      Text(
+                                                                        'Health Condition',
+                                                                        textAlign:
+                                                                            TextAlign.start,
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .black,
+                                                                            fontSize:
+                                                                                20.0,
+                                                                            fontFamily:
+                                                                                'Comfortaa',
+                                                                            fontWeight:
+                                                                                FontWeight.bold),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                const SizedBox(
+                                                                    height: 30),
+                                                                Row(
+                                                                  children: <Widget>[
+                                                                    const Expanded(
+                                                                      flex: 1,
+                                                                      child:
+                                                                          Column(
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.start,
+                                                                        children: <Widget>[
+                                                                          Text(
+                                                                            'Temperature',
+                                                                            style:
+                                                                                TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                          ),
+                                                                          SizedBox(
+                                                                              height: 10),
+                                                                          Text(
+                                                                            'Heart Rate',
+                                                                            style:
+                                                                                TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                          ),
+                                                                          SizedBox(
+                                                                              height: 10),
+                                                                          Text(
+                                                                            'Symptom',
+                                                                            style:
+                                                                                TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                          ),
+                                                                          SizedBox(
+                                                                              height: 10),
+                                                                          Text(
+                                                                            'Illness',
+                                                                            style:
+                                                                                TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                          ),
+                                                                          SizedBox(
+                                                                              height: 10),
+                                                                          Text(
+                                                                            'Notes',
+                                                                            style:
+                                                                                TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    const SizedBox(
+                                                                        width:
+                                                                            20),
+                                                                    Expanded(
+                                                                      flex: 2,
+                                                                      child:
+                                                                          Column(
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.start,
+                                                                        children: <Widget>[
+                                                                          Text(
+                                                                            ': ${condition!.currentTemperature}',
+                                                                            style:
+                                                                                const TextStyle(fontSize: 15),
+                                                                          ),
+                                                                          const SizedBox(
+                                                                              height: 10),
+                                                                          Text(
+                                                                            ': ${condition.currentHeartRate}',
+                                                                            style:
+                                                                                const TextStyle(fontSize: 15),
+                                                                          ),
+                                                                          const SizedBox(
+                                                                              height: 10),
+                                                                          Text(
+                                                                            ': ${condition.currentSymptom}',
+                                                                            style:
+                                                                                const TextStyle(fontSize: 15),
+                                                                          ),
+                                                                          const SizedBox(
+                                                                              height: 10),
+                                                                          Text(
+                                                                            ': ${condition.currentIllness}',
+                                                                            style:
+                                                                                const TextStyle(fontSize: 15),
+                                                                          ),
+                                                                          const SizedBox(
+                                                                              height: 10),
+                                                                          Text(
+                                                                            ': ${condition.notes}',
+                                                                            style:
+                                                                                const TextStyle(fontSize: 15),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    )
+                                                                  ],
+                                                                )
+                                                              ],
+                                                            ),
+                                                          );
+                                                        });
+                                                  } else {
+                                                    return Container();
+                                                  }
+                                                } else {
+                                                  return Container();
+                                                }
+                                              },
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            StreamBuilder<HealthStatusModel>(
+                                              stream: HealthDatabaseService()
+                                                  .healthStatusData(
+                                                      patient.healthStatusId),
+                                              builder: (context, snapshot) {
+                                                if (snapshot.hasData) {
+                                                  HealthStatusModel? status =
+                                                      snapshot.data;
+                                                  if (status
+                                                          ?.physicalConditionId !=
+                                                      " ") {
+                                                    return StreamBuilder<
+                                                            PhysicalConditionModel>(
+                                                        stream: HealthDatabaseService()
+                                                            .physicalConditionData(
+                                                                status!
+                                                                    .physicalConditionId),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          PhysicalConditionModel?
+                                                              physical =
+                                                              snapshot.data;
+                                                          return Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .fromLTRB(
+                                                                    30,
+                                                                    30,
+                                                                    30,
+                                                                    30),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color:
+                                                                  Colors.white,
+                                                              border:
+                                                                  Border.all(),
+                                                              borderRadius:
+                                                                  const BorderRadius
+                                                                      .all(
+                                                                      Radius.circular(
+                                                                          10)),
+                                                              boxShadow: [
+                                                                BoxShadow(
+                                                                  color: Colors
+                                                                      .grey
+                                                                      .withOpacity(
+                                                                          0.5),
+                                                                  spreadRadius:
+                                                                      1,
+                                                                  blurRadius: 5,
+                                                                  offset: const Offset(
+                                                                      0,
+                                                                      3), // changes position of shadow
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            child: Column(
+                                                              children: [
+                                                                Container(
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .topCenter,
+                                                                  child:
+                                                                      const Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Icon(
+                                                                        Icons
+                                                                            .personal_injury,
+                                                                        size:
+                                                                            35,
+                                                                      ),
+                                                                      SizedBox(
+                                                                        width:
+                                                                            10,
+                                                                      ),
+                                                                      Text(
+                                                                        'Physical Condition',
+                                                                        textAlign:
+                                                                            TextAlign.start,
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .black,
+                                                                            fontSize:
+                                                                                20.0,
+                                                                            fontFamily:
+                                                                                'Comfortaa',
+                                                                            fontWeight:
+                                                                                FontWeight.bold),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                const SizedBox(
+                                                                    height: 30),
+                                                                Row(
+                                                                  children: <Widget>[
+                                                                    const Expanded(
+                                                                      flex: 1,
+                                                                      child:
+                                                                          Column(
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.start,
+                                                                        children: <Widget>[
+                                                                          Text(
+                                                                            'Injury',
+                                                                            style:
+                                                                                TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                          ),
+                                                                          SizedBox(
+                                                                              height: 10),
+                                                                          Text(
+                                                                            'Details',
+                                                                            style:
+                                                                                TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    const SizedBox(
+                                                                        width:
+                                                                            20),
+                                                                    Expanded(
+                                                                      flex: 2,
+                                                                      child:
+                                                                          Column(
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.start,
+                                                                        children: <Widget>[
+                                                                          Text(
+                                                                            ': ${physical?.currentInjury}',
+                                                                            style:
+                                                                                const TextStyle(fontSize: 15),
+                                                                          ),
+                                                                          const SizedBox(
+                                                                              height: 10),
+                                                                          Text(
+                                                                            ': ${physical?.details}',
+                                                                            style:
+                                                                                const TextStyle(fontSize: 15),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    )
+                                                                  ],
+                                                                )
+                                                              ],
+                                                            ),
+                                                          );
+                                                        });
+                                                  } else {
+                                                    return Container();
+                                                  }
+                                                } else {
+                                                  return Container();
+                                                }
+                                              },
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            StreamBuilder<HealthStatusModel>(
+                                              stream: HealthDatabaseService()
+                                                  .healthStatusData(
+                                                      patient.healthStatusId),
+                                              builder: (context, snapshot) {
+                                                if (snapshot.hasData) {
+                                                  HealthStatusModel? status =
+                                                      snapshot.data;
+                                                  if (status
+                                                          ?.chronicConditionId !=
+                                                      " ") {
+                                                    return StreamBuilder<
+                                                            ChronicConditionModel>(
+                                                        stream: HealthDatabaseService()
+                                                            .chronicConditionData(
+                                                                status!
+                                                                    .chronicConditionId),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          ChronicConditionModel?
+                                                              chronic =
+                                                              snapshot.data;
+                                                          return Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .fromLTRB(
+                                                                    30,
+                                                                    30,
+                                                                    30,
+                                                                    30),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color:
+                                                                  Colors.white,
+                                                              border:
+                                                                  Border.all(),
+                                                              borderRadius:
+                                                                  const BorderRadius
+                                                                      .all(
+                                                                      Radius.circular(
+                                                                          10)),
+                                                              boxShadow: [
+                                                                BoxShadow(
+                                                                  color: Colors
+                                                                      .grey
+                                                                      .withOpacity(
+                                                                          0.5),
+                                                                  spreadRadius:
+                                                                      1,
+                                                                  blurRadius: 5,
+                                                                  offset: const Offset(
+                                                                      0,
+                                                                      3), // changes position of shadow
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            child: Column(
+                                                              children: [
+                                                                Container(
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .topCenter,
+                                                                  child:
+                                                                      const Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Icon(
+                                                                        Icons
+                                                                            .emergency,
+                                                                        size:
+                                                                            35,
+                                                                      ),
+                                                                      SizedBox(
+                                                                        width:
+                                                                            10,
+                                                                      ),
+                                                                      Text(
+                                                                        'Chronic Condition',
+                                                                        textAlign:
+                                                                            TextAlign.start,
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .black,
+                                                                            fontSize:
+                                                                                20.0,
+                                                                            fontFamily:
+                                                                                'Comfortaa',
+                                                                            fontWeight:
+                                                                                FontWeight.bold),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                const SizedBox(
+                                                                    height: 30),
+                                                                Row(
+                                                                  children: <Widget>[
+                                                                    const Expanded(
+                                                                      flex: 1,
+                                                                      child:
+                                                                          Column(
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.start,
+                                                                        children: <Widget>[
+                                                                          Text(
+                                                                            'Allergies',
+                                                                            style:
+                                                                                TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                          ),
+                                                                          SizedBox(
+                                                                              height: 10),
+                                                                          Text(
+                                                                            'Details',
+                                                                            style:
+                                                                                TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    const SizedBox(
+                                                                        width:
+                                                                            20),
+                                                                    Expanded(
+                                                                      flex: 2,
+                                                                      child:
+                                                                          Column(
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.start,
+                                                                        children: <Widget>[
+                                                                          Text(
+                                                                            ': ${chronic!.childAllergies}',
+                                                                            style:
+                                                                                const TextStyle(fontSize: 15),
+                                                                          ),
+                                                                          const SizedBox(
+                                                                              height: 10),
+                                                                          Text(
+                                                                            ': ${chronic.childChronic}',
+                                                                            style:
+                                                                                const TextStyle(fontSize: 15),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    )
+                                                                  ],
+                                                                )
+                                                              ],
+                                                            ),
+                                                          );
+                                                        });
+                                                  } else {
+                                                    return Container();
+                                                  }
+                                                } else {
+                                                  return Container();
+                                                }
+                                              },
+                                            )
+                                          ],
+                                        );
+                                      } else {
+                                        return Container();
+                                      }
+                                    });
+                              } else {
+                                return Container();
+                              }
+                            },
+                          ),
                   ],
                 ),
               ),
@@ -2734,14 +2833,147 @@ class _childProfileState extends State<childProfile> {
                                                   )),
                                               Expanded(
                                                 flex: 1,
-                                                child: Text(
-                                                  child.overallStatus,
-                                                  style: const TextStyle(
-                                                      fontSize: 20,
-                                                      color: Colors.white),
-                                                  softWrap: true,
-                                                  maxLines: 2,
-                                                  textAlign: TextAlign.center,
+                                                child: Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        child.overallStatus ==
+                                                                'great'
+                                                            ? 'Great'
+                                                            : child.overallStatus ==
+                                                                    'normal'
+                                                                ? 'Normal'
+                                                                : 'Needs\nAttention',
+                                                        style: const TextStyle(
+                                                            fontSize: 20,
+                                                            color:
+                                                                Colors.white),
+                                                        softWrap: true,
+                                                        maxLines: 2,
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      ),
+                                                    ),
+                                                    IconButton(
+                                                        onPressed: () {
+                                                          showDialog(
+                                                              context: context,
+                                                              builder:
+                                                                  (BuildContext
+                                                                      context) {
+                                                                List<String>
+                                                                    status = [
+                                                                  'great',
+                                                                  'normal',
+                                                                  'needs attention'
+                                                                ];
+                                                                String
+                                                                    currentStatus =
+                                                                    child
+                                                                        .overallStatus;
+                                                                return StatefulBuilder(builder:
+                                                                    (stfContext,
+                                                                        stfSetState) {
+                                                                  return AlertDialog(
+                                                                    scrollable:
+                                                                        true,
+                                                                    title:
+                                                                        const Padding(
+                                                                      padding:
+                                                                          EdgeInsets.all(
+                                                                              10.0),
+                                                                      child: Text(
+                                                                          'Change Overall Status'),
+                                                                    ),
+                                                                    content:
+                                                                        DropdownButtonFormField<
+                                                                            String>(
+                                                                      value:
+                                                                          currentStatus,
+                                                                      items: status.map<
+                                                                          DropdownMenuItem<
+                                                                              String>>((String
+                                                                          value) {
+                                                                        return DropdownMenuItem<
+                                                                            String>(
+                                                                          value:
+                                                                              value,
+                                                                          child:
+                                                                              Text(value),
+                                                                        );
+                                                                      }).toList(),
+                                                                      onChanged:
+                                                                          (String?
+                                                                              value) {
+                                                                        stfSetState(
+                                                                            () {
+                                                                          currentStatus =
+                                                                              value!;
+                                                                        });
+                                                                      },
+                                                                    ),
+                                                                    actions: [
+                                                                      ElevatedButton(
+                                                                        style: ElevatedButton
+                                                                            .styleFrom(
+                                                                          backgroundColor:
+                                                                              const Color(0xffF29180),
+                                                                          shape:
+                                                                              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                                                        ),
+                                                                        onPressed:
+                                                                            () {
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                        },
+                                                                        child: const Text(
+                                                                            "Cancel",
+                                                                            style:
+                                                                                TextStyle(color: Colors.white)),
+                                                                      ),
+                                                                      ElevatedButton(
+                                                                        style: ElevatedButton
+                                                                            .styleFrom(
+                                                                          backgroundColor:
+                                                                              const Color(0xff8290F0),
+                                                                          shape:
+                                                                              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                                                        ),
+                                                                        onPressed:
+                                                                            () {
+                                                                          childDatabase(childId: child.childId).updateChildData(
+                                                                              child.childId,
+                                                                              child.parentId,
+                                                                              child.childCreatedDate,
+                                                                              child.childName,
+                                                                              child.childFirstname,
+                                                                              child.childLastname,
+                                                                              child.childBirthday,
+                                                                              child.childCurrentAge,
+                                                                              child.childAgeCategory,
+                                                                              child.childProfileImg,
+                                                                              child.educationId,
+                                                                              child.healthId,
+                                                                              currentStatus);
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                        },
+                                                                        child: const Text(
+                                                                            "Confirm",
+                                                                            style:
+                                                                                TextStyle(color: Colors.white)),
+                                                                      ),
+                                                                    ],
+                                                                  );
+                                                                });
+                                                              });
+                                                        },
+                                                        icon: Icon(
+                                                          Icons.edit,
+                                                          color:
+                                                              Colors.grey[100],
+                                                        ))
+                                                  ],
                                                 ),
                                               ),
                                             ],
@@ -2974,7 +3206,7 @@ class _childProfileState extends State<childProfile> {
                                                     ),
                                                     const Icon(Icons
                                                         .keyboard_double_arrow_right),
-                                                    child.healthId != ''
+                                                    child.educationId != ''
                                                         ? Expanded(
                                                             flex: 1,
                                                             child: Container(
@@ -3101,590 +3333,575 @@ class _childProfileState extends State<childProfile> {
                       ),
                     ),
                     const SizedBox(height: 30),
-                    SizedBox(
-                      height: 350,
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            flex: 1,
-                            child: StreamBuilder<studentModel>(
-                                stream: studentDatabase()
-                                    .studentData(child.educationId),
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData) {
-                                    studentModel? student = snapshot.data;
-                                    return StreamBuilder<academicCalendarModel>(
-                                        stream: academicCalendarDatabase()
-                                            .academicCalendarData(
-                                                student!.academicCalendarId),
-                                        builder: (context, snapshot) {
-                                          if (snapshot.hasData) {
-                                            academicCalendarModel?
-                                                academicCalendar =
-                                                snapshot.data;
-                                            return StreamBuilder<classModel>(
-                                                stream: schoolDatabase()
-                                                    .classData(academicCalendar!
-                                                        .classId),
-                                                builder: (context, snapshot) {
-                                                  if (snapshot.hasData) {
-                                                    classModel? classDetail =
-                                                        snapshot.data;
-                                                    return Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      padding: const EdgeInsets
-                                                          .fromLTRB(
-                                                          20, 30, 20, 30),
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        border: Border.all(),
-                                                        borderRadius:
-                                                            const BorderRadius
-                                                                .all(
-                                                                Radius.circular(
-                                                                    10)),
-                                                        boxShadow: [
-                                                          BoxShadow(
-                                                            color: Colors.grey
-                                                                .withOpacity(
-                                                                    0.5),
-                                                            spreadRadius: 1,
-                                                            blurRadius: 5,
-                                                            offset: const Offset(
-                                                                0,
-                                                                3), // changes position of shadow
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      child: Column(
-                                                        children: <Widget>[
-                                                          Container(
-                                                            alignment: Alignment
-                                                                .topCenter,
-                                                            child: const Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                Icon(
-                                                                  Icons.school,
-                                                                  size: 35,
-                                                                ),
-                                                                SizedBox(
-                                                                  width: 10,
-                                                                ),
-                                                                Text(
-                                                                  'School & Class Details',
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .start,
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          20.0,
-                                                                      fontFamily:
-                                                                          'Comfortaa',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          const SizedBox(
-                                                              height: 20),
-                                                          Row(
-                                                            children: <Widget>[
-                                                              const Expanded(
-                                                                flex: 1,
-                                                                child: Column(
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: <Widget>[
-                                                                    Text(
-                                                                      'Class Name',
-                                                                      style: TextStyle(
-                                                                          fontWeight: FontWeight
-                                                                              .bold,
-                                                                          fontSize:
-                                                                              15),
-                                                                    ),
-                                                                    SizedBox(
-                                                                        height:
-                                                                            10),
-                                                                    Text(
-                                                                      'Class Year',
-                                                                      style: TextStyle(
-                                                                          fontWeight: FontWeight
-                                                                              .bold,
-                                                                          fontSize:
-                                                                              15),
-                                                                    ),
-                                                                    SizedBox(
-                                                                        height:
-                                                                            10),
-                                                                    Text(
-                                                                      'Class Teacher Name',
-                                                                      style: TextStyle(
-                                                                          fontWeight: FontWeight
-                                                                              .bold,
-                                                                          fontSize:
-                                                                              15),
-                                                                    ),
-                                                                    SizedBox(
-                                                                        height:
-                                                                            10),
-                                                                    Text(
-                                                                      'School',
-                                                                      style: TextStyle(
-                                                                          fontWeight: FontWeight
-                                                                              .bold,
-                                                                          fontSize:
-                                                                              15),
-                                                                    ),
-                                                                    SizedBox(
-                                                                        height:
-                                                                            10),
-                                                                    Text(
-                                                                      'Calendar Start Date',
-                                                                      style: TextStyle(
-                                                                          fontWeight: FontWeight
-                                                                              .bold,
-                                                                          fontSize:
-                                                                              15),
-                                                                    ),
-                                                                    SizedBox(
-                                                                        height:
-                                                                            10),
-                                                                    Text(
-                                                                      'Calendar End Date',
-                                                                      style: TextStyle(
-                                                                          fontWeight: FontWeight
-                                                                              .bold,
-                                                                          fontSize:
-                                                                              15),
-                                                                    ),
-                                                                    SizedBox(
-                                                                        height:
-                                                                            10),
-                                                                    Text(
-                                                                      'Registration Status',
-                                                                      style: TextStyle(
-                                                                          fontWeight: FontWeight
-                                                                              .bold,
-                                                                          fontSize:
-                                                                              15),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              const SizedBox(
-                                                                  width: 20),
-                                                              Expanded(
-                                                                flex: 2,
-                                                                child: Column(
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: <Widget>[
-                                                                    Text(
-                                                                      ': ${classDetail!.className}',
-                                                                      style: const TextStyle(
-                                                                          fontSize:
-                                                                              15),
-                                                                    ),
-                                                                    const SizedBox(
-                                                                        height:
-                                                                            10),
-                                                                    Text(
-                                                                      ': ${classDetail.classYear}',
-                                                                      style: const TextStyle(
-                                                                          fontSize:
-                                                                              15),
-                                                                    ),
-                                                                    const SizedBox(
-                                                                        height:
-                                                                            10),
-                                                                    StreamBuilder<
-                                                                            teacherModel>(
-                                                                        stream: teacherDatabase(teacherId: academicCalendar.teacherId)
-                                                                            .teacherData,
-                                                                        builder:
-                                                                            (context,
-                                                                                snapshot) {
-                                                                          if (snapshot
-                                                                              .hasData) {
-                                                                            return Text(
-                                                                              ': ${snapshot.data!.teacherFullName}',
-                                                                              style: const TextStyle(fontSize: 15),
-                                                                            );
-                                                                          } else {
-                                                                            return Container();
-                                                                          }
-                                                                        }),
-                                                                    const SizedBox(
-                                                                        height:
-                                                                            10),
-                                                                    StreamBuilder<
-                                                                            schoolModel>(
-                                                                        stream: schoolDatabase().schoolData(academicCalendar
-                                                                            .schoolId),
-                                                                        builder:
-                                                                            (context,
-                                                                                snapshot) {
-                                                                          if (snapshot
-                                                                              .hasData) {
-                                                                            return Text(
-                                                                              ': ${snapshot.data!.schoolName}',
-                                                                              style: const TextStyle(fontSize: 15),
-                                                                            );
-                                                                          } else {
-                                                                            return Container();
-                                                                          }
-                                                                        }),
-                                                                    const SizedBox(
-                                                                        height:
-                                                                            10),
-                                                                    Text(
-                                                                      ': ${convertTimeToDateString(academicCalendar.academicCalendarStartDate)}',
-                                                                      style: const TextStyle(
-                                                                          fontSize:
-                                                                              15),
-                                                                    ),
-                                                                    const SizedBox(
-                                                                        height:
-                                                                            10),
-                                                                    Text(
-                                                                      ': ${convertTimeToDateString(academicCalendar.academicCalendarEndDate)}',
-                                                                      style: const TextStyle(
-                                                                          fontSize:
-                                                                              15),
-                                                                    ),
-                                                                    const SizedBox(
-                                                                        height:
-                                                                            10),
-                                                                    student.activationStatus ==
-                                                                            'active'
-                                                                        ? SizedBox(
-                                                                            height:
-                                                                                30,
-                                                                            width:
-                                                                                150,
-                                                                            child: Container(
-                                                                                alignment: Alignment.center,
-                                                                                margin: const EdgeInsets.symmetric(horizontal: 5),
-                                                                                decoration: BoxDecoration(
-                                                                                  color: Colors.green[800],
-                                                                                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                                                                                ),
-                                                                                padding: const EdgeInsets.all(5),
-                                                                                child: const Row(
-                                                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                                                  children: <Widget>[
-                                                                                    Icon(
-                                                                                      Icons.check,
-                                                                                      color: Colors.white,
-                                                                                    ),
-                                                                                    SizedBox(
-                                                                                      width: 10,
-                                                                                    ),
-                                                                                    Text(
-                                                                                      'Active',
-                                                                                      style: TextStyle(color: Colors.white, fontSize: 15),
-                                                                                    )
-                                                                                  ],
-                                                                                )),
-                                                                          )
-                                                                        : SizedBox(
-                                                                            height:
-                                                                                30,
-                                                                            width:
-                                                                                150,
-                                                                            child: Container(
-                                                                                alignment: Alignment.center,
-                                                                                margin: const EdgeInsets.symmetric(horizontal: 5),
-                                                                                decoration: BoxDecoration(
-                                                                                  color: Colors.red[800],
-                                                                                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                                                                                ),
-                                                                                padding: const EdgeInsets.all(5),
-                                                                                child: const Row(
-                                                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                                                  children: <Widget>[
-                                                                                    Icon(
-                                                                                      Icons.close,
-                                                                                      color: Colors.white,
-                                                                                    ),
-                                                                                    SizedBox(
-                                                                                      width: 10,
-                                                                                    ),
-                                                                                    Text(
-                                                                                      'Inactive',
-                                                                                      style: TextStyle(color: Colors.white, fontSize: 15),
-                                                                                    )
-                                                                                  ],
-                                                                                )),
-                                                                          ),
-                                                                  ],
-                                                                ),
-                                                              )
-                                                            ],
-                                                          )
-                                                        ],
-                                                      ),
-                                                    );
-                                                  } else {
-                                                    return Container();
-                                                  }
-                                                });
-                                          } else {
-                                            return Container();
-                                          }
-                                        });
-                                  } else {
-                                    return Container();
-                                  }
-                                }),
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: StreamBuilder<studentModel>(
-                                stream: studentDatabase()
-                                    .studentData(child.educationId),
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData) {
-                                    if (snapshot.data!.activationStatus ==
-                                        'inactive') {
-                                      return Container();
-                                    } else {
-                                      return Container(
-                                        alignment: Alignment.center,
-                                        padding: const EdgeInsets.fromLTRB(
-                                            20, 30, 20, 30),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(10)),
-                                          border: Border.all(),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color:
-                                                  Colors.grey.withOpacity(0.5),
-                                              spreadRadius: 1,
-                                              blurRadius: 5,
-                                              offset: const Offset(0,
-                                                  3), // changes position of shadow
-                                            ),
-                                          ],
-                                        ),
-                                        child: Column(
-                                          children: <Widget>[
-                                            Container(
-                                              alignment: Alignment.topCenter,
-                                              child: const Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Icon(
-                                                    Icons.fact_check,
-                                                    size: 35,
-                                                  ),
-                                                  SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  Text(
-                                                    'Class Attendance Percentage',
-                                                    textAlign: TextAlign.start,
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 20.0,
-                                                        fontFamily: 'Comfortaa',
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              height: 20,
-                                            ),
-                                            SizedBox(
-                                              height: 200,
-                                              child: Row(
-                                                children: <Widget>[
-                                                  Expanded(
-                                                    flex: 1,
-                                                    child: StreamBuilder<
-                                                            studentModel>(
-                                                        stream: studentDatabase()
-                                                            .studentData(child
-                                                                .educationId),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          if (snapshot
-                                                              .hasData) {
-                                                            return Container(
-                                                              child:
-                                                                  studentAttendancePercentage(
-                                                                studentId: child
-                                                                    .educationId,
-                                                                academicCalendarId:
-                                                                    snapshot
-                                                                        .data!
-                                                                        .academicCalendarId,
-                                                              ),
-                                                            );
-                                                          } else {
-                                                            return Container();
-                                                          }
-                                                        }),
-                                                  ),
-                                                  Expanded(
-                                                    flex: 1,
-                                                    child: StreamBuilder<
-                                                            List<
-                                                                studentAttendanceModel>>(
-                                                        stream: studentAttendanceDatabase()
-                                                            .allStudentAttendanceWithStudentId(
-                                                                child
-                                                                    .educationId),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          if (snapshot
-                                                              .hasData) {
-                                                            List<studentAttendanceModel>?
-                                                                attendanceList =
-                                                                snapshot.data;
-                                                            int present =
-                                                                getNoOfAttendanceStatus(
-                                                                    attendanceList!,
-                                                                    'present');
-                                                            int absent =
-                                                                getNoOfAttendanceStatus(
-                                                                    attendanceList,
-                                                                    'absent');
-                                                            return Container(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
-                                                              child: Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: <Widget>[
-                                                                  Text(
-                                                                    'Absent: ${double.parse(((absent / (present + absent)) * 100).toStringAsFixed(2))}%',
-                                                                    style:
-                                                                        const TextStyle(
-                                                                      fontSize:
-                                                                          25,
-                                                                    ),
-                                                                  ),
-                                                                  const SizedBox(
-                                                                      height:
-                                                                          20),
-                                                                  Text(
-                                                                    'Present: ${double.parse(((present / (present + absent)) * 100).toStringAsFixed(2))}%',
-                                                                    style: const TextStyle(
-                                                                        fontSize:
-                                                                            25),
-                                                                  )
-                                                                ],
-                                                              ),
-                                                            );
-                                                          } else {
-                                                            return Container();
-                                                          }
-                                                        }),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    }
-                                  } else {
-                                    return Container();
-                                  }
-                                }),
-                          )
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    StreamBuilder<studentModel>(
-                      stream:
-                          studentDatabase().studentData(child.educationId),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          if (snapshot.data!.activationStatus == 'inactive') {
-                            return Container();
-                          } else {
-                            return Column(
+                    child.educationId != ''
+                        ? SizedBox(
+                            height: 350,
+                            child: Row(
                               children: <Widget>[
-                                Container(
-                                  alignment: Alignment.topCenter,
-                                  child: const Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.edit_note,
-                                        size: 35,
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(
-                                        'Examination Progress',
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 20.0,
-                                            fontFamily: 'Comfortaa',
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 50,
-                                ),
-                                SizedBox(
-                                  height: 500,
+                                Expanded(
+                                  flex: 1,
                                   child: StreamBuilder<studentModel>(
                                       stream: studentDatabase()
                                           .studentData(child.educationId),
                                       builder: (context, snapshot) {
                                         if (snapshot.hasData) {
-                                          studentModel? student =
-                                              snapshot.data;
-                                          return childExaminationProgress(
-                                              studentId: child.educationId,
-                                              academicCalendarId: student!
-                                                  .academicCalendarId);
+                                          studentModel? student = snapshot.data;
+                                          return StreamBuilder<
+                                                  academicCalendarModel>(
+                                              stream: academicCalendarDatabase()
+                                                  .academicCalendarData(student!
+                                                      .academicCalendarId),
+                                              builder: (context, snapshot) {
+                                                if (snapshot.hasData) {
+                                                  academicCalendarModel?
+                                                      academicCalendar =
+                                                      snapshot.data;
+                                                  return StreamBuilder<
+                                                          classModel>(
+                                                      stream: schoolDatabase()
+                                                          .classData(
+                                                              academicCalendar!
+                                                                  .classId),
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        if (snapshot.hasData) {
+                                                          classModel?
+                                                              classDetail =
+                                                              snapshot.data;
+                                                          return Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .fromLTRB(
+                                                                    20,
+                                                                    30,
+                                                                    20,
+                                                                    30),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color:
+                                                                  Colors.white,
+                                                              border:
+                                                                  Border.all(),
+                                                              borderRadius:
+                                                                  const BorderRadius
+                                                                      .all(
+                                                                      Radius.circular(
+                                                                          10)),
+                                                              boxShadow: [
+                                                                BoxShadow(
+                                                                  color: Colors
+                                                                      .grey
+                                                                      .withOpacity(
+                                                                          0.5),
+                                                                  spreadRadius:
+                                                                      1,
+                                                                  blurRadius: 5,
+                                                                  offset: const Offset(
+                                                                      0,
+                                                                      3), // changes position of shadow
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            child: Column(
+                                                              children: <Widget>[
+                                                                Container(
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .topCenter,
+                                                                  child:
+                                                                      const Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Icon(
+                                                                        Icons
+                                                                            .school,
+                                                                        size:
+                                                                            35,
+                                                                      ),
+                                                                      SizedBox(
+                                                                        width:
+                                                                            10,
+                                                                      ),
+                                                                      Text(
+                                                                        'School & Class Details',
+                                                                        textAlign:
+                                                                            TextAlign.start,
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .black,
+                                                                            fontSize:
+                                                                                20.0,
+                                                                            fontFamily:
+                                                                                'Comfortaa',
+                                                                            fontWeight:
+                                                                                FontWeight.bold),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                const SizedBox(
+                                                                    height: 20),
+                                                                Row(
+                                                                  children: <Widget>[
+                                                                    const Expanded(
+                                                                      flex: 1,
+                                                                      child:
+                                                                          Column(
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.start,
+                                                                        children: <Widget>[
+                                                                          Text(
+                                                                            'Class Name',
+                                                                            style:
+                                                                                TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                          ),
+                                                                          SizedBox(
+                                                                              height: 10),
+                                                                          Text(
+                                                                            'Class Year',
+                                                                            style:
+                                                                                TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                          ),
+                                                                          SizedBox(
+                                                                              height: 10),
+                                                                          Text(
+                                                                            'Class Teacher Name',
+                                                                            style:
+                                                                                TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                          ),
+                                                                          SizedBox(
+                                                                              height: 10),
+                                                                          Text(
+                                                                            'School',
+                                                                            style:
+                                                                                TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                          ),
+                                                                          SizedBox(
+                                                                              height: 10),
+                                                                          Text(
+                                                                            'Calendar Start Date',
+                                                                            style:
+                                                                                TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                          ),
+                                                                          SizedBox(
+                                                                              height: 10),
+                                                                          Text(
+                                                                            'Calendar End Date',
+                                                                            style:
+                                                                                TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                          ),
+                                                                          SizedBox(
+                                                                              height: 10),
+                                                                          Text(
+                                                                            'Registration Status',
+                                                                            style:
+                                                                                TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    const SizedBox(
+                                                                        width:
+                                                                            20),
+                                                                    Expanded(
+                                                                      flex: 2,
+                                                                      child:
+                                                                          Column(
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.start,
+                                                                        children: <Widget>[
+                                                                          Text(
+                                                                            ': ${classDetail!.className}',
+                                                                            style:
+                                                                                const TextStyle(fontSize: 15),
+                                                                          ),
+                                                                          const SizedBox(
+                                                                              height: 10),
+                                                                          Text(
+                                                                            ': ${classDetail.classYear}',
+                                                                            style:
+                                                                                const TextStyle(fontSize: 15),
+                                                                          ),
+                                                                          const SizedBox(
+                                                                              height: 10),
+                                                                          StreamBuilder<teacherModel>(
+                                                                              stream: teacherDatabase(teacherId: academicCalendar.teacherId).teacherData,
+                                                                              builder: (context, snapshot) {
+                                                                                if (snapshot.hasData) {
+                                                                                  return Text(
+                                                                                    ': ${snapshot.data!.teacherFullName}',
+                                                                                    style: const TextStyle(fontSize: 15),
+                                                                                  );
+                                                                                } else {
+                                                                                  return Container();
+                                                                                }
+                                                                              }),
+                                                                          const SizedBox(
+                                                                              height: 10),
+                                                                          StreamBuilder<schoolModel>(
+                                                                              stream: schoolDatabase().schoolData(academicCalendar.schoolId),
+                                                                              builder: (context, snapshot) {
+                                                                                if (snapshot.hasData) {
+                                                                                  return Text(
+                                                                                    ': ${snapshot.data!.schoolName}',
+                                                                                    style: const TextStyle(fontSize: 15),
+                                                                                  );
+                                                                                } else {
+                                                                                  return Container();
+                                                                                }
+                                                                              }),
+                                                                          const SizedBox(
+                                                                              height: 10),
+                                                                          Text(
+                                                                            ': ${convertTimeToDateString(academicCalendar.academicCalendarStartDate)}',
+                                                                            style:
+                                                                                const TextStyle(fontSize: 15),
+                                                                          ),
+                                                                          const SizedBox(
+                                                                              height: 10),
+                                                                          Text(
+                                                                            ': ${convertTimeToDateString(academicCalendar.academicCalendarEndDate)}',
+                                                                            style:
+                                                                                const TextStyle(fontSize: 15),
+                                                                          ),
+                                                                          const SizedBox(
+                                                                              height: 10),
+                                                                          student.activationStatus == 'active'
+                                                                              ? SizedBox(
+                                                                                  height: 30,
+                                                                                  width: 150,
+                                                                                  child: Container(
+                                                                                      alignment: Alignment.center,
+                                                                                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                                                                                      decoration: BoxDecoration(
+                                                                                        color: Colors.green[800],
+                                                                                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                                                                      ),
+                                                                                      padding: const EdgeInsets.all(5),
+                                                                                      child: const Row(
+                                                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                                                        children: <Widget>[
+                                                                                          Icon(
+                                                                                            Icons.check,
+                                                                                            color: Colors.white,
+                                                                                          ),
+                                                                                          SizedBox(
+                                                                                            width: 10,
+                                                                                          ),
+                                                                                          Text(
+                                                                                            'Active',
+                                                                                            style: TextStyle(color: Colors.white, fontSize: 15),
+                                                                                          )
+                                                                                        ],
+                                                                                      )),
+                                                                                )
+                                                                              : SizedBox(
+                                                                                  height: 30,
+                                                                                  width: 150,
+                                                                                  child: Container(
+                                                                                      alignment: Alignment.center,
+                                                                                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                                                                                      decoration: BoxDecoration(
+                                                                                        color: Colors.red[800],
+                                                                                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                                                                      ),
+                                                                                      padding: const EdgeInsets.all(5),
+                                                                                      child: const Row(
+                                                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                                                        children: <Widget>[
+                                                                                          Icon(
+                                                                                            Icons.close,
+                                                                                            color: Colors.white,
+                                                                                          ),
+                                                                                          SizedBox(
+                                                                                            width: 10,
+                                                                                          ),
+                                                                                          Text(
+                                                                                            'Inactive',
+                                                                                            style: TextStyle(color: Colors.white, fontSize: 15),
+                                                                                          )
+                                                                                        ],
+                                                                                      )),
+                                                                                ),
+                                                                        ],
+                                                                      ),
+                                                                    )
+                                                                  ],
+                                                                )
+                                                              ],
+                                                            ),
+                                                          );
+                                                        } else {
+                                                          return Container();
+                                                        }
+                                                      });
+                                                } else {
+                                                  return Container();
+                                                }
+                                              });
                                         } else {
                                           return Container();
                                         }
                                       }),
                                 ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: StreamBuilder<studentModel>(
+                                      stream: studentDatabase()
+                                          .studentData(child.educationId),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasData) {
+                                          if (snapshot.data!.activationStatus ==
+                                              'inactive') {
+                                            return Container();
+                                          } else {
+                                            return Container(
+                                              alignment: Alignment.center,
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      20, 30, 20, 30),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(10)),
+                                                border: Border.all(),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.grey
+                                                        .withOpacity(0.5),
+                                                    spreadRadius: 1,
+                                                    blurRadius: 5,
+                                                    offset: const Offset(0,
+                                                        3), // changes position of shadow
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Column(
+                                                children: <Widget>[
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.topCenter,
+                                                    child: const Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.fact_check,
+                                                          size: 35,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        Text(
+                                                          'Class Attendance Percentage',
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 20.0,
+                                                              fontFamily:
+                                                                  'Comfortaa',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 20,
+                                                  ),
+                                                  SizedBox(
+                                                    height: 200,
+                                                    child: Row(
+                                                      children: <Widget>[
+                                                        Expanded(
+                                                          flex: 1,
+                                                          child: StreamBuilder<
+                                                                  studentModel>(
+                                                              stream: studentDatabase()
+                                                                  .studentData(child
+                                                                      .educationId),
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                if (snapshot
+                                                                    .hasData) {
+                                                                  return Container(
+                                                                    child:
+                                                                        studentAttendancePercentage(
+                                                                      studentId:
+                                                                          child
+                                                                              .educationId,
+                                                                      academicCalendarId: snapshot
+                                                                          .data!
+                                                                          .academicCalendarId,
+                                                                    ),
+                                                                  );
+                                                                } else {
+                                                                  return Container();
+                                                                }
+                                                              }),
+                                                        ),
+                                                        Expanded(
+                                                          flex: 1,
+                                                          child: StreamBuilder<
+                                                                  List<
+                                                                      studentAttendanceModel>>(
+                                                              stream: studentAttendanceDatabase()
+                                                                  .allStudentAttendanceWithStudentId(
+                                                                      child
+                                                                          .educationId),
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                if (snapshot
+                                                                    .hasData) {
+                                                                  List<studentAttendanceModel>?
+                                                                      attendanceList =
+                                                                      snapshot
+                                                                          .data;
+                                                                  int present =
+                                                                      getNoOfAttendanceStatus(
+                                                                          attendanceList!,
+                                                                          'present');
+                                                                  int absent =
+                                                                      getNoOfAttendanceStatus(
+                                                                          attendanceList,
+                                                                          'absent');
+                                                                  return Container(
+                                                                    alignment:
+                                                                        Alignment
+                                                                            .center,
+                                                                    child:
+                                                                        Column(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      children: <Widget>[
+                                                                        Text(
+                                                                          'Absent: ${double.parse(((absent / (present + absent)) * 100).toStringAsFixed(2))}%',
+                                                                          style:
+                                                                              const TextStyle(
+                                                                            fontSize:
+                                                                                25,
+                                                                          ),
+                                                                        ),
+                                                                        const SizedBox(
+                                                                            height:
+                                                                                20),
+                                                                        Text(
+                                                                          'Present: ${double.parse(((present / (present + absent)) * 100).toStringAsFixed(2))}%',
+                                                                          style:
+                                                                              const TextStyle(fontSize: 25),
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                  );
+                                                                } else {
+                                                                  return Container();
+                                                                }
+                                                              }),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          }
+                                        } else {
+                                          return Container();
+                                        }
+                                      }),
+                                )
                               ],
-                            );
-                          }
-                        } else {
-                          return Container();
-                        }
-                      }
+                            ),
+                          )
+                        : SizedBox(
+                            height: 300,
+                            child: Center(
+                              child: noData('Oops! Nothing here...'),
+                            ),
+                          ),
+                    const SizedBox(
+                      height: 10,
                     ),
+                    child.educationId != ''
+                        ? StreamBuilder<studentModel>(
+                            stream: studentDatabase()
+                                .studentData(child.educationId),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                if (snapshot.data!.activationStatus ==
+                                    'inactive') {
+                                  return Container();
+                                } else {
+                                  return Column(
+                                    children: <Widget>[
+                                      Container(
+                                        alignment: Alignment.topCenter,
+                                        child: const Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.edit_note,
+                                              size: 35,
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              'Examination Progress',
+                                              textAlign: TextAlign.start,
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 20.0,
+                                                  fontFamily: 'Comfortaa',
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 50,
+                                      ),
+                                      SizedBox(
+                                        height: 500,
+                                        child: StreamBuilder<studentModel>(
+                                            stream: studentDatabase()
+                                                .studentData(child.educationId),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.hasData) {
+                                                studentModel? student =
+                                                    snapshot.data;
+                                                return childExaminationProgress(
+                                                    studentId:
+                                                        child.educationId,
+                                                    academicCalendarId: student!
+                                                        .academicCalendarId);
+                                              } else {
+                                                return Container();
+                                              }
+                                            }),
+                                      ),
+                                    ],
+                                  );
+                                }
+                              } else {
+                                return Container();
+                              }
+                            })
+                        : Container(),
                     const SizedBox(height: 80),
                     Container(
                       alignment: Alignment.centerLeft,
@@ -3698,738 +3915,742 @@ class _childProfileState extends State<childProfile> {
                       ),
                     ),
                     const SizedBox(height: 30),
-                    child.healthId == ' '
-                    ? const Center(
-                        child: Text('No Data'),
-                      )
-                    : StreamBuilder<HealthModel>(
-                      stream: HealthDatabaseService().healthData(child.healthId),
-                      builder: (context, snapshot) {
-                        if(snapshot.hasData){
-                          HealthModel? health = snapshot.data;
-                          return StreamBuilder<patientModel>(
-                            stream: PatientDatabaseService()
-                                .patientData(health!.patientId),
+                    child.healthId == ''
+                        ? SizedBox(
+                            height: 300,
+                            child: Center(
+                              child: noData('Oops! Nothing here...'),
+                            ),
+                          )
+                        : StreamBuilder<HealthModel>(
+                            stream: HealthDatabaseService()
+                                .healthData(child.healthId),
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
-                                patientModel? patient = snapshot.data;
-                                return Column(
-                                  children: <Widget>[
-                                    Container(
-                                      alignment:
-                                          Alignment.center,
-                                      padding: const EdgeInsets
-                                          .fromLTRB(
-                                          20, 30, 20, 30),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(),
-                                        borderRadius:
-                                            const BorderRadius
-                                                .all(
-                                                Radius.circular(
-                                                    10)),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey
-                                                .withOpacity(
-                                                    0.5),
-                                            spreadRadius: 1,
-                                            blurRadius: 5,
-                                            offset: const Offset(
-                                                0,
-                                                3), // changes position of shadow
-                                          ),
-                                        ],
-                                      ),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Container(
-                                            alignment: Alignment
-                                                .topCenter,
-                                            child: const Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .center,
-                                              children: [
-                                                Icon(
-                                                  Icons.health_and_safety,
-                                                  size: 35,
-                                                ),
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Text(
-                                                  'Health Details',
-                                                  textAlign:
-                                                      TextAlign
-                                                          .start,
-                                                  style: TextStyle(
-                                                      color: Colors
-                                                          .black,
-                                                      fontSize:
-                                                          20.0,
-                                                      fontFamily:
-                                                          'Comfortaa',
-                                                      fontWeight:
-                                                          FontWeight
-                                                              .bold),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                              height: 20),
-                                          Row(
-                                            children: <Widget>[
-                                              const Expanded(
-                                                flex: 1,
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .start,
-                                                  children: <Widget>[
-                                                    Text(
-                                                      'Clinic Name',
-                                                      style: TextStyle(
-                                                          fontWeight: FontWeight
-                                                              .bold,
-                                                          fontSize:
-                                                              15),
-                                                    ),
-                                                    SizedBox(
-                                                        height:
-                                                            10),
-                                                    Text(
-                                                      'BMI Status',
-                                                      style: TextStyle(
-                                                          fontWeight: FontWeight
-                                                              .bold,
-                                                          fontSize:
-                                                              15),
-                                                    ),
-                                                  ],
-                                                ),
+                                HealthModel? health = snapshot.data;
+                                return StreamBuilder<patientModel>(
+                                    stream: PatientDatabaseService()
+                                        .patientData(health!.patientId),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        patientModel? patient = snapshot.data;
+                                        return Column(
+                                          children: <Widget>[
+                                            Container(
+                                              alignment: Alignment.center,
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      20, 30, 20, 30),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                border: Border.all(),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(10)),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.grey
+                                                        .withOpacity(0.5),
+                                                    spreadRadius: 1,
+                                                    blurRadius: 5,
+                                                    offset: const Offset(0,
+                                                        3), // changes position of shadow
+                                                  ),
+                                                ],
                                               ),
-                                              const SizedBox(
-                                                  width: 20),
-                                              Expanded(
-                                                flex: 2,
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .start,
-                                                  children: <Widget>[
-                                                    StreamBuilder<ClinicModel>(
-                                                      stream: medicalStaffDatabase().clinicData(patient!.clinicId),
-                                                      builder: (context, snapshot) {
-                                                        if(snapshot.hasData){
-                                                          return Text(
-                                                            ': ${snapshot.data?.clinicName}',
-                                                            style: const TextStyle(
-                                                                fontSize:
-                                                                    15),
-                                                          );
-                                                        }else{
-                                                          return Container();
-                                                        }
-                                                      },
+                                              child: Column(
+                                                children: <Widget>[
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.topCenter,
+                                                    child: const Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Icon(
+                                                          Icons
+                                                              .health_and_safety,
+                                                          size: 35,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        Text(
+                                                          'Health Details',
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 20.0,
+                                                              fontFamily:
+                                                                  'Comfortaa',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ],
                                                     ),
-                                                    const SizedBox(height:10),
-                                                    StreamBuilder<List<BmiHealthModel>>(
-                                                      stream: HealthDatabaseService().allBmiHealthData(patient.healthId),
-                                                      builder: (context, snapshot) {
-                                                        if(snapshot.hasData){
-                                                          List<BmiHealthModel>? bmi =
+                                                  ),
+                                                  const SizedBox(height: 20),
+                                                  Row(
+                                                    children: <Widget>[
+                                                      const Expanded(
+                                                        flex: 1,
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: <Widget>[
+                                                            Text(
+                                                              'Clinic Name',
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 15),
+                                                            ),
+                                                            SizedBox(
+                                                                height: 10),
+                                                            Text(
+                                                              'BMI Status',
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 15),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      const SizedBox(width: 20),
+                                                      Expanded(
+                                                        flex: 2,
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: <Widget>[
+                                                            StreamBuilder<
+                                                                ClinicModel>(
+                                                              stream: medicalStaffDatabase()
+                                                                  .clinicData(
+                                                                      patient!
+                                                                          .clinicId),
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                if (snapshot
+                                                                    .hasData) {
+                                                                  return Text(
+                                                                    ': ${snapshot.data?.clinicName}',
+                                                                    style: const TextStyle(
+                                                                        fontSize:
+                                                                            15),
+                                                                  );
+                                                                } else {
+                                                                  return Container();
+                                                                }
+                                                              },
+                                                            ),
+                                                            const SizedBox(
+                                                                height: 10),
+                                                            StreamBuilder<
+                                                                List<
+                                                                    BmiHealthModel>>(
+                                                              stream: HealthDatabaseService()
+                                                                  .allBmiHealthData(
+                                                                      patient
+                                                                          .healthId),
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                if (snapshot
+                                                                    .hasData) {
+                                                                  List<BmiHealthModel>?
+                                                                      bmi =
+                                                                      snapshot
+                                                                          .data;
+                                                                  String
+                                                                      bmiStatus =
+                                                                      ' ';
+                                                                  double
+                                                                      lastBmiData =
+                                                                      bmi![0]
+                                                                          .bmiData;
+                                                                  if (lastBmiData <
+                                                                      16) {
+                                                                    bmiStatus =
+                                                                        "Severe Thinness";
+                                                                  } else if (lastBmiData <
+                                                                      17) {
+                                                                    bmiStatus =
+                                                                        "Moderate Thinness";
+                                                                  } else if (lastBmiData <
+                                                                      18.5) {
+                                                                    bmiStatus =
+                                                                        "Mild Thinness";
+                                                                  } else if (lastBmiData <
+                                                                      25) {
+                                                                    bmiStatus =
+                                                                        "Normal";
+                                                                  } else if (lastBmiData <
+                                                                      30) {
+                                                                    bmiStatus =
+                                                                        "Overweight";
+                                                                  } else if (lastBmiData <
+                                                                      35) {
+                                                                    bmiStatus =
+                                                                        "Obese Class I";
+                                                                  } else if (lastBmiData <
+                                                                      40) {
+                                                                    bmiStatus =
+                                                                        "Obese Class II";
+                                                                  } else if (lastBmiData >=
+                                                                      40) {
+                                                                    bmiStatus =
+                                                                        "Obese Class III";
+                                                                  } else {
+                                                                    bmiStatus =
+                                                                        "No Status";
+                                                                  }
+                                                                  return Text(
+                                                                    ': ${bmiStatus}',
+                                                                    style: const TextStyle(
+                                                                        fontSize:
+                                                                            15),
+                                                                  );
+                                                                } else {
+                                                                  return Container();
+                                                                }
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            Container(
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                border: Border.all(),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(10)),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.grey
+                                                        .withOpacity(0.5),
+                                                    spreadRadius: 1,
+                                                    blurRadius: 5,
+                                                    offset: const Offset(0,
+                                                        3), // changes position of shadow
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Column(
+                                                children: <Widget>[
+                                                  SizedBox(
+                                                      height: 200,
+                                                      child: childBmi(
+                                                          healthId: patient
+                                                              .healthId)),
+                                                ],
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            SizedBox(
+                                              height: 350,
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: StreamBuilder<
+                                                        HealthStatusModel>(
+                                                      stream: HealthDatabaseService()
+                                                          .healthStatusData(patient
+                                                              .healthStatusId),
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        if (snapshot.hasData) {
+                                                          HealthStatusModel?
+                                                              status =
                                                               snapshot.data;
-                                                          String bmiStatus = ' ';
-                                                          double lastBmiData =
-                                                              bmi![0].bmiData;
-                                                          if (lastBmiData < 16) {
-                                                            bmiStatus = "Severe Thinness";
-                                                          } else if (lastBmiData < 17) {
-                                                            bmiStatus =
-                                                                "Moderate Thinness";
-                                                          } else if (lastBmiData < 18.5) {
-                                                            bmiStatus = "Mild Thinness";
-                                                          } else if (lastBmiData < 25) {
-                                                            bmiStatus = "Normal";
-                                                          } else if (lastBmiData < 30) {
-                                                            bmiStatus = "Overweight";
-                                                          } else if (lastBmiData < 35) {
-                                                            bmiStatus = "Obese Class I";
-                                                          } else if (lastBmiData < 40) {
-                                                            bmiStatus = "Obese Class II";
-                                                          } else if (lastBmiData >= 40) {
-                                                            bmiStatus = "Obese Class III";
+                                                          if (status
+                                                                  ?.healthConditionId !=
+                                                              " ") {
+                                                            return StreamBuilder<
+                                                                    HealthConditionModel>(
+                                                                stream: HealthDatabaseService()
+                                                                    .healthConditionData(
+                                                                        status!
+                                                                            .healthConditionId),
+                                                                builder: (context,
+                                                                    snapshot) {
+                                                                  HealthConditionModel?
+                                                                      condition =
+                                                                      snapshot
+                                                                          .data;
+                                                                  return Container(
+                                                                    alignment:
+                                                                        Alignment
+                                                                            .center,
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .fromLTRB(
+                                                                            30,
+                                                                            30,
+                                                                            30,
+                                                                            30),
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      border: Border
+                                                                          .all(),
+                                                                      borderRadius: const BorderRadius
+                                                                          .all(
+                                                                          Radius.circular(
+                                                                              10)),
+                                                                      boxShadow: [
+                                                                        BoxShadow(
+                                                                          color: Colors
+                                                                              .grey
+                                                                              .withOpacity(0.5),
+                                                                          spreadRadius:
+                                                                              1,
+                                                                          blurRadius:
+                                                                              5,
+                                                                          offset: const Offset(
+                                                                              0,
+                                                                              3), // changes position of shadow
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    child:
+                                                                        Column(
+                                                                      children: [
+                                                                        Container(
+                                                                          alignment:
+                                                                              Alignment.topCenter,
+                                                                          child:
+                                                                              const Row(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            children: [
+                                                                              Icon(
+                                                                                Icons.medical_information,
+                                                                                size: 35,
+                                                                              ),
+                                                                              SizedBox(
+                                                                                width: 10,
+                                                                              ),
+                                                                              Text(
+                                                                                'Health Condition',
+                                                                                textAlign: TextAlign.start,
+                                                                                style: TextStyle(color: Colors.black, fontSize: 20.0, fontFamily: 'Comfortaa', fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                        const SizedBox(
+                                                                            height:
+                                                                                30),
+                                                                        Row(
+                                                                          children: <Widget>[
+                                                                            const Expanded(
+                                                                              flex: 1,
+                                                                              child: Column(
+                                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                children: <Widget>[
+                                                                                  Text(
+                                                                                    'Temperature',
+                                                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                                  ),
+                                                                                  SizedBox(height: 10),
+                                                                                  Text(
+                                                                                    'Heart Rate',
+                                                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                                  ),
+                                                                                  SizedBox(height: 10),
+                                                                                  Text(
+                                                                                    'Symptom',
+                                                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                                  ),
+                                                                                  SizedBox(height: 10),
+                                                                                  Text(
+                                                                                    'Illness',
+                                                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                                  ),
+                                                                                  SizedBox(height: 10),
+                                                                                  Text(
+                                                                                    'Notes',
+                                                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                            const SizedBox(width: 20),
+                                                                            Expanded(
+                                                                              flex: 2,
+                                                                              child: Column(
+                                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                children: <Widget>[
+                                                                                  Text(
+                                                                                    ': ${condition!.currentTemperature}',
+                                                                                    style: const TextStyle(fontSize: 15),
+                                                                                  ),
+                                                                                  const SizedBox(height: 10),
+                                                                                  Text(
+                                                                                    ': ${condition.currentHeartRate}',
+                                                                                    style: const TextStyle(fontSize: 15),
+                                                                                  ),
+                                                                                  const SizedBox(height: 10),
+                                                                                  Text(
+                                                                                    ': ${condition.currentSymptom}',
+                                                                                    style: const TextStyle(fontSize: 15),
+                                                                                  ),
+                                                                                  const SizedBox(height: 10),
+                                                                                  Text(
+                                                                                    ': ${condition.currentIllness}',
+                                                                                    style: const TextStyle(fontSize: 15),
+                                                                                  ),
+                                                                                  const SizedBox(height: 10),
+                                                                                  Text(
+                                                                                    ': ${condition.notes}',
+                                                                                    style: const TextStyle(fontSize: 15),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            )
+                                                                          ],
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                  );
+                                                                });
                                                           } else {
-                                                            bmiStatus = "No Status";
+                                                            return Container();
                                                           }
-                                                          return Text(
-                                                            ': ${bmiStatus}',
-                                                            style: const TextStyle(
-                                                                fontSize:
-                                                                    15),
-                                                          );
-                                                        }else{
+                                                        } else {
                                                           return Container();
                                                         }
                                                       },
                                                     ),
-                                                  ],
-                                                ),
-                                              )
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    Container(
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(),
-                                        borderRadius:
-                                            const BorderRadius.all(
-                                                Radius.circular(10)),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey
-                                                .withOpacity(0.5),
-                                            spreadRadius: 1,
-                                            blurRadius: 5,
-                                            offset: const Offset(0,
-                                                3), // changes position of shadow
-                                          ),
-                                        ],
-                                      ),
-                                      child: Column(
-                                        children: <Widget>[
-                                          SizedBox(
-                                              height: 200,
-                                              child: childBmi(
-                                                  healthId: patient
-                                                      .healthId)),
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    SizedBox(
-                                      height: 350,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            flex: 1,
-                                            child: StreamBuilder<HealthStatusModel>(
-                                              stream: HealthDatabaseService().healthStatusData(patient.healthStatusId),
-                                              builder: (context, snapshot) {
-                                                if(snapshot.hasData){
-                                                  HealthStatusModel? status = snapshot.data;
-                                                  if(status?.healthConditionId != " "){
-                                                    return StreamBuilder<HealthConditionModel>(
-                                                      stream: HealthDatabaseService().healthConditionData(status!.healthConditionId),
-                                                      builder: (context, snapshot) {
-                                                        HealthConditionModel? condition = snapshot.data;
-                                                        return Container(
-                                                          alignment: Alignment.center,
-                                                          padding: const EdgeInsets.fromLTRB(
-                                                              30, 30, 30, 30),
-                                                          decoration: BoxDecoration(
-                                                            color: Colors.white,
-                                                            border: Border.all(),
-                                                            borderRadius:
-                                                                const BorderRadius.all(
-                                                                    Radius.circular(10)),
-                                                            boxShadow: [
-                                                              BoxShadow(
-                                                                color: Colors.grey
-                                                                    .withOpacity(0.5),
-                                                                spreadRadius: 1,
-                                                                blurRadius: 5,
-                                                                offset: const Offset(0,
-                                                                    3), // changes position of shadow
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          child: Column(
-                                                            children: [
-                                                              Container(
-                                                                alignment: Alignment
-                                                                    .topCenter,
-                                                                child: const Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    Icon(
-                                                                      Icons.medical_information,
-                                                                      size: 35,
-                                                                    ),
-                                                                    SizedBox(
-                                                                      width: 10,
-                                                                    ),
-                                                                    Text(
-                                                                      'Health Condition',
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .start,
-                                                                      style: TextStyle(
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: StreamBuilder<
+                                                        HealthStatusModel>(
+                                                      stream: HealthDatabaseService()
+                                                          .healthStatusData(patient
+                                                              .healthStatusId),
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        if (snapshot.hasData) {
+                                                          HealthStatusModel?
+                                                              status =
+                                                              snapshot.data;
+                                                          if (status
+                                                                  ?.physicalConditionId !=
+                                                              " ") {
+                                                            return StreamBuilder<
+                                                                    PhysicalConditionModel>(
+                                                                stream: HealthDatabaseService()
+                                                                    .physicalConditionData(
+                                                                        status!
+                                                                            .physicalConditionId),
+                                                                builder: (context,
+                                                                    snapshot) {
+                                                                  PhysicalConditionModel?
+                                                                      physical =
+                                                                      snapshot
+                                                                          .data;
+                                                                  return Container(
+                                                                    alignment:
+                                                                        Alignment
+                                                                            .center,
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .fromLTRB(
+                                                                            30,
+                                                                            30,
+                                                                            30,
+                                                                            30),
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      border: Border
+                                                                          .all(),
+                                                                      borderRadius: const BorderRadius
+                                                                          .all(
+                                                                          Radius.circular(
+                                                                              10)),
+                                                                      boxShadow: [
+                                                                        BoxShadow(
                                                                           color: Colors
-                                                                              .black,
-                                                                          fontSize:
-                                                                              20.0,
-                                                                          fontFamily:
-                                                                              'Comfortaa',
-                                                                          fontWeight:
-                                                                              FontWeight
-                                                                                  .bold),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              const SizedBox(height: 30),
-                                                              Row(
-                                                                children: <Widget>[
-                                                                  const Expanded(
-                                                                    flex: 1,
-                                                                    child: Column(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: <Widget>[
-                                                                        Text(
-                                                                          'Temperature',
-                                                                          style: TextStyle(
-                                                                              fontWeight: FontWeight
-                                                                                  .bold,
-                                                                              fontSize:
-                                                                                  15),
-                                                                        ),
-                                                                        SizedBox(
-                                                                            height:
-                                                                                10),
-                                                                        Text(
-                                                                          'Heart Rate',
-                                                                          style: TextStyle(
-                                                                              fontWeight: FontWeight
-                                                                                  .bold,
-                                                                              fontSize:
-                                                                                  15),
-                                                                        ),
-                                                                        SizedBox(
-                                                                            height:
-                                                                                10),
-                                                                        Text(
-                                                                          'Symptom',
-                                                                          style: TextStyle(
-                                                                              fontWeight: FontWeight
-                                                                                  .bold,
-                                                                              fontSize:
-                                                                                  15),
-                                                                        ),
-                                                                        SizedBox(
-                                                                            height:
-                                                                                10),
-                                                                        Text(
-                                                                          'Illness',
-                                                                          style: TextStyle(
-                                                                              fontWeight: FontWeight
-                                                                                  .bold,
-                                                                              fontSize:
-                                                                                  15),
-                                                                        ),
-                                                                        SizedBox(
-                                                                            height:
-                                                                                10),
-                                                                        Text(
-                                                                          'Notes',
-                                                                          style: TextStyle(
-                                                                              fontWeight: FontWeight
-                                                                                  .bold,
-                                                                              fontSize:
-                                                                                  15),
+                                                                              .grey
+                                                                              .withOpacity(0.5),
+                                                                          spreadRadius:
+                                                                              1,
+                                                                          blurRadius:
+                                                                              5,
+                                                                          offset: const Offset(
+                                                                              0,
+                                                                              3), // changes position of shadow
                                                                         ),
                                                                       ],
                                                                     ),
-                                                                  ),
-                                                                  const SizedBox(
-                                                                      width: 20),
-                                                                  Expanded(
-                                                                    flex: 2,
-                                                                    child: Column(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: <Widget>[
-                                                                        Text(
-                                                                          ': ${condition!.currentTemperature}',
-                                                                          style: const TextStyle(
-                                                                              fontSize:
-                                                                                  15),
+                                                                    child:
+                                                                        Column(
+                                                                      children: [
+                                                                        Container(
+                                                                          alignment:
+                                                                              Alignment.topCenter,
+                                                                          child:
+                                                                              const Row(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            children: [
+                                                                              Icon(
+                                                                                Icons.personal_injury,
+                                                                                size: 35,
+                                                                              ),
+                                                                              SizedBox(
+                                                                                width: 10,
+                                                                              ),
+                                                                              Text(
+                                                                                'Physical Condition',
+                                                                                textAlign: TextAlign.start,
+                                                                                style: TextStyle(color: Colors.black, fontSize: 20.0, fontFamily: 'Comfortaa', fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                            ],
+                                                                          ),
                                                                         ),
                                                                         const SizedBox(
                                                                             height:
-                                                                                10),
-                                                                        Text(
-                                                                          ': ${condition.currentHeartRate}',
-                                                                          style: const TextStyle(
-                                                                              fontSize:
-                                                                                  15),
-                                                                        ),
-                                                                        const SizedBox(
-                                                                            height:
-                                                                                10),
-                                                                        Text(
-                                                                          ': ${condition.currentSymptom}',
-                                                                          style: const TextStyle(
-                                                                              fontSize:
-                                                                                  15),
-                                                                        ),
-                                                                        const SizedBox(
-                                                                            height:
-                                                                                10),
-                                                                        Text(
-                                                                          ': ${condition.currentIllness}',
-                                                                          style: const TextStyle(
-                                                                              fontSize:
-                                                                                  15),
-                                                                        ),
-                                                                        const SizedBox(
-                                                                            height:
-                                                                                10),
-                                                                        Text(
-                                                                          ': ${condition.notes}',
-                                                                          style: const TextStyle(
-                                                                              fontSize:
-                                                                                  15),
-                                                                        ),
+                                                                                30),
+                                                                        Row(
+                                                                          children: <Widget>[
+                                                                            const Expanded(
+                                                                              flex: 1,
+                                                                              child: Column(
+                                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                children: <Widget>[
+                                                                                  Text(
+                                                                                    'Injury',
+                                                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                                  ),
+                                                                                  SizedBox(height: 10),
+                                                                                  Text(
+                                                                                    'Details',
+                                                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                            const SizedBox(width: 20),
+                                                                            Expanded(
+                                                                              flex: 2,
+                                                                              child: Column(
+                                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                children: <Widget>[
+                                                                                  Text(
+                                                                                    ': ${physical?.currentInjury}',
+                                                                                    style: const TextStyle(fontSize: 15),
+                                                                                  ),
+                                                                                  const SizedBox(height: 10),
+                                                                                  Text(
+                                                                                    ': ${physical?.details}',
+                                                                                    style: const TextStyle(fontSize: 15),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            )
+                                                                          ],
+                                                                        )
                                                                       ],
                                                                     ),
-                                                                  )
-                                                                ],
-                                                              )
-                                                            ],
-                                                          ),
-                                                        );
-                                                      }
-                                                    );
-                                                  }else{
-                                                    return Container();
-                                                  }
-                                                }else{
-                                                  return Container();
-                                                }
-                                              },
+                                                                  );
+                                                                });
+                                                          } else {
+                                                            return Container();
+                                                          }
+                                                        } else {
+                                                          return Container();
+                                                        }
+                                                      },
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: StreamBuilder<
+                                                          HealthStatusModel>(
+                                                        stream: HealthDatabaseService()
+                                                            .healthStatusData(
+                                                                patient
+                                                                    .healthStatusId),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          if (snapshot
+                                                              .hasData) {
+                                                            HealthStatusModel?
+                                                                status =
+                                                                snapshot.data;
+                                                            if (status
+                                                                    ?.chronicConditionId !=
+                                                                " ") {
+                                                              return StreamBuilder<
+                                                                      ChronicConditionModel>(
+                                                                  stream: HealthDatabaseService()
+                                                                      .chronicConditionData(
+                                                                          status!
+                                                                              .chronicConditionId),
+                                                                  builder: (context,
+                                                                      snapshot) {
+                                                                    ChronicConditionModel?
+                                                                        chronic =
+                                                                        snapshot
+                                                                            .data;
+                                                                    return Container(
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .center,
+                                                                      padding: const EdgeInsets
+                                                                          .fromLTRB(
+                                                                          30,
+                                                                          30,
+                                                                          30,
+                                                                          30),
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        border:
+                                                                            Border.all(),
+                                                                        borderRadius: const BorderRadius
+                                                                            .all(
+                                                                            Radius.circular(10)),
+                                                                        boxShadow: [
+                                                                          BoxShadow(
+                                                                            color:
+                                                                                Colors.grey.withOpacity(0.5),
+                                                                            spreadRadius:
+                                                                                1,
+                                                                            blurRadius:
+                                                                                5,
+                                                                            offset:
+                                                                                const Offset(0, 3), // changes position of shadow
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      child:
+                                                                          Column(
+                                                                        children: [
+                                                                          Container(
+                                                                            alignment:
+                                                                                Alignment.topCenter,
+                                                                            child:
+                                                                                const Row(
+                                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                                              children: [
+                                                                                Icon(
+                                                                                  Icons.emergency,
+                                                                                  size: 35,
+                                                                                ),
+                                                                                SizedBox(
+                                                                                  width: 10,
+                                                                                ),
+                                                                                Text(
+                                                                                  'Chronic Condition',
+                                                                                  textAlign: TextAlign.start,
+                                                                                  style: TextStyle(color: Colors.black, fontSize: 20.0, fontFamily: 'Comfortaa', fontWeight: FontWeight.bold),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                          const SizedBox(
+                                                                              height: 30),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              const Expanded(
+                                                                                flex: 1,
+                                                                                child: Column(
+                                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                  children: <Widget>[
+                                                                                    Text(
+                                                                                      'Allergies',
+                                                                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                                    ),
+                                                                                    SizedBox(height: 10),
+                                                                                    Text(
+                                                                                      'Details',
+                                                                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+                                                                              const SizedBox(width: 20),
+                                                                              Expanded(
+                                                                                flex: 2,
+                                                                                child: Column(
+                                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                  children: <Widget>[
+                                                                                    Text(
+                                                                                      ': ${chronic!.childAllergies}',
+                                                                                      style: const TextStyle(fontSize: 15),
+                                                                                    ),
+                                                                                    const SizedBox(height: 10),
+                                                                                    Text(
+                                                                                      ': ${chronic.childChronic}',
+                                                                                      style: const TextStyle(fontSize: 15),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              )
+                                                                            ],
+                                                                          )
+                                                                        ],
+                                                                      ),
+                                                                    );
+                                                                  });
+                                                            } else {
+                                                              return Container();
+                                                            }
+                                                          } else {
+                                                            return Container();
+                                                          }
+                                                        },
+                                                      ))
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          Expanded(
-                                            flex: 1,
-                                            child: StreamBuilder<HealthStatusModel>(
-                                              stream: HealthDatabaseService().healthStatusData(patient.healthStatusId),
-                                              builder: (context, snapshot) {
-                                                if(snapshot.hasData){
-                                                  HealthStatusModel? status = snapshot.data;
-                                                  if(status?.physicalConditionId != " "){
-                                                    return StreamBuilder<PhysicalConditionModel>(
-                                                      stream: HealthDatabaseService().physicalConditionData(status!.physicalConditionId),
-                                                      builder: (context, snapshot) {
-                                                        PhysicalConditionModel? physical = snapshot.data;
-                                                        return Container(
-                                                          alignment: Alignment.center,
-                                                          padding: const EdgeInsets.fromLTRB(30, 30, 30, 30),
-                                                          decoration: BoxDecoration(
-                                                            color: Colors.white,
-                                                            border: Border.all(),
-                                                            borderRadius:
-                                                                const BorderRadius.all(Radius.circular(10)),
-                                                            boxShadow: [
-                                                              BoxShadow(
-                                                                color: Colors.grey.withOpacity(0.5),
-                                                                spreadRadius: 1,
-                                                                blurRadius: 5,
-                                                                offset: const Offset(
-                                                                    0, 3), // changes position of shadow
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          child: Column(
-                                                            children: [
-                                                              Container(
-                                                                alignment: Alignment
-                                                                    .topCenter,
-                                                                child: const Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    Icon(
-                                                                      Icons.personal_injury,
-                                                                      size: 35,
-                                                                    ),
-                                                                    SizedBox(
-                                                                      width: 10,
-                                                                    ),
-                                                                    Text(
-                                                                      'Physical Condition',
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .start,
-                                                                      style: TextStyle(
-                                                                          color: Colors
-                                                                              .black,
-                                                                          fontSize:
-                                                                              20.0,
-                                                                          fontFamily:
-                                                                              'Comfortaa',
-                                                                          fontWeight:
-                                                                              FontWeight
-                                                                                  .bold),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              const SizedBox(height: 30),
-                                                              Row(
-                                                                children: <Widget>[
-                                                                  const Expanded(
-                                                                    flex: 1,
-                                                                    child: Column(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: <Widget>[
-                                                                        Text(
-                                                                          'Injury',
-                                                                          style: TextStyle(
-                                                                              fontWeight: FontWeight
-                                                                                  .bold,
-                                                                              fontSize:
-                                                                                  15),
-                                                                        ),
-                                                                        SizedBox(
-                                                                            height:
-                                                                                10),
-                                                                        Text(
-                                                                          'Details',
-                                                                          style: TextStyle(
-                                                                              fontWeight: FontWeight
-                                                                                  .bold,
-                                                                              fontSize:
-                                                                                  15),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                  const SizedBox(
-                                                                      width: 20),
-                                                                  Expanded(
-                                                                    flex: 2,
-                                                                    child: Column(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: <Widget>[
-                                                                        Text(
-                                                                          ': ${physical?.currentInjury}',
-                                                                          style: const TextStyle(
-                                                                              fontSize:
-                                                                                  15),
-                                                                        ),
-                                                                        const SizedBox(
-                                                                            height:
-                                                                                10),
-                                                                        Text(
-                                                                          ': ${physical?.details}',
-                                                                          style: const TextStyle(
-                                                                              fontSize:
-                                                                                  15),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  )
-                                                                ],
-                                                              )
-                                                            ],
-                                                          ),
-                                                        );
-                                                      }
-                                                    );
-                                                  }else{
-                                                    return Container();
-                                                  }
-                                                }else{
-                                                  return Container();
-                                                }
-                                              },
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          Expanded(
-                                            flex: 1,
-                                            child: StreamBuilder<HealthStatusModel>(
-                                              stream: HealthDatabaseService().healthStatusData(patient.healthStatusId),
-                                              builder: (context, snapshot) {
-                                                if(snapshot.hasData){
-                                                  HealthStatusModel? status = snapshot.data;
-                                                  if(status?.chronicConditionId != " "){
-                                                    return StreamBuilder<ChronicConditionModel>(
-                                                      stream: HealthDatabaseService().chronicConditionData(status!.chronicConditionId),
-                                                      builder: (context, snapshot) {
-                                                        ChronicConditionModel? chronic = snapshot.data;
-                                                        return Container(
-                                                          alignment: Alignment.center,
-                                                          padding: const EdgeInsets.fromLTRB(30, 30, 30, 30),
-                                                          decoration: BoxDecoration(
-                                                            color: Colors.white,
-                                                            border: Border.all(),
-                                                            borderRadius:
-                                                                const BorderRadius.all(Radius.circular(10)),
-                                                            boxShadow: [
-                                                              BoxShadow(
-                                                                color: Colors.grey.withOpacity(0.5),
-                                                                spreadRadius: 1,
-                                                                blurRadius: 5,
-                                                                offset: const Offset(
-                                                                    0, 3), // changes position of shadow
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          child: Column(
-                                                            children: [
-                                                              Container(
-                                                                alignment: Alignment
-                                                                    .topCenter,
-                                                                child: const Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    Icon(
-                                                                      Icons.emergency,
-                                                                      size: 35,
-                                                                    ),
-                                                                    SizedBox(
-                                                                      width: 10,
-                                                                    ),
-                                                                    Text(
-                                                                      'Chronic Condition',
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .start,
-                                                                      style: TextStyle(
-                                                                          color: Colors
-                                                                              .black,
-                                                                          fontSize:
-                                                                              20.0,
-                                                                          fontFamily:
-                                                                              'Comfortaa',
-                                                                          fontWeight:
-                                                                              FontWeight
-                                                                                  .bold),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              const SizedBox(height: 30),
-                                                              Row(
-                                                                children: <Widget>[
-                                                                  const Expanded(
-                                                                    flex: 1,
-                                                                    child: Column(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: <Widget>[
-                                                                        Text(
-                                                                          'Allergies',
-                                                                          style: TextStyle(
-                                                                              fontWeight: FontWeight
-                                                                                  .bold,
-                                                                              fontSize:
-                                                                                  15),
-                                                                        ),
-                                                                        SizedBox(
-                                                                            height:
-                                                                                10),
-                                                                        Text(
-                                                                          'Details',
-                                                                          style: TextStyle(
-                                                                              fontWeight: FontWeight
-                                                                                  .bold,
-                                                                              fontSize:
-                                                                                  15),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                  const SizedBox(
-                                                                      width: 20),
-                                                                  Expanded(
-                                                                    flex: 2,
-                                                                    child: Column(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: <Widget>[
-                                                                        Text(
-                                                                          ': ${chronic!.childAllergies}',
-                                                                          style: const TextStyle(
-                                                                              fontSize:
-                                                                                  15),
-                                                                        ),
-                                                                        const SizedBox(
-                                                                            height:
-                                                                                10),
-                                                                        Text(
-                                                                          ': ${chronic.childChronic}',
-                                                                          style: const TextStyle(
-                                                                              fontSize:
-                                                                                  15),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  )
-                                                                ],
-                                                              )
-                                                            ],
-                                                          ),
-                                                        );
-                                                      }
-                                                    );
-                                                  }else{
-                                                    return Container();
-                                                  }
-                                                }else{
-                                                  return Container();
-                                                }
-                                              },
-                                            )
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                );
+                                          ],
+                                        );
+                                      } else {
+                                        return Container();
+                                      }
+                                    });
                               } else {
                                 return Container();
                               }
-                            }
-                          );
-                        }else {
-                          return Container();
-                        }
-                      },
-                    ),
+                            },
+                          ),
                   ],
                 ),
               ),

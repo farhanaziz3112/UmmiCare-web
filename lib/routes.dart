@@ -96,7 +96,7 @@ final GoRouter routes = GoRouter(
       GoRoute(
           path: '/auth',
           builder: (BuildContext context, GoRouterState state) {
-            return const SignIn();
+            return const SignIn(currentPage: 0,);
           }),
       GoRoute(
           path: '/',
@@ -170,18 +170,6 @@ final GoRouter routes = GoRouter(
                                       staffId: state.pathParameters['id']!))),
                     ],
                   ),
-                  GoRoute(
-                    path: 'report',
-                    pageBuilder: (context, state) => NoTransitionPage<void>(
-                        key: state.pageKey,
-                        child: const adminAdvisor(currentPage: 3)),
-                  ),
-                  GoRoute(
-                    path: 'announcement',
-                    pageBuilder: (context, state) => NoTransitionPage<void>(
-                        key: state.pageKey,
-                        child: const adminAdvisor(currentPage: 4)),
-                  ),
                 ]),
             GoRoute(
                 path: 'teacher',
@@ -237,18 +225,6 @@ final GoRouter routes = GoRouter(
                                       currentPage: 2,
                                       staffId: state.pathParameters['id']!))),
                     ],
-                  ),
-                  GoRoute(
-                    path: 'report',
-                    pageBuilder: (context, state) => NoTransitionPage<void>(
-                        key: state.pageKey,
-                        child: const adminTeacher(currentPage: 3)),
-                  ),
-                  GoRoute(
-                    path: 'announcement',
-                    pageBuilder: (context, state) => NoTransitionPage<void>(
-                        key: state.pageKey,
-                        child: const adminTeacher(currentPage: 4)),
                   ),
                   GoRoute(
                     path: 'school',
@@ -333,18 +309,6 @@ final GoRouter routes = GoRouter(
                                       currentPage: 2,
                                       staffId: state.pathParameters['id']!))),
                     ],
-                  ),
-                  GoRoute(
-                    path: 'report',
-                    pageBuilder: (context, state) => NoTransitionPage<void>(
-                        key: state.pageKey,
-                        child: const adminMedicalStaff(currentPage: 3)),
-                  ),
-                  GoRoute(
-                    path: 'announcement',
-                    pageBuilder: (context, state) => NoTransitionPage<void>(
-                        key: state.pageKey,
-                        child: const adminMedicalStaff(currentPage: 4)),
                   ),
                 ]),
             GoRoute(

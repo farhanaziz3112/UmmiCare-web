@@ -567,17 +567,12 @@ class _parentDashboardState extends State<parentDashboard> {
                       ),
                     ),
                     const SizedBox(height: 30),
-                    Container(
-                      constraints:
-                          const BoxConstraints(maxHeight: 1000, minHeight: 500),
-                      child: Expanded(
-                        child: childGrid(parentId: parent.parentId),
-                      ),
+                    Row(
+                      children: [
+                        Expanded(child: childGrid(parentId: parent.parentId)),
+                        Expanded(child: Container())
+                      ],
                     )
-                    // SizedBox(
-                    //   height: 1000,
-                    //   child: childGrid(parentId: parent.parentId)
-                    // )
                   ],
                 ),
               ),
@@ -1128,17 +1123,13 @@ class _parentDashboardState extends State<parentDashboard> {
                       ),
                     ),
                     const SizedBox(height: 30),
-                    Container(
-                      constraints:
-                          const BoxConstraints(maxHeight: 1000, minHeight: 500),
-                      child: Expanded(
-                        child: childGrid(parentId: parent.parentId),
-                      ),
-                    )
-                    // SizedBox(
-                    //   height: 1000,
-                    //   child: childGrid(parentId: parent.parentId)
-                    // )
+                    Row(
+                      children: [
+                        Expanded(child: childGrid(parentId: parent.parentId)),
+                        Expanded(child: Container())
+                      ],
+                    ),
+                    const SizedBox(height: 100,)
                   ],
                 ),
               ),

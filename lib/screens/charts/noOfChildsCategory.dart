@@ -30,7 +30,7 @@ class _noOfChildsCategoryState extends State<noOfChildsCategory> {
           return SfCircularChart(
           title: ChartTitle(
               text: 'Number of Childs For Each Age Category',
-              textStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+              textStyle: const TextStyle( fontSize: 15)),
           tooltipBehavior: _tooltipBehavior,
           series: <CircularSeries>[
             PieSeries<CategoryData, String>(
@@ -43,7 +43,7 @@ class _noOfChildsCategoryState extends State<noOfChildsCategory> {
                     // Renders the data label
                     isVisible: true,
                     textStyle: TextStyle(
-                      fontSize: 20
+                      fontSize: 15
                     )))
           ],
         );

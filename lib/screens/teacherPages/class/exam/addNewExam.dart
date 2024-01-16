@@ -3,12 +3,17 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ummicare/models/academicCalendarModel.dart';
+import 'package:ummicare/models/childModel.dart';
+import 'package:ummicare/models/parentModel.dart';
 import 'package:ummicare/models/scheduleModel.dart';
 import 'package:ummicare/models/schoolModel.dart';
 import 'package:ummicare/models/studentModel.dart';
 import 'package:ummicare/models/subjectModel.dart';
 import 'package:ummicare/services/academicCalendarDatabase.dart';
+import 'package:ummicare/services/childDatabase.dart';
 import 'package:ummicare/services/examDatabase.dart';
+import 'package:ummicare/services/notificationDatabase.dart';
+import 'package:ummicare/services/parentDatabase.dart';
 import 'package:ummicare/services/scheduleDatabase.dart';
 import 'package:ummicare/services/schoolDatabase.dart';
 import 'package:ummicare/services/studentDatabase.dart';
@@ -457,137 +462,126 @@ class _addNewExamState extends State<addNewExam> {
                                                           List<subjectModel>?
                                                               subjectList =
                                                               snapshot.data;
-                                                          return ElevatedButton(
-                                                            style:
-                                                                ElevatedButton
-                                                                    .styleFrom(
-                                                              fixedSize:
-                                                                  const Size(
-                                                                      150, 30),
-                                                              backgroundColor:
-                                                                  const Color(
-                                                                      0xffF29180),
-                                                              shape: RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              5)),
-                                                            ),
-                                                            child: const Text(
-                                                              'Submit',
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white),
-                                                            ),
-                                                            onPressed:
-                                                                () async {
-                                                              if (_formKey
-                                                                  .currentState!
-                                                                  .validate()) {
-                                                                setState(() {
-                                                                  if (DateTime.now()
-                                                                          .isAfter(
-                                                                              examStartDate) &&
-                                                                      DateTime.now()
-                                                                          .isBefore(
-                                                                              examEndDate)) {
-                                                                    examStatus =
-                                                                        'ongoing';
-                                                                  } else if (DateTime
-                                                                          .now()
-                                                                      .isAfter(
-                                                                          examEndDate)) {
-                                                                    examStatus =
-                                                                        'ended';
-                                                                  } else {
-                                                                    examStatus =
-                                                                        'inactive';
-                                                                  }
-                                                                });
+                                                          return StreamBuilder<
+                                                                  List<
+                                                                      childModel>>(
+                                                              stream:
+                                                                  childDatabase(
+                                                                          childId:
+                                                                              '')
+                                                                      .allChild,
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                if (snapshot
+                                                                    .hasData) {
+                                                                  List<childModel>?
+                                                                      childs =
+                                                                      snapshot
+                                                                          .data;
+                                                                  return StreamBuilder<
+                                                                          List<
+                                                                              parentModel>>(
+                                                                      stream: parentDatabase(
+                                                                              parentId:
+                                                                                  '')
+                                                                          .allParentData,
+                                                                      builder:
+                                                                          (context,
+                                                                              snapshot) {
+                                                                        if (snapshot
+                                                                            .hasData) {
+                                                                          List<parentModel>?
+                                                                              parents =
+                                                                              snapshot.data;
+                                                                          List<parentModel>
+                                                                              finalListParent =
+                                                                              [];
+                                                                          List<childModel>
+                                                                              finalListChild =
+                                                                              [];
+                                                                          for (int i = 0;
+                                                                              i < students!.length;
+                                                                              i++) {
+                                                                            for (int j = 0;
+                                                                                j < childs!.length;
+                                                                                j++) {
+                                                                              if (childs[j].childId == students[i].childId) {
+                                                                                for (int k = 0; k < parents!.length; k++) {
+                                                                                  if (parents[k].parentId == childs[j].parentId) {
+                                                                                    finalListParent.add(parents[k]);
+                                                                                    finalListChild.add(childs[j]);
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                          return ElevatedButton(
+                                                                            style:
+                                                                                ElevatedButton.styleFrom(
+                                                                              fixedSize: const Size(150, 30),
+                                                                              backgroundColor: const Color(0xffF29180),
+                                                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                                                            ),
+                                                                            child:
+                                                                                const Text(
+                                                                              'Submit',
+                                                                              style: TextStyle(color: Colors.white),
+                                                                            ),
+                                                                            onPressed:
+                                                                                () async {
+                                                                              if (_formKey.currentState!.validate()) {
+                                                                                setState(() {
+                                                                                  if (DateTime.now().isAfter(examStartDate) && DateTime.now().isBefore(examEndDate)) {
+                                                                                    examStatus = 'ongoing';
+                                                                                  } else if (DateTime.now().isAfter(examEndDate)) {
+                                                                                    examStatus = 'ended';
+                                                                                  } else {
+                                                                                    examStatus = 'inactive';
+                                                                                  }
+                                                                                });
 
-                                                                final document =
-                                                                    FirebaseFirestore
-                                                                        .instance
-                                                                        .collection(
-                                                                            'Exam')
-                                                                        .doc();
-                                                                examDatabase().updateExamData(
-                                                                    document.id,
-                                                                    academicCalendar
-                                                                        .academicCalendarId,
-                                                                    examTitle,
-                                                                    examStartDate
-                                                                        .millisecondsSinceEpoch
-                                                                        .toString(),
-                                                                    examEndDate
-                                                                        .millisecondsSinceEpoch
-                                                                        .toString(),
-                                                                    examStatus);
+                                                                                final document = FirebaseFirestore.instance.collection('Exam').doc();
+                                                                                examDatabase().updateExamData(document.id, academicCalendar.academicCalendarId, examTitle, examStartDate.millisecondsSinceEpoch.toString(), examEndDate.millisecondsSinceEpoch.toString(), examStatus);
 
-                                                                for (int i = 0;
-                                                                    i <
-                                                                        subjectList!
-                                                                            .length;
-                                                                    i++) {
-                                                                  scheduleDatabase().createAcademicCalendarScheduleData(
-                                                                      '${subjectList[i].subjectName} (${examTitle})',
-                                                                      examStartDate
-                                                                          .millisecondsSinceEpoch
-                                                                          .toString(),
-                                                                      examStartDate
-                                                                          .millisecondsSinceEpoch
-                                                                          .toString(),
-                                                                      examEndDate
-                                                                          .millisecondsSinceEpoch
-                                                                          .toString(),
-                                                                      academicCalendar
-                                                                          .academicCalendarId,
-                                                                      document
-                                                                          .id,
-                                                                      'exam');
-                                                                  for (int j =
-                                                                          0;
-                                                                      j <
-                                                                          students!
-                                                                              .length;
-                                                                      j++) {
-                                                                    // final examResultDocument = FirebaseFirestore
-                                                                    //     .instance
-                                                                    //     .collection(
-                                                                    //         'Exam Result')
-                                                                    //     .doc();
-                                                                    // examDatabase().updateExamResultData(
-                                                                    //     examResultDocument
-                                                                    //         .id,
-                                                                    //     document
-                                                                    //         .id,
-                                                                    //     academicCalendar
-                                                                    //         .academicCalendarId,
-                                                                    //     students[
-                                                                    //             j]
-                                                                    //         .studentId,
-                                                                    //     '');
-                                                                    examDatabase().createSubjectResultData(
-                                                                        subjectList[i]
-                                                                            .subjectId,
-                                                                        document
-                                                                            .id,
-                                                                        '',
-                                                                        students[j]
-                                                                            .studentId,
-                                                                        academicCalendar
-                                                                            .academicCalendarId,
-                                                                        '',
-                                                                        '',
-                                                                        '');
-                                                                  }
+                                                                                for (int i = 0; i < finalListParent.length; i++) {
+                                                                                  notificationDatabase().createNotificationData(finalListParent[i].parentId, finalListChild[i].childId, 'education', 'New Exam Added (${classDetail.className} ${classDetail.classYear}): $examTitle', 'New exam: ${examTitle} has been added to ${finalListChild[i].childFirstname}\' class.', 'unseen', DateTime.now().millisecondsSinceEpoch.toString());
+                                                                                }
+
+                                                                                for (int i = 0; i < subjectList!.length; i++) {
+                                                                                  scheduleDatabase().createAcademicCalendarScheduleData('${subjectList[i].subjectName} (${examTitle})', examStartDate.millisecondsSinceEpoch.toString(), examStartDate.millisecondsSinceEpoch.toString(), examEndDate.millisecondsSinceEpoch.toString(), academicCalendar.academicCalendarId, document.id, 'exam');
+                                                                                  for (int j = 0; j < students.length; j++) {
+                                                                                    // final examResultDocument = FirebaseFirestore
+                                                                                    //     .instance
+                                                                                    //     .collection(
+                                                                                    //         'Exam Result')
+                                                                                    //     .doc();
+                                                                                    // examDatabase().updateExamResultData(
+                                                                                    //     examResultDocument
+                                                                                    //         .id,
+                                                                                    //     document
+                                                                                    //         .id,
+                                                                                    //     academicCalendar
+                                                                                    //         .academicCalendarId,
+                                                                                    //     students[
+                                                                                    //             j]
+                                                                                    //         .studentId,
+                                                                                    //     '');
+                                                                                    examDatabase().createSubjectResultData(subjectList[i].subjectId, document.id, '', students[j].studentId, academicCalendar.academicCalendarId, '', '', '');
+                                                                                  }
+                                                                                }
+
+                                                                                context.go('/teacher/class/${academicCalendar.academicCalendarId}/exam/${document.id}/schedule');
+                                                                              }
+                                                                            },
+                                                                          );
+                                                                        } else {
+                                                                          return Container();
+                                                                        }
+                                                                      });
+                                                                } else {
+                                                                  return Container();
                                                                 }
-
-                                                                context.go(
-                                                                    '/teacher/class/${academicCalendar.academicCalendarId}/exam/${document.id}/schedule');
-                                                              }
-                                                            },
-                                                          );
+                                                              });
                                                         } else {
                                                           return const Loading();
                                                         }
@@ -599,10 +593,10 @@ class _addNewExamState extends State<addNewExam> {
                                         ],
                                       ),
                                     )),
-                                    Expanded(
-                                      flex: 1,
-                                      child: Container(),
-                                    )
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(),
+                                )
                               ],
                             )
                           ],
@@ -1036,137 +1030,126 @@ class _addNewExamState extends State<addNewExam> {
                                                           List<subjectModel>?
                                                               subjectList =
                                                               snapshot.data;
-                                                          return ElevatedButton(
-                                                            style:
-                                                                ElevatedButton
-                                                                    .styleFrom(
-                                                              fixedSize:
-                                                                  const Size(
-                                                                      150, 30),
-                                                              backgroundColor:
-                                                                  const Color(
-                                                                      0xffF29180),
-                                                              shape: RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              5)),
-                                                            ),
-                                                            child: const Text(
-                                                              'Submit',
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white),
-                                                            ),
-                                                            onPressed:
-                                                                () async {
-                                                              if (_formKey
-                                                                  .currentState!
-                                                                  .validate()) {
-                                                                setState(() {
-                                                                  if (DateTime.now()
-                                                                          .isAfter(
-                                                                              examStartDate) &&
-                                                                      DateTime.now()
-                                                                          .isBefore(
-                                                                              examEndDate)) {
-                                                                    examStatus =
-                                                                        'ongoing';
-                                                                  } else if (DateTime
-                                                                          .now()
-                                                                      .isAfter(
-                                                                          examEndDate)) {
-                                                                    examStatus =
-                                                                        'ended';
-                                                                  } else {
-                                                                    examStatus =
-                                                                        'inactive';
-                                                                  }
-                                                                });
+                                                          return StreamBuilder<
+                                                                  List<
+                                                                      childModel>>(
+                                                              stream:
+                                                                  childDatabase(
+                                                                          childId:
+                                                                              '')
+                                                                      .allChild,
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                if (snapshot
+                                                                    .hasData) {
+                                                                  List<childModel>?
+                                                                      childs =
+                                                                      snapshot
+                                                                          .data;
+                                                                  return StreamBuilder<
+                                                                          List<
+                                                                              parentModel>>(
+                                                                      stream: parentDatabase(
+                                                                              parentId:
+                                                                                  '')
+                                                                          .allParentData,
+                                                                      builder:
+                                                                          (context,
+                                                                              snapshot) {
+                                                                        if (snapshot
+                                                                            .hasData) {
+                                                                          List<parentModel>?
+                                                                              parents =
+                                                                              snapshot.data;
+                                                                          List<parentModel>
+                                                                              finalListParent =
+                                                                              [];
+                                                                          List<childModel>
+                                                                              finalListChild =
+                                                                              [];
+                                                                          for (int i = 0;
+                                                                              i < students!.length;
+                                                                              i++) {
+                                                                            for (int j = 0;
+                                                                                j < childs!.length;
+                                                                                j++) {
+                                                                              if (childs[j].childId == students[i].childId) {
+                                                                                for (int k = 0; k < parents!.length; k++) {
+                                                                                  if (parents[k].parentId == childs[j].parentId) {
+                                                                                    finalListParent.add(parents[k]);
+                                                                                    finalListChild.add(childs[j]);
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                          return ElevatedButton(
+                                                                            style:
+                                                                                ElevatedButton.styleFrom(
+                                                                              fixedSize: const Size(150, 30),
+                                                                              backgroundColor: const Color(0xffF29180),
+                                                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                                                            ),
+                                                                            child:
+                                                                                const Text(
+                                                                              'Submit',
+                                                                              style: TextStyle(color: Colors.white),
+                                                                            ),
+                                                                            onPressed:
+                                                                                () async {
+                                                                              if (_formKey.currentState!.validate()) {
+                                                                                setState(() {
+                                                                                  if (DateTime.now().isAfter(examStartDate) && DateTime.now().isBefore(examEndDate)) {
+                                                                                    examStatus = 'ongoing';
+                                                                                  } else if (DateTime.now().isAfter(examEndDate)) {
+                                                                                    examStatus = 'ended';
+                                                                                  } else {
+                                                                                    examStatus = 'inactive';
+                                                                                  }
+                                                                                });
 
-                                                                final document =
-                                                                    FirebaseFirestore
-                                                                        .instance
-                                                                        .collection(
-                                                                            'Exam')
-                                                                        .doc();
-                                                                examDatabase().updateExamData(
-                                                                    document.id,
-                                                                    academicCalendar
-                                                                        .academicCalendarId,
-                                                                    examTitle,
-                                                                    examStartDate
-                                                                        .millisecondsSinceEpoch
-                                                                        .toString(),
-                                                                    examEndDate
-                                                                        .millisecondsSinceEpoch
-                                                                        .toString(),
-                                                                    examStatus);
+                                                                                final document = FirebaseFirestore.instance.collection('Exam').doc();
+                                                                                examDatabase().updateExamData(document.id, academicCalendar.academicCalendarId, examTitle, examStartDate.millisecondsSinceEpoch.toString(), examEndDate.millisecondsSinceEpoch.toString(), examStatus);
 
-                                                                for (int i = 0;
-                                                                    i <
-                                                                        subjectList!
-                                                                            .length;
-                                                                    i++) {
-                                                                  scheduleDatabase().createAcademicCalendarScheduleData(
-                                                                      '${subjectList[i].subjectName} (${examTitle})',
-                                                                      examStartDate
-                                                                          .millisecondsSinceEpoch
-                                                                          .toString(),
-                                                                      examStartDate
-                                                                          .millisecondsSinceEpoch
-                                                                          .toString(),
-                                                                      examEndDate
-                                                                          .millisecondsSinceEpoch
-                                                                          .toString(),
-                                                                      academicCalendar
-                                                                          .academicCalendarId,
-                                                                      document
-                                                                          .id,
-                                                                      'exam');
-                                                                  for (int j =
-                                                                          0;
-                                                                      j <
-                                                                          students!
-                                                                              .length;
-                                                                      j++) {
-                                                                    // final examResultDocument = FirebaseFirestore
-                                                                    //     .instance
-                                                                    //     .collection(
-                                                                    //         'Exam Result')
-                                                                    //     .doc();
-                                                                    // examDatabase().updateExamResultData(
-                                                                    //     examResultDocument
-                                                                    //         .id,
-                                                                    //     document
-                                                                    //         .id,
-                                                                    //     academicCalendar
-                                                                    //         .academicCalendarId,
-                                                                    //     students[
-                                                                    //             j]
-                                                                    //         .studentId,
-                                                                    //     '');
-                                                                    examDatabase().createSubjectResultData(
-                                                                        subjectList[i]
-                                                                            .subjectId,
-                                                                        document
-                                                                            .id,
-                                                                        '',
-                                                                        students[j]
-                                                                            .studentId,
-                                                                        academicCalendar
-                                                                            .academicCalendarId,
-                                                                        '',
-                                                                        '',
-                                                                        '');
-                                                                  }
+                                                                                for (int i = 0; i < finalListParent.length; i++) {
+                                                                                  notificationDatabase().createNotificationData(finalListParent[i].parentId, finalListChild[i].childId, 'education', 'New Exam Added (${classDetail.className} ${classDetail.classYear}): $examTitle', 'New exam: ${examTitle} has been added to ${finalListChild[i].childFirstname}\' class.', 'unseen', DateTime.now().millisecondsSinceEpoch.toString());
+                                                                                }
+
+                                                                                for (int i = 0; i < subjectList!.length; i++) {
+                                                                                  scheduleDatabase().createAcademicCalendarScheduleData('${subjectList[i].subjectName} (${examTitle})', examStartDate.millisecondsSinceEpoch.toString(), examStartDate.millisecondsSinceEpoch.toString(), examEndDate.millisecondsSinceEpoch.toString(), academicCalendar.academicCalendarId, document.id, 'exam');
+                                                                                  for (int j = 0; j < students!.length; j++) {
+                                                                                    // final examResultDocument = FirebaseFirestore
+                                                                                    //     .instance
+                                                                                    //     .collection(
+                                                                                    //         'Exam Result')
+                                                                                    //     .doc();
+                                                                                    // examDatabase().updateExamResultData(
+                                                                                    //     examResultDocument
+                                                                                    //         .id,
+                                                                                    //     document
+                                                                                    //         .id,
+                                                                                    //     academicCalendar
+                                                                                    //         .academicCalendarId,
+                                                                                    //     students[
+                                                                                    //             j]
+                                                                                    //         .studentId,
+                                                                                    //     '');
+                                                                                    examDatabase().createSubjectResultData(subjectList[i].subjectId, document.id, '', students[j].studentId, academicCalendar.academicCalendarId, '', '', '');
+                                                                                  }
+                                                                                }
+
+                                                                                context.go('/teacher/class/${academicCalendar.academicCalendarId}/exam/${document.id}/schedule');
+                                                                              }
+                                                                            },
+                                                                          );
+                                                                        } else {
+                                                                          return Container();
+                                                                        }
+                                                                      });
+                                                                } else {
+                                                                  return Container();
                                                                 }
-
-                                                                context.go(
-                                                                    '/teacher/class/${academicCalendar.academicCalendarId}/exam/${document.id}/schedule');
-                                                              }
-                                                            },
-                                                          );
+                                                              });
                                                         } else {
                                                           return const Loading();
                                                         }

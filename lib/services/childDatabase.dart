@@ -4,11 +4,9 @@ import 'package:ummicare/models/childModel.dart';
 class childDatabase {
   final String childId;
 
-  childDatabase({
-    required this.childId
-  });
+  childDatabase({required this.childId});
 
-    //collection reference
+  //collection reference
   final CollectionReference childCollection =
       FirebaseFirestore.instance.collection('Child');
 
@@ -20,23 +18,52 @@ class childDatabase {
         .map(_createchildModelObject);
   }
 
+  Stream<List<childModel>> get allChild {
+    return childCollection.snapshots().map(_createchildModelList);
+  }
+
   //create a list of child model object
   List<childModel> _createchildModelList(QuerySnapshot snapshot) {
     return snapshot.docs.map<childModel>((doc) {
       return childModel(
-        childId: doc.id,
-        parentId: doc.get('parentId') ?? '',
-        childCreatedDate: doc.get('childCreatedDate') ?? '',
-        childName: doc.get('childName') ?? '',
-        childFirstname: doc.get('childFirstname') ?? '',
-        childLastname: doc.get('childLastname') ?? '',
-        childBirthday: doc.get('childBirthday') ?? '',
-        childCurrentAge: doc.get('childCurrentAge') ?? '',
-        childAgeCategory: doc.get('childAgeCategory') ?? '',
-        childProfileImg: doc.get('childProfileImg') ?? '',
-        educationId: doc.get('educationId') ?? '',
-        healthId: doc.get('healthId') ?? '',
-        overallStatus: doc.get('overallStatus') ?? '',
+        childId:
+            doc.data().toString().contains('childId') ? doc.get('childId') : '',
+        parentId: doc.data().toString().contains('parentId')
+            ? doc.get('parentId')
+            : '',
+        childCreatedDate: doc.data().toString().contains('childCreatedDate')
+            ? doc.get('childCreatedDate')
+            : '',
+        childName: doc.data().toString().contains('childName')
+            ? doc.get('childName')
+            : '',
+        childFirstname: doc.data().toString().contains('childFirstname')
+            ? doc.get('childFirstname')
+            : '',
+        childLastname: doc.data().toString().contains('childLastname')
+            ? doc.get('childLastname')
+            : '',
+        childBirthday: doc.data().toString().contains('childBirthday')
+            ? doc.get('childBirthday')
+            : '',
+        childCurrentAge: doc.data().toString().contains('childCurrentAge')
+            ? doc.get('childCurrentAge')
+            : '',
+        childAgeCategory: doc.data().toString().contains('childAgeCategory')
+            ? doc.get('childAgeCategory')
+            : '',
+        childProfileImg: doc.data().toString().contains('childProfileImg')
+            ? doc.get('childProfileImg')
+            : '',
+        educationId: doc.data().toString().contains('educationId')
+            ? doc.get('educationId')
+            : '',
+        healthId: doc.data().toString().contains('healthId')
+            ? doc.get('healthId')
+            : '',
+        overallStatus: doc.data().toString().contains('overallStatus')
+            ? doc.get('overallStatus')
+            : '',
       );
     }).toList();
   }
@@ -78,6 +105,7 @@ class childDatabase {
     return await childCollection.doc(childId).set({
       'childId': childId,
       'parentId': parentId,
+      'childCreatedDate': childCreatedDate,
       'childName': childName,
       'childFirstname': childFirstname,
       'childLastname': childLastname,
@@ -106,7 +134,7 @@ class childDatabase {
       String educationId,
       String healthId,
       String overallStatus) async {
-        final document = childCollection.doc();
+    final document = childCollection.doc();
     return await childCollection.doc(document.id).set({
       'childId': document.id,
       'parentId': parentId,
@@ -122,5 +150,4 @@ class childDatabase {
       'overallStatus': overallStatus
     });
   }
-
 }

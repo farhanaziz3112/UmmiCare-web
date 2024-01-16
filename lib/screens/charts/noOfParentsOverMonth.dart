@@ -32,9 +32,9 @@ class _noOfParentsOverMonthState extends State<noOfParentsOverMonth> {
             // Initialize category axis
             primaryXAxis: CategoryAxis(),
             title: ChartTitle(
-              text: 'Number of New Parents Registered Over Month in ${timeNow.year}',
+              text: 'New Parents Registered Over Month in ${timeNow.year-1}',
               textStyle: const TextStyle(
-                fontWeight: FontWeight.bold
+                fontSize: 15
               )),
             // Enable legend
             //legend: Legend(isVisible: true),
@@ -75,8 +75,8 @@ ParentPerMonth getParentPerMonth(List<parentModel> parentList, int month, int ye
 List<ParentPerMonth> getParentPerMonthsList(List<parentModel> parentList) {
   DateTime timeNow = DateTime.now();
   List<ParentPerMonth> parentPerMonthList = [];
-  for (int i = 1; i < timeNow.month; i++) {
-    ParentPerMonth parentPerMonth = getParentPerMonth(parentList, i, timeNow.year);
+  for (int i = 1; i < 13; i++) {
+    ParentPerMonth parentPerMonth = getParentPerMonth(parentList, i, timeNow.year-1);
     parentPerMonthList.add(parentPerMonth);
   }
   return parentPerMonthList;

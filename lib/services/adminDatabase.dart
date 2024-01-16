@@ -143,6 +143,14 @@ class adminDatabase {
         .map(_createStaffUserModelList);
   }
 
+  //get staff stream according to isVerified and userType
+  Stream<List<staffUserModel>> allVerifiedStaffData (String isVerified){
+    return staffCollection
+        .where('isVerified', isEqualTo: isVerified)
+        .snapshots()
+        .map(_createStaffUserModelList);
+  }
+
   //create a list of user model object
   List<staffUserModel> _createStaffUserModelList(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {

@@ -4,6 +4,7 @@ import 'package:ummicare/models/academicCalendarModel.dart';
 import 'package:ummicare/models/childModel.dart';
 import 'package:ummicare/models/healthmodel.dart';
 import 'package:ummicare/models/patientModel.dart';
+import 'package:ummicare/models/staffUserModel.dart';
 import 'package:ummicare/models/studentAttendanceModel.dart';
 import 'package:ummicare/models/studentModel.dart';
 
@@ -119,6 +120,16 @@ int getNoOfChildCategory(List<childModel> childList, String category) {
   int total = 0;
   for (int i = 0; i < childList.length; i++) {
     if (childList.elementAt(i).childAgeCategory == category) {
+      total++;
+    }
+  }
+  return total;
+}
+
+int getTotalUserType(List<staffUserModel> staffs, String type) {
+  int total = 0;
+  for (int i = 0; i < staffs.length; i++) {
+    if (staffs.elementAt(i).staffUserType == type) {
       total++;
     }
   }

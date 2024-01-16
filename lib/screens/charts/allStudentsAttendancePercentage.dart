@@ -41,8 +41,7 @@ class _allStudentsAttendacePercentageState
                 return SfCircularChart(
                   title: ChartTitle(
                       text: 'Students Attendance Percentage',
-                      textStyle: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20)),
+                      textStyle: const TextStyle(fontSize: 15)),
                   tooltipBehavior: _tooltipBehavior,
                   series: <CircularSeries>[
                     PieSeries<AttendanceData, String>(

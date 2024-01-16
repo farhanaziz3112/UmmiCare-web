@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:ummicare/models/chatModel.dart';
 import 'package:ummicare/models/parentModel.dart';
 import 'package:ummicare/services/chatDatabase.dart';
+import 'package:ummicare/services/notificationDatabase.dart';
 import 'package:ummicare/services/parentDatabase.dart';
 import 'package:ummicare/services/storage.dart';
 
@@ -145,12 +146,9 @@ class _parentChatState extends State<parentChat> {
                 ),
                 const SizedBox(height: 30),
                 Container(
-                  constraints: const BoxConstraints(
-                    maxHeight: 600,
-                    maxWidth: double.maxFinite
-                  ),
-                  child: buildChat()
-                )
+                    constraints: const BoxConstraints(
+                        maxHeight: 600, maxWidth: double.maxFinite),
+                    child: buildChat())
                 // SizedBox(
                 //   height: 800,
                 //   width: 1000,
@@ -173,10 +171,7 @@ class _parentChatState extends State<parentChat> {
   Widget buildChat() {
     _scrollToEnd(1);
     return Column(
-      children: <Widget>[
-        buildListMessage(),
-        buildInput()
-      ],
+      children: <Widget>[buildListMessage(), buildInput()],
     );
   }
 
@@ -373,6 +368,14 @@ class _parentChatState extends State<parentChat> {
           parentId,
           content,
           type);
+      notificationDatabase().createNotificationData(
+          parentId,
+          '',
+          'chat',
+          'Message from Advisor',
+          content,
+          'unseen',
+          DateTime.now().millisecondsSinceEpoch.toString());
       if (listScrollController.hasClients) {
         _scrollToEnd(3000);
       }

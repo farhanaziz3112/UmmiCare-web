@@ -344,6 +344,8 @@ class _examScheduleTileState extends State<examScheduleTile> {
                                                                 stfSetState(() {
                                                                   _currentFrom =
                                                                       date!;
+                                                                  _currentTo =
+                                                                      date;
                                                                 });
                                                               });
                                                             },
@@ -446,16 +448,27 @@ class _examScheduleTileState extends State<examScheduleTile> {
                                                                         5)),
                                                   ),
                                                   onPressed: () {
-                                                    scheduleDatabase()
-                                                        .updateAcademicCalendarScheduleData(
-                                                            examSchedule.academicCalendarScheduleId,
-                                                            examSchedule.title,
-                                                            _currentDate.millisecondsSinceEpoch.toString(),
-                                                            convertTimeOfDayToDateTime(_currentFrom, _currentDate).millisecondsSinceEpoch.toString(),
-                                                            convertTimeOfDayToDateTime(_currentTo, _currentDate).millisecondsSinceEpoch.toString(),
-                                                            examSchedule.academicCalendarId,
-                                                            examSchedule.eventId,
-                                                            examSchedule.type);
+                                                    scheduleDatabase().updateAcademicCalendarScheduleData(
+                                                        examSchedule
+                                                            .academicCalendarScheduleId,
+                                                        examSchedule.title,
+                                                        _currentDate
+                                                            .millisecondsSinceEpoch
+                                                            .toString(),
+                                                        convertTimeOfDayToDateTime(
+                                                                _currentFrom,
+                                                                _currentDate)
+                                                            .millisecondsSinceEpoch
+                                                            .toString(),
+                                                        convertTimeOfDayToDateTime(
+                                                                _currentTo,
+                                                                _currentDate)
+                                                            .millisecondsSinceEpoch
+                                                            .toString(),
+                                                        examSchedule
+                                                            .academicCalendarId,
+                                                        examSchedule.eventId,
+                                                        examSchedule.type);
                                                     Navigator.of(context).pop();
                                                   },
                                                   child: const Text("Confirm",

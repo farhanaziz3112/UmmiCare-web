@@ -203,6 +203,7 @@ class _registerNewClassState extends State<registerNewClass> {
                                                           List<classModel>?
                                                               classList =
                                                               snapshot.data;
+                                                          classList!.sort((a, b) => b.classYear.compareTo(a.classYear));
                                                           return AlertDialog(
                                                             scrollable: true,
                                                             title: const Column(
@@ -225,7 +226,7 @@ class _registerNewClassState extends State<registerNewClass> {
                                                               child:
                                                                   SingleChildScrollView(
                                                                 child: buildClassList(
-                                                                    classList!),
+                                                                    classList),
                                                               ),
                                                             ),
                                                           );

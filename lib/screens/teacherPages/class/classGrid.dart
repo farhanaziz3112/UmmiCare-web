@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ummicare/models/academicCalendarModel.dart';
 import 'package:ummicare/screens/teacherPages/class/classTile.dart';
 import 'package:ummicare/services/academicCalendarDatabase.dart';
+import 'package:ummicare/shared/constant.dart';
 
 class classGrid extends StatefulWidget {
   const classGrid({super.key, required this.teacherId});
@@ -15,7 +16,7 @@ class _classListState extends State<classGrid> {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    
+
     return StreamBuilder<List<academicCalendarModel>>(
       stream: academicCalendarDatabase()
           .allAcademicCalendarDataWithTeacherId(widget.teacherId),
@@ -32,9 +33,8 @@ class _classListState extends State<classGrid> {
               ),
             );
           } else {
-            return GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: screenSize.width < 1400 ? 2 : 3, childAspectRatio: (0.5)),
+            return ListView.builder(
+              shrinkWrap: true,
               itemCount: academicCalendarList.length,
               itemBuilder: ((context, index) {
                 return classTile(
@@ -47,11 +47,7 @@ class _classListState extends State<classGrid> {
         } else {
           return Container(
             padding: const EdgeInsets.only(top: 50),
-            child: const Center(
-              child: Text(
-                'There is no class at the moment. You can register new class by pressing button above.',
-              ),
-            ),
+            child: Center(child: noData('There is no class at the moment...')),
           );
         }
       }),

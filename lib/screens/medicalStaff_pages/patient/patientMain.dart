@@ -20,7 +20,7 @@ class _patientMainState extends State<patientMain> {
 
   String searchName = '';
   List<patientModel> patientList = [];
-  
+
   @override
   Widget build(BuildContext context) {
     userModel? user = Provider.of<userModel?>(context);
@@ -59,71 +59,72 @@ class _patientMainState extends State<patientMain> {
                   ),
                   const SizedBox(height: 30),
                   StreamBuilder<List<patientModel>>(
-                    stream: PatientDatabaseService().allPatientData(med!.clinicId),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        List<patientModel>? patients = snapshot.data;
-                        return Form(
-                          key: _formKey,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: TextFormField(
-                                  initialValue: searchName,
-                                  decoration: textInputDecoration.copyWith(
-                                      hintText: 'Patient Name'),
-                                  validator: (value) => value == ''
-                                      ? 'Please enter patient name'
-                                      : null,
-                                  onChanged: ((value) => setState(() {
-                                        searchName = value;
-                                      })),
+                      stream: PatientDatabaseService()
+                          .allPatientData(med!.clinicId),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          List<patientModel>? patients = snapshot.data;
+                          return Form(
+                            key: _formKey,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: TextFormField(
+                                    initialValue: searchName,
+                                    decoration: textInputDecoration.copyWith(
+                                        hintText: 'Patient Name'),
+                                    validator: (value) => value == ''
+                                        ? 'Please enter patient name'
+                                        : null,
+                                    onChanged: ((value) => setState(() {
+                                          searchName = value;
+                                        })),
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.search,
-                                  size: 30,
-                                  color: Colors.white,
+                                const SizedBox(
+                                  width: 10,
                                 ),
-                                style: IconButton.styleFrom(
-                                    backgroundColor: const Color(0xffF29180)),
-                                onPressed: () async {
-                                  patientList.clear();
-                                  for (int i = 0; i < patients!.length; i++) {
-                                    if (patients[i]
-                                        .patientName
-                                        .toLowerCase()
-                                        .contains(searchName.toLowerCase())) {
-                                      setState(() {
-                                        patientList.add(patients[i]);
-                                      });
+                                IconButton(
+                                  icon: const Icon(
+                                    Icons.search,
+                                    size: 30,
+                                    color: Colors.white,
+                                  ),
+                                  style: IconButton.styleFrom(
+                                      backgroundColor: const Color(0xffF29180)),
+                                  onPressed: () async {
+                                    patientList.clear();
+                                    for (int i = 0; i < patients!.length; i++) {
+                                      if (patients[i]
+                                          .patientName
+                                          .toLowerCase()
+                                          .contains(searchName.toLowerCase())) {
+                                        setState(() {
+                                          patientList.add(patients[i]);
+                                        });
+                                      }
                                     }
-                                  }
-                                },
-                              ),
-                              Expanded(flex: 2, child: Container()),
-                            ],
-                          ),
-                        );
-                      } else {
-                        return Container();
-                      }
-                    }
-                  ),
+                                  },
+                                ),
+                                Expanded(flex: 2, child: Container()),
+                              ],
+                            ),
+                          );
+                        } else {
+                          return Container();
+                        }
+                      }),
                   const SizedBox(height: 50),
-                  Container(
-                    constraints:
-                        const BoxConstraints(maxHeight: 1000, minHeight: 500),
-                    child: Expanded(
+                  Row(
+                    children: [
+                      Expanded(
                         child: patientGrid(
-                      patientList: patientList,
-                      )
-                    )
+                          patientList: patientList,
+                        ),
+                      ),
+                      Expanded(child: Container())
+                    ],
                   )
                 ],
               ),

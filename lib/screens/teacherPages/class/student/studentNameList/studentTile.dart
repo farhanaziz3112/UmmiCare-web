@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ummicare/models/childModel.dart';
+import 'package:ummicare/models/schoolModel.dart';
 import 'package:ummicare/models/studentModel.dart';
 import 'package:ummicare/services/academicCalendarDatabase.dart';
 import 'package:ummicare/services/childDatabase.dart';
+import 'package:ummicare/services/notificationDatabase.dart';
+import 'package:ummicare/services/schoolDatabase.dart';
 import 'package:ummicare/services/studentDatabase.dart';
 
 class studentTile extends StatefulWidget {
@@ -32,7 +35,8 @@ class _studentTileState extends State<studentTile> {
                       child: InkWell(
                         onTap: () {
                           student.activationStatus == 'active'
-                              ? context.go('/teacher/class/${student.academicCalendarId}/student/${student.studentId}')
+                              ? context.go(
+                                  '/teacher/class/${student.academicCalendarId}/student/${student.studentId}')
                               : showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -176,102 +180,127 @@ class _studentTileState extends State<studentTile> {
                                               if (snapshot.hasData) {
                                                 studentModel? student =
                                                     snapshot.data;
-                                                return ElevatedButton(
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    backgroundColor:
-                                                        const Color(0xff8290F0),
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5)),
-                                                  ),
-                                                  onPressed: () {
-                                                    showDialog(
-                                                        context: context,
-                                                        builder: (BuildContext
-                                                            context) {
-                                                          return AlertDialog(
-                                                            scrollable: true,
-                                                            title:
-                                                                const Padding(
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .all(
-                                                                          10.0),
-                                                              child: Text(
-                                                                  'Registration Confirmation'),
-                                                            ),
-                                                            content:
-                                                                const Padding(
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .all(10),
-                                                              child: Text(
-                                                                  'Are you sure you want to register this student?'),
-                                                            ),
-                                                            actions: [
-                                                              ElevatedButton(
-                                                                style: ElevatedButton
-                                                                    .styleFrom(
-                                                                  backgroundColor:
-                                                                      const Color(
-                                                                          0xffF29180),
-                                                                  shape: RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              5)),
-                                                                ),
-                                                                onPressed: () {
-                                                                  Navigator.of(
-                                                                          context)
-                                                                      .pop();
-                                                                },
-                                                                child: const Text(
-                                                                    "Cancel",
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .white)),
-                                                              ),
-                                                              ElevatedButton(
-                                                                style: ElevatedButton
-                                                                    .styleFrom(
-                                                                  backgroundColor:
-                                                                      const Color(
-                                                                          0xff8290F0),
-                                                                  shape: RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              5)),
-                                                                ),
-                                                                onPressed: () {
-                                                                  studentDatabase().updateStudentData(
-                                                                      student!.studentId,
-                                                                      student.childId,
-                                                                      student.schoolId,
-                                                                      student.academicCalendarId,
-                                                                      student.classId,
-                                                                      student.feeId,
-                                                                      'active');
-                                                                  academicCalendarDatabase().addStudents(student.academicCalendarId, student.studentId);
-                                                                  Navigator.of(context)..pop()..pop();
-                                                                },
-                                                                child: const Text(
-                                                                    "Confirm",
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .white)),
-                                                              ),
-                                                            ],
-                                                          );
-                                                        });
-                                                  },
-                                                  child: const Text("Register",
-                                                      style: TextStyle(
-                                                          color: Colors.white)),
-                                                );
+                                                return StreamBuilder<
+                                                        classModel>(
+                                                    stream: schoolDatabase()
+                                                        .classData(
+                                                            student!.classId),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      if (snapshot.hasData) {
+                                                        classModel?
+                                                            classDetail =
+                                                            snapshot.data;
+                                                        return ElevatedButton(
+                                                          style: ElevatedButton
+                                                              .styleFrom(
+                                                            backgroundColor:
+                                                                const Color(
+                                                                    0xff8290F0),
+                                                            shape: RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            5)),
+                                                          ),
+                                                          onPressed: () {
+                                                            showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (BuildContext
+                                                                        context) {
+                                                                  return AlertDialog(
+                                                                    scrollable:
+                                                                        true,
+                                                                    title:
+                                                                        const Padding(
+                                                                      padding:
+                                                                          EdgeInsets.all(
+                                                                              10.0),
+                                                                      child: Text(
+                                                                          'Registration Confirmation'),
+                                                                    ),
+                                                                    content:
+                                                                        const Padding(
+                                                                      padding:
+                                                                          EdgeInsets.all(
+                                                                              10),
+                                                                      child: Text(
+                                                                          'Are you sure you want to register this student?'),
+                                                                    ),
+                                                                    actions: [
+                                                                      ElevatedButton(
+                                                                        style: ElevatedButton
+                                                                            .styleFrom(
+                                                                          backgroundColor:
+                                                                              const Color(0xffF29180),
+                                                                          shape:
+                                                                              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                                                        ),
+                                                                        onPressed:
+                                                                            () {
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                        },
+                                                                        child: const Text(
+                                                                            "Cancel",
+                                                                            style:
+                                                                                TextStyle(color: Colors.white)),
+                                                                      ),
+                                                                      ElevatedButton(
+                                                                        style: ElevatedButton
+                                                                            .styleFrom(
+                                                                          backgroundColor:
+                                                                              const Color(0xff8290F0),
+                                                                          shape:
+                                                                              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                                                        ),
+                                                                        onPressed:
+                                                                            () {
+                                                                          studentDatabase().updateStudentData(
+                                                                              student.studentId,
+                                                                              student.childId,
+                                                                              student.schoolId,
+                                                                              student.academicCalendarId,
+                                                                              student.classId,
+                                                                              student.feeId,
+                                                                              'active');
+                                                                          notificationDatabase().createNotificationData(
+                                                                              child.parentId,
+                                                                              child.childId,
+                                                                              'education',
+                                                                              'Registration Verified!',
+                                                                              '${child.childFirstname}\'s registration with ${classDetail!.className} ${classDetail.classYear} has been verified by the teacher.',
+                                                                              'unseen',
+                                                                              DateTime.now().millisecondsSinceEpoch.toString());
+                                                                          academicCalendarDatabase().addStudents(
+                                                                              student.academicCalendarId,
+                                                                              student.studentId);
+                                                                          Navigator.of(
+                                                                              context)
+                                                                            ..pop()
+                                                                            ..pop();
+                                                                        },
+                                                                        child: const Text(
+                                                                            "Confirm",
+                                                                            style:
+                                                                                TextStyle(color: Colors.white)),
+                                                                      ),
+                                                                    ],
+                                                                  );
+                                                                });
+                                                          },
+                                                          child: const Text(
+                                                              "Register",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white)),
+                                                        );
+                                                      } else {
+                                                        return Container();
+                                                      }
+                                                    });
                                               } else {
                                                 return Container();
                                               }

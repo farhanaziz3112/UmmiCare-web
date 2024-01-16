@@ -18,7 +18,7 @@ class Wrapper extends StatelessWidget {
     //return either the Home or Auth pages
     //depending on the current state of auth
     if (user == null) {
-      return const SignIn();
+      return const SignIn(currentPage: 0,);
     } else {
       _auth.currentUser = user;
       return StreamProvider<userModel?>.value(

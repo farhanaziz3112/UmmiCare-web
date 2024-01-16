@@ -5,8 +5,6 @@ import 'package:ummicare/models/staffUserModel.dart';
 import 'package:ummicare/models/userModel.dart';
 import 'package:ummicare/screens/adminPages/adminLeftPane.dart';
 import 'package:ummicare/screens/adminPages/adminMenu.dart';
-import 'package:ummicare/screens/adminPages/medicalStaff/announcement/medicalStaffAnnouncement.dart';
-import 'package:ummicare/screens/adminPages/medicalStaff/report/medicalStaffReport.dart';
 import 'package:ummicare/screens/adminPages/medicalStaff/staffPages/pendingMedicalStaff.dart';
 import 'package:ummicare/screens/adminPages/medicalStaff/staffPages/rejectedMedicalStaff.dart';
 import 'package:ummicare/screens/adminPages/medicalStaff/staffPages/verifiedMedicalStaff.dart';
@@ -25,8 +23,6 @@ class _adminMedicalStaffState extends State<adminMedicalStaff> {
     pendingMedicalStaff(),
     rejectedMedicalStaff(),
     verifiedMedicalStaff(),
-    medicalStaffReport(),
-    medicalStaffAnnouncement()
   ];
 
   bool viewMenu = false;

@@ -40,8 +40,7 @@ class _allStudentsStatusPercentageState
                 return SfCircularChart(
                   title: ChartTitle(
                       text: 'Number of Students Based On Status',
-                      textStyle: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20)),
+                      textStyle: const TextStyle(fontSize: 15)),
                   tooltipBehavior: _tooltipBehavior,
                   series: <CircularSeries>[
                     PieSeries<StatusData, String>(

@@ -8,16 +8,15 @@ class academicCalendarModel {
   final String noOfStudent;
   final String registrationStatus;
 
-  academicCalendarModel({
-    required this.academicCalendarId,
-    required this.schoolId,
-    required this.classId,
-    required this.teacherId,
-    required this.academicCalendarStartDate,
-    required this.academicCalendarEndDate,
-    required this.noOfStudent,
-    required this.registrationStatus
-  });
+  academicCalendarModel(
+      {required this.academicCalendarId,
+      required this.schoolId,
+      required this.classId,
+      required this.teacherId,
+      required this.academicCalendarStartDate,
+      required this.academicCalendarEndDate,
+      required this.noOfStudent,
+      required this.registrationStatus});
 }
 
 class withdrawalRequestModel {
@@ -79,6 +78,3 @@ class classAnnouncement {
       required this.announcementDescription,
       required this.createdAt});
 }
-
-
-

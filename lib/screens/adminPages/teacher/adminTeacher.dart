@@ -7,8 +7,6 @@ import 'package:ummicare/screens/adminPages/adminLeftPane.dart';
 import 'package:ummicare/screens/adminPages/adminMenu.dart';
 import 'package:ummicare/screens/adminPages/teacher/staffPages/pendingTeacher.dart';
 import 'package:ummicare/screens/adminPages/teacher/staffPages/rejectedTeacher.dart';
-import 'package:ummicare/screens/adminPages/teacher/announcement/teacherAnnouncement.dart';
-import 'package:ummicare/screens/adminPages/teacher/report/teacherReport.dart';
 import 'package:ummicare/screens/adminPages/teacher/staffPages/verifiedTeacher.dart';
 import 'package:ummicare/services/staffDatabase.dart';
 
@@ -25,8 +23,6 @@ class _adminTeacherState extends State<adminTeacher> {
     pendingTeacher(),
     rejectedTeacher(),
     verifiedTeacher(),
-    teacherReport(),
-    teacherAnnouncement()
   ];
 
   bool viewMenu = false;

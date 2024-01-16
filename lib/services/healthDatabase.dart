@@ -39,9 +39,9 @@ class HealthDatabaseService {
     return snapshot.docs.map<HealthModel>((doc) {
       return HealthModel(
         healthId: doc.id,
-        childId: doc.get('childId'),
-        healthStatusId: doc.get('healthStatusId'),
-        patientId: doc.get('patientId')
+        childId: doc.get('childId') ?? '',
+        healthStatusId: doc.get('healthStatusId') ?? '',
+        patientId: doc.get('patientId') ?? ''
       );
     }).toList();
   }

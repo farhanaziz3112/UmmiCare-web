@@ -24,9 +24,8 @@ class _feeGridState extends State<feeGrid> {
         ),
       );
     } else {
-      return GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: screenSize.width < 1700 ? 3 : 4, childAspectRatio: (0.6)),
+      return ListView.builder(
+        shrinkWrap: true,
         itemCount: widget.feeList!.length,
         itemBuilder: ((context, index) {
           return feeTile(fee: widget.feeList![index]);

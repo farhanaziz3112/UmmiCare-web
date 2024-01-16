@@ -40,7 +40,7 @@ class _medicalStaffDashboardState extends State<medicalStaffDashboard> {
                       'Welcome, ${doc!.medicalStaffFullName}!',
                       style: const TextStyle(
                           color: Colors.black,
-                          fontSize: 50.0,
+                          fontSize: 40.0,
                           fontFamily: 'Comfortaa',
                           fontWeight: FontWeight.w500),
                     ),
@@ -71,7 +71,7 @@ class _medicalStaffDashboardState extends State<medicalStaffDashboard> {
                       'Clinic Statistics',
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 40.0,
+                          fontSize: 30.0,
                           fontFamily: 'Comfortaa',
                           fontWeight: FontWeight.w500),
                     ),

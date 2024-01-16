@@ -78,13 +78,12 @@ class _classMainState extends State<classMain> {
                       ),
                     ),
                     const SizedBox(height: 50),
-                    Container(
-                        constraints:
-                            const BoxConstraints(maxHeight: 800, minHeight: 200),
-                        child: Expanded(
-                            child: classGrid(
-                          teacherId: teacher!.teacherId,
-                        )))
+                    Row(
+                      children: <Widget>[
+                        Expanded(child: classGrid(teacherId: teacher!.teacherId,)),
+                        Expanded(child: Container())
+                      ],
+                    )
                   ],
                 ),
               ),

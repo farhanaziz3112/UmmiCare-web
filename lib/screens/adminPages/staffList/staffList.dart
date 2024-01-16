@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ummicare/models/staffUserModel.dart';
 import 'package:ummicare/screens/adminPages/staffList/staffTile.dart';
+import 'package:ummicare/shared/constant.dart';
 
 class staffList extends StatefulWidget {
   const staffList({super.key});
@@ -18,10 +19,8 @@ class _staffListState extends State<staffList> {
     if (staffList.isEmpty) {
       return Container(
         padding: const EdgeInsets.only(top: 50),
-        child: const Center(
-          child: Text(
-            'The list is empty.',
-          ),
+        child: Center(
+          child: noData('Oops! Nothing here...')
         ),
       );
     } else {

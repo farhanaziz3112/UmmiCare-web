@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ummicare/models/staffUserModel.dart';
 import 'package:ummicare/services/adminDatabase.dart';
 import 'package:ummicare/services/advisorDatabase.dart';
+import 'package:ummicare/services/emailService.dart';
 import 'package:ummicare/services/medicalStaffDatabase.dart';
 import 'package:ummicare/services/staffDatabase.dart';
 import 'package:ummicare/services/teacherDatabase.dart';
@@ -345,6 +346,13 @@ class _pendingStaffProfilePageState extends State<pendingStaffProfilePage> {
                                           staff.staffSupportingDocumentLink,
                                           staff.staffProfileImg,
                                           'rejected');
+                                      emailService().sendEmail(
+                                          name: staff.staffFullName,
+                                          email: staff.staffEmail,
+                                          subject:
+                                              'Account Verification with UmmiCare',
+                                          message:
+                                              'We regret to inform you that your ${staff.staffUserType.toUpperCase()} account verification with UmmiCare has been unsuccessful. We understand that this may be disappointing, and we appreciate your interest in our platform.\n\nIf you believe this decision is in error or if you would like further clarification, please contact our support team at farhanaziz3112@gmail.com. We are here to assist you.');
                                       context.go(
                                           '/admin/${staff.staffUserType}/pending');
                                     }),
@@ -460,16 +468,24 @@ class _pendingStaffProfilePageState extends State<pendingStaffProfilePage> {
                                       } else {
                                         medicalStaffDatabase()
                                             .updateMedicalStaffData(
-                                                staff.staffId,
-                                                staff.staffCreatedDate,
-                                                staff.staffFullName,
-                                                staff.staffFirstName,
-                                                staff.staffLastName,
-                                                staff.staffEmail,
-                                                staff.staffPhoneNumber,
-                                                staff.staffProfileImg,
-                                                '',);
+                                          staff.staffId,
+                                          staff.staffCreatedDate,
+                                          staff.staffFullName,
+                                          staff.staffFirstName,
+                                          staff.staffLastName,
+                                          staff.staffEmail,
+                                          staff.staffPhoneNumber,
+                                          staff.staffProfileImg,
+                                          '',
+                                        );
                                       }
+                                      emailService().sendEmail(
+                                          name: staff.staffFullName,
+                                          email: staff.staffEmail,
+                                          subject:
+                                              'Congratulations! Your UmmiCare account has been verified!',
+                                          message:
+                                              'We are thrilled to inform you that your ${staff.staffUserType.toUpperCase()} account with UmmiCare has been successfully verified!\n\nThank you for completing the verification process. You can now sign in to your account and use all the features and functionality our app has to offer. If you have any questions or need assistance, feel free to reach out to our support team at farhanaziz3112@gmail.com.');
                                       context.go(
                                           '/admin/${staff.staffUserType}/pending');
                                     }),
