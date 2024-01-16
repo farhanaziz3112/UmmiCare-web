@@ -26,13 +26,7 @@ class _patientTileState extends State<patientTile> {
           PatientDatabaseService().patientData(widget.patientDetail.patientId),
       builder: ((context, snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.hasError) {
-            return Container(
-              child: Text('Error: ${snapshot.error}'),
-            );
-          }
           patientModel? patient = snapshot.data;
-          if (widget.patientColorIndex == 0) {
             return InkWell(
               onTap: () {
                 context.go('/medicalstaff/patient/${patient.patientId}');
@@ -48,59 +42,6 @@ class _patientTileState extends State<patientTile> {
                         : widget.patientColorIndex == 1
                             ? const Color(0xff71CBCA)
                             : const Color(0xff8290F0),
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 1,
-                        blurRadius: 5,
-                        offset:
-                            const Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      ImageNetwork(
-                          image: patient!.patientProfileImage,
-                          height: 70,
-                          width: 70,
-                          borderRadius: BorderRadius.circular(70)),
-                      const SizedBox(width: 10),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            patient.patientName,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 17),
-                          ),
-                          Text(
-                            '${patient.patientCurrentAge.toString()} years old',
-                            style: const TextStyle(fontSize: 15),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            );
-          } else {
-            return InkWell(
-              onTap: () {
-                context.go('/medicalstaff/patient/${patient.patientId}');
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                  decoration: BoxDecoration(
-                    color: const Color(0xff8290F0),
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                     boxShadow: [
                       BoxShadow(
@@ -177,7 +118,6 @@ class _patientTileState extends State<patientTile> {
                 ),
               ),
             );
-          }
         } else {
           return Container();
         }

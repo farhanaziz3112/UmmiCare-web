@@ -211,7 +211,7 @@ class _medicalStaffDashboardState extends State<medicalStaffDashboard> {
                         ),
                       ),
                       const SizedBox(
-                        width: 10,
+                        width: 30,
                       ),
                       Expanded(
                         flex: 1,

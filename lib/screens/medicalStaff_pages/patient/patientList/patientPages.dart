@@ -5,6 +5,7 @@ import 'package:ummicare/models/medicalStaffModel.dart';
 import 'package:ummicare/models/userModel.dart';
 import 'package:ummicare/screens/medicalStaff_pages/medicalStaffLeftPane.dart';
 import 'package:ummicare/screens/medicalStaff_pages/medicalStaffMenu.dart';
+import 'package:ummicare/screens/medicalStaff_pages/patient/patientList/addNewAppointment.dart';
 import 'package:ummicare/screens/medicalStaff_pages/patient/patientList/patientProfile.dart';
 import 'package:ummicare/services/medicalStaffDatabase.dart';
 
@@ -23,7 +24,10 @@ class _patientPagesState extends State<patientPages> {
 
   @override
   Widget build(BuildContext context) {
-    final pages = [patientProfile(patientId: widget.patientId)];
+    final pages = [
+      patientProfile(patientId: widget.patientId),
+      addNewAppointment(patientId: widget.patientId)
+    ];
 
     userModel? user = Provider.of<userModel?>(context);
     var screenSize = MediaQuery.of(context).size;

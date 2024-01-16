@@ -114,7 +114,7 @@ class _patientProfileState extends State<patientProfile> {
                       height: 300,
                       child: Container(
                         alignment: Alignment.center,
-                        padding: const EdgeInsets.fromLTRB(40, 30, 10, 50),
+                        padding: const EdgeInsets.fromLTRB(40, 10, 10, 10),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border.all(),
@@ -307,12 +307,160 @@ class _patientProfileState extends State<patientProfile> {
                                           return Container();
                                         }
                                       },
+                                    ),
+                                    const SizedBox(height: 20),
+                                    StreamBuilder<List<VaccinationAppointmentModel>>(
+                                      stream: PatientDatabaseService().allVaccincationAppointmentData,
+                                      builder:(context, snapshot) {
+                                        if(snapshot.hasData){
+                                          List<VaccinationAppointmentModel>? vac = snapshot.data;
+                                          DateTime? appointment;
+                                          String appointmentDate = 'No Appointment';
+                                          String time = 'No Appointment';
+                                          for (int i = 0; i < vac!.length; i++) {
+                                            if (patient.healthId == vac[i].healthId) {
+                                              DateTime date = DateTime.parse(vac[i].vaccineDate);
+                                              if (appointment == null || appointment.isAfter(date)) {
+                                                appointment = date;
+                                                appointmentDate = vac[i].vaccineDate;
+                                                time = vac[i].vaccineTime;
+                                              }
+                                            }
+                                          }
+                                          return Row(
+                                            children: <Widget>[
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 20),
+                                                    child: const Text(
+                                                      'Date',
+                                                      textAlign:
+                                                          TextAlign.left,
+                                                      style: TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color:
+                                                              Colors.black),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 20),
+                                                    child: Text(
+                                                      appointmentDate,
+                                                      textAlign:
+                                                          TextAlign.left,
+                                                      style: const TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight
+                                                                  .normal,
+                                                          color:
+                                                              Colors.black),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(width: 40),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 20),
+                                                    child: const Text(
+                                                      'Time',
+                                                      textAlign:
+                                                          TextAlign.left,
+                                                      style: TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color:
+                                                              Colors.black),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 20),
+                                                    child: Text(
+                                                      time,
+                                                      textAlign:
+                                                          TextAlign.left,
+                                                      style: const TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight
+                                                                  .normal,
+                                                          color:
+                                                              Colors.black),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ]
+                                          );
+                                        }else{
+                                          return Container();
+                                        }
+                                      },
                                     )
                                   ],
                                 ),
                               ],
                             ),
                           ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    Container(
+                      alignment: Alignment.bottomLeft,
+                      child: ElevatedButton.icon(
+                        icon: const Icon(
+                          Icons.add_circle,
+                          size: 24.0,
+                          color: Colors.white,
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: const Color(0xff8290F0),
+                          fixedSize: const Size(250, 50),
+                          alignment: Alignment.center,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              side: BorderSide.none),
+                        ),
+                        onPressed: () {
+                          context.go('/medicalstaff/patient/${patient.patientId}/addnewappointment');
+                        },
+                        label: const Text(
+                          'Add New Appointment',
+                          style:
+                              TextStyle(fontSize: 15.0, color: Colors.white),
                         ),
                       ),
                     ),
@@ -605,7 +753,7 @@ class _patientProfileState extends State<patientProfile> {
                             child: Container(
                               alignment: Alignment.center,
                               padding:
-                                  const EdgeInsets.fromLTRB(40, 30, 10, 50),
+                                  const EdgeInsets.fromLTRB(40, 10, 10, 10),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 border: Border.all(),
@@ -824,6 +972,127 @@ class _patientProfileState extends State<patientProfile> {
                                                 return Container();
                                               }
                                             },
+                                          ),
+                                          const SizedBox(height: 20),
+                                          StreamBuilder<List<VaccinationAppointmentModel>>(
+                                            stream: PatientDatabaseService().allVaccincationAppointmentData,
+                                            builder:(context, snapshot) {
+                                              if(snapshot.hasData){
+                                                List<VaccinationAppointmentModel>? vac = snapshot.data;
+                                                DateTime? appointment;
+                                                String appointmentDate = 'No Appointment';
+                                                String time = 'No Appointment';
+                                                for (int i = 0; i < vac!.length; i++) {
+                                                  if (patient.healthId == vac[i].healthId) {
+                                                    DateTime date = DateTime.parse(vac[i].vaccineDate);
+                                                    if (appointment == null || appointment.isAfter(date)) {
+                                                      appointment = date;
+                                                      appointmentDate = vac[i].vaccineDate;
+                                                      time = vac[i].vaccineTime;
+                                                    }
+                                                  }
+                                                }
+                                                return Row(
+                                                  children: <Widget>[
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment.start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.start,
+                                                      children: <Widget>[
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.centerLeft,
+                                                          padding:
+                                                              const EdgeInsets.only(
+                                                                  left: 20),
+                                                          child: const Text(
+                                                            'Date',
+                                                            textAlign:
+                                                                TextAlign.left,
+                                                            style: TextStyle(
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                    FontWeight.bold,
+                                                                color:
+                                                                    Colors.black),
+                                                          ),
+                                                        ),
+                                                        const SizedBox(height: 10),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.centerLeft,
+                                                          padding:
+                                                              const EdgeInsets.only(
+                                                                  left: 20),
+                                                          child: Text(
+                                                            appointmentDate,
+                                                            textAlign:
+                                                                TextAlign.left,
+                                                            style: const TextStyle(
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .normal,
+                                                                color:
+                                                                    Colors.black),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    const SizedBox(width: 40),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment.start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.start,
+                                                      children: <Widget>[
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.centerLeft,
+                                                          padding:
+                                                              const EdgeInsets.only(
+                                                                  left: 20),
+                                                          child: const Text(
+                                                            'Time',
+                                                            textAlign:
+                                                                TextAlign.left,
+                                                            style: TextStyle(
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                    FontWeight.bold,
+                                                                color:
+                                                                    Colors.black),
+                                                          ),
+                                                        ),
+                                                        const SizedBox(height: 10),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.centerLeft,
+                                                          padding:
+                                                              const EdgeInsets.only(
+                                                                  left: 20),
+                                                          child: Text(
+                                                            time,
+                                                            textAlign:
+                                                                TextAlign.left,
+                                                            style: const TextStyle(
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .normal,
+                                                                color:
+                                                                    Colors.black),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ]
+                                                );
+                                              }else{
+                                                return Container();
+                                              }
+                                            },
                                           )
                                         ],
                                       ),
@@ -834,6 +1103,33 @@ class _patientProfileState extends State<patientProfile> {
                             ),
                           ),
                         ],
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    Container(
+                      alignment: Alignment.bottomLeft,
+                      child: ElevatedButton.icon(
+                        icon: const Icon(
+                          Icons.add_circle,
+                          size: 24.0,
+                          color: Colors.white,
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: const Color(0xff8290F0),
+                          fixedSize: const Size(250, 50),
+                          alignment: Alignment.center,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              side: BorderSide.none),
+                        ),
+                        onPressed: () {
+                          context.go('/medicalstaff/patient/${patient.patientId}/addnewappointment');
+                        },
+                        label: const Text(
+                          'Add New Appointment',
+                          style:
+                              TextStyle(fontSize: 15.0, color: Colors.white),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 80),

@@ -31,7 +31,6 @@ class VaccinationAppointmentModel {
   late final String vaccineTime;
   late final String healthId;
   late final String clinicId;
-  late final String medicalStaffId;
 
   VaccinationAppointmentModel({
     required this.vaccinationAppointmentId,
@@ -40,6 +39,5 @@ class VaccinationAppointmentModel {
     required this.vaccineTime,
     required this.healthId,
     required this.clinicId,
-    required this.medicalStaffId,
   });
 }

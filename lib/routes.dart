@@ -824,6 +824,19 @@ final GoRouter routes = GoRouter(
                           ),
                       routes: [
                         GoRoute(
+                          path: 'addnewappointment',
+                          pageBuilder: (context, state) => 
+                              NoTransitionPage<void>(
+                                key: state.pageKey,
+                                child: patientPages(
+                                  currentPage: 1,
+                                    patientId:
+                                        state.pathParameters['patientId']!,
+                                )
+                              ),
+
+                        ),
+                        GoRoute(
                             path: 'healthcondition',
                             pageBuilder: (context, state) =>
                                 NoTransitionPage<void>(
