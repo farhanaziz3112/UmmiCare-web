@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ummicare/models/childModel.dart';
 import 'package:ummicare/models/healthmodel.dart';
 import 'package:ummicare/models/medicalStaffModel.dart';
 import 'package:ummicare/models/patientModel.dart';
 import 'package:ummicare/models/userModel.dart';
 import 'package:ummicare/screens/charts/allPatientBmiStatusPercentage.dart';
+import 'package:ummicare/services/adminDatabase.dart';
 import 'package:ummicare/services/auth.dart';
 import 'package:ummicare/services/healthDatabase.dart';
 import 'package:ummicare/services/medicalStaffDatabase.dart';
@@ -82,6 +84,7 @@ class _medicalStaffDashboardState extends State<medicalStaffDashboard> {
                       Expanded(
                         flex: 1,
                         child: Container(
+                          height: 600,
                           alignment: Alignment.center,
                           padding: const EdgeInsets.symmetric(
                               horizontal: 40, vertical: 10),
@@ -116,7 +119,7 @@ class _medicalStaffDashboardState extends State<medicalStaffDashboard> {
                                     ),
                                   ),
                                   const SizedBox(height: 30),
-                                  Row(
+                                  Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.center,
                                     children: [
@@ -205,7 +208,161 @@ class _medicalStaffDashboardState extends State<medicalStaffDashboard> {
                                   ),
                             ],
                           )
-                          
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          height: 600,
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 40, vertical: 10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(),
+                            borderRadius: const BorderRadius.all(
+                                Radius.circular(10)),
+                            boxShadow: [
+                              BoxShadow(
+                                color:
+                                    Colors.grey.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: const Offset(0,
+                                    3), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                    alignment: Alignment.topCenter,
+                                    child: const Text(
+                                      'Number of Patients for Each Age Category',
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 20.0,
+                                          fontFamily: 'Comfortaa',
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 30),
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                    children: [
+                                      allPatientBmiStatusPercentage(
+                                          clinicId: doc.clinicId),
+                                      const SizedBox(width: 30),
+                                      StreamBuilder<List<patientModel>>(
+                                        stream: PatientDatabaseService().allPatientData(doc.clinicId),
+                                        builder: (context, snapshot) {
+                                          if(snapshot.hasData){
+                                            List<patientModel>? patient = snapshot.data;
+                                            return StreamBuilder<List<childModel>>(
+                                              stream: adminDatabase().allChildData,
+                                              builder: (context, snapshot) {
+                                                if(snapshot.hasData){
+                                                  List<childModel>? child = snapshot.data;
+                                                  List<childModel> childList = [];
+                                                  for (int i = 0; i < patient!.length; i++) {
+                                                    for (int j = 0; j < child!.length; j++) {
+                                                      if (patient[i].healthId == child[j].healthId) {
+                                                        childList.add(child[j]);
+                                                      }
+                                                    }
+                                                  }
+                                                  return SizedBox(
+                                                    child:Column(
+                                                      children: <Widget>[
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: <Widget>[
+                                                            const CircleAvatar(
+                                                              radius: 10,
+                                                              backgroundColor:
+                                                                  Color(0xff71CBCA),
+                                                            ),
+                                                            const SizedBox(width: 5),
+                                                            const Text('Newborn to 3 Years Old: ',style: TextStyle(fontSize: 20),),
+                                                            const SizedBox(width: 5),
+                                                            Text(
+                                                              getNoOfChildCategory(childList,
+                                                                      'Newborn to 3 years old')
+                                                                  .toString(),
+                                                              style: const TextStyle(
+                                                                  fontSize: 20,
+                                                                  fontWeight: FontWeight.bold,
+                                                                  color: Colors.black),
+                                                            )
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: <Widget>[
+                                                            const CircleAvatar(
+                                                              radius: 10,
+                                                              backgroundColor:
+                                                                  Color(0xffF29180),
+                                                            ),
+                                                            const SizedBox(width: 5),
+                                                            const Text('3 to 6 Years Old: ',style: TextStyle(fontSize: 20),),
+                                                            const SizedBox(width: 5),
+                                                            Text(
+                                                              getNoOfChildCategory(childList,
+                                                                      '3 to 6 years old')
+                                                                  .toString(),
+                                                              style: const TextStyle(
+                                                                  fontSize: 20,
+                                                                  fontWeight: FontWeight.bold,
+                                                                  color: Colors.black),
+                                                            )
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: <Widget>[
+                                                            const CircleAvatar(
+                                                              radius: 10,
+                                                              backgroundColor:
+                                                                  Color(0xff8290F0),
+                                                            ),
+                                                            const SizedBox(width: 5),
+                                                            const Text('7 to 12 Years Old: ',style: TextStyle(fontSize: 20),),
+                                                            const SizedBox(width: 5),
+                                                            Text(
+                                                              getNoOfChildCategory(childList,
+                                                                      '7 to 12 years old')
+                                                                  .toString(),
+                                                              style: const TextStyle(
+                                                                  fontSize: 20,
+                                                                  fontWeight: FontWeight.bold,
+                                                                  color: Colors.black),
+                                                            )
+                                                          ],
+                                                        )
+                                                      ],
+                                                    )
+                                                  );
+                                                } else {
+                                                  return Container();
+                                                }
+                                              },
+                                            );
+                                          }else{
+                                            return Container();
+                                          }
+                                        },
+                                      ),
+                                      
+                                    ],
+                                  ),
+                            ],
+                          )
                         ),
                       ),
                     ],

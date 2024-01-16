@@ -55,6 +55,7 @@ import 'package:ummicare/screens/adminPages/adminHome.dart';
 import 'package:ummicare/screens/adminPages/advisor/adminAdvisor.dart';
 import 'package:ummicare/screens/adminPages/advisor/staffPages/advisorProfilePageDecider.dart';
 import 'package:ummicare/screens/adminPages/medicalStaff/adminMedicalStaff.dart';
+import 'package:ummicare/screens/adminPages/medicalStaff/clinic/clinicPages.dart';
 import 'package:ummicare/screens/adminPages/medicalStaff/staffPages/medicalStaffProfilePageDecider.dart';
 import 'package:ummicare/screens/adminPages/settings/adminSettings.dart';
 import 'package:ummicare/screens/adminPages/teacher/adminTeacher.dart';
@@ -308,6 +309,34 @@ final GoRouter routes = GoRouter(
                                   child: medicalStaffProfilePageDecider(
                                       currentPage: 2,
                                       staffId: state.pathParameters['id']!))),
+                    ],
+                  ),
+                  GoRoute(
+                    path: 'clinic',
+                    pageBuilder: (context, state) => NoTransitionPage<void>(
+                        key: state.pageKey,
+                        child: const clinicPages(
+                          currentPage: 0,
+                          clinicId: '',
+                        )),
+                    routes: [
+                      GoRoute(
+                        path: 'addclinic',
+                        pageBuilder: (context, state) => NoTransitionPage<void>(
+                            key: state.pageKey,
+                            child: const clinicPages(
+                              currentPage: 1,
+                              clinicId: '',
+                            )),
+                      ),
+                      GoRoute(
+                        path: ':id',
+                        pageBuilder: (context, state) => NoTransitionPage<void>(
+                            key: state.pageKey,
+                            child: clinicPages(
+                                currentPage: 2,
+                                clinicId: state.pathParameters['id']!)),
+                      ),
                     ],
                   ),
                 ]),

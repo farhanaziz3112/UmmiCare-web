@@ -232,6 +232,65 @@ class _medicalStaffMainState extends State<medicalStaffMain> {
                   ],
                 ),
               ),
+              const SizedBox(width: 10),
+              Expanded(
+                flex: 1,
+                child: InkWell(
+                  onTap: () {
+                    context.go('/admin/medicalstaff/clinic');
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                      color: const Color(0xff8290F0),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(10)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                          offset: const Offset(
+                              0, 3), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Expanded(child: Container()),
+                            const Icon(
+                              Icons.arrow_forward,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                          ],
+                        ),
+                        const Icon(
+                          Icons.school,
+                          color: Colors.white,
+                          size: 65,
+                        ),
+                        const SizedBox(height: 10),
+                        const Text(
+                          'Clinic',
+                          style: TextStyle(
+                              color: Colors.white, fontSize: 20),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          'Register and manage clinic data.',
+                          style: TextStyle(
+                              color: Colors.grey[200], fontSize: 13),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -433,6 +492,65 @@ class _medicalStaffMainState extends State<medicalStaffMain> {
                             const SizedBox(height: 10),
                             Text(
                               'All medical staff that have been verified by administrator.',
+                              style: TextStyle(
+                                  color: Colors.grey[200], fontSize: 13),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    flex: 1,
+                    child: InkWell(
+                      onTap: () {
+                        context.go('/admin/medicalstaff/clinic');
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                          color: const Color(0xff8290F0),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 5,
+                              offset: const Offset(
+                                  0, 3), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Expanded(child: Container()),
+                                const Icon(
+                                  Icons.arrow_forward,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
+                              ],
+                            ),
+                            const Icon(
+                              Icons.school,
+                              color: Colors.white,
+                              size: 65,
+                            ),
+                            const SizedBox(height: 10),
+                            const Text(
+                              'Clinic',
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 20),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              'Register and manage clinic data.',
                               style: TextStyle(
                                   color: Colors.grey[200], fontSize: 13),
                             ),
