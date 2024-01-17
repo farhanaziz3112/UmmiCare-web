@@ -11,10 +11,12 @@ import 'package:ummicare/models/schoolModel.dart';
 import 'package:ummicare/models/studentModel.dart';
 import 'package:ummicare/screens/teacherPages/class/fee/feeGrid.dart';
 import 'package:ummicare/services/academicCalendarDatabase.dart';
+import 'package:ummicare/services/adminDatabase.dart';
 import 'package:ummicare/services/childDatabase.dart';
 import 'package:ummicare/services/feeDatabase.dart';
 import 'package:ummicare/services/notificationDatabase.dart';
 import 'package:ummicare/services/parentDatabase.dart';
+import 'package:ummicare/services/scheduleDatabase.dart';
 import 'package:ummicare/services/schoolDatabase.dart';
 import 'package:ummicare/services/studentDatabase.dart';
 import 'package:ummicare/shared/constant.dart';
@@ -170,9 +172,7 @@ class _feeMainState extends State<feeMain> {
                                                       return StreamBuilder<
                                                               List<
                                                                   parentModel>>(
-                                                          stream: parentDatabase(
-                                                                  parentId: '')
-                                                              .allParentData,
+                                                          stream: adminDatabase().allParentData,
                                                           builder: (context,
                                                               snapshot) {
                                                             if (snapshot
@@ -468,13 +468,13 @@ class _feeMainState extends State<feeMain> {
                                                                             for (var i = 0;
                                                                                 i < studentList.length;
                                                                                 i++) {
-                                                                              print(studentList[i].studentId);
                                                                               feeDatabase().createFeePaymentData(document.id, studentList[i].studentId, academicCalendar.academicCalendarId, '0.00', 'unpaid', DateTime.now().millisecondsSinceEpoch.toString(), '');
                                                                             }
                                                                             for (int i = 0;
                                                                                 i < finalListParent.length;
                                                                                 i++) {
-                                                                              notificationDatabase().createNotificationData(finalListParent[i].parentId, finalListChild[i].childId, 'education', 'New Fee Added (${classDetail.className} ${classDetail.classYear}): $feeTitle', 'New fee: ${feeTitle} of RM${feeAmount} has been added to ${finalListChild[i].childFirstname}\' class.', 'unseen', DateTime.now().millisecondsSinceEpoch.toString());
+                                                                              scheduleDatabase().createScheduleData('Fee Deadline: ${feeTitle} - ${finalListChild[i].childFirstname}', finalListParent[i].parentId, finalListChild[i].childId, feeDeadline.subtract(const Duration(days: 1)).millisecondsSinceEpoch.toString(), feeDeadline.millisecondsSinceEpoch.toString(), 'fee', 'true');
+                                                                              notificationDatabase().createNotificationData(finalListParent[i].parentId, finalListChild[i].childId, 'education', 'Fee Added', 'New fee: ${feeTitle} of RM${feeAmount} has been added to ${finalListChild[i].childFirstname}\' class.', 'unseen', DateTime.now().millisecondsSinceEpoch.toString());
                                                                             }
                                                                             Navigator.of(context).pop();
                                                                           },

@@ -18,7 +18,7 @@ class _examScheduleTileState extends State<examScheduleTile> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<academicCalendarScheduleModel>(
-      stream: scheduleDatabase().scheduleData(widget.examScheduleId),
+      stream: scheduleDatabase().academicCalendarSchedule(widget.examScheduleId),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           academicCalendarScheduleModel? examSchedule = snapshot.data;

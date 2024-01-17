@@ -319,9 +319,8 @@ class _patientProfileState extends State<patientProfile> {
                                           String time = 'No Appointment';
                                           for (int i = 0; i < vac!.length; i++) {
                                             if (patient.healthId == vac[i].healthId) {
-                                              DateTime date = DateTime.parse(vac[i].vaccineDate);
-                                              if (appointment == null || appointment.isAfter(date)) {
-                                                appointment = date;
+                                              //DateTime date = DateTime.parse(vac[i].vaccineDate);
+                                              if (appointment == null) {
                                                 appointmentDate = vac[i].vaccineDate;
                                                 time = vac[i].vaccineTime;
                                               }
@@ -342,7 +341,7 @@ class _patientProfileState extends State<patientProfile> {
                                                         const EdgeInsets.only(
                                                             left: 20),
                                                     child: const Text(
-                                                      'Date',
+                                                      'Next Appointment Date',
                                                       textAlign:
                                                           TextAlign.left,
                                                       style: TextStyle(
@@ -984,9 +983,9 @@ class _patientProfileState extends State<patientProfile> {
                                                 String time = 'No Appointment';
                                                 for (int i = 0; i < vac!.length; i++) {
                                                   if (patient.healthId == vac[i].healthId) {
-                                                    DateTime date = DateTime.parse(vac[i].vaccineDate);
-                                                    if (appointment == null || appointment.isAfter(date)) {
-                                                      appointment = date;
+                                                    //DateTime date = DateTime.parse(vac[i].vaccineDate);
+                                                    if (appointment == null) {
+                                                      //appointment = date;
                                                       appointmentDate = vac[i].vaccineDate;
                                                       time = vac[i].vaccineTime;
                                                     }
@@ -1007,7 +1006,7 @@ class _patientProfileState extends State<patientProfile> {
                                                               const EdgeInsets.only(
                                                                   left: 20),
                                                           child: const Text(
-                                                            'Date',
+                                                            'Next Appointment Date',
                                                             textAlign:
                                                                 TextAlign.left,
                                                             style: TextStyle(

@@ -7,6 +7,7 @@ import 'package:ummicare/models/parentModel.dart';
 import 'package:ummicare/models/schoolModel.dart';
 import 'package:ummicare/models/studentModel.dart';
 import 'package:ummicare/services/academicCalendarDatabase.dart';
+import 'package:ummicare/services/adminDatabase.dart';
 import 'package:ummicare/services/childDatabase.dart';
 import 'package:ummicare/services/notificationDatabase.dart';
 import 'package:ummicare/services/parentDatabase.dart';
@@ -139,9 +140,8 @@ class _announcementMainState extends State<announcementMain> {
                                                 snapshot.data;
                                             return StreamBuilder<
                                                     List<parentModel>>(
-                                                stream:
-                                                    parentDatabase(parentId: '')
-                                                        .allParentData,
+                                                stream: adminDatabase()
+                                                    .allParentData,
                                                 builder: (context, snapshot) {
                                                   if (snapshot.hasData) {
                                                     List<parentModel>? parents =
@@ -334,7 +334,7 @@ class _announcementMainState extends State<announcementMain> {
                                                                                 academicCalendarDatabase().createClassAnnouncementData(academicCalendar.academicCalendarId, title, description, createdAt.millisecondsSinceEpoch.toString());
 
                                                                                 for (int i = 0; i < finalListParent.length; i++) {
-                                                                                  notificationDatabase().createNotificationData(finalListParent[i].parentId, finalListChild[i].childId, 'education', 'Announcement (${classDetail.className} ${classDetail.classYear}): ${title}', description, 'unseen', DateTime.now().millisecondsSinceEpoch.toString());
+                                                                                  notificationDatabase().createNotificationData(finalListParent[i].parentId, finalListChild[i].childId, 'education', 'Announcement', '${classDetail.className} ${classDetail.classYear}): ${title}\n${description}', 'unseen', DateTime.now().millisecondsSinceEpoch.toString());
                                                                                 }
 
                                                                                 Navigator.of(context).pop();
@@ -838,9 +838,8 @@ class _announcementMainState extends State<announcementMain> {
                                                 snapshot.data;
                                             return StreamBuilder<
                                                     List<parentModel>>(
-                                                stream:
-                                                    parentDatabase(parentId: '')
-                                                        .allParentData,
+                                                stream: adminDatabase()
+                                                    .allParentData,
                                                 builder: (context, snapshot) {
                                                   if (snapshot.hasData) {
                                                     List<parentModel>? parents =
@@ -1032,7 +1031,7 @@ class _announcementMainState extends State<announcementMain> {
                                                                                 DateTime createdAt = DateTime.now();
                                                                                 academicCalendarDatabase().createClassAnnouncementData(academicCalendar.academicCalendarId, title, description, createdAt.millisecondsSinceEpoch.toString());
                                                                                 for (int i = 0; i < finalListParent.length; i++) {
-                                                                                  notificationDatabase().createNotificationData(finalListParent[i].parentId, finalListChild[i].childId, 'education', 'Announcement (${classDetail.className} ${classDetail.classYear}): ${title}', description, 'unseen', DateTime.now().millisecondsSinceEpoch.toString());
+                                                                                  notificationDatabase().createNotificationData(finalListParent[i].parentId, finalListChild[i].childId, 'education', 'Announcement', '${classDetail.className} ${classDetail.classYear}): ${title}\n${description}', 'unseen', DateTime.now().millisecondsSinceEpoch.toString());
                                                                                 }
                                                                                 Navigator.of(context).pop();
                                                                               }

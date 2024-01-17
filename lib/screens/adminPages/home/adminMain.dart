@@ -100,7 +100,7 @@ class _adminMainState extends State<adminMain> {
                                       image: const DecorationImage(
                                           fit: BoxFit.cover,
                                           image: AssetImage(
-                                              "background/advisorcardbg.png")),
+                                              "assets/background/advisorcardbg.png")),
                                       color: Colors.white,
                                       border: Border.all(color: Colors.grey),
                                       borderRadius: const BorderRadius.all(
@@ -166,7 +166,7 @@ class _adminMainState extends State<adminMain> {
                                       image: const DecorationImage(
                                           fit: BoxFit.cover,
                                           image: AssetImage(
-                                              "background/teachercardbg.png")),
+                                              "assets/background/teachercardbg.png")),
                                       color: Colors.white,
                                       border: Border.all(color: Colors.grey),
                                       borderRadius: const BorderRadius.all(
@@ -232,7 +232,7 @@ class _adminMainState extends State<adminMain> {
                                       image: const DecorationImage(
                                           fit: BoxFit.cover,
                                           image: AssetImage(
-                                              "background/medicalcardbg.png")),
+                                              "assets/background/medicalcardbg.png")),
                                       color: Colors.white,
                                       border: Border.all(color: Colors.grey),
                                       borderRadius: const BorderRadius.all(
@@ -297,7 +297,7 @@ class _adminMainState extends State<adminMain> {
                                       image: const DecorationImage(
                                           fit: BoxFit.cover,
                                           image: AssetImage(
-                                              "background/admincardbg.png")),
+                                              "assets/background/admincardbg.png")),
                                       color: Colors.white,
                                       border: Border.all(color: Colors.grey),
                                       borderRadius: const BorderRadius.all(
@@ -384,7 +384,7 @@ class _adminMainState extends State<adminMain> {
                                       image: const DecorationImage(
                                           fit: BoxFit.cover,
                                           image: AssetImage(
-                                              "background/parentcardbg.png")),
+                                              "assets/background/parentcardbg.png")),
                                       color: Colors.white,
                                       border: Border.all(color: Colors.grey),
                                       borderRadius: const BorderRadius.all(
@@ -445,7 +445,7 @@ class _adminMainState extends State<adminMain> {
                                       image: const DecorationImage(
                                           fit: BoxFit.cover,
                                           image: AssetImage(
-                                              "background/childcardbg.png")),
+                                              "assets/background/childcardbg.png")),
                                       color: Colors.white,
                                       border: Border.all(color: Colors.grey),
                                       borderRadius: const BorderRadius.all(

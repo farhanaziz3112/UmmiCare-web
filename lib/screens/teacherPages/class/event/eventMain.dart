@@ -8,9 +8,11 @@ import 'package:ummicare/models/schoolModel.dart';
 import 'package:ummicare/models/studentModel.dart';
 import 'package:ummicare/screens/advisorPages/parent/parentPages/parentDashboard.dart';
 import 'package:ummicare/services/academicCalendarDatabase.dart';
+import 'package:ummicare/services/adminDatabase.dart';
 import 'package:ummicare/services/childDatabase.dart';
 import 'package:ummicare/services/notificationDatabase.dart';
 import 'package:ummicare/services/parentDatabase.dart';
+import 'package:ummicare/services/scheduleDatabase.dart';
 import 'package:ummicare/services/schoolDatabase.dart';
 import 'package:ummicare/services/studentDatabase.dart';
 import 'package:ummicare/shared/constant.dart';
@@ -136,8 +138,7 @@ class _eventMainState extends State<eventMain> {
                                           return StreamBuilder<
                                                   List<parentModel>>(
                                               stream:
-                                                  parentDatabase(parentId: '')
-                                                      .allParentData,
+                                                  adminDatabase().allParentData,
                                               builder: (context, snapshot) {
                                                 if (snapshot.hasData) {
                                                   List<parentModel>? parents =
@@ -528,7 +529,8 @@ class _eventMainState extends State<eventMain> {
                                                                               DateTime createdAt = DateTime.now();
                                                                               academicCalendarDatabase().createClassEventData(academicCalendar.academicCalendarId, name, description, startDate.millisecondsSinceEpoch.toString(), endDate.millisecondsSinceEpoch.toString(), createdAt.millisecondsSinceEpoch.toString());
                                                                               for (int i = 0; i < finalListParent.length; i++) {
-                                                                                notificationDatabase().createNotificationData(finalListParent[i].parentId, finalListChild[i].childId, 'education', 'Event (${classDetail.className} ${classDetail.classYear}): $name', description, 'unseen', DateTime.now().millisecondsSinceEpoch.toString());
+                                                                                scheduleDatabase().createScheduleData('${name} - ${finalListChild[i].childFirstname}', finalListParent[i].parentId, finalListChild[i].childId, startDate.millisecondsSinceEpoch.toString(), endDate.millisecondsSinceEpoch.toString(), 'event', 'true');
+                                                                                notificationDatabase().createNotificationData(finalListParent[i].parentId, finalListChild[i].childId, 'education', 'Event Added', '${classDetail.className} ${classDetail.classYear}): $name\n${description}', 'unseen', DateTime.now().millisecondsSinceEpoch.toString());
                                                                               }
                                                                               Navigator.of(context).pop();
                                                                             }

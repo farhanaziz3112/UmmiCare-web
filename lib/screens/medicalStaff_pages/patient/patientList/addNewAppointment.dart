@@ -6,6 +6,7 @@ import 'package:ummicare/models/childModel.dart';
 import 'package:ummicare/models/patientModel.dart';
 import 'package:ummicare/services/childDatabase.dart';
 import 'package:ummicare/services/patientDatabase.dart';
+import 'package:ummicare/services/scheduleDatabase.dart';
 import 'package:ummicare/shared/constant.dart';
 
 class addNewAppointment extends StatefulWidget {
@@ -64,6 +65,7 @@ class _addNewAppointmentState extends State<addNewAppointment> {
                 stream: childDatabase(childId: patient!.childId).childData,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
+                    childModel? child = snapshot.data;
                     return SingleChildScrollView(
                         child: Container(
                       alignment: Alignment.topLeft,
@@ -133,7 +135,8 @@ class _addNewAppointmentState extends State<addNewAppointment> {
                           ),
                           const SizedBox(height: 20),
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 30.0),
                             child: Form(
                               key: _formKey,
                               child: Column(
@@ -157,8 +160,9 @@ class _addNewAppointmentState extends State<addNewAppointment> {
                                   TextFormField(
                                     initialValue: _vaccineType,
                                     decoration: textInputDecoration,
-                                    validator: (value) =>
-                                        value == '' ? 'Please enter vaccine type' : null,
+                                    validator: (value) => value == ''
+                                        ? 'Please enter vaccine type'
+                                        : null,
                                     onChanged: (value) =>
                                         setState(() => _vaccineType = value),
                                   ),
@@ -178,29 +182,47 @@ class _addNewAppointmentState extends State<addNewAppointment> {
                                   ),
                                   SizedBox(height: 20),
                                   ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.white,
-                                  ),
-                                  child: Text(
-                                    'Submit',
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                  onPressed: () async {
-                                    if (_formKey.currentState!.validate()) {
-                                      String _formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
-                                      String formattedMinute = _selectedTime.minute.toString().padLeft(2, '0');
-                                      String formattedTime = '${_selectedTime.hourOfPeriod}:$formattedMinute ${_selectedTime.period.index == 0 ? 'AM' : 'PM'}';
-                                      await PatientDatabaseService()
-                                          .createVaccinationAppointmentData(
-                                              _vaccineType,
-                                              _formattedDate,
-                                              formattedTime,
-                                              patient.healthId,
-                                              patient.clinicId,);
-                                      Navigator.pop(context);
-                                    }
-                                  }
-                                  )
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.white,
+                                      ),
+                                      child: Text(
+                                        'Submit',
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                      onPressed: () async {
+                                        if (_formKey.currentState!.validate()) {
+                                          String _formattedDate =
+                                              DateFormat('yyyy-MM-dd')
+                                                  .format(selectedDate);
+                                          String formattedMinute = _selectedTime
+                                              .minute
+                                              .toString()
+                                              .padLeft(2, '0');
+                                          String formattedTime =
+                                              '${_selectedTime.hourOfPeriod}:$formattedMinute ${_selectedTime.period.index == 0 ? 'AM' : 'PM'}';
+                                          await PatientDatabaseService()
+                                              .createVaccinationAppointmentData(
+                                            _vaccineType,
+                                            _formattedDate,
+                                            formattedTime,
+                                            patient.healthId,
+                                            patient.clinicId,
+                                          );
+                                          scheduleDatabase().createScheduleData(
+                                              'Vaccination Appointment - ${child!.childFirstname}',
+                                              child!.parentId,
+                                              child.childId,
+                                              selectedDate
+                                                  .millisecondsSinceEpoch
+                                                  .toString(),
+                                              selectedDate
+                                                  .millisecondsSinceEpoch
+                                                  .toString(),
+                                              'health',
+                                              'true');
+                                          Navigator.pop(context);
+                                        }
+                                      })
                                 ],
                               ),
                             ),
@@ -227,6 +249,7 @@ class _addNewAppointmentState extends State<addNewAppointment> {
                 stream: childDatabase(childId: patient!.childId).childData,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
+                    childModel? child = snapshot.data;
                     return SingleChildScrollView(
                         child: Container(
                       alignment: Alignment.topLeft,
@@ -296,7 +319,8 @@ class _addNewAppointmentState extends State<addNewAppointment> {
                           ),
                           const SizedBox(height: 20),
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 30.0),
                             child: Form(
                               key: _formKey,
                               child: Column(
@@ -320,8 +344,9 @@ class _addNewAppointmentState extends State<addNewAppointment> {
                                   TextFormField(
                                     initialValue: _vaccineType,
                                     decoration: textInputDecoration,
-                                    validator: (value) =>
-                                        value == '' ? 'Please enter vaccine type' : null,
+                                    validator: (value) => value == ''
+                                        ? 'Please enter vaccine type'
+                                        : null,
                                     onChanged: (value) =>
                                         setState(() => _vaccineType = value),
                                   ),
@@ -341,29 +366,47 @@ class _addNewAppointmentState extends State<addNewAppointment> {
                                   ),
                                   SizedBox(height: 20),
                                   ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.white,
-                                  ),
-                                  child: Text(
-                                    'Submit',
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                  onPressed: () async {
-                                    if (_formKey.currentState!.validate()) {
-                                      String _formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
-                                      String formattedMinute = _selectedTime.minute.toString().padLeft(2, '0');
-                                      String formattedTime = '${_selectedTime.hourOfPeriod}:$formattedMinute ${_selectedTime.period.index == 0 ? 'AM' : 'PM'}';
-                                      await PatientDatabaseService()
-                                          .createVaccinationAppointmentData(
-                                              _vaccineType,
-                                              _formattedDate,
-                                              formattedTime,
-                                              patient.healthId,
-                                              patient.clinicId,);
-                                      Navigator.pop(context);
-                                    }
-                                  }
-                                  )
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.white,
+                                      ),
+                                      child: Text(
+                                        'Submit',
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                      onPressed: () async {
+                                        if (_formKey.currentState!.validate()) {
+                                          String _formattedDate =
+                                              DateFormat('yyyy-MM-dd')
+                                                  .format(selectedDate);
+                                          String formattedMinute = _selectedTime
+                                              .minute
+                                              .toString()
+                                              .padLeft(2, '0');
+                                          String formattedTime =
+                                              '${_selectedTime.hourOfPeriod}:$formattedMinute ${_selectedTime.period.index == 0 ? 'AM' : 'PM'}';
+                                          await PatientDatabaseService()
+                                              .createVaccinationAppointmentData(
+                                            _vaccineType,
+                                            _formattedDate,
+                                            formattedTime,
+                                            patient.healthId,
+                                            patient.clinicId,
+                                          );
+                                          scheduleDatabase().createScheduleData(
+                                              'Vaccination Appointment - ${child!.childFirstname}',
+                                              child.parentId,
+                                              child.childId,
+                                              selectedDate
+                                                  .millisecondsSinceEpoch
+                                                  .toString(),
+                                              selectedDate
+                                                  .millisecondsSinceEpoch
+                                                  .toString(),
+                                              'health',
+                                              'true');
+                                          Navigator.pop(context);
+                                        }
+                                      })
                                 ],
                               ),
                             ),

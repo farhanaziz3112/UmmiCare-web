@@ -99,7 +99,7 @@ class _advisorDashboardState extends State<advisorDashboard> {
                                       image: const DecorationImage(
                                           fit: BoxFit.cover,
                                           image: AssetImage(
-                                              "background/parentcardbg.png")),
+                                              "assets/background/parentcardbg.png")),
                                       color: Colors.white,
                                       border: Border.all(color: Colors.grey),
                                       borderRadius: const BorderRadius.all(
@@ -160,7 +160,7 @@ class _advisorDashboardState extends State<advisorDashboard> {
                                       image: const DecorationImage(
                                           fit: BoxFit.cover,
                                           image: AssetImage(
-                                              "background/childcardbg.png")),
+                                              "assets/background/childcardbg.png")),
                                       color: Colors.white,
                                       border: Border.all(color: Colors.grey),
                                       borderRadius: const BorderRadius.all(

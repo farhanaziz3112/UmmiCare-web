@@ -33,7 +33,7 @@ Widget noData(String inLineText) {
           width: 80,
           decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("/background/nodatabg.png"),
+                image: AssetImage("asset/background/nodatabg.png"),
                 fit: BoxFit.cover),
           ),
           child: Container()),

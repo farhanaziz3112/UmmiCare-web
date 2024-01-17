@@ -72,93 +72,95 @@ class _parentChatState extends State<parentChat> {
           parentId = parent.parentId;
           return Container(
             alignment: Alignment.topLeft,
-            child: Column(
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    RichText(
-                      text: TextSpan(
-                          text: 'Parent',
-                          style: const TextStyle(
-                              color: Colors.grey,
-                              decoration: TextDecoration.underline),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              context.go('/advisor/parent');
-                            }),
-                    ),
-                    const SizedBox(width: 10),
-                    const Text('>'),
-                    const SizedBox(width: 10),
-                    RichText(
-                      text: TextSpan(
-                          text: parent.parentFirstName,
-                          style: const TextStyle(
-                              color: Colors.grey,
-                              decoration: TextDecoration.underline),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              context.go('/advisor/parent/${parent.parentId}');
-                            }),
-                    ),
-                    const SizedBox(width: 10),
-                    const Text('>'),
-                    const SizedBox(width: 10),
-                    RichText(
-                      text: const TextSpan(
-                        text: 'Chat',
-                        style: TextStyle(color: Colors.grey),
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      RichText(
+                        text: TextSpan(
+                            text: 'Parent',
+                            style: const TextStyle(
+                                color: Colors.grey,
+                                decoration: TextDecoration.underline),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                context.go('/advisor/parent');
+                              }),
                       ),
+                      const SizedBox(width: 10),
+                      const Text('>'),
+                      const SizedBox(width: 10),
+                      RichText(
+                        text: TextSpan(
+                            text: parent.parentFirstName,
+                            style: const TextStyle(
+                                color: Colors.grey,
+                                decoration: TextDecoration.underline),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                context.go('/advisor/parent/${parent.parentId}');
+                              }),
+                      ),
+                      const SizedBox(width: 10),
+                      const Text('>'),
+                      const SizedBox(width: 10),
+                      RichText(
+                        text: const TextSpan(
+                          text: 'Chat',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 40),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      parent.parentFullName,
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 45.0,
+                          fontFamily: 'Comfortaa',
+                          fontWeight: FontWeight.w500),
                     ),
-                  ],
-                ),
-                const SizedBox(height: 40),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    parent.parentFullName,
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 45.0,
-                        fontFamily: 'Comfortaa',
-                        fontWeight: FontWeight.w500),
                   ),
-                ),
-                const SizedBox(height: 10),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    parent.parentEmail,
-                    style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.w500),
+                  const SizedBox(height: 10),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      parent.parentEmail,
+                      style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.w500),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 30),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Container(
-                    height: 1.0,
-                    width: double.infinity,
-                    color: Colors.grey[300],
+                  const SizedBox(height: 30),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Container(
+                      height: 1.0,
+                      width: double.infinity,
+                      color: Colors.grey[300],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 30),
-                Container(
-                    constraints: const BoxConstraints(
-                        maxHeight: 600, maxWidth: double.maxFinite),
-                    child: buildChat())
-                // SizedBox(
-                //   height: 800,
-                //   width: 1000,
-                //   child: SingleChildScrollView(
-                //     child: Column(
-                //         children: <Widget>[buildListMessage(), buildInput()],
-                //       ),
-                //   ),
-                // )
-              ],
+                  const SizedBox(height: 30),
+                  Container(
+                      constraints: const BoxConstraints(
+                          maxHeight: 600, maxWidth: double.maxFinite),
+                      child: buildChat())
+                  // SizedBox(
+                  //   height: 800,
+                  //   width: 1000,
+                  //   child: SingleChildScrollView(
+                  //     child: Column(
+                  //         children: <Widget>[buildListMessage(), buildInput()],
+                  //       ),
+                  //   ),
+                  // )
+                ],
+              ),
             ),
           );
         } else {
@@ -211,7 +213,7 @@ class _parentChatState extends State<parentChat> {
                     child: ImageNetwork(
                       image: message.content,
                       height: 400,
-                      width: 200,
+                      width: 400,
                       borderRadius: BorderRadius.circular(0),
                     ),
                   ),
@@ -253,7 +255,7 @@ class _parentChatState extends State<parentChat> {
                     child: ImageNetwork(
                       image: message.content,
                       height: 400,
-                      width: 200,
+                      width: 400,
                       borderRadius: BorderRadius.circular(0),
                     ),
                   ),

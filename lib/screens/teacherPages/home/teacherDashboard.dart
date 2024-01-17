@@ -104,7 +104,7 @@ class _teacherDashboardState extends State<teacherDashboard> {
                                     image: const DecorationImage(
                                         fit: BoxFit.cover,
                                         image: AssetImage(
-                                            "background/teachercardbg.png")),
+                                            "assets/background/teachercardbg.png")),
                                     color: Colors.white,
                                     border: Border.all(color: Colors.grey),
                                     borderRadius: const BorderRadius.all(
@@ -170,7 +170,7 @@ class _teacherDashboardState extends State<teacherDashboard> {
                                     image: const DecorationImage(
                                         fit: BoxFit.cover,
                                         image: AssetImage(
-                                            "background/admincardbg.png")),
+                                            "assets/background/admincardbg.png")),
                                     color: Colors.white,
                                     border: Border.all(color: Colors.grey),
                                     borderRadius: const BorderRadius.all(
@@ -234,7 +234,7 @@ class _teacherDashboardState extends State<teacherDashboard> {
                                     image: const DecorationImage(
                                         fit: BoxFit.cover,
                                         image: AssetImage(
-                                            "background/studentcardbg.png")),
+                                            "assets/background/studentcardbg.png")),
                                     color: Colors.white,
                                     border: Border.all(color: Colors.grey),
                                     borderRadius: const BorderRadius.all(

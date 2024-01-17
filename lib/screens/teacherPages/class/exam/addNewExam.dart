@@ -10,6 +10,7 @@ import 'package:ummicare/models/schoolModel.dart';
 import 'package:ummicare/models/studentModel.dart';
 import 'package:ummicare/models/subjectModel.dart';
 import 'package:ummicare/services/academicCalendarDatabase.dart';
+import 'package:ummicare/services/adminDatabase.dart';
 import 'package:ummicare/services/childDatabase.dart';
 import 'package:ummicare/services/examDatabase.dart';
 import 'package:ummicare/services/notificationDatabase.dart';
@@ -481,9 +482,7 @@ class _addNewExamState extends State<addNewExam> {
                                                                   return StreamBuilder<
                                                                           List<
                                                                               parentModel>>(
-                                                                      stream: parentDatabase(
-                                                                              parentId:
-                                                                                  '')
+                                                                      stream: adminDatabase()
                                                                           .allParentData,
                                                                       builder:
                                                                           (context,
@@ -544,28 +543,13 @@ class _addNewExamState extends State<addNewExam> {
                                                                                 examDatabase().updateExamData(document.id, academicCalendar.academicCalendarId, examTitle, examStartDate.millisecondsSinceEpoch.toString(), examEndDate.millisecondsSinceEpoch.toString(), examStatus);
 
                                                                                 for (int i = 0; i < finalListParent.length; i++) {
-                                                                                  notificationDatabase().createNotificationData(finalListParent[i].parentId, finalListChild[i].childId, 'education', 'New Exam Added (${classDetail.className} ${classDetail.classYear}): $examTitle', 'New exam: ${examTitle} has been added to ${finalListChild[i].childFirstname}\' class.', 'unseen', DateTime.now().millisecondsSinceEpoch.toString());
+                                                                                  scheduleDatabase().createScheduleData('${examTitle} - ${finalListChild[i].childFirstname}', finalListParent[i].parentId, finalListChild[i].childId, examStartDate.millisecondsSinceEpoch.toString(), examEndDate.millisecondsSinceEpoch.toString(), 'exam', 'true');
+                                                                                  notificationDatabase().createNotificationData(finalListParent[i].parentId, finalListChild[i].childId, 'education', 'New Exam Added', 'New exam: ${examTitle} has been added to ${finalListChild[i].childFirstname}\' class.', 'unseen', DateTime.now().millisecondsSinceEpoch.toString());
                                                                                 }
 
                                                                                 for (int i = 0; i < subjectList!.length; i++) {
                                                                                   scheduleDatabase().createAcademicCalendarScheduleData('${subjectList[i].subjectName} (${examTitle})', examStartDate.millisecondsSinceEpoch.toString(), examStartDate.millisecondsSinceEpoch.toString(), examEndDate.millisecondsSinceEpoch.toString(), academicCalendar.academicCalendarId, document.id, 'exam');
                                                                                   for (int j = 0; j < students.length; j++) {
-                                                                                    // final examResultDocument = FirebaseFirestore
-                                                                                    //     .instance
-                                                                                    //     .collection(
-                                                                                    //         'Exam Result')
-                                                                                    //     .doc();
-                                                                                    // examDatabase().updateExamResultData(
-                                                                                    //     examResultDocument
-                                                                                    //         .id,
-                                                                                    //     document
-                                                                                    //         .id,
-                                                                                    //     academicCalendar
-                                                                                    //         .academicCalendarId,
-                                                                                    //     students[
-                                                                                    //             j]
-                                                                                    //         .studentId,
-                                                                                    //     '');
                                                                                     examDatabase().createSubjectResultData(subjectList[i].subjectId, document.id, '', students[j].studentId, academicCalendar.academicCalendarId, '', '', '');
                                                                                   }
                                                                                 }
@@ -1049,9 +1033,7 @@ class _addNewExamState extends State<addNewExam> {
                                                                   return StreamBuilder<
                                                                           List<
                                                                               parentModel>>(
-                                                                      stream: parentDatabase(
-                                                                              parentId:
-                                                                                  '')
+                                                                      stream: adminDatabase()
                                                                           .allParentData,
                                                                       builder:
                                                                           (context,
@@ -1112,7 +1094,8 @@ class _addNewExamState extends State<addNewExam> {
                                                                                 examDatabase().updateExamData(document.id, academicCalendar.academicCalendarId, examTitle, examStartDate.millisecondsSinceEpoch.toString(), examEndDate.millisecondsSinceEpoch.toString(), examStatus);
 
                                                                                 for (int i = 0; i < finalListParent.length; i++) {
-                                                                                  notificationDatabase().createNotificationData(finalListParent[i].parentId, finalListChild[i].childId, 'education', 'New Exam Added (${classDetail.className} ${classDetail.classYear}): $examTitle', 'New exam: ${examTitle} has been added to ${finalListChild[i].childFirstname}\' class.', 'unseen', DateTime.now().millisecondsSinceEpoch.toString());
+                                                                                  scheduleDatabase().createScheduleData('${examTitle} - ${finalListChild[i].childFirstname}', finalListParent[i].parentId, finalListChild[i].childId, examStartDate.millisecondsSinceEpoch.toString(), examEndDate.millisecondsSinceEpoch.toString(), 'exam', 'true');
+                                                                                  notificationDatabase().createNotificationData(finalListParent[i].parentId, finalListChild[i].childId, 'education', 'New Exam Added', 'New exam: ${examTitle} has been added to ${finalListChild[i].childFirstname}\' class.', 'unseen', DateTime.now().millisecondsSinceEpoch.toString());
                                                                                 }
 
                                                                                 for (int i = 0; i < subjectList!.length; i++) {

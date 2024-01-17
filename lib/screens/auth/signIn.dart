@@ -75,7 +75,7 @@ class _SignInState extends State<SignIn> {
                         : page == 1
                             ? const AssetImage(
                                 "assets/background/forgotpasswordbg.png")
-                            : const AssetImage("background/registerbg.png"),
+                            : const AssetImage("assets/background/registerbg.png"),
                     fit: BoxFit.contain),
               ),
             )),
