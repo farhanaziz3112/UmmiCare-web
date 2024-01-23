@@ -543,10 +543,11 @@ class _childProfileState extends State<childProfile> {
                           color: Color(0xff71CBCA),
                         ),
                         child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             const Expanded(
-                              flex: 2,
+                              flex: 1,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -559,6 +560,7 @@ class _childProfileState extends State<childProfile> {
                                     'Child Overall Status',
                                     style: TextStyle(
                                         fontSize: 15, color: Colors.white),
+                                    textAlign: TextAlign.center,
                                   ),
                                 ],
                               ),
@@ -570,22 +572,147 @@ class _childProfileState extends State<childProfile> {
                                   color: Colors.white,
                                 )),
                             Expanded(
-                              flex: 2,
-                              child: Container(
-                                height: double.maxFinite,
-                                alignment: Alignment.center,
-                                child: Text(
-                                  child.overallStatus == 'great'
-                                      ? 'Great'
-                                      : child.overallStatus == 'normal'
-                                          ? 'Normal'
-                                          : 'Needs Attention',
-                                  style: const TextStyle(
-                                      fontSize: 20, color: Colors.white),
-                                  maxLines: 2,
-                                  softWrap: true,
-                                  textAlign: TextAlign.center,
-                                ),
+                              flex: 1,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      child.overallStatus == 'great'
+                                          ? 'Great'
+                                          : child.overallStatus == 'normal'
+                                              ? 'Normal'
+                                              : 'Needs\nAttention',
+                                      style: const TextStyle(
+                                          fontSize: 20, color: Colors.white),
+                                      softWrap: true,
+                                      maxLines: 2,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                  IconButton(
+                                      onPressed: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              List<String> status = [
+                                                'great',
+                                                'normal',
+                                                'needs attention'
+                                              ];
+                                              String currentStatus =
+                                                  child.overallStatus;
+                                              return StatefulBuilder(builder:
+                                                  (stfContext, stfSetState) {
+                                                return AlertDialog(
+                                                  scrollable: true,
+                                                  title: const Padding(
+                                                    padding:
+                                                        EdgeInsets.all(10.0),
+                                                    child: Text(
+                                                        'Change Overall Status'),
+                                                  ),
+                                                  content:
+                                                      DropdownButtonFormField<
+                                                          String>(
+                                                    value: currentStatus,
+                                                    items: status.map<
+                                                            DropdownMenuItem<
+                                                                String>>(
+                                                        (String value) {
+                                                      return DropdownMenuItem<
+                                                          String>(
+                                                        value: value,
+                                                        child: Text(value),
+                                                      );
+                                                    }).toList(),
+                                                    onChanged: (String? value) {
+                                                      stfSetState(() {
+                                                        currentStatus = value!;
+                                                      });
+                                                    },
+                                                  ),
+                                                  actions: [
+                                                    ElevatedButton(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        backgroundColor:
+                                                            const Color(
+                                                                0xffF29180),
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            5)),
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      child: const Text(
+                                                          "Cancel",
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .white)),
+                                                    ),
+                                                    ElevatedButton(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        backgroundColor:
+                                                            const Color(
+                                                                0xff8290F0),
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            5)),
+                                                      ),
+                                                      onPressed: () {
+                                                        childDatabase(
+                                                                childId: child
+                                                                    .childId)
+                                                            .updateChildData(
+                                                                child.childId,
+                                                                child.parentId,
+                                                                child
+                                                                    .childCreatedDate,
+                                                                child.childName,
+                                                                child
+                                                                    .childFirstname,
+                                                                child
+                                                                    .childLastname,
+                                                                child
+                                                                    .childBirthday,
+                                                                child
+                                                                    .childCurrentAge,
+                                                                child
+                                                                    .childAgeCategory,
+                                                                child
+                                                                    .childProfileImg,
+                                                                child
+                                                                    .educationId,
+                                                                child.healthId,
+                                                                currentStatus);
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      child: const Text(
+                                                          "Confirm",
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .white)),
+                                                    ),
+                                                  ],
+                                                );
+                                              });
+                                            });
+                                      },
+                                      icon: Icon(
+                                        Icons.edit,
+                                        color: Colors.grey[100],
+                                      ))
+                                ],
                               ),
                             ),
                           ],
