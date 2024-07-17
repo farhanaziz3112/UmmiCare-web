@@ -16,14 +16,14 @@ For the technologies stack for this project:
 
 These are some screenshot of the web app:
 
-<img src="https://github.com/user-attachments/assets/bb1082df-ee20-4855-bd60-dbade6997dcd" width="300" />
-<img src="https://github.com/user-attachments/assets/97d73047-1d0d-4710-9125-9dcbd6a81e97" width="300" />
-<img src="https://github.com/user-attachments/assets/a10582b9-4ed7-4398-8e28-d169a5e69aaa" width="300" />
-<img src="https://github.com/user-attachments/assets/d9ce3023-8a82-45cb-b662-d92733c270e5" width="300" />
-<img src="https://github.com/user-attachments/assets/fef52c82-1400-434c-bffa-50ad40f7c02e" width="300" />
-<img src="https://github.com/user-attachments/assets/c2c4bcb7-cae8-4bf9-9e1f-9ace5c9c3483" width="300" />
-<img src="https://github.com/user-attachments/assets/e6f96466-db0a-48d6-aae8-6433fed65cc0" width="300" />
-<img src="https://github.com/user-attachments/assets/d664383a-d5be-43ee-b43c-5b84000e360e" width="300" />
-<img src="https://github.com/user-attachments/assets/4333dab3-f323-4f6f-bac0-29068d69a8f5" width="300" />
-<img src="https://github.com/user-attachments/assets/008c6ea8-4857-4dd6-9731-84e3764e3dcf" width="300" />
+<img src="https://github.com/user-attachments/assets/bb1082df-ee20-4855-bd60-dbade6997dcd" width="500" />
+<img src="https://github.com/user-attachments/assets/97d73047-1d0d-4710-9125-9dcbd6a81e97" width="500" />
+<img src="https://github.com/user-attachments/assets/a10582b9-4ed7-4398-8e28-d169a5e69aaa" width="500" />
+<img src="https://github.com/user-attachments/assets/d9ce3023-8a82-45cb-b662-d92733c270e5" width="500" />
+<img src="https://github.com/user-attachments/assets/fef52c82-1400-434c-bffa-50ad40f7c02e" width="500" />
+<img src="https://github.com/user-attachments/assets/c2c4bcb7-cae8-4bf9-9e1f-9ace5c9c3483" width="500" />
+<img src="https://github.com/user-attachments/assets/e6f96466-db0a-48d6-aae8-6433fed65cc0" width="500" />
+<img src="https://github.com/user-attachments/assets/d664383a-d5be-43ee-b43c-5b84000e360e" width="500" />
+<img src="https://github.com/user-attachments/assets/4333dab3-f323-4f6f-bac0-29068d69a8f5" width="500" />
+<img src="https://github.com/user-attachments/assets/008c6ea8-4857-4dd6-9731-84e3764e3dcf" width="500" />
 
